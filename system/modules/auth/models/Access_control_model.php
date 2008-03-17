@@ -23,7 +23,7 @@
      * @subpackage      Models
      */
     include_once(APPPATH.'models/Nested_sets_model.php');
-    class Access_control_model extends Base_Model
+    class access_control_model extends Base_Model
     {
         var $resource;
         var $group;
@@ -31,7 +31,7 @@
         /**
          * Constructor
          */
-        function Access_control_model()
+        function access_control_model()
         {
             // Inherit from parent class
             parent::Model();
@@ -50,7 +50,7 @@
             $this->group->setControlParams($this->_TABLES['aros']);
             $this->group->setPrimaryKeyColumn('id');
 
-            log_message('debug','Access_control_model Class Initialized');
+            log_message('debug','access_control_model Class Initialized');
         }
         
         /**

@@ -81,9 +81,21 @@
 		 * @return array
 		 */
 		function getUserSessionData($id)
-		{
-			$query = $this->fetch('Users','id,username,email,group,last_visit,created,modified',NULL,array('id'=>$id));
-			return $query->row_array();
+		{        
+            $this->load->model('access_control_model');    
+            
+            // Get user details
+            $query = $this->fetch('Users','id,username,email,group,last_visit,created,modified',NULL,array('id'=>$id));
+            $user_row = $query->row_array();
+            
+            // Get the group name
+            $query = $this->access_control_model->fetch('aros','name',NULL,array('id'=>$row['group']));
+            $group_row = $query->row_array();
+            
+            $user_row['group'] = $group_row['name'];
+            
+            print_r($user_row);exit;
+            return $user_row;
 		}
         
         /**

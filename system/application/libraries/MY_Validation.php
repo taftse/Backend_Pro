@@ -39,6 +39,16 @@
 			log_message('debug','MY_Validation Class Initialized');
 		}
         
+        /**
+         * Set Default Value
+         * 
+         * Assigns a default value to a form field
+         * 
+         * @access public
+         * @param mixed $data Field name OR Array
+         * @param mixed $value Field value
+         * @return void 
+         */
         function set_default_value($data=NULL, $value=NULL)
         {
             if (is_array($data))

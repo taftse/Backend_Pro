@@ -19,7 +19,7 @@
      $lang['backendpro_maintenance'] = 'Under Maintenance';
      $lang['backendpro_maintenance_login'] = "If you are an administrator you may still use the website by logging in " . anchor('auth/login','here') . ".";
 
-     $lang['backendpro_control_panel'] = 'Control Panel';  
+     $lang['backendpro_control_panel'] = "Control Panel";
      $lang['backendpro_view_website'] = 'View Website';   
      
      /* Status Messages */
