@@ -115,7 +115,7 @@
 			Site_Controller::$_container = $this->config->item('backendpro_template_admin') . "container.php";
 
             // Make sure user is logged in
-            //check('Control Panel');
+            check('Control Panel');
             
             // If the system is down display warning
             if($this->preference->item('maintenance_mode'))
