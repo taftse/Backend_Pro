@@ -52,6 +52,9 @@
     $lang['access_advanced_permissions'] = "Advanced View Mode"; 
     $lang['access_delete_permissions'] = "Are you SURE you want to delete these permissions? WARNING: DOING SO MAY LOCK YOU OUT OF THE SYSTEM!";
     
+    /* Advanced View */
+    $lang['access_advanced_desc'] = "The page is used as an aid to show you how your system permissions work. Just looking at what permissions exist dosn't show you what groups have access to what resources. So select a group in the right hand tree and their resource access infomation will be shown in the left hand tree.";
+    
     /* Groups */  
     $lang['access_create_group'] = "Create Group"; 
     $lang['access_group_exists'] = "Cannot add the group '%s' since it already exists!";

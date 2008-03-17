@@ -27,6 +27,32 @@ $(document).ready(function(){
             $("div[id=allow_"+id+"]",'div.scrollable_tree').hide(); 
         }
     }
+    
+    // When a user picks a differnt access_group load its access_rights in
+    // the respective div
+    $('#access_groups input[name="aro"]').click(function(){
+        
+        // Call the ajax function to build the requested access tree
+        $.post(
+            base_url+index_page+'/auth/admin/acl_permissions/ajax_fetch_resources_access/'+$(this).val(),
+            {},
+            function(val){
+                $('#access_rights').html(val);               
+            }
+        );
+        
+    });
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
     $("input[name='all']").change(function(){
             var children = $(this).val();

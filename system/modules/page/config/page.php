@@ -91,6 +91,7 @@
 	| varables.
 	*/
 	$config['default_page_variables'] = array(
-		//'base_url' => base_url()
+		'base_url' => base_url(),
+        'index_page' => index_page()
 	);
 ?>

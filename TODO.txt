@@ -5,3 +5,7 @@ Find way to make it so you can edit resources/groups/actions. Its rather inconvi
 not to be able to do this.
 
 Make it so certain groups/resources can be locked and not deleted. Same goes for permissions
+
+Allow permissions to have a note applied to them
+
+Move the JS code of selecting multiple checkboxes to a common folder

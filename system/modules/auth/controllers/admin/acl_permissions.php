@@ -168,5 +168,61 @@
              flashMsg('success',sprintf($this->lang->line('backendpro_deleted'),"Permissions"));   
              redirect('auth/admin/acl_permissions','location');
          }
+         
+         /**
+          * View Permissions in Advanced Mode
+          * 
+          * Displays a way so a user can select a group and it shows exactly
+          * what resources that group has access to
+          * 
+          * @access public
+          * @return void 
+          */
+         function view()
+         {
+             // Load required JS
+             $this->page->set_asset('admin','js','access_control.js');
+             
+             // Display Page
+             $this->page->set_crumb($this->lang->line('access_advanced_permissions'),'auth/admin/acl_permissions/view'); 
+             $data['header'] = $this->lang->line('access_advanced_permissions');
+             $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/view_advanced_permissions";
+             $data['module'] = 'auth';
+             $this->load->view(Site_Controller::$_container,$data);
+         }
+         
+         
+         function ajax_fetch_resources_access($group=NULL)
+         {
+             $this->load->model('access_control_model');
+             $this->load->library('khacl');
+             
+             $obj = $this->access_control_model->resource;
+             $tree = $obj->getTreePreorder($obj->getRoot());
+             $lvl = 0; 
+             while($obj->getTreeNext($tree))
+             {
+                 // Nest the tree
+                $newLvl = $obj->getTreeLevel($tree);
+                if ($lvl > $newLvl){
+                    // Just gone up some levels
+                    for($i=0;$i<$lvl-$newLvl;$i++) 
+                        print "</ul></li>";
+                }
+                $lvl = $newLvl;
+                
+                $allow = $this->khacl->check($group,$tree['row']['name']);
+                 
+                print '<li><span ';
+                print ($allow) ? 'class="icon_tick">' : 'class="icon_cross">';
+                print $tree['row']['name'];
+                print '</span>'; 
+                
+                if($obj->checkNodeHasChildren($tree['row']))
+                    print "<ul>";
+                else
+                    print "</li>";
+             }
+         }
      }
 ?>

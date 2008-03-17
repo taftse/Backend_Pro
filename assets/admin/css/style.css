@@ -34,6 +34,12 @@ div.action_item {
 .allow { color: green; }
 .deny { color: red; }
 
+/* STYLES USED FOR ADVANCED PERMISSION VIEW */
+div.advanced_view_tree {
+    height: 400px;
+    overflow: auto;
+}
+
 /* DATA GRID TABLE, FOR DISPLAYING TABULAR DATA */
 table.data_grid { width: 100%; }
 

@@ -60,7 +60,7 @@
 		function _init()
 		{
 			// Log the user in if autologin details are correct
-			/*if( !$this->is_user())
+			if( !$this->is_user())
 			{
 				if (FALSE !== ($autologin = get_cookie('autologin')))
 				{
@@ -76,7 +76,7 @@
                         log_message('debug','Logged user in using autologin cookie');
 					}
 				}
-			}*/
+			}
 
 			return;
 		}

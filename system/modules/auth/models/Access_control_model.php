@@ -54,40 +54,6 @@
         }
         
         /**
-         * Get Permission
-         * 
-         * Fetch the permissiond data for a single permission. Used to modify
-         * a permission
-         * 
-         * @access public
-         * @param integer $id Permission ID
-         * @return array 
-         */
-        /*function getPermission($id)
-        {
-            // Get Mandatory permission data
-            $this->db->select('acl.id, acl.allow, aros.name AS aro, acos.name AS aco');
-            $this->db->from($this->_TABLES['access'].' AS acl');
-            $this->db->join($this->_TABLES['aros'].' AS aros','acl.aro_id=aros.id');
-            $this->db->join($this->_TABLES['acos'].' AS acos','acl.aco_id=acos.id');  
-            $this->db->where('acl.id='.$id);
-            $query = $this->db->get();
-            $data = $query->row_array();
-            
-            // Fetch action data
-            $this->db->join($this->_TABLES['axos'],'axo_id='.$this->_TABLES['axos'].'.id');
-            $query = $this->fetch('access_actions','allow, name',NULL,array('access_id'=>$id));
-
-            foreach($query->result_array() as $row)
-            {
-                $data['action_'.$row['name']] = $row['name'];
-                $data['allow_'.$row['name']] = $row['allow'];
-            }
-            
-            return $data; 
-        }*/
-        
-        /**
          * Get Permissions
          * 
          * This is used to display the table of all the permissions
