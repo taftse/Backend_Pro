@@ -1,0 +1,27 @@
+<?php
+    header('content-type:text/css');
+
+    // Create path to icons dir
+    $path = dirname(dirname(__FILE__)) . "/icons/";
+
+    // Only if we can open the dir procede
+    if ($dp = opendir($path))
+    {
+        // Foreach file in the dir
+        while (FALSE !== ($file = readdir($dp)))
+        {
+            // If the file is not a pointer back to the parent dir
+            if ($file != '.' OR $file != '..')
+            {
+                // And its an image file
+                $file_e = explode('.',$file);
+                if ($file_e[1] == 'png')
+                {
+                    // Print css rule
+                    print ".icon_" . $file_e[0] . " { padding-left: 25px; background: url(../icons/" . $file . ") no-repeat 0px 50%;}\n";
+                }
+            }
+        }
+        closedir($dp);
+    }
+?>

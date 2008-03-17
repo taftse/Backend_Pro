@@ -1,0 +1,37 @@
+#wrapper {
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -300px;
+}
+
+#logo {
+    float: left;
+    background: #FFF url(../../shared/images/layout_logo.gif) no-repeat top left;
+    width: 200px;
+    height: 209px;
+}
+
+#title {
+    float: left;
+    background: #FFF url(../../shared/images/layout_title.gif) no-repeat top left;
+    width: 198px;
+    height: 117px;
+}
+
+#content {
+    position: relative;        
+    margin-left: 224px;
+    margin-top: 117px;    
+}
+
+#footer {
+    position: relative;
+    clear: both;
+    text-align: center;  
+    width: 800px;
+    margin-top: 5em;
+}

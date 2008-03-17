@@ -1,0 +1,41 @@
+#FlashStatus {
+	padding:5px;
+	margin-bottom: 5px;
+    margin-top: 5px;
+	background:#FFF bottom center repeat-x;
+	border:1px solid;
+	white-space:normal;
+}
+#FlashStatus h6 {
+	text-align:left;
+	font-size:1.0em;
+	font-weight:bold;
+	margin: 5px auto 5px 5px;
+}
+#FlashStatus ul {
+	text-align:left;
+	margin: 0;
+	padding-left: 30px;
+	color: #000;
+}
+#FlashStatus ul li { list-style:disc; }
+#FlashStatus.info {
+	border-color: #33CCFF;
+	background-image:url('../images/bg_info.gif');
+}
+#FlashStatus.info h6 { color: #33CCFF; background: url(../icons/information.png) no-repeat 0px 50%; padding-left: 25px; }
+#FlashStatus.success {
+	border-color: #00CC00;
+	background-image:url('../images/bg_success.gif');
+}
+#FlashStatus.success h6 { color: #00CC00; background: url(../icons/accept.png) no-repeat 0px 50%; padding-left: 25px; }
+#FlashStatus.warning {
+	border-color: #FF6600;
+	background-image:url('../images/bg_warning.gif');
+}
+#FlashStatus.warning h6 { color: #FF6600; background: url(../icons/error.png) no-repeat 0px 50%; padding-left: 25px; }
+#FlashStatus.error {
+	border-color: #FF0000;
+	background-image:url('../images/bg_error.gif');
+}
+#FlashStatus.error h6 { color: #FF0000; background: url(../icons/exclamation.png) no-repeat 0px 50%; padding-left: 25px; }

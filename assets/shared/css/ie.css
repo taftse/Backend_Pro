@@ -1,0 +1,29 @@
+/* --------------------------------------------------------------
+
+   ie.css
+
+   Contains every hack for Internet Explorer versions prior
+   to IE7, so that our core files stay sweet and nimble.
+
+-------------------------------------------------------------- */
+
+/* Make sure the layout is centered in IE5 */
+<!--[if IE 5]>
+body        { text-align: center; }
+.container  { text-align: left; }
+<![endif]-->
+
+
+/* This fixes the problem where IE6 adds an extra 3px margin to
+   two columns that are floated up against each other. */
+<!--[if IE 6]>
+* html .column { overflow-x: hidden; } /* IE6 fix */
+
+/* Fixes incorrect styling of legend in IE6 fieldsets. */
+legend { margin-bottom:1.4em; }
+<![endif]-->
+
+<!--[if gte IE 6]>
+/* Fixes incorrect placement of numbers in ol's in IE6/7 */
+ol { margin-left:2em; }
+<![endif]-->

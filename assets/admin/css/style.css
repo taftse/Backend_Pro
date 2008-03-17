@@ -1,0 +1,44 @@
+
+/* MENU NAVIGATION */
+#navigation #menu { padding: 2em 0 2em 2em; }
+#navigation #menu a { color: #000; text-decoration: none; }
+#navigation #menu a:hover { text-decoration: underline; }
+
+/* STANDARD STYLES */
+h2 { margin-top: 0.5em; border-bottom: 1px solid #777; }
+
+/* PREFERENCE LIST */
+#preference_list { font-size: 1.2em; list-style-type: none; }
+
+/* PREFERENCE FORM */
+#preference_form { width: 100%; }
+#preference_form td { line-height: 1.5em; vertical-align: middle; padding: 6px 10px 6px 6px; }
+#preference_form td.label { width: 45%; vertical-align: top; }
+#preference_form input.text { width: 100%; }
+
+/* ACCESS CONTROL SPLASH PAGE */
+#access_control_menu td { padding: 0.5em; vertical-align: top; }
+
+/* MANAGE PERMISSION SCROLLABLE TREES */
+div.scrollable_tree {
+    height: 300px;
+    overflow: scroll;
+}
+
+/* STYLE FOR ACTION ITEMS ON MANAGE PERMISSIONS PAGE */
+div.action_item {
+    padding-left: 2em;
+}
+
+/* STYLE FOR ALLOW/DENY TABLE CELLS */
+.allow { color: green; }
+.deny { color: red; }
+
+/* DATA GRID TABLE, FOR DISPLAYING TABULAR DATA */
+table.data_grid { width: 100%; }
+
+table.data_grid th.center,
+table.data_grid td.center { vertical-align: middle; text-align: center; }
+
+table.data_grid .even { background-color: red; color: #FFF; }
+table.data_grid .odd { background-color: #FFF; color: red; }

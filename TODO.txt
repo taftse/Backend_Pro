@@ -1,0 +1,7 @@
+Since users are assigned to a group, what happens if there group is removed? Should
+they be assigned a default group, or not allow deletion.
+
+Find way to make it so you can edit resources/groups/actions. Its rather inconvinent
+not to be able to do this.
+
+Make it so certain groups/resources can be locked and not deleted. Same goes for permissions
