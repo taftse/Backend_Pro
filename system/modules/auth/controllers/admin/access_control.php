@@ -34,6 +34,9 @@
              // Set breadcrumb
              $this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
              
+             // Check for access permission
+             check('Access Control');
+             
              log_message('debug','Access Control Class Initialized'); 
          }
          

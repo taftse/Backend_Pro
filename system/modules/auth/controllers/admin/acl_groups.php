@@ -36,6 +36,9 @@
              $this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
              $this->page->set_crumb($this->lang->line('access_groups'),'auth/admin/acl_groups'); 
              
+             // Check for access permission
+             check('Groups');
+             
              log_message('debug','ACL Groups Cass Initialized'); 
          }
          

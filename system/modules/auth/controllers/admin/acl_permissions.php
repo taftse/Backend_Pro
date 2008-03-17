@@ -36,6 +36,9 @@
              $this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
              $this->page->set_crumb($this->lang->line('access_permissions'),'auth/admin/acl_permissions'); 
              
+             // Check for access permission
+             check('Permissions');
+             
              log_message('debug','ACL Permissions Cass Initialized'); 
          }
          
@@ -191,8 +194,14 @@
              $this->load->view(Site_Controller::$_container,$data);
          }
          
-         
-         function ajax_fetch_resources_access($group=NULL)
+         /**
+          * Ajax Function to fetch resources 
+          * 
+          * @access public
+          * @param string $group Fetch resource access rights for this group
+          * @return void
+          */
+         function ajax_fetch_resources($group)
          {
              $this->load->model('access_control_model');
              $this->load->library('khacl');
@@ -213,7 +222,7 @@
                 
                 $allow = $this->khacl->check($group,$tree['row']['name']);
                  
-                print '<li><span ';
+                print '<li id="'.$tree['row']['name'].'"><span ';
                 print ($allow) ? 'class="icon_tick">' : 'class="icon_cross">';
                 print $tree['row']['name'];
                 print '</span>'; 
@@ -223,6 +232,20 @@
                 else
                     print "</li>";
              }
+         }
+         
+         /**
+          * Ajax Function to fetch a groups resources
+          * 
+          * @access public
+          * @param string $group Fetch actions for this group
+          * @param string $resource Fetch actions for this resource
+          * @return void 
+          */
+         function ajax_fetch_actions($group,$resource)
+         {
+             // Output the default DENY OTHERS
+             print '<div class="action_access_box"><span class="icon_cross">All Other Actions</span></div>';
          }
      }
 ?>

@@ -36,6 +36,9 @@
              $this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
              $this->page->set_crumb($this->lang->line('access_resources'),'auth/admin/acl_resources'); 
              
+             // Check for access permission
+             check('Resources');
+             
              log_message('debug','ACL Resources Class Initialized'); 
          }
          

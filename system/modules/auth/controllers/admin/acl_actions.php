@@ -36,6 +36,9 @@
              $this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
              $this->page->set_crumb($this->lang->line('access_actions'),'auth/admin/acl_actions'); 
              
+             // Check for access permission
+             check('Actions');
+             
              log_message('debug','ACL Actions Class Initialized'); 
          }
          
