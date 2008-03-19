@@ -22,7 +22,7 @@
 	 * @param string $message Message
 	 * @return boolean
 	 */
-	function flashMsg($type=NULL, $message=NULL)
+	function flashMsg($type = NULL, $message = NULL)
 	{
 		$obj = &get_instance();
 		return $obj->status->set($type, $message);
@@ -39,7 +39,7 @@
 	 * @param string $type Error type to display
 	 * @return string
 	 */
-	 function displayStatus($type=NULL)
+	 function displayStatus($type = NULL)
 	 {
 		$obj = &get_instance();
 		return $obj->status->display($type);

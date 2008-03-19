@@ -1,36 +1,30 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * BackendPro
- *
- * A website backend system for developers for PHP 4.3.2 or newer
- *
- * @package			BackendPro
- * @author				Adam Price
- * @copyright			Copyright (c) 2008
- * @license				http://www.gnu.org/licenses/lgpl.html
- * @tutorial				BackendPro.pkg
- */
+    /**
+     * BackendPro
+     *
+     * A website backend system for developers for PHP 4.3.2 or newer
+     *
+     * @package			BackendPro
+     * @author			Adam Price
+     * @copyright		Copyright (c) 2008
+     * @license			http://www.gnu.org/licenses/lgpl.html
+     */
 
- // ---------------------------------------------------------------------------
+     // ---------------------------------------------------------------------------
 
-/**
- * Status
- *
- * Allows the creation and display of status messages to the user.
- *
- * @package			BackendPro
- * @subpackage		Libraries
- * @tutorial				Status.cls
- */
+    /**
+     * Status
+     *
+     * Allows the creation and display of status messages to the user.
+     *
+     * @package			BackendPro
+     * @subpackage		Libraries
+     */
 	class Status
 	{
 		var $flash_var = "status";
 		var $types = array('info','warning','error','success');
-		var $view_file = "status.php";
 
-		/**
-		 * Constructor
-		 */
 		function Status()
 		{
 			// Get CI Instance
@@ -47,21 +41,19 @@
 		 *
 		 * The message will be live untill $this->display() is called
 		 *
-		 * @acces public
+		 * @access public
 		 * @param string $type Type of message to set
 		 * @param string $message Message to display
 		 * @return boolean
 		 */
 		function set($type = NULL, $message = NULL)
 		{
-			if ( $type == NULL OR $message == NULL){
+			if ( is_null($type) OR is_null($message))
 				return FALSE;
-			}
 
 			// Check its a valid type
-			if ( !in_array($type,$this->types) ) {
+			if ( ! in_array($type,$this->types) )
 				show_error("'".$type."' is not a valid status message type.");
-			}
 
 			// Fetch current flashdata from session
 			$data = $this->_fetch();
@@ -82,30 +74,30 @@
 		 *
 		 * @access public
 		 * @param string $type Error type to display
-		 * @param boolean $print Whether to print or return the output
+		 * @param boolean $print Output to screen
 		 * @return string
 		 */
-		function display($type = NULL,$print=TRUE)
+		function display($type = NULL,$print = TRUE)
 		{
 			$msgdata = $this->_fetch();
 
 			// Output variable
 			$output = "";
 
-			if ( $type == NULL ) {
+			if ( is_null($type)) {
 				// Display all messages
 				foreach ( $msgdata as $key => $mtype )
 				{
 					$data['messages'] = $mtype;
 					$data['type'] = $key;
-					$output .= $this->CI->load->view($this->view_file, $data, TRUE);
+					$output .= $this->CI->load->view('status', $data, TRUE);
 				}
 			}
 			else {
 				// Only display messages of $type
 				$data['messages'] = $msgdata[$type];
 				$data['type'] = $type;
-				$output =  $this->CI->load->view($this->view_file, $data, TRUE);
+				$output =  $this->CI->load->view('status', $data, TRUE);
 			}
 
 			// Remove messages
@@ -129,9 +121,9 @@
 		 * @param string $type Message type to remove
 		 * @return void
 		 */
-		function _remove($type = null)
+		function _remove($type = NULL)
 		{
-			if ( $type == null) {
+			if ( is_null($type)) {
 				// Unset all messages
 				$this->CI->session->unset_userdata($this->flash_var);
 			}

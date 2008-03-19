@@ -3,9 +3,7 @@
     <ul>
 	<?php
 		foreach($messages as $text)
-		{
 			print "<li>" . $text . "</li>";
-		}
 	?>
 	</ul>    
 </div>
