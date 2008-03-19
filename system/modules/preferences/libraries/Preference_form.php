@@ -8,24 +8,22 @@
      * @author          Adam Price
      * @copyright       Copyright (c) 2008
      * @license         http://www.gnu.org/licenses/lgpl.html
-     * @tutorial        BackendPro.pkg
      */
 
      // ---------------------------------------------------------------------------
 
     /**
-     * Preference
+     * Preference Form
      *
      * Allows the creation of a preference page for a controller
      *
      * @package         BackendPro
      * @subpackage      Libraries
-     * @tutorial        Preference_form.cls
      */
     class Preference_form
     {
         var $form_name = 'Preferences';     // Default name of form
-        var $form_link = '';                // ???????
+        var $form_link = NULL;
         var $field = array();               // Array containing all field infomation
         var $group = array();               // Array containing all field groups
         var $defaults = array(              // Default array containing mappings from field types => default rule
@@ -33,22 +31,14 @@
             'textarea' => 'trim'
         );
         
-        /**
-         * Constructor
-         */
-        function Preference_form($config=array())
+        function Preference_form($config = array())
         {
             // Get CI Instance
             $this->CI = &get_instance();
 
             // Initalize Class
             if(count($config) != 0)
-            {
                 $this->initalize($config);
-            }
-            
-            // Get form base url
-            $this->_get_base_url();
             
             // Load language files
             $this->CI->lang->load('preferences');
@@ -59,35 +49,19 @@
         /**
          * Initalize Class
          * 
+         * Setup the class using the config array
+         * 
          * @access public
          * @param array $config Config array
          * @return void;
          */
-        function initalize($config=array())
+        function initalize($config = array())
         {
             foreach($config as $key => $value)
             {
                 $this->{$key} = $value;
             }
             return;
-        }
-        
-        /**
-         * Get Controller Base URL
-         * 
-         * @access private
-         * @return void 
-         */
-        function _get_base_url()
-        {
-            $this->form_link .= $this->CI->uri->slash_segment(1);  // Folder
-            $this->form_link .= $this->CI->uri->slash_segment(2);  // Controller  
-            
-            if($this->CI->uri->segment(3) != NULL){
-                $this->form_link .= $this->CI->uri->segment(3);  // Method
-            } else {
-                $this->form_link .= 'index';
-            }          
         }
         
         /**
@@ -105,7 +79,7 @@
             {
                 foreach(explode(',',$value['fields']) as $name)
                 {
-                    if( !isset($this->field[$name]))
+                    if( ! isset($this->field[$name]))
                         $this->field[$name] = array();
                 }
             }
@@ -113,11 +87,10 @@
             foreach($this->field as $field => $data)
             {
                 // Assign default label name
-                if ( FALSE !== ($label = $this->CI->lang->line('preference_label_'.$field))) {
+                if ( FALSE !== ($label = $this->CI->lang->line('preference_label_'.$field)))
                     $this->field[$field]['label'] = $label;
-                } else {
+                else
                     $this->field[$field]['label'] = ucwords(ereg_replace('_',' ',$field));
-                }
 
                 // Check a type is given, if not set it to 'text'
                 if ( ! isset($this->field[$field]['type']))
@@ -136,26 +109,28 @@
         /**
          * Display Preference Form
          * 
-         * Display either the field groupings menu
-         * OR the actual preference form.
+         * Display either the field groupings menu OR the actual field form
          * 
          * @access public
-         * @param boolean $print Whether to return output or print it
+         * @param boolean $print Output to screen
          * @return mixed
          */
-        function display($print=FALSE)
+        function display($print = FALSE)
         {
+            // Check a form base link is set
+            if( is_null($this->form_link))
+                show_error("You must specify the full base url to the controller creating the preference form. E.g. ".$this->CI->uri->ruri_string());
+            
             // Set breadcrumb
-            //$this->CI->page->set_crumb($this->form_name,$this->form_link);
+            $this->CI->page->set_crumb($this->form_name,$this->form_link);
             
             // Setup fields
             $this->_setup_fields();
             
-            $this->CI->page->set_crumb($this->form_name,$this->form_link);
             if(count($this->group) != 0)
-            {
-                $group_id = $this->CI->uri->segment(4);
-                if($group_id)
+            {  
+                $group_id = $this->CI->uri->segment($this->CI->uri->total_segments());
+                if(array_key_exists($group_id,$this->group))
                 {
                     // Display group fields                    
                     $this->CI->page->set_crumb($this->group[$group_id]['name'],$this->form_link."/".$group_id);
@@ -170,26 +145,24 @@
                     return $this->CI->load->view("field_groups",$data, !$print);
                 }
             }
-            else
-            {
-                // Display fields
-                return $this->_display_fields($print);
-            }   
+
+            // Display fields
+            return $this->_display_fields($print);   
         }
         
         /**
-         * Display fields
+         * Display Fields
          * 
          * Display the form to edit the requested fields
          * 
          * @access private
-         * @param boolean $print Whether to return output or to print it
+         * @param boolean $print Output to screen
          * @param string $group_id Group id
          * @return mixed
          */
-        function _display_fields($print,$group_id=NULL)
+        function _display_fields($print,$group_id = NULL)
         {
-            if($group_id != NULL)
+            if( ! is_null($group_id))
             {
                 // Only show group fields
                 foreach(explode(',',$this->group[$group_id]['fields']) as $key)
@@ -212,17 +185,17 @@
                 $form_rules[$key] = $value['rules'];
             }
             $this->CI->validation->set_fields($form_fields);
-            $this->CI->validation->set_rules($form_rules);
+            $this->CI->validation->set_rules($form_rules);             
 
             // If this is the first load, get preference values from the DB
             if( ! $this->CI->input->post('submit'))
             {
                 foreach($fields_to_show as $key => $value)
                 {
-                    $this->CI->validation->{$key} = $this->CI->preference->item($key);
+                    $this->CI->validation->$key = $this->CI->preference->item($key);
                 }
             }
-            
+
             if ($this->CI->validation->run() === FALSE)
             {
                 // SHOW FORM
@@ -239,7 +212,7 @@
                 }
                         
                 // Display Page
-                $data['header'] = ($group_id == NULL) ? $this->form_name : $this->group[$group_id]['name'];
+                $data['header'] = ( is_null($group_id) ? $this->form_name : $this->group[$group_id]['name']);
                 $data['form_link'] = $this->form_link . "/" . $group_id;
                 return $this->CI->load->view("form_preference_fields",$data,!$print);
             }
@@ -252,7 +225,7 @@
                 }
 
                 // Show success message and redirect
-                flashMsg('success',sprintf($this->CI->lang->line('backendpro_saved'),$this->form_name));
+                flashMsg('success',sprintf($this->CI->lang->line('preference_saved_successfully'),( is_null($group_id) ? $this->form_name : $this->group[$group_id]['name'])));
                 redirect($this->form_link);
             }
         }

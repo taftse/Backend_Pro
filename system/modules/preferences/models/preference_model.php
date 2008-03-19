@@ -1,31 +1,27 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * BackendPro
- *
- * A website backend system for developers for PHP 4.3.2 or newer
- *
- * @package			BackendPro
- * @author				Adam Price
- * @copyright			Copyright (c) 2008
- * @license				http://www.gnu.org/licenses/lgpl.html
- * @tutorial				BackendPro.pkg
- */
+    /**
+     * BackendPro
+     *
+     * A website backend system for developers for PHP 4.3.2 or newer
+     *
+     * @package		    BackendPro
+     * @author			Adam Price
+     * @copyright		Copyright (c) 2008
+     * @license			http://www.gnu.org/licenses/lgpl.html
+     */
 
- // ---------------------------------------------------------------------------
+     // ---------------------------------------------------------------------------
 
-/**
- * Preference_model
- *
- * Model used to retrive webite options
- *
- * @package			BackendPro
- * @subpackage		Models
- */
+    /**
+     * Preference_model
+     *
+     * Model used to retrive webite options
+     *
+     * @package			BackendPro
+     * @subpackage		Models
+     */
 	class Preference_model extends Base_model
 	{
-		/**
-		 * Constructor
-		 */
 		function Preference_model()
 		{
 			// Call parent constructor
@@ -51,21 +47,20 @@
 		 */
 		function item($name = NULL)
 		{
-			if($name == NULL)
-			{
-				return;
-			}
+			if( is_null($name))
+                return;
             
-            // Check in cache first
+            // See if we have already got the setting
             if( isset($this->_CACHE[$name]))
                 return $this->_CACHE[$name];
 
+            // Fetch setting from database
 			$query = $this->fetch('Option','value',null,array('name'=>$name));
 
 			if($query->num_rows() != 0)
 			{
-				$option = $query->row();
-				$string = $option->value;
+				$row = $query->row();
+				$string = $row->value;
 
                 log_message('debug',"Fetching the preference '".$name."'");
 				if( FALSE === ($object = @unserialize($string)))
@@ -89,7 +84,7 @@
 		}
 
 		/**
-		 * Update Option Value
+		 * Set Option
 		 *
 		 * Updates an option value in the database
 		 *
@@ -100,15 +95,11 @@
 		 */
 		function set_item($name = NULL, $value = NULL)
 		{
-			if($name == NULL)
-			{
+			if( is_null($name))
 				return FALSE;
-			}
 
-			if(is_array($value))
-			{
+			if( is_array($value))
 				$value = serialize($value);
-			}
 
 			return $this->update('Option',array('value'=>$value),array('name'=>$name));
 		}
