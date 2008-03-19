@@ -66,6 +66,7 @@
              $fields['name'] = $this->lang->line('access_name');
              $fields['parent'] = $this->lang->line('access_parent_name');
              $rules['name'] = 'trim|required|min_length[3]';
+             $rules['parent'] = 'required';
              $this->validation->set_fields($fields);
              $this->validation->set_rules($rules);
              
@@ -81,10 +82,12 @@
                  $parent = $this->input->post('parent');  
                  $this->load->module_library('auth','khacl');  
                  
-                 if($parent === FALSE){$parent=NULL;}
-                 
-                 if($this->khacl->aco->create($name,$parent))
+                 if($this->khacl->aco->create($name,$parent)){
                     flashMsg('success',sprintf($this->lang->line('backendpro_created'),'Resource'));
+                 
+                 
+                    $this->access_control_model->insert('resources',array('id'=>$this->db->insert_id()));
+                 }
                  else
                     flashMsg('warning',sprintf($this->lang->line('access_resource_exists'),$name));
              }
@@ -105,6 +108,11 @@
              $this->load->module_library('auth','khacl');
              foreach($resources as $resource)
              {
+                 // Check the group we are deleting isn't the default, if so disalow it
+                 $query = $this->access_control_model->fetch('acos','id',NULL,array('name'=>$resource));
+                 $row = $query->row();       
+                 
+                 $this->access_control_model->delete('resources',array('id'=>$row->id));                 
                  $this->khacl->aco->delete($resource);
                  flashMsg('success',sprintf($this->lang->line('backendpro_deleted'),"Resource '".$resource."'"));
              }

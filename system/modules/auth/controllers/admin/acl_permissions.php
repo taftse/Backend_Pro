@@ -202,7 +202,7 @@
           * @return void
           */
          function ajax_fetch_resources($group)
-         {
+         {             
              $this->load->model('access_control_model');
              $this->load->library('khacl');
              
@@ -243,9 +243,16 @@
           * @return void 
           */
          function ajax_fetch_actions($group,$resource)
-         {
-             // Output the default DENY OTHERS
-             print '<div class="action_access_box"><span class="icon_cross">All Other Actions</span></div>';
+         {             
+             $query = $this->access_control_model->fetch('axos');
+             foreach($query->result() as $result)
+             {
+                 $allow = $this->khacl->check($group,$resource,$result->name); 
+                 print '<div class="access_action_box"><span ';
+                 print ($allow) ? 'class="icon_tick">' : 'class="icon_cross">';
+                 print $result->name;
+                 print '</span></div>';
+             }
          }
      }
 ?>

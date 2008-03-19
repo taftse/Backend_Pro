@@ -154,5 +154,49 @@
             
             return ($query->num_rows() == 0) ? TRUE : FALSE;
         }
+        
+        /**
+        * Check Spare Username
+        * 
+        * When modifying a user check the username is spare
+        * 
+        * @access public
+        * @param string $username Username
+        * @return boolean
+        */
+        function spare_edit_username($username)
+        {
+            // Makre sure auth library is loaded
+            $this->CI->load->module_library('auth','Userlib');
+            
+            $query = $this->CI->user_model->fetch('Users',NULL,NULL,array('username'=>$username,'id!='=>$this->CI->input->post('id'))); 
+            
+            // Set the error message
+            $this->CI->validation->set_message('spare_edit_username', $this->CI->lang->line('userlib_validation_username'));
+        
+            return ($query->num_rows() == 0) ? TRUE : FALSE; 
+        }
+        
+        /**
+        * Check Spare Email
+        * 
+        * When modifying a user check the email is spare
+        * 
+        * @access public
+        * @param string $email Email
+        * @retrun boolean
+        */
+        function spare_edit_email($email)
+        {
+            // Makre sure auth library is loaded
+            $this->CI->load->module_library('auth','Userlib');  
+            
+            $query = $this->CI->user_model->fetch('Users',NULL,NULL,array('email'=>$email,'id!='=>$this->CI->input->post('id')));
+            
+            // Set the error message
+            $this->CI->validation->set_message('spare_edit_email', $this->CI->lang->line('userlib_validation_email'));
+            
+            return ($query->num_rows() == 0) ? TRUE : FALSE;
+        }
 	}
 ?>

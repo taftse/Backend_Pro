@@ -4,6 +4,7 @@
  */
 $(document).ready(function(){    
     
+    /********************************************* USED TO MANAGE PERMISSIONS */
     // Create permission trees
     $('#groups').treeview({
         cookie_name: 'group_tree'
@@ -26,22 +27,38 @@ $(document).ready(function(){
         } else {
             $("div[id=allow_"+id+"]",'div.scrollable_tree').hide(); 
         }
-    }
+    }  
+    
+    /****************************************** USED TO VIEW PERMISSIONS TREE */     
+    
+    // Get the initial advanced view    
+    fetchViewResources($('#access_groups input[name="aro"]').val());    
     
     // When a user picks a differnt access_group load its access_rights in
     // the respective div
-    $('#access_groups input[name="aro"]').click(function(){
-        
-        // Call the ajax function to build the requested access tree
-        $.post(
-            base_url+index_page+'/auth/admin/acl_permissions/ajax_fetch_resources_access/'+$(this).val(),
-            {},
-            function(val){
-                $('#access_rights').html(val);               
-            }
-        );
-        
-    });
+    $('#access_groups input[name="aro"]').click(function(){fetchViewResources($(this).val())});
+    
+    // Function to update the advanced view access rights tree
+    function fetchViewResources(group){
+        $.post(base_url+index_page+'/auth/admin/acl_permissions/ajax_fetch_resources/'+group,{},
+        function(val){
+            $('#access_resources').html(val);
+            
+            // Make it so when we click on a resource its actions are displayed
+            $('#access_resources span').click(function(){
+                var group = $('#access_groups input[name="aro"]:checked').val();
+                var resource = $(this).parent().attr('id');
+                fetchViewActions(group,resource);
+            });        
+        });
+    }
+    
+    // Function to fetch ajax actions
+    function fetchViewActions(group,resource){
+        $.post(base_url+index_page+'/auth/admin/acl_permissions/ajax_fetch_actions/'+group+'/'+resource,{},function(val){$('#access_actions').html(val); });
+    }
+     
+    
     
         
         

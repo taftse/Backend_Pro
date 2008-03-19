@@ -541,10 +541,10 @@
         * Encode the users password using a set method.
         * Use SHA-1 and a salt appended to password
         * 
-        * @access private
+        * @access public
         * @return string
         */
-        function _encode_password($string=NULL)
+        function encode_password($string=NULL)
         {
             if($string == NULL)
             {

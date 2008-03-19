@@ -44,6 +44,10 @@
             }
         }                 
         
+        // See if this resource is loced
+        $query = $this->access_control_model->fetch('resources','locked',NULL,array('id'=>$tree['row']['id']));
+        $row = $query->row();        
+        
         // If this is the last node add branch terminator
         if($resourceObj->checkNodeHasNextSibling($tree['row']))
             $offset .= "|- ";
@@ -53,7 +57,7 @@
         <tr>
             <td><?=$tree['row']['id']?></td>
             <td><?=$offset.$tree['row']['name']?></td>
-            <td><?=form_checkbox('select[]',$tree['row']['name'],FALSE)?></td>
+            <td><?=($row->locked?'':form_checkbox('select[]',$tree['row']['name'],FALSE))?></td>
         </tr>
     <?php endwhile; ?>
 </tbody>

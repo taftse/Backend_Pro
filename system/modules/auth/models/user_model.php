@@ -38,7 +38,7 @@
 
 			log_message('debug','User_model Class Initialized');
 		}
-
+        
 		/**
 		 * Validate Login
 		 *
@@ -126,6 +126,49 @@
             $this->update('Users', array('active'=>'1','activation_key'=>NULL), array('activation_key'=>$key));
             
             return ($this->db->affected_rows() == 1) ? TRUE : FALSE;
+        }
+        
+        /**
+        * Delete Users
+        * 
+        * Extend the delete users function to make sure we delete all data related
+        * to the user
+        * 
+        * @access private
+        * @param mixed $where Delete user where
+        * @return boolean
+        */
+        function _delete_Users($where)
+        {
+            // Get the ID's of the users to delete          
+            $query = $this->fetch('Users','id',NULL,$where);
+            foreach($query->result() as $row)
+            {
+                $this->db->trans_begin();
+                // -- ADD USER REMOVAL QUERIES/METHODS BELOW HERE
+                
+                
+                
+                // Delete main user details
+                $this->db->delete($this->_TABLES['Users'],array('id'=>$row->id)); 
+                
+                // Delete user profile
+                $this->delete('UserProfiles',array('user_id'=>$row->id)); 
+                
+                
+                
+                
+                // -- DON'T CHANGE BELOW HERE
+                // Check all the tasks completed
+                if ($this->db->trans_status() === FALSE)
+                {
+                    $this->db->trans_rollback();
+                    return FALSE;
+                } else {
+                    $this->db->trans_commit();
+                } 
+            }
+            return TRUE;
         }
 	}
 ?>

@@ -1,11 +1,23 @@
 Since users are assigned to a group, what happens if there group is removed? Should
 they be assigned a default group, or not allow deletion.
 
-Find way to make it so you can edit resources/groups/actions. Its rather inconvinent
+Find way to make it so you can edit resources. Its rather inconvinent
 not to be able to do this.
-
-Make it so certain groups/resources can be locked and not deleted. Same goes for permissions
 
 Allow permissions to have a note applied to them
 
-Move the JS code of selecting multiple checkboxes to a common folder
+Move the JS code of selecting multiple checkboxes to a common folder.
+
+Make it so when a new user is created in the control panel, and they are not activated
+an email is sent to them explaining what to do next.
+
+When a news account is changed from disabled to active, email them saying they can
+now login
+
+Make a filter library that stores filter options into a session variable for the user, for a set page.
+
+Get rid of maxium password length
+
+Don't allow someone to delete their own user account
+
+Implement utilities

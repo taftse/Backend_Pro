@@ -52,6 +52,47 @@
          }
          
          /**
+          * Manage a group
+          * 
+          * @access public
+          * @param integer $id Group ID
+          * @return void
+          */
+         function manage($id)
+         {
+             // Stop modifying root
+             if($id==1)
+                redirect('auth/admin/acl_groups');
+             
+             $fields['id'] = $this->lang->line('access_id');    
+             $fields['name'] = $this->lang->line('access_name');    
+             $fields['parent'] = $this->lang->line('access_parent');
+             $fields['disabled'] = $this->lang->line('access_disabled');
+             $this->validation->set_fields($fields);        
+             
+             // Get group details
+             $query = $this->access_control_model->fetch('groups','disabled',NULL,array('id'=>$id));
+             $group = $query->row_array();
+             
+             // Get node details
+             $obj = & $this->access_control_model->group;
+             $node = $obj->getNodeFromId($id);
+             $parent = $obj->getAncestor($node);
+             
+             $group['id'] = $id;
+             $group['name'] = $node['name'];
+             $group['parent'] = $parent['name'];   
+             
+             $this->validation->set_default_value($group);            
+             
+             // Display Page
+             $data['header'] = $this->lang->line('access_modify_group');
+             $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/modify_group";
+             $data['module'] = 'auth';
+             $this->load->view(Site_Controller::$_container,$data);
+         }
+         
+         /**
           * Create Groups
           * 
           * @access public
@@ -66,6 +107,7 @@
              $fields['name'] = $this->lang->line('access_name');
              $fields['parent'] = $this->lang->line('access_parent_name');
              $rules['name'] = 'trim|required|min_length[3]';
+             $rules['parent'] = 'required';
              $this->validation->set_fields($fields);
              $this->validation->set_rules($rules);
              
@@ -78,18 +120,59 @@
              {
                  // PASS
                  $name = $this->input->post('name');  
-                 $parent = $this->input->post('parent');  
+                 $parent = $this->input->post('parent');   
+                 $disabled = $this->input->post('disabled');   
                  $this->load->module_library('auth','khacl');  
                  
-                 if($parent === FALSE){$parent=NULL;}
-                 
-                 if($this->khacl->aro->create($name,$parent))
-                    flashMsg('success',sprintf($this->lang->line('backendpro_created'),'Group'));
-                 else
+                 // Create Group
+                 $this->db->trans_begin();                 
+                 if( ! $this->khacl->aro->create($name,$parent)){
                     flashMsg('warning',sprintf($this->lang->line('access_group_exists'),$name));
+                    $fail = TRUE;
+                 } else {
+                     // Add extra group info
+                     $this->access_control_model->insert('groups',array('id'=>$this->db->insert_id(),'disabled'=>$disabled));
+                 }                 
+                 
+                 if($this->db->trans_status() === FALSE OR isset($fail)){
+                     $this->db->trans_rollback();
+                 } else {
+                     $this->db->trans_commit();
+                     flashMsg('success',sprintf($this->lang->line('backendpro_created'),'Group')); 
+                 }
              }
              redirect('auth/admin/acl_groups','location');
          }   
+         
+         /**
+          * Modify a group 
+          */
+         function modify()
+         {
+             $id = $this->input->post('id');
+             $disabled = $this->input->post('disabled');
+             $name = $this->input->post('name');
+             $parent = $this->input->post('parent');
+             
+             // Check they didn't assign the parent as itself
+             if($name == $parent)
+             {
+                 flashMsg('warning',$this->lang->line('access_parent_loop_created')); 
+                 redirect('auth/admin/acl_groups/manage/'.$id);
+             }
+             
+             
+             // Update the disabled value
+             $this->access_control_model->update('groups',array('disabled'=>$disabled),array('id'=>$id));
+             
+             // Move the node
+             $node = $this->access_control_model->group->getNodeWhere("name='".$name."'");
+             $new_parent = $this->access_control_model->group->getNodeWhere("name='".$parent."'");
+             $this->access_control_model->group->setNodeAsLastChild($node,$new_parent);
+             
+             flashMsg('success',sprintf($this->lang->line('backendpro_saved'),"Group '".$name."'")); 
+             redirect('auth/admin/acl_groups');
+         }
          
          /**
           * Delete Groups
@@ -105,8 +188,18 @@
              $this->load->module_library('auth','khacl');
              foreach($groups as $group)
              {
-                 $this->khacl->aro->delete($group);
-                 flashMsg('success',sprintf($this->lang->line('backendpro_deleted'),"Group '".$group."'"));
+                 // Check the group we are deleting isn't the default, if so disalow it
+                 $query = $this->access_control_model->fetch('aros','id',NULL,array('name'=>$group));
+                 $row = $query->row();
+                 if($row->id == $this->preference->item('default_user_group')){
+                    flashMsg('error',sprintf($this->lang->line('accces_delete_default'),$group));
+                    continue;
+                 }              
+                 
+                 if( $this->access_control_model->delete('groups',array('id'=>$row->id,'name'=>$group)))
+                    flashMsg('success',sprintf($this->lang->line('backendpro_deleted'),$group));
+                 else
+                    flashMsg('warning',sprintf($this->lang->line('backendpro_deleted_fail'),$group));
              }
              redirect('auth/admin/acl_groups','location');
          }     

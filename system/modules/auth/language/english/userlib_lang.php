@@ -24,6 +24,17 @@
      $lang['userlib_confirm_password'] = 'Confirm Password'; 
      $lang['userlib_captcha'] = 'Captcha';
      $lang['userlib_register'] = 'Register New Account';
+     $lang['userlib_id'] = "ID";
+     $lang['userlib_last_visit'] = "Last Visit";
+     $lang['userlib_active'] = "Active";
+     $lang['userlib_edit'] = "Edit";
+     $lang['userlib_delete'] = "Delete";
+     $lang['userlib_group'] = "Group";
+     $lang['userlib_create_user'] = "Create Member";  
+     $lang['userlib_modify_user'] = "Modify Member";  
+     $lang['userlib_save'] = "Save";
+     $lang['userlib_user_profile'] = "User Profile";
+     $lang['userlib_profile_disabled'] = "User profiles have been disabled in the control panel settings.";
      
      /* Email activation messages */
      $lang['userlib_no_activation'] = 'You may login to your new account immediatly.';

@@ -53,12 +53,16 @@
     $lang['access_delete_permissions'] = "Are you SURE you want to delete these permissions? WARNING: DOING SO MAY LOCK YOU OUT OF THE SYSTEM!";
     
     /* Advanced View */
-    $lang['access_advanced_desc'] = "The page is used as an aid to show you how your system permissions work. Just looking at what permissions exist dosn't show you what groups have access to what resources. So select a group in the right hand tree and their resource access infomation will be shown in the left hand tree.";
+    $lang['access_advanced_desc'] = "The page is used as an aid to show you how your system permissions work. Just looking at what permissions exist dosn't show you what groups have access to what resources. So select a group in the right hand tree and their resource access infomation will be shown in the middle tree. If you then click on a resource it will show you what actions the user can perform on the resource.";
     
     /* Groups */  
-    $lang['access_create_group'] = "Create Group"; 
+    $lang['access_create_group'] = "Create Group";
+    $lang['access_modify_group'] = "Modify Group"; 
+    $lang['access_disabled'] = "Disabled";   
     $lang['access_group_exists'] = "Cannot add the group '%s' since it already exists!";
-    $lang['access_delete_groups'] = "Are you SURE you want delete these groups? Doing so will also DELETE all permissions using these resources!";       
+    $lang['access_delete_groups'] = "Are you SURE you want delete these groups? Doing so will also DELETE all permissions using these resources!";
+    $lang['accces_delete_default'] = "Cannot delete the group '%s' since it is the current default user group"; 
+    $lang['access_parent_loop_created'] = "You cannot assign the parent of this node to be itself";      
     
     /* Resources */
     $lang['access_create_resource'] = "Create Resource"; 

@@ -1,4 +1,9 @@
 
+/* DISPLAY LOADIND */
+.large_loader { background: #EEE url(../../shared/images/large_loader.gif) no-repeat 50% 50%; }  
+.small_loader { background: #EEE url(../../shared/images/small_loader.gif) no-repeat 50% 50%; }  
+
+
 /* MENU NAVIGATION */
 #navigation #menu { padding: 2em 0 2em 2em; }
 #navigation #menu a { color: #000; text-decoration: none; }
@@ -36,9 +41,11 @@ div.action_item {
 
 /* STYLES USED FOR ADVANCED PERMISSION VIEW */
 div.advanced_view_tree {
-    height: 400px;
+    height: 300px;
     overflow: auto;
 }
+
+#access_resources span { cursor: pointer; }
 
 /* DATA GRID TABLE, FOR DISPLAYING TABULAR DATA */
 table.data_grid { width: 100%; }
