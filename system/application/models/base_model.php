@@ -53,7 +53,7 @@
 		 */
 		function fetch($name, $fields=null, $limit=null, $where=null)
 		{
-			if(method_exists('_fetch_' . $name,$this))
+			if(method_exists($this,'_fetch_' . $name))
 			{
 				// There is an overide function
 				return call_user_method_array('_fetch_'.$name,$this,array($fields,$limit,$where));
@@ -82,7 +82,7 @@
 		 */
 		function insert($name, $data)
 		{
-			if(method_exists('_insert_' . $name,$this))
+			if(method_exists($this,'_insert_' . $name))
 			{
 				// There is an overide function
 				return call_user_method_array('_insert_'.$name,$this,array($data));
@@ -108,7 +108,7 @@
 		 */
 		function update($name, $values, $where)
 		{
-			if(method_exists('_update_' . $name,$this))
+			if(method_exists($this,'_update_' . $name))
 			{
 				// There is an overide function
 				return call_user_method_array('_update_'.$name,$this,array($values,$where));
@@ -133,8 +133,8 @@
 		 * @return Query Object
 		 */
 		function delete($name, $where)
-		{
-			if(method_exists('_delete_' . $name,$this))
+		{            
+			if(method_exists($this,'_delete_' . $name))
 			{
 				// There is an overide function
 				return call_user_method_array('_delete_'.$name,$this,array($where));
