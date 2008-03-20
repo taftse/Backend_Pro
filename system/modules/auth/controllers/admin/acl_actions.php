@@ -8,7 +8,6 @@
      * @author          Adam Price
      * @copyright       Copyright (c) 2008
      * @license         http://www.gnu.org/licenses/lgpl.html
-     * @tutorial        BackendPro.pkg
      */
 
      // ---------------------------------------------------------------------------
@@ -42,6 +41,12 @@
              log_message('debug','ACL Actions Class Initialized'); 
          }
          
+         /**
+          * View Actions
+          * 
+          * @access public
+          * @return void 
+          */
          function index()
          {                                     
              // Display Page
@@ -63,7 +68,7 @@
              $this->load->library('validation');
              
              $fields['name'] = $this->lang->line('access_name');
-             $rules['name'] = 'trim|required|alpha_dash|min_length[3]';
+             $rules['name'] = 'trim|required|min_length[3]|max_length[254]';
              $this->validation->set_fields($fields);
              $this->validation->set_rules($rules);
              
@@ -79,7 +84,7 @@
                  $this->load->module_library('auth','khacl');  
                  
                  if($this->khacl->axo->create($name))
-                    flashMsg('success',sprintf($this->lang->line('backendpro_created'),'Action'));
+                    flashMsg('success',sprintf($this->lang->line('access_action_created'),$name));
                  else
                     flashMsg('warning',sprintf($this->lang->line('access_action_exists'),$name));
              }
@@ -100,9 +105,8 @@
              $this->load->module_library('auth','khacl');
              foreach($actions as $action)
              {
-                 // See if there are any permissions
                  $this->khacl->axo->delete($action);
-                 flashMsg('success',sprintf($this->lang->line('backendpro_deleted'),"Action '".$action."'"));
+                 flashMsg('success',sprintf($this->lang->line('access_action_deleted'),$action));
              }
              redirect('auth/admin/acl_actions','location');
          }     

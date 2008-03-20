@@ -4,7 +4,7 @@
         </div>
         <div id="version">
             <a href="#top"><?=$this->lang->line('general_top')?></a> | 
-            <a href="http://backendpro.kaydoo.co.uk/user_guide">Documentation</a> |  
+            <a href="http://backendpro.kaydoo.co.uk/user_guide"><?=$this->lang->line('general_documentation')?></a> |  
             Version <?=BACKENDPRO_VERSION?></div>
     </div>
 </div>

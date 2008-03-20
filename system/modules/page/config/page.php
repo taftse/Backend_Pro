@@ -53,7 +53,7 @@
 	 $config['default_assets'] = array(
 	    'admin'  => array(
 		    'css'   => array('layout.css','style.css','navigation.css'),
-			'js'    => array('navigation.js')),
+			'js'    => array('navigation.js','select_all.js')),
 		'public' => array(
 			'css'   => array('layout.css'),
 			'js'    => array()),

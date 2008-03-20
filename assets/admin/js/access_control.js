@@ -57,24 +57,4 @@ $(document).ready(function(){
     function fetchViewActions(group,resource){
         $.post(base_url+index_page+'/auth/admin/acl_permissions/ajax_fetch_actions/'+group+'/'+resource,{},function(val){$('#access_actions').html(val); });
     }
-     
-    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    $("input[name='all']").change(function(){
-            var children = $(this).val();
-            var checked = $(this).is(':checked');
-            var form = $(this).parents('form:first');
-            $("input[name='"+children+"[]']",form).each(function(){$(this).attr('checked',checked);});
-    });
 });

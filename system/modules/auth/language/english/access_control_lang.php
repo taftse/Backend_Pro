@@ -35,12 +35,15 @@
         permissions can restrict only certain users to be able to use it, i.e. Administrors.";  
         
     /* General */
-    $lang['access_id'] = "ID";
-    $lang['access_edit'] = "Edit";
-    $lang['access_delete'] = "Delete"; 
-    $lang['access_save'] = "Save";
     $lang['access_name'] = "Name"; 
     $lang['access_parent_name'] = "Parent";
+    
+    /* Actions */
+    $lang['access_create_action'] = "Create Action";
+    $lang['access_action_created'] = "The Action '%s' has been created successfully";
+    $lang['access_action_deleted'] = "The Action '%s' has been deleted successfully";
+    $lang['access_action_exists'] = "Cannot add the action '%s' since it already exists!";
+    $lang['access_delete_actions'] = "Are you SURE you want to delete these actions? Doing so will REMOVE all actions from related permissions";
     
     /* Permissions */
     $lang['access_permissions_table_desc'] = "Items in <font color='green'><b>green</b></font> means that group is <b>ALLOWED</b> access to it, while <font color='red'><b>red</b></font> means they are <b>DENIED</b> access to it. A resource access write takes priority over action access writes. For example if a resource is marked as <b>DENIED</b>, it dosn't matter if an action is <b>ALLOWED</b> the resource & all actions will be <b>DENIED</b>."; 
@@ -69,8 +72,4 @@
     $lang['access_action_exists'] = "Cannot add the resource '%s' since it already exists!";
     $lang['access_delete_resources'] = "Are you SURE you want delete these resources? Doing so will also DELETE all permissions using these resources!";    
     
-    /* Actions */
-    $lang['access_create_action'] = "Create Action";
-    $lang['access_action_exists'] = "Cannot add the action '%s' since it already exists!";
-    $lang['access_delete_actions'] = "Are you SURE you want to delete these actions? Doing so will REMOVE all actions from related permissions";
-?>
+    ?>

@@ -8,7 +8,6 @@
      * @author          Adam Price
      * @copyright       Copyright (c) 2008
      * @license         http://www.gnu.org/licenses/lgpl.html
-     * @tutorial        BackendPro.pkg
      */
 
      // ---------------------------------------------------------------------------

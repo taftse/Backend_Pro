@@ -79,7 +79,7 @@
             $config['group'] = array(
                 'general'     => array('name'=>'General Configuration', 'fields'=>'site_name,webmaster_name,webmaster_email'),
                 'members'     => array('name'=>'Member Settings', 'fields'=>'allow_user_registration,activation_method,account_activation_time,autologin_period,default_user_group,allow_user_profiles'),  
-                'security'    => array('name'=>'Security Preferences', 'fields'=>'use_login_captcha,use_registration_captcha,min_password_length,max_password_length'),  
+                'security'    => array('name'=>'Security Preferences', 'fields'=>'use_login_captcha,use_registration_captcha,min_password_length'),  
                 'email'       => array('name'=>'Email Configuration', 'fields'=>'automated_from_name,automated_from_email,email_protocol,email_mailpath,smtp_host,smtp_user,smtp_pass,smtp_port,smtp_timeout,email_mailtype,email_charset,email_wordwrap,email_wrapchars,bcc_batch_mode,bcc_batch_size'),  
                 'maintenance' => array('name'=>'Maintenance & Debugging Settings', 'fields'=>'maintenance_mode,maintenance_message,page_debug,keep_error_logs_for'),  
             );
@@ -99,7 +99,6 @@
             $config['field']['use_login_captcha'] = array('type'=>'boolean');  
             $config['field']['use_registration_captcha'] = array('type'=>'boolean');  
             $config['field']['min_password_length'] = array('rules'=>'trim|required|numeric');  
-            $config['field']['max_password_length'] = array('rules'=>'trim|required|numeric'); 
             
             $config['field']['automated_from_email'] = array('rules'=>'trim|valid_email');
             $config['field']['email_protocol'] = array('type'=>'dropdown','params'=>array('options'=>array('sendmail'=>'Sendmail','mail'=>'PHP Mail','smtp'=>'SMTP')));

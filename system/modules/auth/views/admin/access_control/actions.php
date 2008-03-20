@@ -6,15 +6,15 @@
 <table class="data_grid">
 <thead>
     <tr>
-        <th width=5%><?=$this->lang->line('access_id')?></th>
+        <th width=5%><?=$this->lang->line('general_id')?></th>
         <th><?=$this->lang->line('access_actions')?></th>
-        <th width=10%><?=form_checkbox('all','select',FALSE)?> <?=$this->lang->line('access_delete')?></th>
+        <th width=10%><?=form_checkbox('all','select',FALSE)?> <?=$this->lang->line('general_delete')?></th>
     </tr>
 </thead>
 <tfoot>
     <tr>
         <td colspan=2>&nbsp;</td>
-        <td><?=form_submit('delete',$this->lang->line('access_delete'),'onClick="return confirm(\''.$this->lang->line('access_delete_actions').'\');"')?></td>  
+        <td><?=form_submit('delete',$this->lang->line('general_delete'),'onClick="return confirm(\''.$this->lang->line('access_delete_actions').'\');"')?></td>  
     </tr>
 </tfoot>
 <tbody>
@@ -41,7 +41,7 @@
                 <?=form_input('name','','class="text"')?>
             </li>
             <li class="submit">
-                <?=form_submit('submit',$this->lang->line('access_save'))?>
+                <?=form_submit('submit',$this->lang->line('general_add'))?>
             </li>
         </ol>
     </fielset>

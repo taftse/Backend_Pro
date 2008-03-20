@@ -17,12 +17,14 @@
      
      /* ------------------------------------------------------- GENERAL ----- 
       * Define any general words here, e.g. Delete, Save, Edit 
-      */                                                           
+      */                  
+     $lang['general_id'] = "ID";                                         
      $lang['general_top'] = 'Top';
      $lang['general_add'] = "Add";
      $lang['general_edit'] = "Modify";
      $lang['general_delete'] = "Delete";
      $lang['general_save'] = "Save";
+     $lang['general_documentation'] = "Documentation";
      
      
      

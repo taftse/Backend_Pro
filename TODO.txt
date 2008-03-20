@@ -24,3 +24,26 @@ Implement utilities
 
 Fix the page class so when assets are cached the BODY { font-size: 75% } is actualy read instead of ignored
 Also implment more compression rules
+
+INSTALLATION FILE
+---------------------------------------
+Generate encryption key
+
+link to database
+
+setup basic first account under the superadmin group
+
+
+
+
+DOCUMENTATION
+---------------------------------------
+
+Metion what css can be used to help with the backend
+
+explain what format a .php asset file must be in to work, mainly the header inclusion
+
+explain system preferences and their variable names
+
+explain defaults resources/groups
+
