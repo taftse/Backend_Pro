@@ -18,5 +18,5 @@
 <?php } ?>       
 
 </table>
-<?=form_submit('submit',$this->lang->line('preference_save'))?>
+<?=form_submit('submit',$this->lang->line('general_save'))?>
 <?=form_close()?>

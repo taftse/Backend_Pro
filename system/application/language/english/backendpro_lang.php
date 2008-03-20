@@ -10,28 +10,47 @@
 	 *
 	 * @package			BackendPro
 	 * @subpackage		Languages
-	 * @author				Adam Price
-	 * @copyright			Copyright (c) 2008
-	 * @license				http://www.gnu.org/licenses/lgpl.html
+	 * @author			Adam Price
+	 * @copyright		Copyright (c) 2008
+	 * @license			http://www.gnu.org/licenses/lgpl.html
 	 */
      
-     $lang['backendpro_top'] = 'Top';
-     $lang['backendpro_maintenance'] = 'Under Maintenance';
-     $lang['backendpro_maintenance_login'] = "If you are an administrator you may still use the website by logging in " . anchor('auth/login','here') . ".";
+     /* ------------------------------------------------------- GENERAL ----- 
+      * Define any general words here, e.g. Delete, Save, Edit 
+      */                                                           
+     $lang['general_top'] = 'Top';
+     $lang['general_add'] = "Add";
+     $lang['general_edit'] = "Modify";
+     $lang['general_delete'] = "Delete";
+     $lang['general_save'] = "Save";
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     //$lang['backendpro_maintenance'] = 'Under Maintenance';
+     //$lang['backendpro_maintenance_login'] = "If you are an administrator you may still use the website by logging in " . anchor('auth/login','here') . ".";
 
      $lang['backendpro_control_panel'] = "Control Panel";
      $lang['backendpro_view_website'] = 'View Website';   
      
      /* Status Messages */
-     $lang['backendpro_created'] = '%s created successfully';
-     $lang['backendpro_saved'] = '%s saved successfully';
-     $lang['backendpro_deleted'] = '%s deleted successfully';
-     $lang['backendpro_created_fail'] = 'Failed to create %s, please try again';
-     $lang['backendpro_saved_fail'] = 'Failed to save %s, please try again';
-     $lang['backendpro_deleted_fail'] = 'Failed to delete %s, please try again';
-     $lang['backendpro_in_maintenance_mode'] = "The website is currently in maintenance mode, only super administrators can view it.";
+     //$lang['backendpro_created'] = '%s created successfully';
+     //$lang['backendpro_saved'] = '%s saved successfully';
+     //$lang['backendpro_deleted'] = '%s deleted successfully';
+     //$lang['backendpro_created_fail'] = 'Failed to create %s, please try again';
+     //$lang['backendpro_saved_fail'] = 'Failed to save %s, please try again';
+     //$lang['backendpro_deleted_fail'] = 'Failed to delete %s, please try again';
+     //$lang['backendpro_in_maintenance_mode'] = "The website is currently in maintenance mode, only super administrators can view it.";
      
-     $lang['backendpro_confirm_deletes'] = 'Are you SURE you want to delete these records?';
+     //$lang['backendpro_confirm_deletes'] = 'Are you SURE you want to delete these records?';
      
      /* All Main Controller Names and menu items */
      $lang['backendpro_dashboard'] = "Dashboard";

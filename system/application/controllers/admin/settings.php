@@ -73,6 +73,7 @@
             
             // Setup the preference form
             $config['form_name'] = $this->lang->line('backendpro_settings');
+            $config['form_link'] = 'admin/settings/index';
             
             // Setup preference groups
             $config['group'] = array(

@@ -1,37 +1,30 @@
+
+body {
+    background: transparent url(../images/background.gif);
+}
+
 #wrapper {
     position: absolute;
+    background-color: #FFF;
     width: 800px;
-    height: 600px;
     top: 50%;
     left: 50%;
     margin-left: -400px;
     margin-top: -300px;
+    padding: 2em;
+    border: 1px solid grey;
 }
 
-#logo {
-    float: left;
-    background: #FFF url(../../shared/images/layout_logo.gif) no-repeat top left;
-    width: 200px;
-    height: 209px;
+#header h1 {
+    border-bottom: 1px solid #777;
+    color: #555;
+    padding-bottom: 0.2em;
 }
 
-#title {
-    float: left;
-    background: #FFF url(../../shared/images/layout_title.gif) no-repeat top left;
-    width: 198px;
-    height: 117px;
-}
-
-#content {
-    position: relative;        
-    margin-left: 224px;
-    margin-top: 117px;    
+#content h3 {
+    color: #434690;
 }
 
 #footer {
-    position: relative;
-    clear: both;
-    text-align: center;  
-    width: 800px;
-    margin-top: 5em;
+    text-align: center;
 }

@@ -229,7 +229,7 @@
                                      
             // Fetch what they entered in the login
             $values['email'] = $this->CI->input->post('email');
-            $values['password'] = $this->_encode_password($this->CI->input->post('password'));
+            $values['password'] = $this->encode_password($this->CI->input->post('password'));
 
             // See if a user exists with the given credentials
             $query = $this->CI->user_model->validateLogin($values['email'],$values['password']);
@@ -356,7 +356,7 @@
                 
                 // Generate a new password
                 $password = $this->_generate_random_string($this->CI->preference->item('max_password_length'));
-                $encoded_password = $this->_encode_password($password);
+                $encoded_password = $this->encode_password($password);
                 
                 // Email the new password to the user
                 $data = array(
@@ -396,7 +396,7 @@
             // Build
             $data['users']['username'] = $this->CI->input->post('username');  
             $data['users']['email'] = $this->CI->input->post('email');  
-            $data['users']['password'] = $this->_encode_password($this->CI->input->post('password'));  
+            $data['users']['password'] = $this->encode_password($this->CI->input->post('password'));  
             $data['users']['group'] = $this->CI->preference->item('default_user_group');
             $data['users']['created'] = date("Y-m-d H:i:s",time());               
             

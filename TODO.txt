@@ -21,3 +21,6 @@ Get rid of maxium password length
 Don't allow someone to delete their own user account
 
 Implement utilities
+
+Fix the page class so when assets are cached the BODY { font-size: 75% } is actualy read instead of ignored
+Also implment more compression rules

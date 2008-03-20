@@ -11,7 +11,6 @@
      * @license         http://www.gnu.org/licenses/lgpl.html
      */
      
-     $lang['preference_save'] = "Save";
      $lang['preference_saved_successfully'] = "The '%s' preferences have been saved successfully";
      
      /** -------------------------------------- CONTROL PANEL SETTING STRINGS */
