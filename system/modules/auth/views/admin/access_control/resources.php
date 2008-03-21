@@ -2,7 +2,6 @@
 
 <a href="<?=site_url('auth/admin/acl_resources/form')?>" class="icon_add"><?=$this->lang->line('access_create_resource')?></a>
 
-<!-- VIEW RESOURCES -->
 <?=form_open('auth/admin/acl_resources/delete')?> 
 <table class="data_grid">
 <thead>
@@ -26,17 +25,18 @@
     $tree = $obj->getTreePreorder($obj->getRoot());
     
     while($obj->getTreeNext($tree)):        
-        // See if this resource is loced
+        // See if this resource is locked
         $query = $this->access_control_model->fetch('resources','locked',NULL,array('id'=>$tree['row']['id']));
         $row = $query->row();     
         
         // Get Offset
-        $offset = $this->access_control_model->buildPrettyOffset(&$obj,$tree);           
+        $offset = $this->access_control_model->buildPrettyOffset(&$obj,$tree);
+        $edit = ($obj->checkNodeIsRoot($tree['row'])?'&nbsp;':'<a href="'.site_url('auth/admin/acl_resources/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets'). 'icons/pencil.png').'</a>');           
     ?>  
         <tr>
             <td><?=$tree['row']['id']?></td>
             <td><?=$offset.$tree['row']['name']?></td>  
-            <td class="middle"><a href="<?=site_url('auth/admin/acl_resources/form/'.$tree['row']['id'])?>"><?=img($this->config->item('shared_assets'). 'icons/pencil.png')?></a></td>  
+            <td class="middle"><?=$edit?></td>  
             <td><?=($row->locked?'':form_checkbox('select[]',$tree['row']['name'],FALSE))?></td>
         </tr>
     <?php endwhile; ?>

@@ -1,6 +1,3 @@
-Since users are assigned to a group, what happens if there group is removed? Should
-they be assigned a default group, or not allow deletion.
-
 Allow permissions to have a note applied to them
 
 Make it so when a new user is created in the control panel, and they are not activated
@@ -19,8 +16,6 @@ Fix the page class so when assets are cached the BODY { font-size: 75% } is actu
 Also implment more compression rules
 
 Make it so when modifying a resource/group the node and its children are not shown in the dropdown
-
-in acl_actions update the code so it has better error handling, specifcly the delete method
 
 INSTALLATION FILE
 ---------------------------------------

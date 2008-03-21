@@ -17,22 +17,20 @@
     $lang['access_actions'] = 'Actions'; 
     $lang['access_resources'] = 'Resources';
     
-    $lang['access_permissions_desc'] = "Through the group permissions you can specify what groups are allowed
-        to access what resources, you can also specify which actions they can use 
-        on these resources, e.g Create, View etc."; 
-    $lang['access_groups_desc'] = "Groups allow you to create 'vitrual' containers where all the users 
-        belonging to that group have something in common. For example you may have
-        a group for all Administrators, Developers, Editors etc. By doing this it
-        means you can assign a group a permission instead of for each indivudal user."; 
-    $lang['access_actions_desc'] = "Actions are not required in the system but they let you specify an extra
-        dimension to a resouce. For example say you have a news page where you users
-        can add/edit/delete news. But you don't want to allow all users to delete news.
-        Instead of creating a new resouce for each task, you can create actions to
-        work on the resouce."; 
-    $lang['access_resources_desc'] = "Resources are what you can let groups have access to. These are the
-        areas you want to restrict certain people from accessing. For example
-        you may have a resource for this control panel. Then using the right
-        permissions can restrict only certain users to be able to use it, i.e. Administrors.";  
+    $lang['access_permissions_desc'] = "By using permissions you can grant certain 
+    user groups access to certain resources. You can also specify what actions if any
+    they can perform on those resources."; 
+    $lang['access_groups_desc'] = "Groups are 'virtual' containers for site members. By
+    assigning a user to a group it means you can assign relative permissions to users 
+    without having to repeat the process for every user in that group."; 
+    $lang['access_actions_desc'] = "Actions let you have an even more fine grained 
+    control over a resource. You could for instance have 'Add', 'Edit' & 'Delete' actions.
+    This would mean you could grant users permissions to perform certain actions on 
+    a set resource."; 
+    $lang['access_resources_desc'] = "Resources are items you want to restrict 
+    access to. For example this administration area is and its pages are all resources.
+    Using the correct user groups and permissions it is possible to only grant access
+    to these pages by a select few.";  
         
     /* General */
     $lang['access_name'] = "Name"; 
@@ -54,6 +52,7 @@
     $lang['access_resource_saved'] = "The resource '%s' has been saved successfully";
     $lang['access_resource_deleted'] = "The resource '%s' has been deleted successfully"; 
     $lang['access_resource_exists'] = "Cannot add the resource '%s' since it already exists!";   
+    $lang['access_resource_root'] = "Cannot modify the node '%s' since it is the root node.";
     $lang['access_resource_illegal_assignment'] = "Illegal assigment for new parent node of node '%s'";   
     $lang['access_delete_resources_confirm'] = "Are you SURE you want delete these resources? Doing so will also DELETE all permissions using these resources!";    
     
@@ -66,6 +65,7 @@
     $lang['access_group_saved'] = "The group '%s' has been saved successfully";
     $lang['access_group_deleted'] = "The group '%s' has been deleted successfully"; 
     $lang['access_group_exists'] = "Cannot add the group '%s' since it already exists!";   
+    $lang['access_group_root'] = "Cannot modify the node '%s' since it is the root node.";
     $lang['access_group_illegal_assignment'] = "Illegal assigment for new parent node of node '%s'";   
     $lang['access_delete_groups_confirm'] = "Are you SURE you want delete these groups? Doing so will also DELETE all permissions using these groups!";       
     

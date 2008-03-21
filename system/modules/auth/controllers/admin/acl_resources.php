@@ -80,6 +80,12 @@
                  // Load values into form
                  $node = $this->access_control_model->resource->getNodeFromId($id);
                  
+                 // Check it isn't the root
+                 if( $this->access_control_model->resource->checkNodeIsRoot($node)){
+                     flashMsg('warning',sprintf($this->lang->line('access_resource_root'),$node['name']));
+                     redirect('auth/admin/acl_resources');
+                 }
+                 
                  $parent = $this->access_control_model->resource->getAncestor($node);
                  $this->validation->set_default_value('id',$id);
                  $this->validation->set_default_value('name',$node['name']); 

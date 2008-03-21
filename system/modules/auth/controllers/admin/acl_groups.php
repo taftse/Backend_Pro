@@ -57,6 +57,13 @@
              $this->load->view(Site_Controller::$_container,$data);
          }
          
+         /**
+          * Group form
+          * 
+          * @access public
+          * @param integer $id Group ID
+          * @return void 
+          */
          function form($id = NULL)
          {             
              // Setup form validation
@@ -73,18 +80,28 @@
              if( ! is_null($id) AND ! $this->input->post('submit'))
              {
                  // Load values into form
-                 /*$node = $this->access_control_model->group->getNodeFromId($id);
+                 $node = $this->access_control_model->group->getNodeFromId($id);
                  
                  // Check it isn't the root
-                 if( $this->access_control_model->resource->checkNodeIsRoot($node)){
-                     flashMsg('warning',sprintf($this->lang->line('access_resource_root'),$node['name']));
-                     redirect('auth/admin/acl_resources');
+                 if( $this->access_control_model->group->checkNodeIsRoot($node)){
+                     flashMsg('warning',sprintf($this->lang->line('access_group_root'),$node['name']));
+                     redirect('auth/admin/acl_groups');
                  }
                  
-                 $parent = $this->access_control_model->resource->getAncestor($node);
-                 $this->validation->set_default_value('id',$id);
+                 // Fetch the disabled value
+                 $query = $this->access_control_model->fetch('groups','disabled',NULL,array('id'=>$id));
+                 $row = $query->row();
+                 
+                 $parent = $this->access_control_model->group->getAncestor($node);
+                 $this->validation->set_default_value('id',$id);    
+                 $this->validation->set_default_value('disabled',$row->disabled);    
                  $this->validation->set_default_value('name',$node['name']); 
-                 $this->validation->set_default_value('parent',$parent['name']);*/ 
+                 $this->validation->set_default_value('parent',$parent['name']); 
+             }
+             elseif( is_null($id) AND ! $this->input->post('submit'))
+             {
+                 // Create form, first load
+                 $this->validation->set_default_value('disabled','0');     
              }
              elseif( $this->input->post('submit'))
              {
@@ -98,7 +115,7 @@
                  $this->validation->output_errors();
                  
                  // Get Resources
-                 $data['groups'] = $this->access_control_model->buildACLDropdown('groups');
+                 $data['groups'] = $this->access_control_model->buildACLDropdown('group');
                  
                  // Display Page  
                  $data['header'] = (is_null($id)?$this->lang->line('access_create_group'):$this->lang->line('access_edit_group'));
@@ -109,175 +126,67 @@
              }
              else
              {   
-                 $name = $this->input->post('name');   
+                 $name = $this->input->post('name');  
+                 $disabled = $this->input->post('disabled');   
                  $parent = $this->input->post('parent'); 
                  
                  if( is_null($id))
                  {            
-                     // Create Resource
+                     // Create Group
                      $this->load->library('khacl');                     
                      
                      $this->db->trans_start();
-                     if( ! $this->khacl->aco->create($name,$parent))
+                     if( ! $this->khacl->aro->create($name,$parent))
                      {
-                         flashMsg('warning',sprintf($this->lang->line('access_resource_exists'),$name));
-                         redirect('auth/admin/acl_resources/form'); 
+                         flashMsg('warning',sprintf($this->lang->line('access_group_exists'),$name));
+                         redirect('auth/admin/acl_groups/form'); 
                      }  
                      
-                     $this->access_control_model->insert('resources',array('id'=>$this->db->insert_id()));
+                     $this->access_control_model->insert('groups',array('id'=>$this->db->insert_id(),'disabled'=>$disabled));
                      
                      if( $this->db->trans_status() === TRUE)
                      {
                          $this->db->trans_commit();
-                         flashMsg('success',sprintf($this->lang->line('access_resource_created'),$name)); 
+                         flashMsg('success',sprintf($this->lang->line('access_group_created'),$name)); 
                      }
                      else
                      {
                          $this->db->trans_rollback(); 
-                         flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_create_resource'))); 
+                         flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_create_group'))); 
                      }  
                  }
                  else
                  {
                      $id = $this->input->post('id');
-                     // Update Resource
-                     $node = $this->access_control_model->resource->getNodeFromId($id);
-                     $new_parent = $this->access_control_model->resource->getNodeWhere("name='".$parent."'");
+                     // Update Group
+                     $node = $this->access_control_model->group->getNodeFromId($id);
+                     $new_parent = $this->access_control_model->group->getNodeWhere("name='".$parent."'");
                      
                      // Check the assigment isn't illeagal
-                     if($this->access_control_model->resource->checkNodeIsChildOrEqual($new_parent,$node)){
-                        flashMsg('warning',sprintf($this->lang->line('access_resource_illegal_assignment'),$name));
-                        redirect('auth/admin/acl_resources/form/'.$id);   
+                     if($this->access_control_model->group->checkNodeIsChildOrEqual($new_parent,$node)){
+                        flashMsg('warning',sprintf($this->lang->line('access_group_illegal_assignment'),$name));
+                        redirect('auth/admin/acl_groups/form/'.$id);   
                      }
                      
-                     $this->access_control_model->resource->setNodeAsLastChild($node,$new_parent);
-                     flashMsg('success',sprintf($this->lang->line('access_resource_saved'),$name)); 
+                     $this->db->trans_start();
+                     
+                     $this->access_control_model->group->setNodeAsLastChild($node,$new_parent);
+                     $this->access_control_model->update('groups',array('disabled'=>$disabled),array('id'=>$id)); 
+                     $this->access_control_model->update('aros',array('name'=>$name),array('id'=>$id)); 
+                     
+                     if($this->db->trans_status() === TRUE)
+                     {
+                         $this->db->trans_commit();
+                         flashMsg('success',sprintf($this->lang->line('access_group_saved'),$name));
+                     }
+                     else
+                     {
+                         $this->db->trans_rollback();
+                         flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_edit_group')));
+                     } 
                  }
-                 redirect('auth/admin/acl_resources');
+                 redirect('auth/admin/acl_groups');
              }
-         }
-         
-         /**
-          * Manage a group
-          * 
-          * @access public
-          * @param integer $id Group ID
-          * @return void
-          */
-         function manage($id)
-         {
-             // Stop modifying root
-             if($id==1)
-                redirect('auth/admin/acl_groups');
-             
-             $fields['id'] = $this->lang->line('access_id');    
-             $fields['name'] = $this->lang->line('access_name');    
-             $fields['parent'] = $this->lang->line('access_parent');
-             $fields['disabled'] = $this->lang->line('access_disabled');
-             $this->validation->set_fields($fields);        
-             
-             // Get group details
-             $query = $this->access_control_model->fetch('groups','disabled',NULL,array('id'=>$id));
-             $group = $query->row_array();
-             
-             // Get node details
-             $obj = & $this->access_control_model->group;
-             $node = $obj->getNodeFromId($id);
-             $parent = $obj->getAncestor($node);
-             
-             $group['id'] = $id;
-             $group['name'] = $node['name'];
-             $group['parent'] = $parent['name'];   
-             
-             $this->validation->set_default_value($group);            
-             
-             // Display Page
-             $data['header'] = $this->lang->line('access_modify_group');
-             $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/modify_group";
-             $data['module'] = 'auth';
-             $this->load->view(Site_Controller::$_container,$data);
-         }
-         
-         /**
-          * Create Groups
-          * 
-          * @access public
-          * @return void 
-          */
-         function create()
-         {
-             
-             // Setup validation
-             $this->load->library('validation');
-             
-             $fields['name'] = $this->lang->line('access_name');
-             $fields['parent'] = $this->lang->line('access_parent_name');
-             $rules['name'] = 'trim|required|min_length[3]';
-             $rules['parent'] = 'required';
-             $this->validation->set_fields($fields);
-             $this->validation->set_rules($rules);
-             
-             if($this->validation->run() === FALSE)
-             {
-                 // FAIL
-                 $this->validation->output_errors();          
-             }
-             else
-             {
-                 // PASS
-                 $name = $this->input->post('name');  
-                 $parent = $this->input->post('parent');   
-                 $disabled = $this->input->post('disabled');   
-                 $this->load->module_library('auth','khacl');  
-                 
-                 // Create Group
-                 $this->db->trans_begin();                 
-                 if( ! $this->khacl->aro->create($name,$parent)){
-                    flashMsg('warning',sprintf($this->lang->line('access_group_exists'),$name));
-                    $fail = TRUE;
-                 } else {
-                     // Add extra group info
-                     $this->access_control_model->insert('groups',array('id'=>$this->db->insert_id(),'disabled'=>$disabled));
-                 }                 
-                 
-                 if($this->db->trans_status() === FALSE OR isset($fail)){
-                     $this->db->trans_rollback();
-                 } else {
-                     $this->db->trans_commit();
-                     flashMsg('success',sprintf($this->lang->line('backendpro_created'),'Group')); 
-                 }
-             }
-             redirect('auth/admin/acl_groups','location');
-         }   
-         
-         /**
-          * Modify a group 
-          */
-         function modify()
-         {
-             $id = $this->input->post('id');
-             $disabled = $this->input->post('disabled');
-             $name = $this->input->post('name');
-             $parent = $this->input->post('parent');
-             
-             // Check they didn't assign the parent as itself
-             if($name == $parent)
-             {
-                 flashMsg('warning',$this->lang->line('access_parent_loop_created')); 
-                 redirect('auth/admin/acl_groups/manage/'.$id);
-             }
-             
-             
-             // Update the disabled value
-             $this->access_control_model->update('groups',array('disabled'=>$disabled),array('id'=>$id));
-             
-             // Move the node
-             $node = $this->access_control_model->group->getNodeWhere("name='".$name."'");
-             $new_parent = $this->access_control_model->group->getNodeWhere("name='".$parent."'");
-             $this->access_control_model->group->setNodeAsLastChild($node,$new_parent);
-             
-             flashMsg('success',sprintf($this->lang->line('backendpro_saved'),"Group '".$name."'")); 
-             redirect('auth/admin/acl_groups');
          }
          
          /**
@@ -289,25 +198,25 @@
          function delete()
          {
              if(FALSE === ($groups = $this->input->post('select')))
-                redirect('auth/admin/acl_groups','location'); 
-                
-             $this->load->module_library('auth','khacl');
+                redirect('auth/admin/acl_groups','location');   
+             
+             $this->load->library('khacl');
              foreach($groups as $group)
              {
-                 // Check the group we are deleting isn't the default, if so disalow it
-                 $query = $this->access_control_model->fetch('aros','id',NULL,array('name'=>$group));
-                 $row = $query->row();
-                 if($row->id == $this->preference->item('default_user_group')){
-                    flashMsg('error',sprintf($this->lang->line('accces_delete_default'),$group));
+                 // Check we havn't already deleted it as a child of another node
+                 $query = $this->access_control_model->fetch('aros',NULL,NULL,array('name'=>$group));
+                 if($query->num_rows() === 0){
+                    flashMsg('success',sprintf($this->lang->line('access_group_deleted'),$group));
                     continue;
-                 }              
+                 }  
                  
-                 if( $this->access_control_model->delete('groups',array('id'=>$row->id,'name'=>$group)))
-                    flashMsg('success',sprintf($this->lang->line('backendpro_deleted'),$group));
+                 if( $this->khacl->aro->delete($group))
+                    flashMsg('success',sprintf($this->lang->line('access_group_deleted'),$group));
                  else
-                    flashMsg('warning',sprintf($this->lang->line('backendpro_deleted_fail'),$group));
+                    flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_delete_group')));
              }
+             
              redirect('auth/admin/acl_groups','location');
-         }     
+         }    
      }
 ?>

@@ -2,7 +2,6 @@
 
 <a href="<?=site_url('auth/admin/acl_groups/form')?>" class="icon_add"><?=$this->lang->line('access_create_group')?></a>
 
-<!-- VIEW GROUPS -->
 <?=form_open('auth/admin/acl_groups/delete')?> 
 <table class="data_grid">
 <thead>
@@ -23,47 +22,26 @@
 <tbody>
     <?php 
     // Output nested resource view
-    $resourceObj = & $this->access_control_model->group;
-    $tree = $resourceObj->getTreePreorder($resourceObj->getRoot());
+    $obj = & $this->access_control_model->group;
+    $tree = $obj->getTreePreorder($obj->getRoot());
     
-    while($resourceObj->getTreeNext($tree)):        
-        $lvl = $resourceObj->getTreeLevel($tree);
-        $offset = '';
-        
-        // Nest the tree
-        if($lvl > 1){
-            $ancestor = $resourceObj->getAncestor($tree['row']);
-            while( ! $resourceObj->checkNodeIsRoot($ancestor))
-            {
-                if($resourceObj->checkNodeHasNextSibling($ancestor)):
-                    // Ancestor has sibling so put a | in offset
-                    $offset = "|&nbsp;&nbsp; " . $offset;
-                else:
-                    // No next sibling just put space
-                    $offset = "&nbsp;&nbsp;&nbsp; " . $offset;   
-                endif; 
-                $ancestor = $resourceObj->getAncestor($ancestor);                            
-            }
-        }                
-        
-        // If this is the last node add branch terminator
-        if($resourceObj->checkNodeHasNextSibling($tree['row']))
-            $offset .= "|- ";
-        elseif($lvl != 0)
-            $offset .= "'- "; 
-            
-        // Get extra group information
+    while($obj->getTreeNext($tree)):        
+        // See if this group is locked
         $query = $this->access_control_model->fetch('groups',NULL,NULL,array('id'=>$tree['row']['id']));
-        $row = $query->row_array();
-        $disable = ($row['disabled']?'tick.png':'cross.png');   
-        $edit = '<a href="'.site_url('auth/admin/acl_groups/manage/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets').'icons/pencil.png').'</a>';                
+        $row = $query->row();     
+        
+        // Get Offset
+        $offset = $this->access_control_model->buildPrettyOffset(&$obj,$tree);
+        $edit = ($obj->checkNodeIsRoot($tree['row'])?'&nbsp;':'<a href="'.site_url('auth/admin/acl_resources/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets'). 'icons/pencil.png').'</a>');           
+        $disable = ($row->disabled?'tick.png':'cross.png');
+        $edit = ($obj->checkNodeIsRoot($tree['row']))?'':'<a href="'.site_url('auth/admin/acl_groups/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets').'icons/pencil.png').'</a>';
     ?>  
         <tr>
             <td><?=$tree['row']['id']?></td>
             <td><?=$offset.$tree['row']['name']?></td>
             <td class="middle"><?=img($this->config->item('shared_assets').'icons/'.$disable)?></td> 
-            <td class="middle"><?=($tree['row']['id']==1?'':$edit)?></td> 
-            <td><?=($row['locked']?'':form_checkbox('select[]',$tree['row']['name'],FALSE))?></td>
+            <td class="middle"><?=$edit?></td> 
+            <td><?=($row->locked OR $this->preference->item('default_user_group')==$tree['row']['id'])?'':form_checkbox('select[]',$tree['row']['name'],FALSE)?></td>
         </tr>
     <?php endwhile; ?>
 </tbody>

@@ -5,7 +5,7 @@
         <ol>
             <li>
                 <?=form_label($this->lang->line('access_name'),'name')?>
-                <?=form_input('name',$this->validation->name,'class="text"'.($this->validation->id==''?'':' READONLY'))?>
+                <?=form_input('name',$this->validation->name,'class="text"')?>
             </li>
             <li>
                 <?=form_label($this->lang->line('access_disabled'),'disabled')?>
