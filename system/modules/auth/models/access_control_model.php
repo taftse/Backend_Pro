@@ -269,25 +269,6 @@
             return $data;
         }
         
-        /**
-         * Custom Function to remove all group details
-         * 
-         * @access private
-         * @param mixed $where Delete group where 
-         */
-        function _delete_groups($where)
-        {
-            // Remove group
-            if ( !$this->khacl->aro->delete($where['name']))
-                return FALSE;
-
-            // Remove extra group infomation
-            return $this->db->delete($this->_TABLES['groups'],array('id'=>$where['id']));
-        }
-        
-        
-        
-        
         
         
         

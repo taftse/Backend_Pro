@@ -694,7 +694,7 @@ class KH_ACL_ACO
 	    {
 	        $link = is_numeric($link)?$link:'NULL';
 	        
-    	    if ($parent === null)
+    	    if ( is_null($parent))
     	    {
     	        /*
     	         * If no parent is set then we can add the ARO
@@ -714,7 +714,7 @@ class KH_ACL_ACO
     	        }
     	        
     	        // Insert the record
-    	        $this->_CI->db->query('INSERT INTO '.$this->_Tables['acos'].' (lft, rgt, name, link) VALUES ('.($right + 1).', '.($right + 2).', '.$this->_CI->db->escape($aco).', '.$link.')');
+    	        return $this->_CI->db->query('INSERT INTO '.$this->_Tables['acos'].' (lft, rgt, name, link) VALUES ('.($right + 1).', '.($right + 2).', '.$this->_CI->db->escape($aco).', '.$link.')');
     	    }
     	    else 
     	    {
@@ -734,18 +734,28 @@ class KH_ACL_ACO
     	            $left = $row->lft;
     	        }
     	        
+                $this->_CI->db->trans_start();
+                
     	        // Update all records past the left point by 2 to make room for the new ARO
     	        $this->_CI->db->query('UPDATE '.$this->_Tables['acos'].' SET rgt = rgt + 2 WHERE rgt > '.$left);
     	        $this->_CI->db->query('UPDATE '.$this->_Tables['acos'].' SET lft = lft + 2 WHERE lft > '.$left);
     	        
     	        // Insert the record
                 $this->_CI->db->query('INSERT INTO '.$this->_Tables['acos'].' (lft, rgt, name, link) VALUES ('.($left + 1).', '.($left + 2).', '.$this->_CI->db->escape($aco).', '.$link.')');    	        
-    	    }
     	    
-    	    return true;
+                if($this->_CI->db->trans_status() === TRUE)
+                {
+                    $this->_CI->db->trans_commit();
+                    return true;
+                }
+                else
+                {
+                    $this->_CI->db->trans_rollback();
+                    return false;
+                }            
+            }
 	    }
-	    else 
-	       return false;
+        return false;
 	}	
 	
 	/**
@@ -808,9 +818,11 @@ class KH_ACL_ACO
             $this->_CI->db->trans_commit();
             return true;
         }
-        
-        $this->_CI->db->trans_rollback();
-        return false;
+        else
+        {
+            $this->_CI->db->trans_rollback();
+            return false;
+        }
         /** End Code Change */
         
         /*$rs = $this->_CI->db->query('DELETE '.$this->_Tables['acos'].'

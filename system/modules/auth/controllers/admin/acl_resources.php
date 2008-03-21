@@ -80,12 +80,6 @@
                  // Load values into form
                  $node = $this->access_control_model->resource->getNodeFromId($id);
                  
-                 // Check it isn't the root
-                 if( $this->access_control_model->resource->checkNodeIsRoot($node)){
-                     flashMsg('warning',sprintf($this->lang->line('access_resource_root'),$node['name']));
-                     redirect('auth/admin/acl_resources');
-                 }
-                 
                  $parent = $this->access_control_model->resource->getAncestor($node);
                  $this->validation->set_default_value('id',$id);
                  $this->validation->set_default_value('name',$node['name']); 
@@ -176,6 +170,13 @@
              $this->load->library('khacl');
              foreach($resources as $resource)
              {
+                 // Check we havn't already deleted it as a child of another node
+                 $query = $this->access_control_model->fetch('acos',NULL,NULL,array('name'=>$resource));
+                 if($query->num_rows() === 0){
+                    flashMsg('success',sprintf($this->lang->line('access_resource_deleted'),$resource));
+                    continue;
+                 }  
+                 
                  if( $this->khacl->aco->delete($resource))
                     flashMsg('success',sprintf($this->lang->line('access_resource_deleted'),$resource));
                  else

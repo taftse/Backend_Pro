@@ -54,22 +54,20 @@
     $lang['access_resource_saved'] = "The resource '%s' has been saved successfully";
     $lang['access_resource_deleted'] = "The resource '%s' has been deleted successfully"; 
     $lang['access_resource_exists'] = "Cannot add the resource '%s' since it already exists!";   
-    $lang['access_resource_root'] = "Cannot modify the node '%s' since it is the root node.";
     $lang['access_resource_illegal_assignment'] = "Illegal assigment for new parent node of node '%s'";   
     $lang['access_delete_resources_confirm'] = "Are you SURE you want delete these resources? Doing so will also DELETE all permissions using these resources!";    
     
-    /* Groups */  
+    /* Groups */ 
+    $lang['access_disabled'] = "Disabled";
     $lang['access_create_group'] = "Create Group";
-    $lang['access_modify_group'] = "Modify Group"; 
-    $lang['access_disabled'] = "Disabled";   
-    $lang['access_group_exists'] = "Cannot add the group '%s' since it already exists!";
-    $lang['access_delete_groups'] = "Are you SURE you want delete these groups? Doing so will also DELETE all permissions using these resources!";
-    $lang['accces_delete_default'] = "Cannot delete the group '%s' since it is the current default user group"; 
-    $lang['access_parent_loop_created'] = "You cannot assign the parent of this node to be itself";      
-    
-    
-    
-    
+    $lang['access_edit_group'] = "Modify Group"; 
+    $lang['access_delete_group'] = "Delete Group"; 
+    $lang['access_group_created'] = "The group '%s' has been created successfully";
+    $lang['access_group_saved'] = "The group '%s' has been saved successfully";
+    $lang['access_group_deleted'] = "The group '%s' has been deleted successfully"; 
+    $lang['access_group_exists'] = "Cannot add the group '%s' since it already exists!";   
+    $lang['access_group_illegal_assignment'] = "Illegal assigment for new parent node of node '%s'";   
+    $lang['access_delete_groups_confirm'] = "Are you SURE you want delete these groups? Doing so will also DELETE all permissions using these groups!";       
     
     /* Permissions */
     $lang['access_permissions_table_desc'] = "Items in <font color='green'><b>green</b></font> means that group is <b>ALLOWED</b> access to it, while <font color='red'><b>red</b></font> means they are <b>DENIED</b> access to it. A resource access write takes priority over action access writes. For example if a resource is marked as <b>DENIED</b>, it dosn't matter if an action is <b>ALLOWED</b> the resource & all actions will be <b>DENIED</b>."; 
