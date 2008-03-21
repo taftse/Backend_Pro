@@ -1,12 +1,7 @@
 Since users are assigned to a group, what happens if there group is removed? Should
 they be assigned a default group, or not allow deletion.
 
-Find way to make it so you can edit resources. Its rather inconvinent
-not to be able to do this.
-
 Allow permissions to have a note applied to them
-
-Move the JS code of selecting multiple checkboxes to a common folder.
 
 Make it so when a new user is created in the control panel, and they are not activated
 an email is sent to them explaining what to do next.
@@ -16,14 +11,16 @@ now login
 
 Make a filter library that stores filter options into a session variable for the user, for a set page.
 
-Get rid of maxium password length
-
 Don't allow someone to delete their own user account
 
 Implement utilities
 
 Fix the page class so when assets are cached the BODY { font-size: 75% } is actualy read instead of ignored
 Also implment more compression rules
+
+Make it so when modifying a resource/group the node and its children are not shown in the dropdown
+
+in acl_actions update the code so it has better error handling, specifcly the delete method
 
 INSTALLATION FILE
 ---------------------------------------
@@ -32,8 +29,6 @@ Generate encryption key
 link to database
 
 setup basic first account under the superadmin group
-
-
 
 
 DOCUMENTATION

@@ -8,7 +8,6 @@
      * @author          Adam Price
      * @copyright       Copyright (c) 2008
      * @license         http://www.gnu.org/licenses/lgpl.html
-     * @tutorial        BackendPro.pkg
      */
 
      // ---------------------------------------------------------------------------
@@ -42,8 +41,14 @@
              log_message('debug','ACL Resources Class Initialized'); 
          }
          
+         /**
+          * Display Resources
+          * 
+          * @access public
+          * @return void 
+          */
          function index()
-         {                                       
+         {                                                         
              // Display Page
              $data['header'] = $this->lang->line('access_resources');
              $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/resources";
@@ -52,47 +57,110 @@
          }
          
          /**
-          * Create Resource
+          * Display Form
           * 
           * @access public
-          * @return void 
+          * @param integer $id Resource ID
+          * @return void
           */
-         function create()
-         {
-             
-             // Setup validation
+         function form($id = NULL)
+         {             
+             // Setup form validation
              $this->load->library('validation');
-             
+             $fields['id'] = "ID";
              $fields['name'] = $this->lang->line('access_name');
              $fields['parent'] = $this->lang->line('access_parent_name');
-             $rules['name'] = 'trim|required|min_length[3]';
-             $rules['parent'] = 'required';
              $this->validation->set_fields($fields);
-             $this->validation->set_rules($rules);
+             
+             $rules['name'] = "trim|required|max_length[254]";
+             $rules['parent'] = "required";
+             
+             if( ! is_null($id) AND ! $this->input->post('submit'))
+             {
+                 // Load values into form
+                 $node = $this->access_control_model->resource->getNodeFromId($id);
+                 
+                 // Check it isn't the root
+                 if( $this->access_control_model->resource->checkNodeIsRoot($node)){
+                     flashMsg('warning',sprintf($this->lang->line('access_resource_root'),$node['name']));
+                     redirect('auth/admin/acl_resources');
+                 }
+                 
+                 $parent = $this->access_control_model->resource->getAncestor($node);
+                 $this->validation->set_default_value('id',$id);
+                 $this->validation->set_default_value('name',$node['name']); 
+                 $this->validation->set_default_value('parent',$parent['name']); 
+             }
+             elseif( $this->input->post('submit'))
+             {
+                 // Form submited, check rules
+                 $this->validation->set_rules($rules);
+             }
              
              if($this->validation->run() === FALSE)
              {
-                 // FAIL
-                 $this->validation->output_errors();          
+                 // Display Errors
+                 $this->validation->output_errors();
+                 
+                 // Get Resources
+                 $data['resources'] = $this->access_control_model->buildACLDropdown('resource');
+                 
+                 // Display Page  
+                 $data['header'] = (is_null($id)?$this->lang->line('access_create_resource'):$this->lang->line('access_edit_resource'));
+                 $this->page->set_crumb($data['header'],'auth/admin/acl_resources/form/'.$id);   
+                 $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/form_resource";
+                 $data['module'] = 'auth';
+                 $this->load->view(Site_Controller::$_container,$data);
              }
              else
-             {
-                 // PASS
-                 $name = $this->input->post('name');  
-                 $parent = $this->input->post('parent');  
-                 $this->load->module_library('auth','khacl');  
+             {   
+                 $name = $this->input->post('name');   
+                 $parent = $this->input->post('parent'); 
                  
-                 if($this->khacl->aco->create($name,$parent)){
-                    flashMsg('success',sprintf($this->lang->line('backendpro_created'),'Resource'));
-                 
-                 
-                    $this->access_control_model->insert('resources',array('id'=>$this->db->insert_id()));
+                 if( is_null($id))
+                 {            
+                     // Create Resource
+                     $this->load->library('khacl');                     
+                     
+                     $this->db->trans_start();
+                     if( ! $this->khacl->aco->create($name,$parent))
+                     {
+                         flashMsg('warning',sprintf($this->lang->line('access_resource_exists'),$name));
+                         redirect('auth/admin/acl_resources/form'); 
+                     }  
+                     
+                     $this->access_control_model->insert('resources',array('id'=>$this->db->insert_id()));
+                     
+                     if( $this->db->trans_status() === TRUE)
+                     {
+                         $this->db->trans_commit();
+                         flashMsg('success',sprintf($this->lang->line('access_resource_created'),$name)); 
+                     }
+                     else
+                     {
+                         $this->db->trans_rollback(); 
+                         flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_create_resource'))); 
+                     }  
                  }
                  else
-                    flashMsg('warning',sprintf($this->lang->line('access_resource_exists'),$name));
+                 {
+                     $id = $this->input->post('id');
+                     // Update Resource
+                     $node = $this->access_control_model->resource->getNodeFromId($id);
+                     $new_parent = $this->access_control_model->resource->getNodeWhere("name='".$parent."'");
+                     
+                     // Check the assigment isn't illeagal
+                     if($this->access_control_model->resource->checkNodeIsChildOrEqual($new_parent,$node)){
+                        flashMsg('warning',sprintf($this->lang->line('access_resource_illegal_assignment'),$name));
+                        redirect('auth/admin/acl_resources/form/'.$id);   
+                     }
+                     
+                     $this->access_control_model->resource->setNodeAsLastChild($node,$new_parent);
+                     flashMsg('success',sprintf($this->lang->line('access_resource_saved'),$name)); 
+                 }
+                 redirect('auth/admin/acl_resources');
              }
-             redirect('auth/admin/acl_resources','location');
-         }   
+         } 
          
          /**
           * Delete Resources
@@ -103,19 +171,17 @@
          function delete()
          {
              if(FALSE === ($resources = $this->input->post('select')))
-                redirect('auth/admin/acl_resources','location'); 
-                
-             $this->load->module_library('auth','khacl');
+                redirect('auth/admin/acl_resources','location');   
+             
+             $this->load->library('khacl');
              foreach($resources as $resource)
              {
-                 // Check the group we are deleting isn't the default, if so disalow it
-                 $query = $this->access_control_model->fetch('acos','id',NULL,array('name'=>$resource));
-                 $row = $query->row();       
-                 
-                 $this->access_control_model->delete('resources',array('id'=>$row->id));                 
-                 $this->khacl->aco->delete($resource);
-                 flashMsg('success',sprintf($this->lang->line('backendpro_deleted'),"Resource '".$resource."'"));
+                 if( $this->khacl->aco->delete($resource))
+                    flashMsg('success',sprintf($this->lang->line('access_resource_deleted'),$resource));
+                 else
+                    flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_delete_resoruce')));
              }
+             
              redirect('auth/admin/acl_resources','location');
          }     
      }

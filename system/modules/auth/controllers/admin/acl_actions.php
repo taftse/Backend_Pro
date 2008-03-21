@@ -81,7 +81,7 @@
              {
                  // PASS
                  $name = $this->input->post('name');
-                 $this->load->module_library('auth','khacl');  
+                 $this->load->library('khacl');  
                  
                  if($this->khacl->axo->create($name))
                     flashMsg('success',sprintf($this->lang->line('access_action_created'),$name));
@@ -102,11 +102,13 @@
              if(FALSE === ($actions = $this->input->post('select')))
                 redirect('auth/admin/acl_actions','location'); 
                 
-             $this->load->module_library('auth','khacl');
+             $this->load->library('khacl');
              foreach($actions as $action)
              {
-                 $this->khacl->axo->delete($action);
-                 flashMsg('success',sprintf($this->lang->line('access_action_deleted'),$action));
+                 if( $this->khacl->axo->delete($action))
+                    flashMsg('success',sprintf($this->lang->line('access_action_deleted'),$action));
+                 else
+                    flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_delete_action'))); 
              }
              redirect('auth/admin/acl_actions','location');
          }     

@@ -14,7 +14,7 @@
 <tfoot>
     <tr>
         <td colspan=2>&nbsp;</td>
-        <td><?=form_submit('delete',$this->lang->line('general_delete'),'onClick="return confirm(\''.$this->lang->line('access_delete_actions').'\');"')?></td>  
+        <td><?=form_submit('delete',$this->lang->line('general_delete'),'onClick="return confirm(\''.$this->lang->line('access_delete_actions_confirm').'\');"')?></td>  
     </tr>
 </tfoot>
 <tbody>

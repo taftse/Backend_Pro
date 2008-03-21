@@ -8,7 +8,6 @@
      * @author          Adam Price
      * @copyright       Copyright (c) 2008
      * @license         http://www.gnu.org/licenses/lgpl.html
-     * @tutorial        BackendPro.pkg
      */
 
      // ---------------------------------------------------------------------------
@@ -52,8 +51,183 @@
             $this->group->setControlParams($this->_TABLES['aros']);
             $this->group->setPrimaryKeyColumn('id');
 
-            log_message('debug','access_control_model Class Initialized');
+            log_message('debug','Access Control Model Class Initialized');
         }
+        
+        
+        /**
+         * Get Tree Array
+         * 
+         * @access public
+         * @param object $obj Reference to a Nested_sets_model object, ie $this->resource OR $this->group
+         * @return array
+         */
+        /*function getTreeArray($obj)
+        {
+            // Tree array to return
+            $tree_array = array();
+            
+            $tree = $obj->getTreePreorder($obj->getRoot());
+            while($obj->getTreeNext($tree))
+            {
+                if( $obj->checkNodeIsRoot($tree['row']))
+                {
+                    // This is the root node
+                    $tree_array[$tree['row']['name']] = $tree['row'];
+                    $tree_array[$tree['row']['name']]['children'] = array();
+                }
+                else
+                {
+                    // We have a child                    
+                    // Lets get its parent
+                    $parent = $obj->getAncestor($tree['row']);
+                    
+                    // Work out root from here back to the root
+                    $route_link = array($parent['name']);   
+                    while( ! $obj->checkNodeIsRoot($parent))
+                    {
+                        $parent = $obj->getAncestor($parent);
+                        $route_link[] = $parent['name'];
+                    }
+                    $route_link = array_reverse($route_link);
+                    
+                    // We now have route from root down to this node.
+                    $target =& $tree_array[array_shift($route_link)];
+                    
+                    if( ! empty($route_link))
+                    {
+                        foreach($route_link as $route)
+                        {
+                            $target =& $target['children'][$route];
+                        }
+                    }
+                    $target['children'][$tree['row']['name']] = $tree['row'];
+                    $target['children'][$tree['row']['name']]['children'] = array();
+                }  
+            }
+            
+            return $tree_array;
+        }*/
+        
+        /**
+         * Create Pretty Offset
+         * 
+         * Creates a pretty text offset to display nested items using basic text
+         * 
+         * @access public
+         * @param object $obj Reference to a Nested_sets_model object, e.g. $this->group, $this->resource
+         * @param array $tree Current Tree array
+         * @param string $next_ancestor_sibling String prepended to offset if there is a next sibling after the current ancestor    
+         * @param string $no_next_ancestor_sibling String prepended to offset if there is no next sibling after the current ancestor
+         * @param string $last_sibling String appended to offset if this is the last node of the current level   
+         * @param string $not_last_siling String appended to offset if this is not the last node of the current level  
+         */
+        function buildPrettyOffset($obj, $tree, 
+            $next_ancestor_sibling = "|&nbsp;&nbsp; ",
+            $no_next_ancestor_sibling = "&nbsp;&nbsp;&nbsp; ",
+            $last_sibling = "`- ",
+            $not_last_sibling = "|- ")
+        {
+            $lvl = $obj->getTreeLevel($tree);
+            
+            // Nest the tree
+            $offset = '';
+            if($lvl > 1){
+                $ancestor = $obj->getAncestor($tree['row']);
+                while( ! $obj->checkNodeIsRoot($ancestor))
+                {
+                    if($obj->checkNodeHasNextSibling($ancestor)):
+                        // Ancestor has sibling so put a | in offset
+                        $offset = $next_ancestor_sibling . $offset;
+                    else:
+                        // No next sibling just put space
+                        $offset = $no_next_ancestor_sibling . $offset;   
+                    endif; 
+                    $ancestor = $obj->getAncestor($ancestor);                            
+                }
+            }                      
+            
+            // If this is the last node add branch terminator
+            if($obj->checkNodeHasNextSibling($tree['row']))
+                $offset .= $not_last_sibling;
+            elseif($lvl != 0)
+                $offset .= $last_sibling;
+            return $offset;
+        }
+        
+        /**
+         * Build Pretty array for dropdown
+         * 
+         * Constructs an array of the given tree to be used for a dropdown menu
+         * 
+         * @access public
+         * @param string $tree_id Tree ID, either 'resource' OR 'group'
+         * @return array 
+         */
+        function buildACLDropdown($tree_id = NULL)
+        {
+            if( $tree_id != 'group' AND $tree_id != 'resource')
+                show_error("The tree_id for the dropdown must be either 'group' OR 'resource'.");
+            
+            $obj =& $this->{$tree_id};
+            $tree = $obj->getTreePreorder($obj->getRoot());
+            
+            $dropdown = array();
+            while($obj->getTreeNext($tree))
+            {
+                // Get offset
+                $offset = $this->buildPrettyOffset(&$obj,$tree);
+                
+                $dropdown[$tree['row']['name']] = $offset . $tree['row']['name'];
+            }        
+            return $dropdown;
+        }
+        
+        /**
+         * Delete Resource
+         * 
+         * Remove both the resource from the nested tree + its extra details
+         * 
+         * @access private
+         * @param mixed $where Remove resources where
+         * @return boolean 
+         */
+        /*function _delete_resources($where)
+        {
+            $this->load->library('khacl'); 
+            $sql = "SELECT id, name FROM ".$this->_TABLES['acos'].
+                   " JOIN ".$this->_TABLES['resources']." USING (id)";
+            $query = $this->db->query($sql);
+            foreach($query->result() as $row)
+            {
+                $this->db->trans_start();
+                $this->db->delete($this->_TABLES['resources'],array('id'=>$row->id));            
+                $this->khacl->aco->delete($row->name);
+                
+                if($this->db->trans_status() === TRUE)
+                {
+                    $this->db->trans_commit();
+                    flashMsg('success',sprintf($this->lang->line('access_resource_deleted'),$row->name));   
+                }
+                else
+                {
+                    $this->db->trans_rollback();
+                    flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('general_delete')." ".$row->name));
+                    return FALSE;
+                }
+            }
+            return TRUE;
+        }*/
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         /**
          * Get Permissions
@@ -110,6 +284,19 @@
             // Remove extra group infomation
             return $this->db->delete($this->_TABLES['groups'],array('id'=>$where['id']));
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -200,16 +387,3 @@
         }
     }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
-
-<html>
-<head>
-  <meta name="generator" content=
-  "HTML Tidy for Windows (vers 14 February 2006), see www.w3.org">
-
-  <title></title>
-</head>
-
-<body>
-</body>
-</html>

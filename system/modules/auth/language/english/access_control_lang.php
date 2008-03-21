@@ -39,11 +39,37 @@
     $lang['access_parent_name'] = "Parent";
     
     /* Actions */
-    $lang['access_create_action'] = "Create Action";
-    $lang['access_action_created'] = "The Action '%s' has been created successfully";
-    $lang['access_action_deleted'] = "The Action '%s' has been deleted successfully";
+    $lang['access_create_action'] = "Create Action"; 
+    $lang['access_delete_action'] = "Delete Action"; 
+    $lang['access_action_created'] = "The action '%s' has been created successfully";
+    $lang['access_action_deleted'] = "The action '%s' has been deleted successfully";
     $lang['access_action_exists'] = "Cannot add the action '%s' since it already exists!";
-    $lang['access_delete_actions'] = "Are you SURE you want to delete these actions? Doing so will REMOVE all actions from related permissions";
+    $lang['access_delete_actions_confirm'] = "Are you SURE you want to delete these actions? Doing so will REMOVE all actions from related permissions";
+    
+    /* Resources */
+    $lang['access_create_resource'] = "Create Resource";
+    $lang['access_edit_resource'] = "Modify Resource"; 
+    $lang['access_delete_resource'] = "Delete Resource"; 
+    $lang['access_resource_created'] = "The resource '%s' has been created successfully";
+    $lang['access_resource_saved'] = "The resource '%s' has been saved successfully";
+    $lang['access_resource_deleted'] = "The resource '%s' has been deleted successfully"; 
+    $lang['access_resource_exists'] = "Cannot add the resource '%s' since it already exists!";   
+    $lang['access_resource_root'] = "Cannot modify the node '%s' since it is the root node.";
+    $lang['access_resource_illegal_assignment'] = "Illegal assigment for new parent node of node '%s'";   
+    $lang['access_delete_resources_confirm'] = "Are you SURE you want delete these resources? Doing so will also DELETE all permissions using these resources!";    
+    
+    /* Groups */  
+    $lang['access_create_group'] = "Create Group";
+    $lang['access_modify_group'] = "Modify Group"; 
+    $lang['access_disabled'] = "Disabled";   
+    $lang['access_group_exists'] = "Cannot add the group '%s' since it already exists!";
+    $lang['access_delete_groups'] = "Are you SURE you want delete these groups? Doing so will also DELETE all permissions using these resources!";
+    $lang['accces_delete_default'] = "Cannot delete the group '%s' since it is the current default user group"; 
+    $lang['access_parent_loop_created'] = "You cannot assign the parent of this node to be itself";      
+    
+    
+    
+    
     
     /* Permissions */
     $lang['access_permissions_table_desc'] = "Items in <font color='green'><b>green</b></font> means that group is <b>ALLOWED</b> access to it, while <font color='red'><b>red</b></font> means they are <b>DENIED</b> access to it. A resource access write takes priority over action access writes. For example if a resource is marked as <b>DENIED</b>, it dosn't matter if an action is <b>ALLOWED</b> the resource & all actions will be <b>DENIED</b>."; 
@@ -58,18 +84,6 @@
     /* Advanced View */
     $lang['access_advanced_desc'] = "The page is used as an aid to show you how your system permissions work. Just looking at what permissions exist dosn't show you what groups have access to what resources. So select a group in the right hand tree and their resource access infomation will be shown in the middle tree. If you then click on a resource it will show you what actions the user can perform on the resource.";
     
-    /* Groups */  
-    $lang['access_create_group'] = "Create Group";
-    $lang['access_modify_group'] = "Modify Group"; 
-    $lang['access_disabled'] = "Disabled";   
-    $lang['access_group_exists'] = "Cannot add the group '%s' since it already exists!";
-    $lang['access_delete_groups'] = "Are you SURE you want delete these groups? Doing so will also DELETE all permissions using these resources!";
-    $lang['accces_delete_default'] = "Cannot delete the group '%s' since it is the current default user group"; 
-    $lang['access_parent_loop_created'] = "You cannot assign the parent of this node to be itself";      
     
-    /* Resources */
-    $lang['access_create_resource'] = "Create Resource"; 
-    $lang['access_action_exists'] = "Cannot add the resource '%s' since it already exists!";
-    $lang['access_delete_resources'] = "Are you SURE you want delete these resources? Doing so will also DELETE all permissions using these resources!";    
     
     ?>

@@ -796,7 +796,24 @@ class KH_ACL_ACO
         $right = $row->rgt;
         $width = ($right - $left) + 1;
 
-        $rs = $this->_CI->db->query('DELETE '.$this->_Tables['acos'].'
+        /** Start Code Change */
+        $this->_CI->db->trans_start();
+        
+        $this->_CI->db->delete($this->_Tables['acos'],'lft BETWEEN '.$left.' AND '.$right);        
+        $this->_CI->db->query('UPDATE '.$this->_Tables['acos'].' SET rgt = rgt - '.$width.' WHERE rgt > '.$right);
+        $this->_CI->db->query('UPDATE '.$this->_Tables['acos'].' SET lft = lft - '.$width.' WHERE lft > '.$right);
+        
+        if($this->_CI->db->trans_status() === true)
+        {
+            $this->_CI->db->trans_commit();
+            return true;
+        }
+        
+        $this->_CI->db->trans_rollback();
+        return false;
+        /** End Code Change */
+        
+        /*$rs = $this->_CI->db->query('DELETE '.$this->_Tables['acos'].'
                                        FROM '.$this->_Tables['acos'].'
                                        LEFT JOIN '.$this->_Tables['access'].' ON '.$this->_Tables['acos'].'.id = '.$this->_Tables['access'].'.aco_id
                                        LEFT JOIN '.$this->_Tables['access_actions'].' ON '.$this->_Tables['access'].'.id = '.$this->_Tables['access_actions'].'.access_id
@@ -808,7 +825,7 @@ class KH_ACL_ACO
         $this->_CI->db->query('UPDATE '.$this->_Tables['acos'].' SET rgt = rgt - '.$width.' WHERE rgt > '.$right);
         $this->_CI->db->query('UPDATE '.$this->_Tables['acos'].' SET lft = lft - '.$width.' WHERE lft > '.$right);
         
-        return true;
+        return true; */
 	}	
 }
 
@@ -878,11 +895,12 @@ class KH_ACL_AXO
 	    if ($rs->num_rows() === 0)
 	    {
 	        // Insert new AXO
-	        $this->_CI->db->query('INSERT INTO '.$this->_Tables['axos'].' (name) VALUES ('.$this->_CI->db->escape($axo).')');
-	        return true;
+            /** Added return on line beliw */
+	        return $this->_CI->db->query('INSERT INTO '.$this->_Tables['axos'].' (name) VALUES ('.$this->_CI->db->escape($axo).')');
+	        //return true;
 	    }
-	    else 
-	       return false;	    
+	    //else 
+	    return false;	    
 	}
 	
 	/**
@@ -908,10 +926,10 @@ class KH_ACL_AXO
 	    }
 	            
 	    // delete acces->action links
-	    $this->_CI->db->query('DELETE FROM '.$this->_Tables['access_actions'].' WHERE axo_id = ?', array($axo_id));
+	    //$this->_CI->db->query('DELETE FROM '.$this->_Tables['access_actions'].' WHERE axo_id = ?', array($axo_id));
 	    
 	    // delete the AXO
-	    $this->_CI->db->query('DELETE FROM '.$this->_Tables['axos'].' WHERE id = ? LIMIT 1', array($axo_id));
+	    return $this->_CI->db->query('DELETE FROM '.$this->_Tables['axos'].' WHERE id = ? LIMIT 1', array($axo_id));
 	}
 }
 
