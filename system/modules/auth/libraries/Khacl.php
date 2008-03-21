@@ -112,7 +112,7 @@ class Khacl
     	if ($result['access'] == 'N')
     		return false;
     	
-    	if ($axo === null)
+    	if ( is_null($axo))
     	{
     	    /*
     	     * No AXO specified and we know the ARO has access to the ACO
@@ -263,7 +263,7 @@ class Khacl
             foreach ($aco_tree as $aco)
                 $interested[] = '('.$this->_Tables['access'].'.aro_id = '.$aro->id.' AND '.$this->_Tables['access'].'.aco_id = '.$aco->id.')';
 
-        if (count($interested) == 0) // No point continuing if were not interested in anything
+        if (count($interested) === 0) // No point continuing if were not interested in anything
             return false;
                         
         /*
@@ -322,7 +322,7 @@ class Khacl
 		// Grab the id of the ARO
 		if (($rs = $this->_CI->db->query('SELECT id FROM '.$this->_Tables['aros'].' WHERE name = ? LIMIT 1', array($aro))) !== false)
 		{
-		    if ($rs->num_rows() == 1)
+		    if ($rs->num_rows() === 1)
 		    {
 		        $row    = $rs->row();
 		        $aro_id = $row->id;
@@ -336,7 +336,7 @@ class Khacl
 		// Grab the id of the ACO
 		if (($rs = $this->_CI->db->query('SELECT id FROM '.$this->_Tables['acos'].' WHERE name = ? LIMIT 1', array($aco))) !== false)
 		{
-		    if ($rs->num_rows() == 1)
+		    if ($rs->num_rows() === 1)
 		    {
 		        $row    = $rs->row();
 		        $aco_id = $row->id;
@@ -348,11 +348,11 @@ class Khacl
 		    return false;		
 		
 		// Grab the id of the AXO
-		if ($axo !== null)
+		if ( ! is_null($axo))
 		{
     		if (($rs = $this->_CI->db->query('SELECT id FROM '.$this->_Tables['axos'].' WHERE name = ? LIMIT 1', array($axo))) !== false)
     		{
-    		    if ($rs->num_rows() == 1)
+    		    if ($rs->num_rows() === 1)
     		    {
     		        $row    = $rs->row();
     		        $axo_id = $row->id;
@@ -372,7 +372,7 @@ class Khacl
 		{
 		    if ($rs->num_rows() === 0) // Create new link
 		    {
-		    	if ($axo === null) // No AXO so set the ARO -> ACO access to whatever is set by $allow
+		    	if ( is_null($axo)) // No AXO so set the ARO -> ACO access to whatever is set by $allow
 		    	{
 	                if (!$this->_CI->db->query('INSERT INTO '.$this->_Tables['access'].' (aro_id, aco_id, allow) VALUES (?, ?, ?)', array($aro_id, $aco_id, $allow)))
 	                    return false;
@@ -390,7 +390,7 @@ class Khacl
                 $row       = $rs->row();
                 $access_id = $row->id;
                 
-                if ($axo === null) // No AXO so update the ARO -> ACO access to whatever is specified by $allow
+                if ( is_null($axo)) // No AXO so update the ARO -> ACO access to whatever is specified by $allow
                 {
                     if ($row->allow != $allow)
                         if (!$this->_CI->db->query('UPDATE '.$this->_Tables['access'].' SET allow = ? WHERE id = ?', array($allow, $access_id)))
@@ -410,7 +410,7 @@ class Khacl
 		 * If needed create/modify the access -> action link in the access_actions table
 		 */
 		
-		if ($axo !== null)
+		if ( ! is_null($axo))
 		{
     		if (($rs = $this->_CI->db->query('SELECT id, allow FROM '.$this->_Tables['access_actions'].' WHERE access_id = ? AND axo_id = ? LIMIT 1', array($access_id, $axo_id))) !== false)
     		{
@@ -527,7 +527,7 @@ class KH_ACL_ARO
     	        }
     	        
     	        // Insert the record
-    	        $this->_CI->db->query('INSERT INTO '.$this->_Tables['aros'].' (lft, rgt, name, link) VALUES ('.($right + 1).', '.($right + 2).', '.$this->_CI->db->escape($aro).', '.$link.')');
+    	        return $this->_CI->db->query('INSERT INTO '.$this->_Tables['aros'].' (lft, rgt, name, link) VALUES ('.($right + 1).', '.($right + 2).', '.$this->_CI->db->escape($aro).', '.$link.')');
     	    }
     	    else 
     	    {
@@ -547,18 +547,28 @@ class KH_ACL_ARO
     	            $left = $row->lft;
     	        }
     	        
-    	        // Update all records past the left point by 2 to make room for the new ARO
+                $this->_CI->db->trans_start();
+                
+                // Update all records past the left point by 2 to make room for the new ARO
     	        $this->_CI->db->query('UPDATE '.$this->_Tables['aros'].' SET rgt = rgt + 2 WHERE rgt > '.$left);
     	        $this->_CI->db->query('UPDATE '.$this->_Tables['aros'].' SET lft = lft + 2 WHERE lft > '.$left);
     	        
     	        // Insert the record
                 $this->_CI->db->query('INSERT INTO '.$this->_Tables['aros'].' (lft, rgt, name, link) VALUES ('.($left + 1).', '.($left + 2).', '.$this->_CI->db->escape($aro).', '.$link.')');    	        
-    	    }
     	    
-    	    return true;
+                if($this->_CI->db->trans_status() === TRUE)
+                {
+                    $this->_CI->db->trans_commit();
+                    return true;
+                }
+                else
+                {
+                    $this->_CI->db->trans_rollback();
+                    return false;
+                }
+            }
 	    }
-	    else 
-	       return false;
+	    return false;
 	}
 	
 	/**
@@ -609,7 +619,26 @@ class KH_ACL_ARO
         $right = $row->rgt;
         $width = ($right - $left) + 1;
         
-        $rs = $this->_CI->db->query('DELETE '.$this->_Tables['aros'].'
+        /** Start Code Change */
+        $this->_CI->db->trans_start();
+        
+        $this->_CI->db->delete($this->_Tables['aros'],'lft BETWEEN '.$left.' AND '.$right);        
+        $this->_CI->db->query('UPDATE '.$this->_Tables['aros'].' SET rgt = rgt - '.$width.' WHERE rgt > '.$right);
+        $this->_CI->db->query('UPDATE '.$this->_Tables['aros'].' SET lft = lft - '.$width.' WHERE lft > '.$right);
+        
+        if($this->_CI->db->trans_status() === true)
+        {
+            $this->_CI->db->trans_commit();
+            return true;
+        }
+        else
+        {
+            $this->_CI->db->trans_rollback();
+            return false;
+        }
+        /** End Code Change */
+        
+        /*$rs = $this->_CI->db->query('DELETE '.$this->_Tables['aros'].'
                                        FROM '.$this->_Tables['aros'].'
                                        LEFT JOIN '.$this->_Tables['access'].' ON '.$this->_Tables['aros'].'.id = '.$this->_Tables['access'].'.aro_id
                                        LEFT JOIN '.$this->_Tables['access_actions'].' ON '.$this->_Tables['access'].'.id = '.$this->_Tables['access_actions'].'.access_id
@@ -621,7 +650,7 @@ class KH_ACL_ARO
         $this->_CI->db->query('UPDATE '.$this->_Tables['aros'].' SET rgt = rgt - '.$width.' WHERE rgt > '.$right);
         $this->_CI->db->query('UPDATE '.$this->_Tables['aros'].' SET lft = lft - '.$width.' WHERE lft > '.$right);
         
-        return true;
+        return true;*/
 	}
 }
 

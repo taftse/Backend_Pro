@@ -181,53 +181,7 @@
                 $dropdown[$tree['row']['name']] = $offset . $tree['row']['name'];
             }        
             return $dropdown;
-        }
-        
-        /**
-         * Delete Resource
-         * 
-         * Remove both the resource from the nested tree + its extra details
-         * 
-         * @access private
-         * @param mixed $where Remove resources where
-         * @return boolean 
-         */
-        /*function _delete_resources($where)
-        {
-            $this->load->library('khacl'); 
-            $sql = "SELECT id, name FROM ".$this->_TABLES['acos'].
-                   " JOIN ".$this->_TABLES['resources']." USING (id)";
-            $query = $this->db->query($sql);
-            foreach($query->result() as $row)
-            {
-                $this->db->trans_start();
-                $this->db->delete($this->_TABLES['resources'],array('id'=>$row->id));            
-                $this->khacl->aco->delete($row->name);
-                
-                if($this->db->trans_status() === TRUE)
-                {
-                    $this->db->trans_commit();
-                    flashMsg('success',sprintf($this->lang->line('access_resource_deleted'),$row->name));   
-                }
-                else
-                {
-                    $this->db->trans_rollback();
-                    flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('general_delete')." ".$row->name));
-                    return FALSE;
-                }
-            }
-            return TRUE;
-        }*/
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        }             
         
         /**
          * Get Permissions
@@ -248,7 +202,7 @@
             $this->db->join($this->_TABLES['acos'].' AS acos','acl.aco_id=acos.id'); 
             $this->db->join($this->_TABLES['axos'].' AS axos','actions.axo_id=axos.id','left');      
             $this->db->order_by('aro, aco, axo');           
-            if($where != NULL){$this->db->where($where);}
+            if( ! is_null($where)){$this->db->where($where);}
             if(is_array($limit)){$this->db->limit($limit['limit'],$limit['offset']);}
             $query = $this->db->get();
             
@@ -261,7 +215,7 @@
                 $data[$id]['aco'] = $row['aco'];
                 $data[$id]['allow'] = ($row['allow']=='Y') ? TRUE : FALSE;     
                 
-                if($row['axo']!=NULL){
+                if( ! is_null($row['axo'])){
                     $allow = ($row['axo_allow']=='Y') ? TRUE : FALSE;
                     $data[$id]['actions'][] = array('allow'=>$allow,'axo'=>$row['axo']);
                 }
@@ -269,26 +223,15 @@
             return $data;
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        /**
+         * Build Action Selector
+         * 
+         * Constructs the interface to be used when creating/modifying a permission.
+         * It allows the user to select what actions if any the permission has.
+         * 
+         * @access public
+         * @return string 
+         */
         function buildActionSelector()
         {
             $value = '';
@@ -307,27 +250,53 @@
             return $value;
         }
         
-        function buildResourceSelector($disabled=FALSE)
+        /**
+         * Build Resource Selector
+         * 
+         * Used to build the tree like radio button interface to select a resource
+         * 
+         * @access public
+         * @param boolean $disabled Whether the radio buttons should be clickable
+         * @return string 
+         */
+        function buildResourceSelector($disabled = FALSE)
         {
             return $this->_buildSelector($disabled,'aco'); 
         }
         
-        function buildGroupSelector($disabled=FALSE)
+        /**
+         * Build Group Selector
+         * 
+         * Used to build the tree like radio button interface to select a group
+         * 
+         * @access public
+         * @param boolean $disabled Whether the radio buttons should be clickable
+         * @return string 
+         */
+        function buildGroupSelector($disabled = FALSE)
         {
             return $this->_buildSelector($disabled,'aro');
         }
         
+        /**
+         * Build Selector
+         * 
+         * Abstract method to construct a generic tree like radio button interface
+         * 
+         * @access private
+         * @param boolean $disabled Whether the radio buttons should be clickable
+         * @param string $type Table ID to use, either 'aro' => 'group', or 'aco' => 'resource'
+         * @return string 
+         */
         function _buildSelector($disabled,$type)
-        {
-            $this->load->library('validation');
-            
+        {            
             // Value to return
             $value = '';
             
             // Set the table type
             switch($type){
-                case 'aco':$obj = & $this->resource;break;
-                case 'aro':$obj = & $this->group;break;
+                case 'aco': $obj = & $this->resource; break;
+                case 'aro': $obj = & $this->group; break;
             }
             
             $disabled = ($disabled) ? ' disabled' : ''; 
@@ -335,34 +304,33 @@
             // Create Selector
             $tree = $obj->getTreePreorder($obj->getRoot());
             $lvl = 0;
-            while($obj->getTreeNext($tree)):
+            while($obj->getTreeNext($tree))
+            {
                 // Nest the tree
                 $newLvl = $obj->getTreeLevel($tree);
                 if ($lvl > $newLvl){
                     // Just gone up some levels
-                    for($i=0;$i<$lvl-$newLvl;$i++) 
-                        $value .= "</ul></li>";
+                    $value .= str_repeat("</ul></li>",$lvl-$newLvl);
                 }
                 $lvl = $newLvl;
                 
                 $set = $this->validation->set_radio($type,$tree['row']['name']);
                 
                 // If no node is set and this is the root, set it
-                if($set == NULL AND $obj->checkNodeIsRoot($tree['row']))
+                if( ! is_null($set) AND $obj->checkNodeIsRoot($tree['row']))
                     $set = ' checked';
                 
-                $open = ($set!=NULL) ? ' class="open"' : '';
+                $open = ( ! is_null($set)) ? ' class="open"' : '';
                 $value .='<li id="'.$tree['row']['id'].'"'.$open.'>'.form_radio($type,$tree['row']['name'],$set,$disabled).'<span>'.$tree['row']['name'].'</span>';   
 
                 if($obj->checkNodeHasChildren($tree['row']))
                     $value .= "<ul>";
                 else
                     $value .= "</li>";
-            endwhile;
+            }
             
             // Close Tree
-            for($i=0;$i<$lvl;$i++)
-                $value .= "</ul></li>";
+            $value .= str_repeat("</ul></li>",$lvl);
                 
             return $value;
         }

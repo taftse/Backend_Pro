@@ -22,5 +22,5 @@
     </tr>
 </table>
 <?=form_hidden('id',$this->validation->id)?>
-<?=form_submit('submit',$this->lang->line('access_save'))?>
+<?=form_submit('submit',$this->lang->line('general_save'))?>
 <?=form_close()?>

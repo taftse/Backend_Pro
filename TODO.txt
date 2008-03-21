@@ -17,6 +17,8 @@ Also implment more compression rules
 
 Make it so when modifying a resource/group the node and its children are not shown in the dropdown
 
+Create javascript loading signs for advanced view permissions page
+
 INSTALLATION FILE
 ---------------------------------------
 Generate encryption key
@@ -37,3 +39,10 @@ explain system preferences and their variable names
 
 explain defaults resources/groups
 
+
+RELEASE LIBRARIES
+-------------------------------------------
+
+Kaydoo :: Preferences
+Kaydoo :: Status
+Kaydoo :: Page

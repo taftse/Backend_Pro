@@ -71,17 +71,23 @@
     
     /* Permissions */
     $lang['access_permissions_table_desc'] = "Items in <font color='green'><b>green</b></font> means that group is <b>ALLOWED</b> access to it, while <font color='red'><b>red</b></font> means they are <b>DENIED</b> access to it. A resource access write takes priority over action access writes. For example if a resource is marked as <b>DENIED</b>, it dosn't matter if an action is <b>ALLOWED</b> the resource & all actions will be <b>DENIED</b>."; 
-    $lang['access'] = "Access";
     $lang['access_create_permission'] = "Create Permission";
-    $lang['access_edit_permission'] = "Modify Permission";
+    $lang['access_edit_permission'] = "Modify Permission"; 
+    $lang['access_delete_permission'] = "Delete Permission";
+    $lang['access_permission_created'] = "Permission has been created successfully";
+    $lang['access_permission_saved'] = "Permission has been saved successfully";
+    $lang['access_permissions_deleted'] = "Permissions have been deleted successfully";
+    $lang['access_advanced_permissions'] = "Advanced View Mode";
+    $lang['access'] = "Access";  
     $lang['access_allow'] = "Allow";
-    $lang['access_deny'] = "Deny";
-    $lang['access_advanced_permissions'] = "Advanced View Mode"; 
-    $lang['access_delete_permissions'] = "Are you SURE you want to delete these permissions? WARNING: DOING SO MAY LOCK YOU OUT OF THE SYSTEM!";
+    $lang['access_deny'] = "Deny";     
+    $lang['access_delete_permissions_confirm'] = "Are you SURE you want to delete these permissions? WARNING: DOING SO MAY LOCK YOU OUT OF THE SYSTEM!";
     
     /* Advanced View */
-    $lang['access_advanced_desc'] = "The page is used as an aid to show you how your system permissions work. Just looking at what permissions exist dosn't show you what groups have access to what resources. So select a group in the right hand tree and their resource access infomation will be shown in the middle tree. If you then click on a resource it will show you what actions the user can perform on the resource.";
-    
-    
-    
-    ?>
+    $lang['access_advanced_desc'] = "This page is used as an aid to show you how 
+    your system permissions work. Just looking at what permissions exist dosn't 
+    show you what groups have access to what resources. So select a group in the 
+    right hand tree and their resource access infomation will be shown in the 
+    middle tree. If you then click on a resource it will show you what actions 
+    the group can perform on the resource."; 
+?>

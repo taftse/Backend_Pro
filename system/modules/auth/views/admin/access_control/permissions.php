@@ -4,19 +4,19 @@
 <table width=100% cellspacing=0>
 <thead>
     <tr>
-        <th width=5%><?=$this->lang->line('access_id')?></th> 
+        <th width=5%><?=$this->lang->line('general_id')?></th> 
         <th width=25%><?=$this->lang->line('access_groups')?></th> 
         <th width=25%><?=$this->lang->line('access_resources')?></th> 
         <th width=25%><?=$this->lang->line('access_actions')?></th> 
-        <th width=10% class="middle"><?=$this->lang->line('access_edit')?></th> 
-        <th width=10%><?=form_checkbox('all','select',FALSE)?></th> 
+        <th width=10% class="middle"><?=$this->lang->line('general_edit')?></th> 
+        <th width=10%><?=form_checkbox('all','select',FALSE) . $this->lang->line('general_delete')?></th> 
     </tr>
 </thead>
 
 <tfoot>
     <tr>
         <td colspan=5>&nbsp;</td>
-        <td><?=form_submit('delete',$this->lang->line('access_delete'),'onClick = "return confirm(\''.$this->lang->line('access_delete_permissions').'\');"')?></td>
+        <td><?=form_submit('delete',$this->lang->line('general_delete'),'onClick = "return confirm(\''.$this->lang->line('access_delete_permissions_confirm').'\');"')?></td>
     </tr>
 </tfoot>
 
@@ -40,12 +40,12 @@
                 else { print "&nbsp;"; }
                 ?>
             </td> 
-            <td class="middle"><a href="<?=site_url('auth/admin/acl_permissions/manage/'.$key)?>"><img src="<?=base_url().$this->config->item('shared_assets').'icons/pencil.png'?>" /></a></td> 
+            <td class="middle"><a href="<?=site_url('auth/admin/acl_permissions/form/'.$key)?>"><img src="<?=base_url().$this->config->item('shared_assets').'icons/pencil.png'?>" /></a></td> 
             <td style="vertical-align:middle"><?=form_checkbox('select[]',$key,FALSE)?></td> 
         </tr>
         <?php } ?>
 </tbody>
 <?=form_close()?>
 </table>
-<?=anchor('auth/admin/acl_permissions/manage',$this->lang->line('access_create_permission'),array('class'=>'icon_add'))?>&nbsp;&nbsp;&nbsp;
+<?=anchor('auth/admin/acl_permissions/form',$this->lang->line('access_create_permission'),array('class'=>'icon_add'))?>&nbsp;&nbsp;&nbsp;
 <?=anchor('auth/admin/acl_permissions/view',$this->lang->line('access_advanced_permissions'),array('class'=>'icon_lightning'))?>                                                                                      

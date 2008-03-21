@@ -45,7 +45,9 @@ div.advanced_view_tree {
     overflow: auto;
 }
 
-#access_resources span { cursor: pointer; }
+#access_resources span { cursor: pointer; display: block; }
+
+#access_resources span:hover { font-weight: bold; }
 
 /* DATA GRID TABLE, FOR DISPLAYING TABULAR DATA */
 table.data_grid { width: 100%; }

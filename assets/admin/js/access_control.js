@@ -44,12 +44,15 @@ $(document).ready(function(){
         function(val){
             $('#access_resources').html(val);
             
+            // Replace the text in the action div
+            $('#access_actions').text('Please select a resource to view its action permissions.');
+            
             // Make it so when we click on a resource its actions are displayed
             $('#access_resources span').click(function(){
                 var group = $('#access_groups input[name="aro"]:checked').val();
                 var resource = $(this).parent().attr('id');
                 fetchViewActions(group,resource);
-            });        
+            });       
         });
     }
     

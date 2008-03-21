@@ -8,7 +8,6 @@
      * @author          Adam Price
      * @copyright       Copyright (c) 2008
      * @license         http://www.gnu.org/licenses/lgpl.html
-     * @tutorial        BackendPro.pkg
      */
 
      // ---------------------------------------------------------------------------
@@ -42,6 +41,12 @@
              log_message('debug','ACL Permissions Cass Initialized'); 
          }
          
+         /**
+          * View Permissions
+          * 
+          * @access public
+          * @return void 
+          */
          function index()
          {                                       
              // Display Page
@@ -52,14 +57,15 @@
          } 
          
          /**
-          * Manage Permission
+          * Permission Form
           * 
           * @access public
           * @param integer $id Permission ID
           * @return void 
           */
-         function manage($id=NULL)
+         function form($id = NULL)
          {
+             $this->load->library('validation'); 
              // Load required JS
              $this->page->set_asset('admin','js','access_control.js');
              
@@ -68,7 +74,7 @@
              foreach($query->result() as $action)
                 $this->validation->set_default_value('allow_'.$action->name,'N'); 
              
-             if($id == NULL){
+             if( is_null($id)){
                 // CREATE PERMISSION
                 $data['header'] = $this->lang->line('access_create_permission');
                 
@@ -88,7 +94,7 @@
                 $this->validation->set_default_value('aco',$row['aco']);
                 $this->validation->set_default_value('allow',($row['allow']?'Y':'N')); 
                 
-                if(isset($row['actions'])){
+                if( isset($row['actions'])){
                     foreach($row['actions'] as $action)
                     {
                         $this->validation->set_default_value('action_'.$action['axo'],$action['axo']);
@@ -98,8 +104,8 @@
              }
              
              // Display Page
-             $this->page->set_crumb($data['header'],'auth/admin/acl_permissions/manage/'.$id); 
-             $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/manage_permission";
+             $this->page->set_crumb($data['header'],'auth/admin/acl_permissions/form/'.$id); 
+             $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/form_permission";
              $data['module'] = 'auth';
              $this->load->view(Site_Controller::$_container,$data);
          }   
@@ -117,10 +123,12 @@
              $allow = $this->input->post('allow'); 
              $id = $this->input->post('id');
              
-             $this->load->module_library('auth','khacl');
+             $this->load->library('khacl');
+             
+             $this->db->trans_start();
              
              // Remove old actions
-             if($id)
+             if($id != '')
                  $this->access_control_model->delete('access_actions',array('access_id'=>$id));
                  
              // Create permission                     
@@ -144,12 +152,26 @@
                  case 'N':$this->khacl->deny($aro,$aco);break;
              }
              
-             if($id)
-                flashMsg('success',sprintf($this->lang->line('backendpro_modified'),'Permission'));
+             // Did everything go OK?
+             if($this->db->trans_status() === TRUE)
+             {
+                 // Yup all good
+                 $this->db->trans_commit();
+                 if($id == '')
+                    flashMsg('success',$this->lang->line('access_permission_created'));
+                 else
+                    flashMsg('success',$this->lang->line('access_permission_saved'));
+             }
              else
-                flashMsg('success',sprintf($this->lang->line('backendpro_created'),'Permission'));
-                
-             redirect('auth/admin/acl_permissions','location');             
+             {
+                 // Something went wrong
+                 $this->db->trans_rollback();
+                 if($id == '')
+                    flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_create_permission')));
+                 else
+                    flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_edit_permission')));
+             }
+             redirect('auth/admin/acl_permissions','location');         
          }
          
          /**
@@ -165,10 +187,9 @@
                 
              foreach($permissions as $permission)
              {
-                 $this->access_control_model->delete('access',array('id'=>$permission)); 
-                 $this->access_control_model->delete('access_actions',array('access_id'=>$permission)); 
+                 $this->access_control_model->delete('access',array('id'=>$permission));
              }
-             flashMsg('success',sprintf($this->lang->line('backendpro_deleted'),"Permissions"));   
+             flashMsg('success',$this->lang->line('access_permissions_deleted'));   
              redirect('auth/admin/acl_permissions','location');
          }
          
