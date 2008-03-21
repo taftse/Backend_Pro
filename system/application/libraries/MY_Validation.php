@@ -81,7 +81,7 @@
 
 			foreach ( $this->_error_array as $error )
 			{
-				flashMsg('error',$error);
+				flashMsg('warning',$error);
 			}
 			return;
 		}

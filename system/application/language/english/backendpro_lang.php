@@ -26,6 +26,8 @@
      $lang['general_save'] = "Save";
      $lang['general_documentation'] = "Documentation";
      
+     $lang['backendpro_action_failed'] = "The action '%s' has failed, please try again";
+     
      
      
      
@@ -44,12 +46,6 @@
      $lang['backendpro_view_website'] = 'View Website';   
      
      /* Status Messages */
-     //$lang['backendpro_created'] = '%s created successfully';
-     //$lang['backendpro_saved'] = '%s saved successfully';
-     //$lang['backendpro_deleted'] = '%s deleted successfully';
-     //$lang['backendpro_created_fail'] = 'Failed to create %s, please try again';
-     //$lang['backendpro_saved_fail'] = 'Failed to save %s, please try again';
-     //$lang['backendpro_deleted_fail'] = 'Failed to delete %s, please try again';
      //$lang['backendpro_in_maintenance_mode'] = "The website is currently in maintenance mode, only super administrators can view it.";
      
      //$lang['backendpro_confirm_deletes'] = 'Are you SURE you want to delete these records?';

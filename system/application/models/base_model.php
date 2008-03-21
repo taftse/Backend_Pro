@@ -136,7 +136,7 @@
 		{            
 			if(method_exists($this,'_delete_' . $name))
 			{
-				// There is an overide function
+                // There is an overide function
 				return call_user_method_array('_delete_'.$name,$this,array($where));
 			}
 			else
