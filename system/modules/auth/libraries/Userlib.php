@@ -606,7 +606,7 @@
         function _set_userlogin($id)
         {
             // Create Users session data
-            $user = $this->CI->user_model->getUsers(array('id'=>$id));
+            $user = $this->CI->user_model->getUsers(array('users.id'=>$id));
             $user = $user->row_array();            
             $this->CI->session->set_userdata($user);
 

@@ -23,6 +23,8 @@ Go over Userlib library, make sure when fetching user details the new model meth
 
 Implement communication module
 
+Implement utilitie logs
+
 INSTALLATION FILE
 ---------------------------------------
 Generate encryption key
