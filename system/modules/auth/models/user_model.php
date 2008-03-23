@@ -128,6 +128,21 @@
             return ($this->db->affected_rows() == 1) ? TRUE : FALSE;
         }
         
+        function getUsers($where = NULL, $limit = array('limit' => NULL, 'offset' => ''))
+        {
+            // Load the khacl config file so we can get the correct table name
+            $this->load->module_config('auth','khacl');
+            $acl_tables = $this->config->item('acl_tables');
+            
+            $this->db->select('users.id, users.username, users.email, users.active, users.last_visit, users.created, users.modified, groups.name group, groups.id group_id');
+            $this->db->from($this->_TABLES['Users'] . " users");
+            $this->db->join($this->_TABLES['UserProfiles'] . " profiles",'users.id=profiles.user_id');
+            $this->db->join($acl_tables['aros'] . " groups",'groups.id=users.group');
+            if( ! is_null($where)){ $this->db->where($where);}
+            if( ! is_null($limit['limit'])){ $this->db->limit($limit['limit'],( isset($limit['offset'])?$limit['offset']:''));}
+            return $this->db->get();
+        }
+        
         /**
         * Delete Users
         * 

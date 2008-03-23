@@ -35,42 +35,7 @@
          }
          
          function index()
-         {
-            // Create code for default_user_group
-            // Output nested resource view
-            $this->load->module_model('auth','access_control_model');
-            $obj = & $this->access_control_model->group;
-            $tree = $obj->getTreePreorder($obj->getRoot());
-            $groups = array();
-            while($obj->getTreeNext($tree)):
-                $lvl = $obj->getTreeLevel($tree);
-                $offset = '';
-                
-                // Nest the tree
-                if($lvl > 1){
-                    $ancestor = $obj->getAncestor($tree['row']);
-                    while( ! $obj->checkNodeIsRoot($ancestor))
-                    {
-                        if($obj->checkNodeHasNextSibling($ancestor)):
-                            // Ancestor has sibling so put a | in offset
-                            $offset = "|&nbsp;&nbsp; " . $offset;
-                        else:
-                            // No next sibling just put space
-                            $offset = "&nbsp;&nbsp;&nbsp; " . $offset;   
-                        endif; 
-                        $ancestor = $obj->getAncestor($ancestor);                            
-                    }
-                }                 
-                
-                // If this is the last node add branch terminator
-                if($obj->checkNodeHasNextSibling($tree['row']))
-                    $offset .= "|- ";
-                elseif($lvl != 0)
-                    $offset .= "'- ";                        
-                
-                $groups[$tree['row']['id']] = $offset.$tree['row']['name'];
-            endwhile;          
-            
+         {       
             // Setup the preference form
             $config['form_name'] = $this->lang->line('backendpro_settings');
             $config['form_link'] = 'admin/settings/index';
@@ -93,7 +58,7 @@
             $config['field']['activation_method'] = array('type'=>'dropdown','params'=>array('options'=>array('none'=>'No activation required','email'=>'Self activation by email','admin'=>'Manual activation by an administrator')));
             $config['field']['account_activation_time'] = array('rules'=>'trim|required|numeric'); 
             $config['field']['autologin_period'] = array('rules'=>'trim|required|numeric'); 
-            $config['field']['default_user_group'] = array('type'=>'dropdown','params'=>array('options'=>$groups));
+            $config['field']['default_user_group'] = array('type'=>'dropdown','params'=>array('options'=>$this->access_control_model->buildACLDropdown('group','id')));
             $config['field']['allow_user_profiles'] = array('type'=>'boolean');  
             
             $config['field']['use_login_captcha'] = array('type'=>'boolean');  

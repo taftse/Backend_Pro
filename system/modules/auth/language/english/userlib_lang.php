@@ -11,30 +11,33 @@
      * @license			http://www.gnu.org/licenses/lgpl.html
      */
      
-     /* Actions & Titles & Form labels */
-     $lang['userlib_logout'] = 'Logout';
+     /* User field names */
+     $lang['userlib_username'] = 'Username';
+     $lang['userlib_email'] = 'Email';
+     $lang['userlib_password'] = 'Password'; 
+     $lang['userlib_confirm_password'] = 'Confirm Password';
+     $lang['userlib_last_visit'] = "Last Visit";
+     $lang['userlib_active'] = "Active";
+     $lang['userlib_group'] = "Group";
+     $lang['userlib_captcha'] = 'Captcha';
+     
+     /* Actions & Titles & Form labels */   
      $lang['userlib_login'] = 'Login';
+     $lang['userlib_logout'] = 'Logout';     
      $lang['userlib_reset'] = 'Reset';
      $lang['userlib_remember_me'] = 'Remember Me';
      $lang['userlib_forgotten_password'] = 'Forgotten Password';
      $lang['userlib_reset_password'] = 'Reset Password';
-     $lang['userlib_email'] = 'Email';
-     $lang['userlib_password'] = 'Password'; 
-     $lang['userlib_username'] = 'Username';
-     $lang['userlib_confirm_password'] = 'Confirm Password'; 
-     $lang['userlib_captcha'] = 'Captcha';
      $lang['userlib_register'] = 'Register New Account';
-     $lang['userlib_id'] = "ID";
-     $lang['userlib_last_visit'] = "Last Visit";
-     $lang['userlib_active'] = "Active";
-     $lang['userlib_edit'] = "Edit";
-     $lang['userlib_delete'] = "Delete";
-     $lang['userlib_group'] = "Group";
      $lang['userlib_create_user'] = "Create Member";  
-     $lang['userlib_modify_user'] = "Modify Member";  
-     $lang['userlib_save'] = "Save";
+     $lang['userlib_edit_user'] = "Modify Member";
+     $lang['userlib_delete_user'] = "Delete Member";    
+     $lang['userlib_user_saved'] = "The member '%s' has been saved successfully";     
+     $lang['userlib_user_deleted'] = "The members have been deleted successfully";     
      $lang['userlib_user_profile'] = "User Profile";
-     $lang['userlib_profile_disabled'] = "User profiles have been disabled in the control panel settings.";
+     $lang['userlib_profile_disabled'] = "User profiles have been disabled on the control panel settings page. Please re-enable them to be able to edit this users profile.";
+     $lang['userlib_password_info'] = "If you are modifying a current member account, you do not need to enter the password fields unless you want to change their password.";
+     $lang['userlib_delete_user_confirm'] = "Are you SURE you want to delete these members? Doing so could loose system data!";
      
      /* Email activation messages */
      $lang['userlib_no_activation'] = 'You may login to your new account immediatly.';

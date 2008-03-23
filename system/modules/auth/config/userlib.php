@@ -27,4 +27,17 @@
     $config['userlib_action_forgotten_password'] = 'auth/login';
 	$config['userlib_action_admin_login'] = 'admin';
 	$config['userlib_action_admin_logout'] = '';
+    
+    /*
+    |--------------------------------------------------------------------------
+    | User Profile Fields
+    |--------------------------------------------------------------------------
+    | Define here all custom user profile fields and their respective rules
+    |
+    | To define a new custom profile field, you must specify an associative array
+    | from the database column name => Full Name/Rule. If no rule is given for 
+    | a specific field it will not be validated.
+    */
+    $config['userlib_profile_fields'] = array();
+    $config['userlib_profile_rules'] = array();
 ?>

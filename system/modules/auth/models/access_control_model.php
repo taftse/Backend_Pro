@@ -162,9 +162,10 @@
          * 
          * @access public
          * @param string $tree_id Tree ID, either 'resource' OR 'group'
+         * @param string $value_field Table field to use as the option value
          * @return array 
          */
-        function buildACLDropdown($tree_id = NULL)
+        function buildACLDropdown($tree_id = NULL,$value_field = 'name')
         {
             if( $tree_id != 'group' AND $tree_id != 'resource')
                 show_error("The tree_id for the dropdown must be either 'group' OR 'resource'.");
@@ -178,7 +179,7 @@
                 // Get offset
                 $offset = $this->buildPrettyOffset(&$obj,$tree);
                 
-                $dropdown[$tree['row']['name']] = $offset . $tree['row']['name'];
+                $dropdown[$tree['row'][$value_field]] = $offset . $tree['row']['name'];
             }        
             return $dropdown;
         }             

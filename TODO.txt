@@ -3,12 +3,10 @@ Allow permissions to have a note applied to them
 Make it so when a new user is created in the control panel, and they are not activated
 an email is sent to them explaining what to do next.
 
-When a news account is changed from disabled to active, email them saying they can
+When a new account is changed from disabled to active, email them saying they can
 now login
 
 Make a filter library that stores filter options into a session variable for the user, for a set page.
-
-Don't allow someone to delete their own user account
 
 Implement utilities
 
@@ -18,6 +16,10 @@ Also implment more compression rules
 Make it so when modifying a resource/group the node and its children are not shown in the dropdown
 
 Create javascript loading signs for advanced view permissions page
+
+Implement code to expire un-activated user accounts within the deadline
+
+Add button next to password to create a random password
 
 INSTALLATION FILE
 ---------------------------------------
