@@ -96,7 +96,7 @@
                 $email = $CI->session->userdata('email');
                 $group = $CI->session->userdata('group');
                 
-                if ($email != FALSE && $group != FALSE)
+                if ($email !== FALSE && $group !== FALSE)
                 {
                     // Logged in
                     log_message('debug','User is logged in');
@@ -118,7 +118,7 @@
 		 * @access public
 		 * @return boolean
 		 */
-		function check($resource,$action=NULL,$redirect=TRUE)
+		function check($resource,$action = NULL,$redirect = TRUE)
 		{
             log_message('debug','Checking if user has access to "'.$resource.'"');
             if ( $this->CI->session ) {
@@ -126,7 +126,7 @@
                 $email = $this->CI->session->userdata('email');
                 $group = $this->CI->session->userdata('group');
                 
-                if ( $email != FALSE && $group != FALSE)
+                if ( $email !== FALSE && $group !== FALSE)
                 {
                     // There user has a session with values
                     // Lets check there valid                    
@@ -421,7 +421,7 @@
                 break;
             } 
               
-            $this->CI->db->trans_begin();   
+            $this->CI->db->trans_start();   
             // Add user details to DB
             $this->CI->user_model->insert('Users',$data['users']);
             
@@ -487,9 +487,8 @@
             
             // Set Rules
             $rules['username'] = 'trim|required|max_length[32]|spare_username'; 
-            $rules['password'] = 'trim|required|alpha_dash|min_length['.$this->CI->preference->item('min_password_length').']|max_length['.$this->CI->preference->item('max_password_length').']'; 
-            $rules['confirm_password'] = 'trim|matches[password]|required'; 
-            $rules['email'] = 'trim|required|valid_email|spare_email'; 
+            $rules['password'] = 'trim|required|min_length['.$this->CI->preference->item('min_password_length').']|matches[confirm_password]'; 
+            $rules['email'] = 'trim|required|max_length[254]|valid_email|spare_email'; 
             if($this->CI->preference->item('use_registration_captcha')){ $rules['recaptcha_response_field'] = 'trim|required|valid_captcha';}
             $this->CI->validation->set_rules($rules);
 
@@ -607,7 +606,8 @@
         function _set_userlogin($id)
         {
             // Create Users session data
-            $user = $this->CI->user_model->getUserSessionData($id);
+            $user = $this->CI->user_model->getUsers(array('id'=>$id));
+            $user = $user->row_array();            
             $this->CI->session->set_userdata($user);
 
             if( !$this->CI->session ) {
