@@ -54,7 +54,7 @@ $config['uri_protocol']	= "AUTO";
 | http://codeigniter.com/user_guide/general/urls.html
 */
 
-$config['url_suffix'] = "";
+$config['url_suffix'] = ".html";
 
 /*
 |--------------------------------------------------------------------------
@@ -263,7 +263,7 @@ $config['cookie_path']		= "/";
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

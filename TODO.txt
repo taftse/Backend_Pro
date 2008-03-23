@@ -25,6 +25,14 @@ Implement communication module
 
 Implement utilitie logs
 
+Implement check for install files
+
+Update footer details linking back to my websites
+
+Make it so when you delete someones grou they get assign the default group
+
+Fix the mainteance mode
+
 INSTALLATION FILE
 ---------------------------------------
 Generate encryption key

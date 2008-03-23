@@ -23,11 +23,4 @@
          $CI = & get_instance();
          return $CI->userlib->is_user();
      }
-     
-     function dump($var)
-        {
-            print "<pre>";
-            print_r($var);
-            print "</pre";
-        }
 ?>
