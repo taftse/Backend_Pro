@@ -36,6 +36,7 @@
          
          function index()
          {       
+            $this->load->module_model('auth','access_control_model');
             // Setup the preference form
             $config['form_name'] = $this->lang->line('backendpro_settings');
             $config['form_link'] = 'admin/settings/index';
