@@ -131,9 +131,10 @@
     
     // STEP 3 - CREATE A USER ACCOUNT FOR THIS USER
     // Append the salt to the password
-    $password .= $encrypt_key;
+    $password = $_POST['password'] . $encrypt_key;
+    $password = sha1($password);
     
-    $sql[] = "INSERT INTO `be_users` (`id` ,`username` ,`password` ,`email` ,`active` ,`group` ,`activation_key` ,`last_visit` ,`created` ,`modified`)VALUES ('1', '".$_POST['username']."', SHA1( '".$password."' ) , '".$_POST['email']."', '1', '2', NULL , NULL , NOW( ) , NULL);";
+    $sql[] = "INSERT INTO `be_users` (`id` ,`username` ,`password` ,`email` ,`active` ,`group` ,`activation_key` ,`last_visit` ,`created` ,`modified`)VALUES ('1', '".$_POST['username']."', '".$password."', '".$_POST['email']."', '1', '2', NULL , NULL , NOW( ) , NULL);";
     $sql[] = "INSERT INTO `be_user_profiles` (`user_id`) VALUES ('1')";
     
     foreach($sql as $query)

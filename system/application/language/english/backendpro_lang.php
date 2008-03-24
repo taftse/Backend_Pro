@@ -47,7 +47,7 @@
      
      /* Status Messages */
      //$lang['backendpro_in_maintenance_mode'] = "The website is currently in maintenance mode, only super administrators can view it.";
-     
+     $lang['backendpro_remove_install'] = "Please remove the install directory from your base path, it is not safe to leave it in the system";
      //$lang['backendpro_confirm_deletes'] = 'Are you SURE you want to delete these records?';
      
      /* All Main Controller Names and menu items */

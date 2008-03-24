@@ -202,7 +202,7 @@
                 
                 // Display page
                 $data['header'] = $this->CI->lang->line('userlib_login');
-                $data['captcha'] = $this->_generate_captcha();
+                $data['captcha'] = ($this->CI->preference->item('use_login_captcha')?$this->_generate_captcha():'');
                 $data['page'] = $this->CI->config->item('backendpro_template_public') . 'form_login';
                 $data['module'] = 'auth'; 
                 $this->CI->load->view(Site_Controller::$_container,$data);
@@ -498,7 +498,7 @@
                 
                 // Display page
                 $data['header'] = $this->CI->lang->line('userlib_register');
-                $data['captcha'] = $this->_generate_captcha();  
+                $data['captcha'] = ($this->CI->preference->item('use_registration_captcha')?$this->_generate_captcha():'');   
                 $data['page'] = $this->CI->config->item('backendpro_template_public') . 'form_register';
                 $data['module'] = 'auth';
                 $this->CI->load->view(Site_Controller::$_container,$data);

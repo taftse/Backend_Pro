@@ -4,11 +4,10 @@
  *
  * A website backend system for developers for PHP 4.3.2 or newer
  *
- * @package		BackendPro
- * @author			Adam Price
- * @copyright		Copyright (c) 2008
- * @license			http://www.gnu.org/licenses/lgpl.html
- * @tutorial			BackendPro.pkg
+ * @package         BackendPro
+ * @author          Adam Price
+ * @copyright       Copyright (c) 2008
+ * @license         http://www.gnu.org/licenses/lgpl.html
  */
 
  // ---------------------------------------------------------------------------
@@ -19,83 +18,56 @@
  * Provides functionaly to query all tables related to the
  * user.
  *
- * @package			BackendPro
- * @subpackage		Models
+ * @package         BackendPro
+ * @subpackage      Models
  */
-	class User_model extends Base_model
-	{
-		/**
-		 * Constructor
-		 */
-		function User_model()
-		{
-			// Inherit from parent class
-			parent::Base_model();
+    class User_model extends Base_model
+    {
+        /**
+         * Constructor
+         */
+        function User_model()
+        {
+            // Inherit from parent class
+            parent::Base_model();
 
-			$this->_prefix = $this->config->item('backendpro_table_prefix');
-			$this->_TABLES = array(	'Users' => $this->_prefix . 'users',
-		                            'UserProfiles' => $this->_prefix . 'user_profiles');
+            $this->_prefix = $this->config->item('backendpro_table_prefix');
+            $this->_TABLES = array(    'Users' => $this->_prefix . 'users',
+                                    'UserProfiles' => $this->_prefix . 'user_profiles');
 
-			log_message('debug','User_model Class Initialized');
-		}
+            log_message('debug','User_model Class Initialized');
+        }
         
-		/**
-		 * Validate Login
-		 *
-		 * Verify that the given $username & $password are valid
-		 * for some user.
-		 *
-		 * @access public
-		 * @param string $username Users username
-		 * @param string $password Users password
-		 * @return Query
-		 */
-		function validateLogin($email, $password)
-		{
-			return $this->fetch('Users','id,active',null,array('email'=>$email,'password'=>$password));
-		}
+        /**
+         * Validate Login
+         *
+         * Verify that the given $username & $password are valid
+         * for some user.
+         *
+         * @access public
+         * @param string $username Users username
+         * @param string $password Users password
+         * @return Query
+         */
+        function validateLogin($email, $password)
+        {
+            return $this->fetch('Users','id,active',null,array('email'=>$email,'password'=>$password));
+        }
 
-		/**
-		 * Update Login Date
-		 *
-		 * Updates a users last_visit record to the current time
-		 *
-		 * @access public
-		 * @param integer $user_id Users user_id
-		 * @return void
-		 */
-		function updateUserLogin($id)
-		{
-			$this->update('Users',array('last_visit'=>date ("Y-m-d H:i:s")),array('id'=>$id));
-			return;
-		}
-
-		/**
-		 * Get User Session Data
-		 *
-		 * Fetch the users data that will be stored in their session
-		 * variable.
-		 *
-		 * @access public
-		 * @param integer $user_id Users user_id
-		 * @return array
-		 */
-		function getUserSessionData($id)
-		{        
-            $this->CI = & get_instance();
-            $this->CI->load->module_model('auth','access_control_model');    
-            
-            // Get user details
-            $query = $this->fetch('Users','id,username,email,group,last_visit,created,modified',NULL,array('id'=>$id));
-            $user_row = $query->row_array();
-            
-            // Get the group name
-            $query = $this->CI->access_control_model->fetch('aros','name',NULL,array('id'=>$user_row['group']));
-            $group_row = $query->row_array();
-            
-            $user_row['group'] = $group_row['name'];
-            return $user_row;
-		}
+        /**
+         * Update Login Date
+         *
+         * Updates a users last_visit record to the current time
+         *
+         * @access public
+         * @param integer $user_id Users user_id
+         * @return void
+         */
+        function updateUserLogin($id)
+        {
+            $this->update('Users',array('last_visit'=>date ("Y-m-d H:i:s")),array('id'=>$id));
+            return;
+        }
         
         /**
         * Valid Email
@@ -128,13 +100,21 @@
             return ($this->db->affected_rows() == 1) ? TRUE : FALSE;
         }
         
+        /**
+         * Get Users
+         * 
+         * @access public
+         * @param mixed $where Where query string/array
+         * @param array $limit Limit array including offset and limit values
+         * @return object 
+         */
         function getUsers($where = NULL, $limit = array('limit' => NULL, 'offset' => ''))
         {
             // Load the khacl config file so we can get the correct table name
             $this->load->module_config('auth','khacl');
             $acl_tables = $this->config->item('acl_tables');
             
-            $this->db->select('users.id, users.username, users.email, users.active, users.last_visit, users.created, users.modified, groups.name group, groups.id group_id');
+            $this->db->select('users.id, users.username, users.email, users.active, users.last_visit, users.created, users.modified, groups.name `group`, groups.id group_id');
             $this->db->from($this->_TABLES['Users'] . " users");
             $this->db->join($this->_TABLES['UserProfiles'] . " profiles",'users.id=profiles.user_id');
             $this->db->join($acl_tables['aros'] . " groups",'groups.id=users.group');
@@ -185,5 +165,5 @@
             }
             return TRUE;
         }
-	}
+    }
 ?>

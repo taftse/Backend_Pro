@@ -33,15 +33,6 @@ Make it so when you delete someones grou they get assign the default group
 
 Fix the mainteance mode
 
-INSTALLATION FILE
----------------------------------------
-Generate encryption key
-
-link to database
-
-setup basic first account under the superadmin group
-
-
 DOCUMENTATION
 ---------------------------------------
 
