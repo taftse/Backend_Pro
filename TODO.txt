@@ -19,8 +19,6 @@ Implement code to expire un-activated user accounts within the deadline
 
 Add button next to password to create a random password
 
-Go over Userlib library, make sure when fetching user details the new model method getUsers is used
-
 Implement communication module
 
 Implement utilitie logs
@@ -29,20 +27,32 @@ Implement check for install files
 
 Update footer details linking back to my websites
 
-Make it so when you delete someones grou they get assign the default group
+Make it so when you delete someones group they get assign the default group
 
-Fix the mainteance mode
+Fix the mainteance mode + debug messages
+
+Logging system to logg things like user login from certain IP's, changing of infomation
+from certain IP, what info was changed etc
+
+When the user increase the text size, the +/- for the main menu dosn't move, its not verticlay positioned correctly
 
 DOCUMENTATION
 ---------------------------------------
+explain base_model extend feature   
 
-Metion what css can be used to help with the backend
+Explain how views are done using a container and header footer pages
 
-explain what format a .php asset file must be in to work, mainly the header inclusion
+explain user auth, and how to extend it if need be, helper files,  also user_model funfctions
 
-explain system preferences and their variable names
+explain acess control, how it works using khacl+ nested sets. What the default groups/resources are
+explain also how to manage access control
 
-explain defaults resources/groups
+explain the page class, how to add assets, what the caching features does
+what format a .php file must be in and why it needs to be like this
+
+explain site side preferences, what default preferences there are, also how to use the preference class
+
+explain the use of recaptcha, don't need to suply keys if not being used
 
 
 RELEASE LIBRARIES
@@ -51,3 +61,5 @@ RELEASE LIBRARIES
 Kaydoo :: Preferences
 Kaydoo :: Status
 Kaydoo :: Page
+Kaydoo :: MY_Controller
+Kaydoo :: Base_Model

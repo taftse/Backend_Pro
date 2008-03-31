@@ -753,7 +753,7 @@ class Nested_sets_model extends Model {
      *  @return boolean True/False dependent upon the success of the operation
      *  @access private
      */
-    private function _setNewNode($node, $extrafields)
+    function _setNewNode($node, $extrafields)
     {
         $table      =       $this->table_name;
         $leftcol    =       $this->left_column_name;
@@ -803,7 +803,7 @@ class Nested_sets_model extends Model {
      * @return array $newpos The new left and right values of the node moved
      * @access private
      */
-    private function _moveSubtree($node, $targetValue)
+    function _moveSubtree($node, $targetValue)
     { 
         $sizeOfTree = $node[$this->right_column_name] - $node[$this->left_column_name] + 1;
         $this->_modifyNode($targetValue, $sizeOfTree);
@@ -838,7 +838,7 @@ class Nested_sets_model extends Model {
      * @param  $changeVal unsigned integer value for change
      * @access private
      */
-    private function _modifyNode($node_int, $changeVal)
+   function _modifyNode($node_int, $changeVal)
     {
         $leftcol        =       $this->left_column_name;
         $rightcol       =       $this->right_column_name;
@@ -868,7 +868,7 @@ class Nested_sets_model extends Model {
      * @access private
      */
      
-    private function _modifyNodeRange($lowerbound, $upperbound, $changeVal)
+    function _modifyNodeRange($lowerbound, $upperbound, $changeVal)
     {
         $leftcol        =       $this->left_column_name;
         $rightcol       =       $this->right_column_name;

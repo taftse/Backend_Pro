@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<title>BackendPro User Guide : Page Class</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+
+</head>
+
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"></div></div>
+<div id="nav2"><a name="top">&nbsp;</a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>BackendPro User Guide Version 0.2</h1></td>
+<td id="breadcrumb_right"><a href="../contents.html">Table of Contents</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://code.google.com/p/backendpro/">BackendPro Home</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;    
+Page Class
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="example.com/user_guide/" />Search User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Page Class</h1>
+
+<p>The Page Class provides you with features useful to outputing infomation from 
+PHP to controller views. Examples of these features include asset management, breadcrumb
+trail creation & PHP to JS variable conversion.
+
+<p class="important"><strong>Important:</strong>&nbsp; This class is initialized automatically by the system so there is no need to do it manually.</p>
+
+    
+<p>Features:</p>
+
+<ul>
+    <li>Asset Management</li>
+    <li>Breadcrumb Trail</li>
+    <li>PHP to JS variable conversion</li>
+</ul>
+
+<h2>How to use the Page Class?</h2>
+
+<p>Page Class is loaded by default by the BackendPro Class. The class file can be found at <var>system/module/page/libraries/page.php</var></p>
+
+
+<h2>Configuration Settings</h2>
+
+<p>All configuration settings for the Page Class can be found in <var>system/modules/page/config/page.php</var>.</p>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+<tr>
+    <th>Preference</th>
+    <th>Default&nbsp;Value</th>
+    <th>Options</th>
+    <th>Description</th>    
+</tr>
+<tr>
+    <td class="td"><strong>assets_dir</strong></td>
+    <td class="td">assets/</td>
+    <td class="td">None</td>
+    <td class="td">Location of assets dir</td>
+</tr>
+<tr>
+    <td class="td"><strong>admin_assets</strong></td>
+    <td class="td">assets/admin/</td>
+    <td class="td">None</td>
+    <td class="td">Location of admin assets dir</td>
+</tr>
+<tr>
+    <td class="td"><strong>public_assets</strong></td>
+    <td class="td">assets/public/</td>
+    <td class="td">None</td>
+    <td class="td">Location of public assets dir</td>
+</tr>
+<tr>
+    <td class="td"><strong>shared_assets</strong></td>
+    <td class="td">assets/shared/</td>
+    <td class="td">None</td>
+    <td class="td">Location of shared assets dir</td>
+</tr>
+<tr>
+    <td class="td"><strong>default_assets</strong></td>
+    <td class="td">Array</td>
+    <td class="td">None</td>
+    <td class="td">Array of assets to load on every controller</td>
+</tr>
+<tr>
+    <td class="td"><strong>asset_cache_length</strong></td>
+    <td class="td">0</td>
+    <td class="td">None</td>
+    <td class="td">Number of hours to keep asset cache's for, 0 means no caching will be used</td>
+</tr>
+<tr>
+    <td class="td"><strong>asset_cache_file_pfx</strong></td>
+    <td class="td">cache_</td>
+    <td class="td">None</td>
+    <td class="td">Asset cache file prefix</td>
+</tr>
+<tr>
+    <td class="td"><strong>default_page_variables</strong></td>
+    <td class="td">Array</td>
+    <td class="td">None</td>
+    <td class="td">Array of PHP variables to convert into JS variables by default</td>
+</tr>
+</table>
+
+
+<h2>Page Class Function Reference</h2>
+
+<h3>$this->page->set_asset()</h3>
+<p>Load an asset file:</p>
+<code>$this->page->set_asset('<var>shared/admin/public</var>','<var>css/js</var>','<var>filename</var>')</code>
+Allows you to specify an asset file to be loaded just for that controller. Please 
+note any assets loaded through this method will not be cached.</p>
+<p>The first parameter specifys what type of asset you want to load.</p> 
+<p>The second parameter is if the asset is a javascript file or a css style sheet.</p>
+<p>The final argument is the filename of the asset, including the extension. Please 
+note you can use <var>.php</var> files since they are executed before inclusion.</p>
+
+<h3>$this->page->set_variable()</h3>
+<p>Specify a variable for conversion:</p>
+<code>$this->page->set_variable('<var>name</var>',<var>value</var>)</code>
+<p>Converts a PHP variable into a javascript variable.</p> 
+<p>The first parameter is the name you want the javascript variable to be called.</p> 
+<p>The second parameter is the value you want to convert. You can specify any of
+the following: <kbd>string</kbd>, <kbd>integer</kbd>, <kbd>boolean</kbd>, <kbd>null</kbd>,
+<kbd>non-associative nested array</kbd>.</p>
+
+<h3>$this->page->set_crumb()</h3>
+<p>Create breadcrumb</p>
+<code>$this->page->set_crumb('<var>name</var>','<var>link</var>')</code>
+<p>Create a new crumb in the breadcrumb trail for this controller. The <var>link</var>
+should be in the form used by the rest of CodeIgniter, i.e. <var>controller/method</var></p>  
+
+<h3>$this->page->output_trail()</h3>
+<p>Output breadcrumb trail:</p>
+<code>$this->page->output_trail(<var>TRUE/FALSE</var>)</code>
+<p>Creates breadcrumb trail HTML. An example of the code created:</p> 
+<code>
+&lt;div id=&quot;breadcrumb&quot;&gt;
+<br />    &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href=&quot;first-link&quot; title=&quot;First Crumb&quot;&gt;First Crumb&lt;/a&gt; &amp;#187;
+<br />    &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href=&quot;second-link&quot; title=&quot;Second Crumb&quot;&gt;Second Crumb&lt;/a&gt; &amp;#187;
+<br />    &nbsp;&nbsp;&nbsp;&nbsp;Third Crumb
+<br />&lt;/div&gt;
+</code>
+<p>The second <strong>optional</strong> parameter specifys if the HTML should be 
+printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
+if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
+
+<h3>$this->page->output_assets()</h3>
+<p>Output assets:</p>
+<code>$this->page->output_assets('<var>admin/public</var>',TRUE/FALSE)</code>
+<p>Creates HTML code to include asset files into view file. Ane example of the code created:</p>
+<code>
+&lt;div id=&quot;breadcrumb&quot;&gt;
+<br />    &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href=&quot;first-link&quot; title=&quot;First Crumb&quot;&gt;First Crumb&lt;/a&gt; &amp;#187;
+<br />    &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href=&quot;second-link&quot; title=&quot;Second Crumb&quot;&gt;Second Crumb&lt;/a&gt; &amp;#187;
+<br />    &nbsp;&nbsp;&nbsp;&nbsp;Third Crumb
+<br />&lt;/div&gt;
+</code>
+<p>The second <strong>optional</strong> parameter specifys if the HTML should be 
+printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
+if set to <kbd>false</kbd> (boolean) the output will be returned.</p> 
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+<a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#">User Guide Home</a>
+</p>
+<p><a href="http://code.google.com/p/backendpro/">BackendPro</a> &nbsp;&middot;&nbsp; Copyright &#169; 2008 &nbsp;&middot;&nbsp; Adam Price</p>
+
+</div>
+
+</body>
+</html>

@@ -1,8 +1,13 @@
+/* DASHBOARD DIVS */
+#dashboard_left_container { float: left; width: 48%; }       
+#dashboard_right_container { float: right; width: 48%; }
 
-/* DISPLAY LOADIND */
-.large_loader { background: #EEE url(../../shared/images/large_loader.gif) no-repeat 50% 50%; }  
-.small_loader { background: #EEE url(../../shared/images/small_loader.gif) no-repeat 50% 50%; }  
+div.dashboard_widget {
+    height: 100px;
+    margin-bottom: 1.0em;
+}
 
+div.dashboard_widget #note { padding: 0.5em; }
 
 /* MENU NAVIGATION */
 #navigation #menu { padding: 2em 0 2em 2em; }

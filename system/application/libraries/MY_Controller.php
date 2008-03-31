@@ -37,10 +37,6 @@
             {
                 $this->output->enable_profiler(TRUE);
             }*/
-            
-            // Check to see if the install path still exists
-            if( is_dir('install'))
-                flashMsg('warning',$this->lang->line('backendpro_remove_install'));
         
             log_message('debug','Site_Controller Class Initialized');
         }
@@ -120,6 +116,10 @@
 
             // Make sure user is logged in
             check('Control Panel');
+            
+            // Check to see if the install path still exists
+            if( is_dir('install'))
+                flashMsg('warning',$this->lang->line('backendpro_remove_install'));
             
             // If the system is down display warning
             if($this->preference->item('maintenance_mode'))

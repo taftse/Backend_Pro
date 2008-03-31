@@ -34,10 +34,23 @@
          
          function index()
          {
-            // Display Page
-            $data['header'] = $this->lang->line('backendpro_dashboard');
-            $data['page'] = $this->config->item('backendpro_template_admin') . "home";
-            $this->load->view(Site_Controller::$_container,$data);
+             // Get the users notes
+             
+             // Construct statistics table
+             SELECT COUNT(*) AS unactive FROM be_users WHERE active=0;
+             SELECT COUNT(*) as members FROM be_users;
+             SELECT value AS system_status FROM be_preferences WHERE name="maintenance_mode"
+             
+             SELECT * FROM 
+            (SELECT COUNT(*) AS unactive FROM be_users WHERE active=0) AS unactive
+            JOIN (SELECT COUNT(*) as members FROM be_users) AS members
+
+             
+             
+             // Display Page
+             $data['header'] = $this->lang->line('backendpro_dashboard');
+             $data['page'] = $this->config->item('backendpro_template_admin') . "home";
+             $this->load->view(Site_Controller::$_container,$data);
          }
      }
 ?>
