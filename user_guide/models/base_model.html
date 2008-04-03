@@ -8,9 +8,7 @@
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv='expires' content='-1' />
-<meta http-equiv= 'pragma' content='no-cache' />
-<meta name='robots' content='all' />
+<meta name='robots' content='all' /> 
 
 </head>
 
@@ -33,11 +31,11 @@
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
 <td id="breadcrumb">
-<a href="http://code.google.com/p/backendpro/">BackendPro Home</a> &nbsp;&#8250;&nbsp;
-<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;    
+<a href="http://www.kaydoo.co.uk/projects/backendpro">BackendPro Home</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;   
 Base Model
 </td>
-<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="example.com/user_guide/" />Search User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="kaydoo.co.uk/projects/backendpro/user_guide/" />Search User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
 </tr>
 
 </table>
@@ -82,13 +80,20 @@ an array. This defines what table's your model has access to. It also means you 
 assign a nice string to mean a complex table name. So lets see an example of this:</p>
 <code>$this->custom_model->fetch(<var>'Table'</var>);</code>
 <p>Here we are doing a default fetch on <var>Table</var>. The advantage of using 
-strings to represent the table name instead of using the actual table name is to 
+strings to represent the table name instead of using the actual table name is 
 so you won't have to remember possibly long complex table names.</p>
 
 <p>As said before say you may want to implement further features than the basic functions 
-provide you with. So to overwrite the <kbd>fetch</kbd> function provided for a certain table
-you would include the following code in your model:</p>
-<p class="important">COMPLETE THIS PART</p>
+provide you with. Its possible in your model file to overwrite a certain action for a given 
+table. In the examples below <kbd>table</kbd> would be the table identifier you assigned for a given 
+table in the <dfn>$this->_TABLES</dfn> class variable.</p>
+<ul>
+<li><dfn>function _fetch_<kbd>table</kbd>(<var>fields</var>,<var>limit</var>,<var>where</var>){...}</dfn></li>
+<li><dfn>function _insert_<kbd>table</kbd>(<var>data</var>){...}</dfn></li>
+<li><dfn>function _update_<kbd>table</kbd>(<var>data</var>,<var>where</var>){...}</dfn></li>
+<li><dfn>function _delete_<kbd>table</kbd>(<var>where</var>){...}</dfn></li>
+</ul>
+<p>To call your newly created method you would just call the method as normal as explained below.</p>
 
 <h2>Function References</h2>
 
@@ -132,9 +137,9 @@ for the table you wish to query.</p>
 <div id="footer">
 <p>
 <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
-<a href="#">User Guide Home</a>
+<a href="../index.html">User Guide Home</a>
 </p>
-<p><a href="http://code.google.com/p/backendpro/">BackendPro</a> &nbsp;&middot;&nbsp; Copyright &#169; 2008 &nbsp;&middot;&nbsp; Adam Price</p>
+<p><a href="http://www.kaydoo.co.uk/projects/backendpro">BackendPro</a> &nbsp;&middot;&nbsp; Copyright &#169; 2008 &nbsp;&middot;&nbsp; <a href="http://www.kaydoo.co.uk">Adam Price</a></p>
 
 </div>
 

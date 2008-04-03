@@ -1,56 +1,71 @@
+-- PROBLEMS AND BUGS
+make pages validate 
+
+Change status display boxes so they uses classes instead of id's
+
+Make it so when modifying a resource/group the node and its children are not shown in the dropdown  
+
+Implement code to expire un-activated user accounts within the deadline 
+
+Fix the page class so when assets are cached the BODY { font-size: 75% } is actualy read instead of ignored
+Also implment more compression rules
+
+Implement check for install files
+Change it so if the user goes to view permission they don't get 10 messages when viewing the next page
+
+Make it so when you delete someones group they get assign the default group
+
+Fix the mainteance mode + debug messages
+
+Make it so any values in the profile table are stored in the session varialbe when a user logs in
+
+-- THINGS TO CHANGE
+Replace the random string generator in the userlib with the one included with CI 
+
+Update footer details linking back to my websites   
+
+When the user increase the text size, the +/- for the main menu dosn't move, its not verticlay positioned correctly  
+
+-- NEW FEATURES
+Dynamic HTML validation for every page
+
+Communication page to send emails to user groups, individual users
+
+Create a filter library so table columns can be ordered and results filter to search specifications (use sessions)
+
 Allow permissions to have a note applied to them
 
 Make it so when a new user is created in the control panel, and they are not activated
 an email is sent to them explaining what to do next. When a new account is changed
 from disabled to active, email them saying they can now login
 
-Make a filter library that stores filter options into a session variable for the user, for a set page.
-
-Implement utilities
-
-Fix the page class so when assets are cached the BODY { font-size: 75% } is actualy read instead of ignored
-Also implment more compression rules
-
-Make it so when modifying a resource/group the node and its children are not shown in the dropdown
+Add button next to password to create a random password   
 
 Create javascript loading signs for advanced view permissions page
 
-Implement code to expire un-activated user accounts within the deadline
-
-Add button next to password to create a random password
-
-Implement communication module
-
-Implement utilitie logs
-
-Implement check for install files
-
-Update footer details linking back to my websites
-
-Make it so when you delete someones group they get assign the default group
-
-Fix the mainteance mode + debug messages
+Implement utilities
+Implement log management (tiws in with the keep_logs_for setting)
 
 Logging system to logg things like user login from certain IP's, changing of infomation
 from certain IP, what info was changed etc
 
-When the user increase the text size, the +/- for the main menu dosn't move, its not verticlay positioned correctly
+UPGRADE TO LATEST MATCHBOX
+UPGRADE TO LATEST KHACL WITH KHCATCH 
 
 DOCUMENTATION
 ---------------------------------------
-explain base_model extend feature   
-
 Explain how views are done using a container and header footer pages
 
-explain user auth, and how to extend it if need be, helper files,  also user_model funfctions
+explain that the changing the encryption key will corrupt the passwords
+explain what values are stored in the session variable on login
 
 explain acess control, how it works using khacl+ nested sets. What the default groups/resources are
-explain also how to manage access control
+explain also how to manage access control, explain helper files
 
 explain the page class, how to add assets, what the caching features does
 what format a .php file must be in and why it needs to be like this
 
-explain site side preferences, what default preferences there are, also how to use the preference class
+explain how to use the preference class
 
 explain the use of recaptcha, don't need to suply keys if not being used
 
@@ -63,3 +78,4 @@ Kaydoo :: Status
 Kaydoo :: Page
 Kaydoo :: MY_Controller
 Kaydoo :: Base_Model
+Kaydoo :: Image
