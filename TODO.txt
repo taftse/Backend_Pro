@@ -1,4 +1,11 @@
--- PROBLEMS AND BUGS
+-------------------------------------------------------------- PROBLEMS AND BUGS
+--------------------------------------------------------------------------------
+FIX TITLE ON KAYDOO BLOG >> SHOULD BE THERE
+
+FIX COMMENT LINK, IF THEY GIVE A WEBSITE IT DOSN'T LINK CORRECTLY
+
+REMOVE LANGUAGE LIBRARY
+
 make pages validate 
 
 Change status display boxes so they uses classes instead of id's
@@ -19,14 +26,16 @@ Fix the mainteance mode + debug messages
 
 Make it so any values in the profile table are stored in the session varialbe when a user logs in
 
--- THINGS TO CHANGE
+--------------------------------------------------------------- THINGS TO CHANGE
+--------------------------------------------------------------------------------
 Replace the random string generator in the userlib with the one included with CI 
 
 Update footer details linking back to my websites   
 
 When the user increase the text size, the +/- for the main menu dosn't move, its not verticlay positioned correctly  
 
--- NEW FEATURES
+------------------------------------------------------------------- NEW FEATURES
+--------------------------------------------------------------------------------
 Dynamic HTML validation for every page
 
 Communication page to send emails to user groups, individual users
@@ -52,15 +61,11 @@ from certain IP, what info was changed etc
 UPGRADE TO LATEST MATCHBOX
 UPGRADE TO LATEST KHACL WITH KHCATCH 
 
-DOCUMENTATION
----------------------------------------
+------------------------------------------------------------------ DOCUMENTATION
+--------------------------------------------------------------------------------
 Explain how views are done using a container and header footer pages
 
-explain that the changing the encryption key will corrupt the passwords
-explain what values are stored in the session variable on login
-
-explain acess control, how it works using khacl+ nested sets. What the default groups/resources are
-explain also how to manage access control, explain helper files
+explain what values are stored in the session variable on login and remind how to access them
 
 explain the page class, how to add assets, what the caching features does
 what format a .php file must be in and why it needs to be like this
@@ -69,13 +74,14 @@ explain how to use the preference class
 
 explain the use of recaptcha, don't need to suply keys if not being used
 
+Go through installation
 
-RELEASE LIBRARIES
--------------------------------------------
-
+-------------------------------------------------------------- RELEASE LIBRARIES
+--------------------------------------------------------------------------------
 Kaydoo :: Preferences
 Kaydoo :: Status
 Kaydoo :: Page
 Kaydoo :: MY_Controller
 Kaydoo :: Base_Model
 Kaydoo :: Image
+Kaydoo :: Language
