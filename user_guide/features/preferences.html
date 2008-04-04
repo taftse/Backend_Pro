@@ -8,9 +8,7 @@
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv='expires' content='-1' />
-<meta http-equiv= 'pragma' content='no-cache' />
-<meta name='robots' content='all' />
+<meta name='robots' content='all' /> 
 
 </head>
 
@@ -33,11 +31,11 @@
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
 <td id="breadcrumb">
-<a href="http://code.google.com/p/backendpro/">BackendPro Home</a> &nbsp;&#8250;&nbsp;
-<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;    
+<a href="http://www.kaydoo.co.uk/projects/backendpro">BackendPro Home</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;      
 Preferences
 </td>
-<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="example.com/user_guide/" />Search User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="kaydoo.co.uk/projects/backendpro/user_guide/" />Search User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
 </tr>
 
 </table>
@@ -56,10 +54,10 @@ Preferences
 a database table. The main advantage of this is it means simple interfaces can be
 used to update the values without having to go into the file system.</p>
 
-<p>Many different data types can be stored using the preference table but two I will bring attention to:
+<p>Many different data types can be stored using the preference table but two I will bring attention to a few:
 <ul>
     <li><kbd>Boolean</kbd> : You can store boolean values in the database, but store them as <strong>1</strong> 
-    or <strong>0</strong> instead. The reaon for doing this is it means simple <dfn>if statements</dfn> can be used
+    or <strong>0</strong> instead. The reason for doing this is it means simple <dfn>if statements</dfn> can be used
     on the values instead of having to perform string evaluation if the value was instead stored as <strong>TRUE</strong> 
     or <strong>FALSE</strong>.</li>
     
@@ -282,14 +280,18 @@ in the database table, use the preference forms provided.</strong></p>
 </tr>
 </table>
 
+<h2>Adding your own preferences</h2>
+<p>To add your own preference all you need to do is add a new row in the <kbd>be_preferences</kbd> table 
+in the database. Assign it a default value and your done. If you would hover like to create a form 
+to manage the setting, please see below.</p>
+
 <h2>Preference Form Creation</h2>
 <p>Not only can you manage the default system settings using the preference form.
-But you can also create settings and a preference forms for your <strong>own</strong> 
-preferences.</p>
+But you can also create settings and a form for your <strong>own</strong> 
+preferences by using the <a href="preference_form.html">Preference Form Class</a>.</p>
 
-<p>In a controller you use the following code to create a preference form:</p>
-<code>$config['form_name'] = "Preferences";</code>
-
+<p>If you would like to see an example of a controller implementing a preference form have a look 
+at the file <kbd>system/application/controllers/admin/settings.php</kbd>.</p>
 
 </div>
 <!-- END CONTENT -->
@@ -298,9 +300,9 @@ preferences.</p>
 <div id="footer">
 <p>
 <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
-<a href="#">User Guide Home</a>
+<a href="../index.html">User Guide Home</a>
 </p>
-<p><a href="http://code.google.com/p/backendpro/">BackendPro</a> &nbsp;&middot;&nbsp; Copyright &#169; 2008 &nbsp;&middot;&nbsp; Adam Price</p>
+<p><a href="http://www.kaydoo.co.uk/projects/backendpro">BackendPro</a> &nbsp;&middot;&nbsp; Copyright &#169; 2008 &nbsp;&middot;&nbsp; <a href="http://www.kaydoo.co.uk">Adam Price</a></p>
 
 </div>
 
