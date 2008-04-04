@@ -69,6 +69,8 @@
           */
          function _set_profile_defaults()
          {
+             //$this->validation->set_default_value('field1','value');
+             //$this->validation->set_default_value('field2','value'); 
              return;
          }
          
