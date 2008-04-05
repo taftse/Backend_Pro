@@ -39,7 +39,7 @@
 			$this->CI = &get_instance();
 
 			// Load base files
-			$this->CI->load->module_library('language','detect_language');		// Load language detection
+			//$this->CI->load->module_library('language','detect_language');		// Load language detection
 			$this->CI->load->config('backendpro');												// Load main config file
 			$this->CI->lang->load('backendpro');													// Load main language file
 			$this->CI->load->model('base_model');											// Load base model
