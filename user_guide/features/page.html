@@ -131,6 +131,29 @@ trail creation & PHP to JS variable conversion.
 </tr>
 </table>
 
+<h2>Asset Caching</h2>
+<p>As said before, the page class can provide you with the ability to cache asset 
+files on the server so the client has to open viewer connections to a page, thus 
+increasing loading time.</p>
+<p>It is possible to to use php files to create asset files therefore making use 
+of dynaimc data. If you do want to use a php file as an asset file you must make 
+sure it is formed correctly otherwise when trying to load the page the site will fail.</p>
+
+<p>Example of a PHP CSS asset file</p>
+<code>
+&lt;?php<br />
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Only&nbsp;include&nbsp;header&nbsp;if&nbsp;we&nbsp;are&nbsp;not&nbsp;processing&nbsp;the&nbsp;file&nbsp;for&nbsp;the&nbsp;cache<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<dfn>if(&nbsp;!&nbsp;isset($cache_output))<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;header('content-type:text/css');</dfn><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Rest&nbsp;of&nbsp;php&nbsp;code&nbsp;to&nbsp;create&nbsp;asset&nbsp;file&nbsp;goes&nbsp;here<br />
+?&gt;&nbsp;                                                   
+</code>
+<p>As you will see above, the first 4 lines have a condition statement on whether 
+to include information about the file type. What this code does is it only includes 
+the header infomation if the page is not being cached. The reason for this when 
+the cache is created, it is done so by including each file. Trying to change the header part way 
+through this process corrupts the cache and the website.</p>
 
 <h2>Page Class Function Reference</h2>
 
@@ -142,7 +165,8 @@ note any assets loaded through this method will not be cached.</p>
 <p>The first parameter specifys what type of asset you want to load.</p> 
 <p>The second parameter is if the asset is a javascript file or a css style sheet.</p>
 <p>The final argument is the filename of the asset, including the extension. Please 
-note you can use <var>.php</var> files since they are executed before inclusion.</p>
+note you can use <var>.php</var> files since they are executed before inclusion. Please 
+see <strong>Asset Caching</strong> above for more information.</p>
 
 <h3>$this->page->set_variable()</h3>
 <p>Specify a variable for conversion:</p>
