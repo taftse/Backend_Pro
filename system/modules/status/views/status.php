@@ -1,4 +1,4 @@
-<div  id="FlashStatus" class="<?=$type?>">
+<div class="status_box <?=$type?>">
     <h6><?=ucfirst($type)?></h6>
     <ul>
 	<?php
