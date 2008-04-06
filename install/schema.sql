@@ -3,14 +3,13 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2008 at 10:37 PM
+-- Generation Time: Apr 06, 2008 at 05:56 PM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.5
 
 SET FOREIGN_KEY_CHECKS=0;
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 
 --
 -- Database: `backendpro`
@@ -22,6 +21,7 @@ START TRANSACTION;
 -- Table structure for table `be_acl_actions`
 --
 
+DROP TABLE IF EXISTS `be_acl_actions`;
 CREATE TABLE IF NOT EXISTS `be_acl_actions` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(254) NOT NULL,
@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `be_acl_actions` (
 -- Table structure for table `be_acl_groups`
 --
 
+DROP TABLE IF EXISTS `be_acl_groups`;
 CREATE TABLE IF NOT EXISTS `be_acl_groups` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `lft` int(10) unsigned NOT NULL default '0',
@@ -66,6 +67,7 @@ INSERT INTO `be_acl_groups` (`id`, `lft`, `rgt`, `name`, `link`) VALUES
 -- Table structure for table `be_acl_permissions`
 --
 
+DROP TABLE IF EXISTS `be_acl_permissions`;
 CREATE TABLE IF NOT EXISTS `be_acl_permissions` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `aro_id` int(10) unsigned NOT NULL default '0',
@@ -89,6 +91,7 @@ INSERT INTO `be_acl_permissions` (`id`, `aro_id`, `aco_id`, `allow`) VALUES
 -- Table structure for table `be_acl_permission_actions`
 --
 
+DROP TABLE IF EXISTS `be_acl_permission_actions`;
 CREATE TABLE IF NOT EXISTS `be_acl_permission_actions` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `access_id` int(10) unsigned NOT NULL default '0',
@@ -97,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `be_acl_permission_actions` (
   PRIMARY KEY  (`id`),
   KEY `access_id` (`access_id`),
   KEY `axo_id` (`axo_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `be_acl_permission_actions`
@@ -110,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `be_acl_permission_actions` (
 -- Table structure for table `be_acl_resources`
 --
 
+DROP TABLE IF EXISTS `be_acl_resources`;
 CREATE TABLE IF NOT EXISTS `be_acl_resources` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `lft` int(10) unsigned NOT NULL default '0',
@@ -145,6 +149,7 @@ INSERT INTO `be_acl_resources` (`id`, `lft`, `rgt`, `name`, `link`) VALUES
 -- Table structure for table `be_groups`
 --
 
+DROP TABLE IF EXISTS `be_groups`;
 CREATE TABLE IF NOT EXISTS `be_groups` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `locked` tinyint(1) unsigned NOT NULL default '0',
@@ -166,6 +171,7 @@ INSERT INTO `be_groups` (`id`, `locked`, `disabled`) VALUES
 -- Table structure for table `be_preferences`
 --
 
+DROP TABLE IF EXISTS `be_preferences`;
 CREATE TABLE IF NOT EXISTS `be_preferences` (
   `name` varchar(254) character set latin1 NOT NULL,
   `value` text character set latin1 NOT NULL,
@@ -184,8 +190,8 @@ INSERT INTO `be_preferences` (`name`, `value`) VALUES
 ('use_registration_captcha', '0'),
 ('maintenance_message', 'In an effort to better serve you, we are currently making enhancements to our site. We appreciate your patience during this time, and encourage you to return here shortly.'),
 ('page_debug', '0'),
-('webmaster_email', 'admin@localhost.co.uk'),
-('webmaster_name', 'Admin'),
+('webmaster_email', 'webmaster@localhost.com'),
+('webmaster_name', 'Webmaster'),
 ('automated_from_name', 'BackendPro'),
 ('allow_user_registration', '1'),
 ('use_login_captcha', '0'),
@@ -215,6 +221,7 @@ INSERT INTO `be_preferences` (`name`, `value`) VALUES
 -- Table structure for table `be_resources`
 --
 
+DROP TABLE IF EXISTS `be_resources`;
 CREATE TABLE IF NOT EXISTS `be_resources` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `locked` tinyint(1) unsigned NOT NULL default '0',
@@ -244,14 +251,15 @@ INSERT INTO `be_resources` (`id`, `locked`) VALUES
 -- Table structure for table `be_users`
 --
 
+DROP TABLE IF EXISTS `be_users`;
 CREATE TABLE IF NOT EXISTS `be_users` (
-  `id` int(11) NOT NULL auto_increment,
-  `username` varchar(32) character set latin1 NOT NULL,
-  `password` varchar(40) character set latin1 NOT NULL,
-  `email` varchar(254) character set latin1 NOT NULL,
-  `active` tinyint(1) NOT NULL default '0',
-  `group` int(10) NOT NULL,
-  `activation_key` varchar(32) character set latin1 default NULL,
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `username` varchar(32) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `active` tinyint(1) unsigned NOT NULL default '0',
+  `group` int(10) unsigned default NULL,
+  `activation_key` varchar(32) default NULL,
   `last_visit` datetime default NULL,
   `created` datetime NOT NULL,
   `modified` datetime default NULL,
@@ -265,15 +273,16 @@ CREATE TABLE IF NOT EXISTS `be_users` (
 --
 -- Dumping data for table `be_users`
 --
-
+ 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `be_user_profiles`
 --
 
+DROP TABLE IF EXISTS `be_user_profiles`;
 CREATE TABLE IF NOT EXISTS `be_user_profiles` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -287,6 +296,7 @@ CREATE TABLE IF NOT EXISTS `be_user_profiles` (
 -- Table structure for table `ci_sessions`
 --
 
+DROP TABLE IF EXISTS `ci_sessions`;
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
   `session_id` varchar(40) character set latin1 NOT NULL default '0',
   `ip_address` varchar(16) character set latin1 NOT NULL default '0',
@@ -297,7 +307,6 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 
 --
 -- Dumping data for table `ci_sessions`
---
 
 --
 -- Constraints for dumped tables
@@ -307,15 +316,15 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 -- Constraints for table `be_acl_permissions`
 --
 ALTER TABLE `be_acl_permissions`
-  ADD CONSTRAINT `be_acl_permissions_ibfk_2` FOREIGN KEY (`aco_id`) REFERENCES `be_acl_resources` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `be_acl_permissions_ibfk_1` FOREIGN KEY (`aro_id`) REFERENCES `be_acl_groups` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `be_acl_permissions_ibfk_1` FOREIGN KEY (`aro_id`) REFERENCES `be_acl_groups` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `be_acl_permissions_ibfk_2` FOREIGN KEY (`aco_id`) REFERENCES `be_acl_resources` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `be_acl_permission_actions`
 --
 ALTER TABLE `be_acl_permission_actions`
-  ADD CONSTRAINT `be_acl_permission_actions_ibfk_2` FOREIGN KEY (`axo_id`) REFERENCES `be_acl_actions` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `be_acl_permission_actions_ibfk_1` FOREIGN KEY (`access_id`) REFERENCES `be_acl_permissions` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `be_acl_permission_actions_ibfk_1` FOREIGN KEY (`access_id`) REFERENCES `be_acl_permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `be_acl_permission_actions_ibfk_2` FOREIGN KEY (`axo_id`) REFERENCES `be_acl_actions` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `be_groups`
@@ -330,10 +339,15 @@ ALTER TABLE `be_resources`
   ADD CONSTRAINT `be_resources_ibfk_1` FOREIGN KEY (`id`) REFERENCES `be_acl_resources` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `be_users`
+--
+ALTER TABLE `be_users`
+  ADD CONSTRAINT `be_users_ibfk_1` FOREIGN KEY (`group`) REFERENCES `be_acl_groups` (`id`) ON DELETE SET NULL;
+
+--
 -- Constraints for table `be_user_profiles`
 --
 ALTER TABLE `be_user_profiles`
   ADD CONSTRAINT `be_user_profiles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `be_users` (`id`) ON DELETE CASCADE;
 
 SET FOREIGN_KEY_CHECKS=1;
-COMMIT;

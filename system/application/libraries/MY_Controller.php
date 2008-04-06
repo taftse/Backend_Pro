@@ -64,10 +64,10 @@
             Site_Controller::$_container = $this->config->item('backendpro_template_public') . "container.php";            
             
             // Check whether to show the site offline message
-            /*if( $this->preference->item('maintenance_mode') AND !is_superadmin() AND $this->uri->rsegment(1) != 'auth')
+            if( $this->preference->item('maintenance_mode') AND $this->uri->rsegment(1) != 'auth')
             {
                 redirect('auth/maintenance','location');
-            }*/
+            }
             
             log_message('debug','Public_Controller Class Initialized');
         }
@@ -83,9 +83,10 @@
         function maintenance()
         {
             // Display Maintenance message
-            $data['header'] = $this->lang->line('backendpro_maintenance');
-            $data['message'] = $this->preference->item('maintenance_message');
-            $data['page'] = $this->config->item('backendpro_template_public') . "under_maintenance";
+            $data['header'] = $this->lang->line('backendpro_under_maintenance');
+            $data['content'] = "<h3>" . $data['header'] . "</h3>";
+            $data['content'] .= "<p>" . $this->preference->item('maintenance_message') . "</p>";
+            $data['content'] .= "<p>" . $this->lang->line('backendpro_maintenance_login') . "</p>";   
             $this->load->view(Site_Controller::$_container,$data);
         }
     }
@@ -123,7 +124,7 @@
             
             // If the system is down display warning
             if($this->preference->item('maintenance_mode'))
-                flashMsg('warning',$this->lang->line('backendpro_in_maintenance_mode'));
+                flashMsg('warning',$this->lang->line('backendpro_site_off'));
             
             log_message('debug','Admin_Controller Class Initialized');
         }

@@ -47,7 +47,7 @@
                 'members'     => array('name'=>'Member Settings', 'fields'=>'allow_user_registration,activation_method,account_activation_time,autologin_period,default_user_group,allow_user_profiles'),  
                 'security'    => array('name'=>'Security Preferences', 'fields'=>'use_login_captcha,use_registration_captcha,min_password_length'),  
                 'email'       => array('name'=>'Email Configuration', 'fields'=>'automated_from_name,automated_from_email,email_protocol,email_mailpath,smtp_host,smtp_user,smtp_pass,smtp_port,smtp_timeout,email_mailtype,email_charset,email_wordwrap,email_wrapchars,bcc_batch_mode,bcc_batch_size'),  
-                'maintenance' => array('name'=>'Maintenance & Debugging Settings', 'fields'=>'maintenance_mode,maintenance_message,page_debug,keep_error_logs_for'),  
+                'maintenance' => array('name'=>'Maintenance & Debugging Settings', 'fields'=>'maintenance_mode,maintenance_message,keep_error_logs_for'),  
             );
             
             // Setup custom field options
@@ -78,7 +78,7 @@
                
             $config['field']['maintenance_mode'] = array('type'=>'boolean'); 
             $config['field']['maintenance_message'] = array('type'=>'textarea'); 
-            $config['field']['page_debug'] = array('type'=>'boolean'); 
+            //$config['field']['page_debug'] = array('type'=>'boolean'); 
             $config['field']['keep_error_logs_for'] = array('rules'=>'trim|required|numeric'); 
 
             // Display the form
