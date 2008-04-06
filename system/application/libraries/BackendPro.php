@@ -27,7 +27,7 @@
  * @subpackage		Libraries
  * @tutorial				BackendPro.cls
  */
-    define('BACKENDPRO_VERSION',0.2);
+    define('BACKENDPRO_VERSION','0.2 alpha Build: 20080406');
 	class BackendPro
 	{
 		/**
