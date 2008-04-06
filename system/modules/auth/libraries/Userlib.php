@@ -364,8 +364,10 @@
                 $encoded_password = $this->encode_password($password);
                 
                 // Email the new password to the user
+                $query = $this->CI->user_model->fetch('Users','username',NULL,array('email'=>$email));
+                $user = $query->row();
                 $data = array(
-                    'username'=>'PIE',
+                    'username'=>$user->username,
                     'email'=>$email,
                     'password'=>$password,
                     'site_name'=>$this->CI->preference->item('site_name'),
