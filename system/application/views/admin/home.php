@@ -4,7 +4,7 @@
     <div class="dashboard_widget" id="notes">
         <b>My Notes</b>
         <?=form_open('admin')?>
-        <?=form_textarea('note','','style="width:100%" rows="15" id="note"');?>
+        <?=form_textarea('note','','style="width:100%" id="note"');?>
         <?=form_submit('submit',$this->lang->line('general_save'));?>
         <?=form_close();?>
     </div>
@@ -12,7 +12,7 @@
 
 <div id="dashboard_right_container">
     <div class="dashboard_widget" id="statistics">
-        <table width=100%>
+        <table width="100%">
             <tr><th>Statistics</th><th>Value</th></tr>
             <tr><td>System On</td><td>Yes</td></tr>
             <tr><td>BackendPro Version</td><td>0.2</td></tr>
