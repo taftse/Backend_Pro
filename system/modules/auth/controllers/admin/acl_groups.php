@@ -205,7 +205,7 @@
              {
                  // Check we havn't already deleted it as a child of another node
                  $query = $this->access_control_model->fetch('aros',NULL,NULL,array('name'=>$group));
-                 if($query->num_rows() === 0){
+                 if($query->num_rows() === 0){  
                     flashMsg('success',sprintf($this->lang->line('access_group_deleted'),$group));
                     continue;
                  }  
@@ -215,6 +215,9 @@
                  else
                     flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_delete_group')));
              }
+             
+             // Make sure any users with a NULL group are assigned the default group
+             $this->user_model->update('Users',array('group'=>$this->preference->item('default_user_group')),'`group` IS NULL');
              
              redirect('auth/admin/acl_groups','location');
          }    

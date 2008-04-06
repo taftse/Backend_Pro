@@ -116,7 +116,7 @@
             
             $this->db->select('users.id, users.username, users.email, users.active, users.last_visit, users.created, users.modified, groups.name `group`, groups.id group_id');
             $this->db->from($this->_TABLES['Users'] . " users");
-            $this->db->join($this->_TABLES['UserProfiles'] . " profiles",'users.id=profiles.user_id');
+            //$this->db->join($this->_TABLES['UserProfiles'] . " profiles",'users.id=profiles.user_id');
             $this->db->join($acl_tables['aros'] . " groups",'groups.id=users.group');
             if( ! is_null($where)){ $this->db->where($where);}
             if( ! is_null($limit['limit'])){ $this->db->limit($limit['limit'],( isset($limit['offset'])?$limit['offset']:''));}
@@ -142,17 +142,12 @@
                 $this->db->trans_begin();
                 // -- ADD USER REMOVAL QUERIES/METHODS BELOW HERE
                 
-                
-                
                 // Delete main user details
                 $this->db->delete($this->_TABLES['Users'],array('id'=>$row->id)); 
                 
                 // Delete user profile
                 $this->delete('UserProfiles',array('user_id'=>$row->id)); 
-                
-                
-                
-                
+
                 // -- DON'T CHANGE BELOW HERE
                 // Check all the tasks completed
                 if ($this->db->trans_status() === FALSE)

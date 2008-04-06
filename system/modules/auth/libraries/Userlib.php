@@ -53,6 +53,7 @@
 		 *
 		 * Several jobs to perform
 		 * > Check for autologin
+         * > Delete un activated user accounts
 		 *
 		 * @access private
 		 * @return void
@@ -77,6 +78,10 @@
 					}
 				}
 			}
+            
+            // Remove any user accounts which have not been activated
+            // within the specified deadline
+            $query = $this->CI->user_model->delete('Users','DATE_ADD(created,INTERVAL '.$this->CI->preference->item('account_activation_time').' DAY) <= NOW() AND active=0');
 
 			return;
 		}
@@ -355,7 +360,7 @@
                 // Valid Email
                 
                 // Generate a new password
-                $password = $this->_generate_random_string($this->CI->preference->item('max_password_length'));
+                $password = $this->_generate_random_string($this->CI->preference->item('min_password_length'));
                 $encoded_password = $this->encode_password($password);
                 
                 // Email the new password to the user
