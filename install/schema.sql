@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `be_acl_permissions` (
 --
 
 INSERT INTO `be_acl_permissions` (`id`, `aro_id`, `aco_id`, `allow`) VALUES
-(7, 2, 1, 'Y');
+(1, 2, 1, 'Y');
 
 -- --------------------------------------------------------
 
@@ -132,16 +132,16 @@ CREATE TABLE IF NOT EXISTS `be_acl_resources` (
 
 INSERT INTO `be_acl_resources` (`id`, `lft`, `rgt`, `name`, `link`) VALUES
 (1, 1, 22, 'Site', NULL),
-(2, 6, 21, 'Control Panel', NULL),
-(3, 7, 20, 'System', NULL),
-(4, 18, 19, 'Members', NULL),
-(5, 8, 17, 'Access Control', NULL),
-(6, 4, 5, 'Settings', NULL),
-(7, 2, 3, 'Utilities', NULL),
-(8, 15, 16, 'Permissions', NULL),
-(9, 13, 14, 'Groups', NULL),
-(10, 11, 12, 'Resources', NULL),
-(11, 9, 10, 'Actions', NULL);
+(2, 2, 21, 'Control Panel', NULL),
+(3, 3, 20, 'System', NULL),
+(4, 14, 15, 'Members', NULL),
+(5, 4, 13, 'Access Control', NULL),
+(6, 16, 17, 'Settings', NULL),
+(7, 18, 19, 'Utilities', NULL),
+(8, 11, 12, 'Permissions', NULL),
+(9, 9, 10, 'Groups', NULL),
+(10, 7, 8, 'Resources', NULL),
+(11, 5, 6, 'Actions', NULL);
 
 -- --------------------------------------------------------
 
