@@ -65,6 +65,6 @@ $config['callers'] = array('Parser');
  * Prototype:
  * $config['direcotires'] = array('modules');
  */
-$config['directories'] = array('../modules');
+$config['directories'] = array('../../modules');
 
 ?>
