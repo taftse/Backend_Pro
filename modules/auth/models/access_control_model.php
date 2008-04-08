@@ -177,7 +177,7 @@
             while($obj->getTreeNext($tree))
             {
                 // Get offset
-                $offset = $this->buildPrettyOffset(&$obj,$tree);
+                $offset = $this->buildPrettyOffset($obj,$tree);
                 
                 $dropdown[$tree['row'][$value_field]] = $offset . $tree['row']['name'];
             }        
