@@ -50,7 +50,7 @@
      $lang['preference_label_bcc_batch_size'] = 'Number of Emails Per Batch';
      $lang['preference_desc_bcc_batch_size'] = 'For average servers, 200 is a safe number';
      
-     // Maintenance & Debuging Settings
+     // Maintenance & Debuging Settings  
      $lang['preference_label_maintenance_mode'] = 'Is system off?';
      $lang['preference_desc_maintenance_mode'] = 'If system is off, only Super Admins will be able to see your site';     
      $lang['preference_label_maintenance_message'] = 'Message';

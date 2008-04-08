@@ -43,11 +43,11 @@
             
             // Setup preference groups
             $config['group'] = array(
-                'general'     => array('name'=>'General Configuration', 'fields'=>'site_name,webmaster_name,webmaster_email'),
-                'members'     => array('name'=>'Member Settings', 'fields'=>'allow_user_registration,activation_method,account_activation_time,autologin_period,default_user_group,allow_user_profiles'),  
-                'security'    => array('name'=>'Security Preferences', 'fields'=>'use_login_captcha,use_registration_captcha,min_password_length'),  
-                'email'       => array('name'=>'Email Configuration', 'fields'=>'automated_from_name,automated_from_email,email_protocol,email_mailpath,smtp_host,smtp_user,smtp_pass,smtp_port,smtp_timeout,email_mailtype,email_charset,email_wordwrap,email_wrapchars,bcc_batch_mode,bcc_batch_size'),  
-                'maintenance' => array('name'=>'Maintenance & Debugging Settings', 'fields'=>'maintenance_mode,maintenance_message,keep_error_logs_for'),  
+                'general'     => array('name'=> $this->lang->line('preference_page_general_configuration'), 'fields'=>'site_name,webmaster_name,webmaster_email'),
+                'members'     => array('name'=> $this->lang->line('preference_page_member_settings'), 'fields'=>'allow_user_registration,activation_method,account_activation_time,autologin_period,default_user_group,allow_user_profiles'),  
+                'security'    => array('name'=> $this->lang->line('preference_page_security_preferences'), 'fields'=>'use_login_captcha,use_registration_captcha,min_password_length'),  
+                'email'       => array('name'=> $this->lang->line('preference_page_email_configuration'), 'fields'=>'automated_from_name,automated_from_email,email_protocol,email_mailpath,smtp_host,smtp_user,smtp_pass,smtp_port,smtp_timeout,email_mailtype,email_charset,email_wordwrap,email_wrapchars,bcc_batch_mode,bcc_batch_size'),  
+                'maintenance' => array('name'=> $this->lang->line('preference_page_maintenance_debugging_settings'), 'fields'=>'maintenance_mode,maintenance_message,keep_error_logs_for'),  
             );
             
             // Setup custom field options

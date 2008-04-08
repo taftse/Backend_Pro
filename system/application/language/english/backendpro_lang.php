@@ -15,9 +15,7 @@
 	 * @license			http://www.gnu.org/licenses/lgpl.html
 	 */
      
-     /* ------------------------------------------------------- GENERAL ----- 
-      * Define any general words here, e.g. Delete, Save, Edit 
-      */                  
+     /* Define any general words here, e.g. Delete, Save, Edit */                  
      $lang['general_id'] = "ID";                                         
      $lang['general_top'] = 'Top';
      $lang['general_add'] = "Add";
@@ -46,4 +44,10 @@
      $lang['backendpro_settings'] = 'Settings'; 
      $lang['backendpro_utilities'] = 'Utilities'; 
      
+     /* Setup Preference Groups */
+     $lang['preference_page_general_configuration'] = "General Configuration";
+     $lang['preference_page_member_settings'] = "Member Settings";
+     $lang['preference_page_security_preferences'] = "Security Preferences";
+     $lang['preference_page_email_configuration'] = "Email Configuration";
+     $lang['preference_page_maintenance_debugging_settings'] = "Maintenance & Debugging Settings"; 
 ?>
