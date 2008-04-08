@@ -5,10 +5,9 @@
      * A website backend system for developers for PHP 4.3.2 or newer
      *
      * @package			BackendPro
-     * @author				Adam Price
-     * @copyright			Copyright (c) 2008
-     * @license				http://www.gnu.org/licenses/lgpl.html
-     * @tutorial				BackendPro.pkg
+     * @author			Adam Price
+     * @copyright		Copyright (c) 2008
+     * @license			http://www.gnu.org/licenses/lgpl.html
      */
 
      // ---------------------------------------------------------------------------
@@ -24,9 +23,6 @@
      */
 	class Userlib
 	{
-		/**
-		 * Constructor
-		 */
 		function Userlib()
 		{
 			// Get CI Instance
@@ -41,6 +37,7 @@
             $this->CI->load->library('validation');  
             $this->CI->load->library('Useremail');
             $this->CI->load->library('khacl');
+            $this->CI->load->helper('string');
 
 			// Initialise the class
 			$this->_init();
@@ -360,7 +357,7 @@
                 // Valid Email
                 
                 // Generate a new password
-                $password = $this->_generate_random_string($this->CI->preference->item('min_password_length'));
+                $password = random_string('alnum',$this->CI->preference->item('min_password_length'));
                 $encoded_password = $this->encode_password($password);
                 
                 // Email the new password to the user
@@ -423,7 +420,7 @@
                 
                 default:
                     // Send email with activation link
-                    $data['users']['activation_key'] = $this->_generate_random_string(32);
+                    $data['users']['activation_key'] = random_string('alnum',32);
                     $activation_message = sprintf($this->CI->lang->line('userlib_email_activation'), site_url('auth/activate/'.$data['users']['activation_key']), $this->CI->preference->item('account_activation_time'));
                 break;
             } 
@@ -585,6 +582,7 @@
         * @access private
         * @param integer $length Length of string
         * @return string
+        * @deprecated
         */
         function _generate_random_string($length=32)
         {
