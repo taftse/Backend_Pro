@@ -8,7 +8,7 @@
      * @author          Adam Price
      * @copyright       Copyright (c) 2008
      * @license         http://www.gnu.org/licenses/lgpl.html
-     * @link            http://backendpro.kaydoo.co.uk   
+     * @link            http://kaydoo.co.uk/projects/backendpro   
      */
 
      // ---------------------------------------------------------------------------
@@ -21,22 +21,32 @@
      */     
      class Home extends Admin_Controller
      {
-         /**
-          * Constructor
-          */
          function Home()
          {
-             // Call parent constructor
              parent::Admin_Controller();
-             
              log_message('debug','Home Class Initialized'); 
          }
          
          function index()
          {
-             // Get the users notes
              
              // Construct statistics table
+             $statistics = array(
+                array('name' => 'System Status', 'query' => 'SELECT value AS system_status FROM be_preferences WHERE name="maintenance_mode"'),
+                array('name' => 'Site Members', 'query' => 'SELECT COUNT(*) as members FROM be_users'),
+                array('name' => 'Un-active Members', 'query' => 'SELECT COUNT(*) AS unactive FROM be_users WHERE active=0')
+             );
+             
+             // Store select statements using active record only
+             
+             
+             /*foreach($statistics as $value)
+             {
+                $query = $
+             }*/
+             
+             
+             
              /*SELECT COUNT(*) AS unactive FROM be_users WHERE active=0;
              SELECT COUNT(*) as members FROM be_users;
              SELECT value AS system_status FROM be_preferences WHERE name="maintenance_mode"
@@ -50,8 +60,8 @@
              
              // Display Page
              $data['header'] = $this->lang->line('backendpro_dashboard');
-             //$data['page'] = $this->config->item('backendpro_template_admin') . "home";
-             $data['content'] = "Dashboard to come soon";
+             $data['page'] = $this->config->item('backendpro_template_admin') . "home";
+             //$data['content'] = "Dashboard to come soon";
              $this->load->view(Site_Controller::$_container,$data);
          }
      }

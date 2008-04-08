@@ -27,39 +27,24 @@
      * @subpackage		Libraries
      */
     define('BEP_VERSION','0.2 alpha Build: 20080406');
-	
-    class BackendPro
+	class BackendPro
 	{
-		/**
-		 * Constructor
-		 */
 		function BackendPro()
 		{
 			// Get CI Instance
 			$this->CI = &get_instance();
 
-            /**
-             * BackendPro Constants
-             * 
-             * BEP_TBL_PFX - BackendPro table prefix
-             * ADMIN_TPL   - Admin view root folder
-             * PUBLIC_TPL  - Public view root folder
-             */
-            define('BEP_TBL_PFX','be_');
-            define('ADMIN_TPL','admin/');
-            define('PUBLIC_TPL','public/');
-            
 			// Load base files
-			//$this->CI->load->module_library('language','detect_language');		        // Load language detection
-			$this->CI->load->config('backendpro');											// Load main config file
-			$this->CI->lang->load('backendpro');											// Load main language file
+			//$this->CI->load->module_library('language','detect_language');		// Load language detection
+			$this->CI->load->config('backendpro');												// Load main config file
+			$this->CI->lang->load('backendpro');													// Load main language file
 			$this->CI->load->model('base_model');											// Load base model
 
 			// Load site wide modules
-			$this->CI->load->module_library('status','status');							    // Load status module
-			$this->CI->load->module_model('preferences','preference_model','preference');	// Load site preference module
-			$this->CI->load->module_library('page','page');								    // Load page_services module
-			$this->CI->load->module_library('auth','userlib');								// Load authentication module
+			$this->CI->load->module_library('status','status');							// Load status module
+			$this->CI->load->module_model('preferences','preference_model','preference');	        // Load site preference module
+			$this->CI->load->module_library('page','page');								// Load page_services module
+			$this->CI->load->module_library('auth','userlib');									// Load authentication module
 
 			log_message('debug','BackendPro Class Initialized');
 		}
