@@ -53,8 +53,9 @@ Change Log
 <h2>Version ############</h2>
 <p>Release Date: ##########</p>
 <ul>
-    <li>Updated the admin menu view file so the 'System' item would have language support</li>
-    <li>Added language support to the application/controllers/admin/settings.php file for defining preference groups</li>
+    <li>Updated the admin menu view file so the <dfn>System</dfn> item would have language support</li>
+    <li>Added language support to the <dfn>application/controllers/admin/settings.php</dfn> file for defining preference groups</li>
+    <li>Removed passing <var>$obj</var> by reference to passing by argument due to issue if allow_call_time_pass_reference is false in INI file, in <dfn>modules/auth/models/access_control_model.php</dfn></li>
     <li>Moved the <dfn>modules</dfn> folder into the root dir</li>
 </ul>
   
