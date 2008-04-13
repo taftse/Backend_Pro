@@ -526,7 +526,7 @@
             
             if( $this->CI->user_model->activateUser($key) )
             {
-                // Activation successfull             
+                // Activation successful             
                 flashMsg('success',$this->CI->lang->line('userlib_activation_success'));
                 redirect($this->CI->config->item('userlib_action_activation'),'location');
             }

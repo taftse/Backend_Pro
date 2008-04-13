@@ -73,7 +73,7 @@
 
             // Otherwise add file to $this->extra_assets
             $this->extra_assets[$area][$type][] = $file;
-            log_message('debug','Quick load of asset (' . $file_tmp . ') successfull');
+            log_message('debug','Quick load of asset (' . $file_tmp . ') successful');
             return;
         }
 
@@ -96,7 +96,7 @@
             }
 
             $this->variables[$name] = $value;
-            log_message('debug','PHP variable ('.$name.') transfer successfull');
+            log_message('debug','PHP variable ('.$name.') transfer successful');
             return;
         }
 
