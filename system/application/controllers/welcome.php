@@ -33,7 +33,7 @@
             // Display Page
             $data['header'] = "Welcome";
             $data['page'] = $this->config->item('backendpro_template_public') . 'welcome';            
-            $this->load->view(Site_Controller::$_container,$data);  
+            $this->load->view($this->_container,$data);  
         }
     }
 ?>

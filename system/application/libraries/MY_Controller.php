@@ -23,10 +23,7 @@
      */
     class Site_Controller extends Controller
     {
-        static $_container;
-        /**
-        * Constructor
-        */
+        var $_container;
         function Site_Controller()
         {
             // Call parent constructor
@@ -37,7 +34,7 @@
             {
                 $this->output->enable_profiler(TRUE);
             }*/
-        
+            
             log_message('debug','Site_Controller Class Initialized');
         }
     }
@@ -52,16 +49,13 @@
     */
     class Public_Controller extends Site_Controller
     {                                 
-        /**
-         * Constructor
-         */
         function Public_Controller()
         {
             // Call parent constructor
             parent::Site_Controller();
             
             // Set container variable
-            Site_Controller::$_container = $this->config->item('backendpro_template_public') . "container.php";            
+            $this->_container = $this->config->item('backendpro_template_public') . "container.php";            
             
             // Check whether to show the site offline message
             if( $this->preference->item('maintenance_mode') AND $this->uri->rsegment(1) != 'auth')
@@ -87,7 +81,7 @@
             $data['content'] = "<h3>" . $data['header'] . "</h3>";
             $data['content'] .= "<p>" . $this->preference->item('maintenance_message') . "</p>";
             $data['content'] .= "<p>" . $this->lang->line('backendpro_maintenance_login') . "</p>";   
-            $this->load->view(Site_Controller::$_container,$data);
+            $this->load->view($this->_container,$data);
         }
     }
 
@@ -101,9 +95,6 @@
      */
     class Admin_Controller extends Site_Controller
     {
-        /**
-         * Constructor
-         */
         function Admin_Controller()
         {
             // Call parent constructor
@@ -113,7 +104,7 @@
             $this->page->set_crumb($this->lang->line('backendpro_control_panel'),'admin');
 
             // Set container variable
-            Site_Controller::$_container = $this->config->item('backendpro_template_admin') . "container.php";
+            $this->_container = $this->config->item('backendpro_template_admin') . "container.php";
 
             // Make sure user is logged in
             check('Control Panel');

@@ -86,7 +86,7 @@
             $this->preference_form->initalize($config);
             $data['header'] = $this->preference_form->form_name;
             $data['content'] = $this->preference_form->display();             
-            $this->load->view(Site_Controller::$_container,$data);
+            $this->load->view($this->_container,$data);
          }
      }
 ?>

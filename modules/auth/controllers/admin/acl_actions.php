@@ -53,7 +53,7 @@
              $data['header'] = $this->lang->line('access_actions');
              $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/actions";
              $data['module'] = 'auth';
-             $this->load->view(Site_Controller::$_container,$data);
+             $this->load->view($this->_container,$data);
          }
          
          /**

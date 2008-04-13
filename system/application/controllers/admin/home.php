@@ -62,7 +62,7 @@
              $data['header'] = $this->lang->line('backendpro_dashboard');
              $data['page'] = $this->config->item('backendpro_template_admin') . "home";
              //$data['content'] = "Dashboard to come soon";
-             $this->load->view(Site_Controller::$_container,$data);
+             $this->load->view($this->_container,$data);
          }
      }
 ?>

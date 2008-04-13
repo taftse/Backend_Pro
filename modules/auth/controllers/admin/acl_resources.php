@@ -53,7 +53,7 @@
              $data['header'] = $this->lang->line('access_resources');
              $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/resources";
              $data['module'] = 'auth';
-             $this->load->view(Site_Controller::$_container,$data);
+             $this->load->view($this->_container,$data);
          }
          
          /**
@@ -110,7 +110,7 @@
                  $this->page->set_crumb($data['header'],'auth/admin/acl_resources/form/'.$id);   
                  $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/form_resource";
                  $data['module'] = 'auth';
-                 $this->load->view(Site_Controller::$_container,$data);
+                 $this->load->view($this->_container,$data);
              }
              else
              {   

@@ -67,7 +67,7 @@ its respective headers and footers etc.</p>
 
 <p>When you extend either of the <a href="../controllers/admin_controller.html">Admin Controller</a> or 
 the <a href="../controllers/public_controller.html">Public Controller</a> a class variable is inherited 
-which you can only access by using <dfn>Site_Controller::$_container</dfn>. This variable 
+which you can only access by using <dfn>$this->_container</dfn>. This variable 
 is the <strong>container</strong> view file I was talking about for the respective Controller class.</p>
 
 <p>The master view files and their children view files are located in <kbd>system/application/views/admin</kbd> 
@@ -87,11 +87,11 @@ in the title bar of the browser.</p>
     {<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['header']&nbsp;=&nbsp;&quot;My&nbsp;Page&quot;;<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['<kbd>content</kbd>']&nbsp;=&nbsp;&quot;Just&nbsp;displays&nbsp;some&nbsp;basic&nbsp;text,&nbsp;nothing&nbsp;more&quot;;<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view(<kbd>Site_Controller::$_container</kbd>,$data);<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view(<kbd>$this->_container</kbd>,$data);<br />
     }
     </code>
     <p>As you can see in the example above, instead of calling a view file I tell it 
-    to load the file defined by <dfn>Site_Controller::$_container</dfn>. The text string 
+    to load the file defined by <dfn>$this->_container</dfn>. The text string 
     is passed as input using the <kbd>content</kbd> variable entry.
     </li>
     
@@ -104,7 +104,7 @@ in the title bar of the browser.</p>
     {<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['header']&nbsp;=&nbsp;&quot;My&nbsp;Page&quot;;<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['<kbd>page</kbd>']&nbsp;=&nbsp;<dfn>$this-&gt;config-&gt;item('backendpro_template_admin')</dfn>&nbsp;.&nbsp;&quot;<kbd>my_view_file</kbd>&quot;<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view(Site_Controller::$_container,$data);<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view($this->_container,$data);<br />
     }
     </code>
     <p>In the above example you will see I specify a <kbd>page</kbd> to load.
@@ -121,7 +121,7 @@ in the title bar of the browser.</p>
     &nbsp;&nbsp;&nbsp;&nbsp;$data['header']&nbsp;=&nbsp;&quot;My&nbsp;Page&quot;;<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['page']&nbsp;=&nbsp;$this-&gt;config-&gt;item('backendpro_template_admin')&nbsp;.&nbsp;&quot;my_view_file&quot;<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['module']&nbsp;='<var>module</var>';<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view(Site_Controller::$_container,$data);<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view($this->_container,$data);<br />
     }
     </code>
     <p>In the above example you will see I specify a <var>module</var> to load the view from.

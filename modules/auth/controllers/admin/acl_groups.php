@@ -54,7 +54,7 @@
              $data['header'] = $this->lang->line('access_groups');
              $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/groups";
              $data['module'] = 'auth';
-             $this->load->view(Site_Controller::$_container,$data);
+             $this->load->view($this->_container,$data);
          }
          
          /**
@@ -122,7 +122,7 @@
                  $this->page->set_crumb($data['header'],'auth/admin/acl_groups/form/'.$id);   
                  $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/form_group";
                  $data['module'] = 'auth';
-                 $this->load->view(Site_Controller::$_container,$data);
+                 $this->load->view($this->_container,$data);
              }
              else
              {   

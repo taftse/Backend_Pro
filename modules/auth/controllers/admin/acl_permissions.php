@@ -53,7 +53,7 @@
              $data['header'] = $this->lang->line('access_permissions');
              $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/permissions";
              $data['module'] = 'auth';
-             $this->load->view(Site_Controller::$_container,$data);
+             $this->load->view($this->_container,$data);
          } 
          
          /**
@@ -107,7 +107,7 @@
              $this->page->set_crumb($data['header'],'auth/admin/acl_permissions/form/'.$id); 
              $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/form_permission";
              $data['module'] = 'auth';
-             $this->load->view(Site_Controller::$_container,$data);
+             $this->load->view($this->_container,$data);
          }   
          
          /**
@@ -212,7 +212,7 @@
              $data['header'] = $this->lang->line('access_advanced_permissions');
              $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/view_advanced_permissions";
              $data['module'] = 'auth';
-             $this->load->view(Site_Controller::$_container,$data);
+             $this->load->view($this->_container,$data);
          }
          
          /**

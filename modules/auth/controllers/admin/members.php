@@ -54,7 +54,7 @@
              $data['header'] = $this->lang->line('backendpro_members');
              $data['page'] = $this->config->item('backendpro_template_admin') . "members/view";
              $data['module'] = 'auth';
-             $this->load->view(Site_Controller::$_container,$data);
+             $this->load->view($this->_container,$data);
              return;
          }
          
@@ -186,7 +186,7 @@
                  $this->page->set_crumb($data['header'],'auth/admin/members/form/'.$id);
                  $data['page'] = $this->config->item('backendpro_template_admin') . "members/form_member";
                  $data['module'] = 'auth';
-                 $this->load->view(Site_Controller::$_container,$data);                 
+                 $this->load->view($this->_container,$data);                 
              }
              else
              {

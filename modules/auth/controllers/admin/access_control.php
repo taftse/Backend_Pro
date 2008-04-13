@@ -45,7 +45,7 @@
              $data['header'] = $this->lang->line('backendpro_access_control');
              $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/home";
              $data['module'] = 'auth';
-             $this->load->view(Site_Controller::$_container,$data);
+             $this->load->view($this->_container,$data);
              return;
          }
      }
