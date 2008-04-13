@@ -50,8 +50,8 @@ Change Log
 
 <h1>Change Log</h1>
   
-<h2>Version ######</h2>
-<p>Release Date: #######/p>
+<h2>Version 0.2 alpha 20080413</h2>
+<p>Release Date: 13th April, 2008/p>
 <ul>
     <li>Replaced the use of <var>static $_container</var> in <dfn>MY_Controller.php</dfn> to use <var>var $_container</var>. This was due to <dfn>static</dfn> only being available in PHP5. <strong>Please run a replace command on all your user created files to replace <dfn>Site_Controller::$_container</dfn> with <dfn>$this->_container</dfn> to use the new variable naming</strong>.
     <li>Deprecated <dfn>_generate_random_string()</dfn> in <kbd>Userlib.php</kbd> to use CodeIgniters string helper function <a href="http://codeigniter.com/user_guide/helpers/string_helper.html">random_string()</a></li>
