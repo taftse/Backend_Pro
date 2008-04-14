@@ -32,7 +32,7 @@ class Nested_sets_model extends Model {
 	 *
      * @access	public
 	 */
-	public function Nested_sets_model()
+	function Nested_sets_model()
 	{		
         // Call the parent constructor
 		parent::Model();
