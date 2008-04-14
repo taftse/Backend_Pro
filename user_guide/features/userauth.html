@@ -71,7 +71,7 @@ after user accounts have been created will corupt their passwords requiring the 
 
 <h2>Configuration Settings</h2>
 
-<p>All configuration settings for the Userlib Class can be found in <var>system/modules/auth/config/userlib.php</p>
+<p>All configuration settings for the Userlib Class can be found in <var>modules/auth/config/userlib.php</p>
 
 
 <table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
@@ -151,7 +151,7 @@ not that cruel.</p>
     a column called <var>gender</var>.</li>
     
     <li><strong>Update the Userlib config file</strong><br />Locate the file 
-    <kbd>system/modules/auth/config/userlib.php</kbd> and scroll down to the bottom. There you will
+    <kbd>modules/auth/config/userlib.php</kbd> and scroll down to the bottom. There you will
     find two arrays, <kbd>userlib_profile_fields</kbd> and <kbd>userlib_profile_rules</kbd>. Here you want 
     to update them to suit your new field.
     <code>
@@ -166,7 +166,7 @@ not that cruel.</p>
     </li>
     
     <li><strong>Update the Member area in the Control Panel</strong><br />
-    We want to allow administrators to now manage this new field for all users. Locate the file <kbd>system/modules/auth/controllers/admin/members.php</kbd>,
+    We want to allow administrators to now manage this new field for all users. Locate the file <kbd>modules/auth/controllers/admin/members.php</kbd>,
     this file contains all the logic to manage a users account. There are several functions we must update to the form knows how to handle 
     our new field.<br />
     <br />
@@ -179,7 +179,7 @@ not that cruel.</p>
     <dfn>_get_profile_details()</dfn> : This method is used to extract the data submitted from a form and prepare it to
     be submiited to the database. There is an example in the method of what is expected.<br />
     <br />
-    The last thing we must do is update the form which data can be entered into, locate and open the file <kbd>system/modules/auth/views/admin/members/form_member.php</kbd>,
+    The last thing we must do is update the form which data can be entered into, locate and open the file <kbd>modules/auth/views/admin/members/form_member.php</kbd>,
     scroll to the bottom and you will find an area for your custom profile fields (The format the form is layed out in is disscused <a href="../assets/css.html">here</a>).
     For our example I will add a simple radio button,<code>
     &lt;li&gt;<br />
@@ -201,7 +201,7 @@ collect extra information from the user on registration then you must extend the
 <var>userlib.php</var> class file.</p>
 
 <p>This is rather simple, just create a new file called <kbd>MY_Userlib.php</kbd> in the
-<kbd>system/modules/auth/libraries</kbd> directory. Then you can overwrite any methods to achive 
+<kbd>modules/auth/libraries</kbd> directory. Then you can overwrite any methods to achive 
 the desired effect.</p>
 
 <table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
