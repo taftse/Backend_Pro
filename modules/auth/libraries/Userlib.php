@@ -173,7 +173,7 @@
         * @param string $container View file container
         * @return void
         */
-        function login_form()
+        function login_form($container)
         {
             // First lets see if they are logged in, if so run action for that user
             if ( $this->is_user() ) {
@@ -207,7 +207,7 @@
                 $data['captcha'] = ($this->CI->preference->item('use_login_captcha')?$this->_generate_captcha():'');
                 $data['page'] = $this->CI->config->item('backendpro_template_public') . 'form_login';
                 $data['module'] = 'auth'; 
-                $this->CI->load->view($this->_container,$data);
+                $this->CI->load->view($container,$data);
                 
                 $this->CI->session->keep_flashdata('requested_page');
             }
@@ -310,9 +310,10 @@
         * Display the form for the forgotten password page
         * 
         * @access public
+        * @param string $container View file container    
         * @return void
         */
-        function forgotten_password_form()
+        function forgotten_password_form($container)
         {
             // Setup fields
             $fields['email'] = $this->CI->lang->line('userlib_email');
@@ -330,7 +331,7 @@
                 $data['header'] = $this->CI->lang->line('userlib_forgotten_password');
                 $data['page'] = $this->CI->config->item('backendpro_template_public') . 'form_forgotten_password';
                 $data['module'] = 'auth';
-                $this->CI->load->view($this->_container,$data);
+                $this->CI->load->view($container,$data);
                 
                 $this->CI->session->keep_flashdata('requested_page');
             }
@@ -470,9 +471,10 @@
         * Display the register form to the user
         * 
         * @access public
+        * @param string $container View file container    
         * @return void
         */
-        function register_form()
+        function register_form($container)
         {
             if( !$this->CI->preference->item('allow_user_registration'))
             {
@@ -505,7 +507,7 @@
                 $data['captcha'] = ($this->CI->preference->item('use_registration_captcha')?$this->_generate_captcha():'');   
                 $data['page'] = $this->CI->config->item('backendpro_template_public') . 'form_register';
                 $data['module'] = 'auth';
-                $this->CI->load->view($this->_container,$data);
+                $this->CI->load->view($container,$data);
             }
             else {
                 // Submit form

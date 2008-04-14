@@ -41,7 +41,7 @@
         
 		function login()
 		{
-            $this->userlib->login_form();
+            $this->userlib->login_form($this->_container);
 		}
         
         function logout()
@@ -51,12 +51,12 @@
         
         function forgotten_password()
         {
-            $this->userlib->forgotten_password_form();
+            $this->userlib->forgotten_password_form($this->_container);
         }
         
         function register()
         {
-            $this->userlib->register_form();
+            $this->userlib->register_form($this->_container);
         }
         
         function activate()
