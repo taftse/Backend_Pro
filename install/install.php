@@ -102,7 +102,7 @@
     $copy_to = array(
         '/system/application/config/config.php',
         '/system/application/config/database.php',
-        '/system/modules/recaptcha/config/recaptcha.php'
+        '/modules/recaptcha/config/recaptcha.php'
     );   
     
     // Lets get the contents of each of these files
