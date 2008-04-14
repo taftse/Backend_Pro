@@ -53,10 +53,11 @@
 		 */
 		function fetch($name, $fields=null, $limit=null, $where=null)
 		{
-			if(method_exists($this,'_fetch_' . $name))
+            $func = '_fetch_'.$name;
+			if(method_exists($this,$func))
 			{
 				// There is an overide function
-				return call_user_method_array('_fetch_'.$name,$this,array($fields,$limit,$where));
+				return call_user_func_array(array($this,$func), array($fields,$limit,$where));
 			}
 			else
 			{
@@ -82,10 +83,11 @@
 		 */
 		function insert($name, $data)
 		{
-			if(method_exists($this,'_insert_' . $name))
+            $func = '_insert_' . $name;
+			if(method_exists($this,$func))
 			{
 				// There is an overide function
-				return call_user_method_array('_insert_'.$name,$this,array($data));
+                return call_user_func_array(array($this,$func), array($data));   
 			}
 			else
 			{
@@ -108,10 +110,11 @@
 		 */
 		function update($name, $values, $where)
 		{
-			if(method_exists($this,'_update_' . $name))
+            $func = '_update_' . $name;
+			if(method_exists($this,$func))
 			{
 				// There is an overide function
-				return call_user_method_array('_update_'.$name,$this,array($values,$where));
+                return call_user_func_array(array($this,$func), array($values,$where));  
 			}
 			else
 			{
@@ -134,10 +137,11 @@
 		 */
 		function delete($name, $where)
 		{            
-			if(method_exists($this,'_delete_' . $name))
+            $func = '_delete_' . $name;
+			if(method_exists($this, $func))
 			{
                 // There is an overide function
-				return call_user_method_array('_delete_'.$name,$this,array($where));
+                return call_user_func_array(array($this,$func), array($where));    
 			}
 			else
 			{
