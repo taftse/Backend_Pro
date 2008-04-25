@@ -71,7 +71,7 @@ after user accounts have been created will corupt their passwords requiring the 
 
 <h2>Configuration Settings</h2>
 
-<p>All configuration settings for the Userlib Class can be found in <var>modules/auth/config/userlib.php</p>
+<p>All configuration settings for the Userlib Class can be found in <var>modules/auth/config/userlib.php</var></p>
 
 
 <table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
@@ -155,12 +155,12 @@ not that cruel.</p>
     find two arrays, <kbd>userlib_profile_fields</kbd> and <kbd>userlib_profile_rules</kbd>. Here you want 
     to update them to suit your new field.
     <code>
-    $config['userlib_profile_fields'] = array('gender' => 'Gender');<br />
-    $config['userlib_profile_rules'] = array('gender' => 'required|alpha');
+    $config['userlib_profile_fields'] = array('gender' =&gt; 'Gender');<br />
+    $config['userlib_profile_rules'] = array('gender' =&gt; 'required|alpha');
     </code>
     
     <li><strong>Allow User Profiles</strong><br />
-    Log into the control panel and go to the <strong>Settings -> Member Settings</strong> page. On 
+    Log into the control panel and go to the <strong>Settings -&gt; Member Settings</strong> page. On 
     there make sure the setting <kbd>Allow User Profiles</kbd> is set to <strong>yes</strong>. If you 
     do not do this all it means is the administrators will not be able to change a users profile values.
     </li>
@@ -173,7 +173,7 @@ not that cruel.</p>
     <dfn>_set_profile_defaults()</dfn> : This method is used when a new user is being created. In here you want to specify what value 
     your custom fields should be set to by default. So for our example I will make set <var>gender</var> to <strong>female</strong>.
     <code>
-    $this->validation->set_default_value('gender','female');
+    $this-&gt;validation-&gt;set_default_value('gender','female');
     </code>
     <br />    
     <dfn>_get_profile_details()</dfn> : This method is used to extract the data submitted from a form and prepare it to

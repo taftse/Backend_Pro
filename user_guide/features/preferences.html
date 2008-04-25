@@ -54,7 +54,7 @@ Preferences
 a database table. The main advantage of this is it means simple interfaces can be
 used to update the values without having to go into the file system.</p>
 
-<p>Many different data types can be stored using the preference table but two I will bring attention to a few:
+<p>Many different data types can be stored using the preference table but two I will bring attention to a few:</p>
 <ul>
     <li><kbd>Boolean</kbd> : You can store boolean values in the database, but store them as <strong>1</strong> 
     or <strong>0</strong> instead. The reason for doing this is it means simple <dfn>if statements</dfn> can be used
@@ -68,11 +68,10 @@ used to update the values without having to go into the file system.</p>
     <li><kbd>Long Text</kbd> : Want to store a very large paragraph as a preference, thats fine since the table 
     is implemented with a column type <strong>Text</strong> so no trimming will occur.</li>
 </ul>
-</p>
 
 <h2>Fetch Setting</h2>
 <p>Fetch a setting value:</p>
-<code>$this->preference->item('<var>name</var>')</code>
+<code>$this-&gt;preference-&gt;item('<var>name</var>')</code>
 
 <h2>Default Settings</h2>
 <p>The <strong>BackendPro</strong> system comes with many settings already setup. Below is a description 
@@ -122,7 +121,7 @@ in the database table, use the preference forms provided.</strong></p>
     <td class="td"><strong>page_debug</strong></td>
     <td class="td">0</td>
     <td class="td">1/0 (boolean)</td>
-    <td class="td">If set to 1 this will display page debug infomation provided by <dfn>$this->output->enable_profiler()</dfn>.</td>
+    <td class="td">If set to 1 this will display page debug infomation provided by <dfn>$this-&gt;output-&gt;enable_profiler()</dfn>.</td>
 </tr>
 <tr>
     <td class="td"><strong>keep_error_logs_for</strong></td>

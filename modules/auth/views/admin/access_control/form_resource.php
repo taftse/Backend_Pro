@@ -16,5 +16,5 @@
                 <?=form_submit('submit',$this->lang->line('general_save'))?>
             </li>
         </ol>
-    </fielset>
+    </fieldset>
 <?=form_close()?>

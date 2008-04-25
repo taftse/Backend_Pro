@@ -87,31 +87,30 @@ $config['groups']&nbsp;=&nbsp;array)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;'<var>group_id</var>'&nbsp;=&gt;&nbsp;array('name'&nbsp;=&gt;&nbsp;'<var>name</var>',&nbsp;fields&nbsp;=&gt;&nbsp;'<var>fields</var>'),<br />
 );
 </code>
-<p>From the code above you can see each row of the array defines a new group to split the form into. 
+<p>From the code above you can see each row of the array defines a new group to split the form into.</p> 
 <ul>
-    <li><var>group_id</var> should be a unqiue string for that group which can be passed in the url. So stick to alpha, numeric & underscore strings only.</li>
+    <li><var>group_id</var> should be a unqiue string for that group which can be passed in the url. So stick to alpha, numeric &amp; underscore strings only.</li>
     <li><var>name</var> is the form title. So 'General Settings' or something.</li>
     <li><var>fields</var> is a comma seperated string of all the preference names to include in the group.</li>
 </ul>
-
 
 
 <p>The last part of the configuration is how to handle each preference, e.g. what type of form input and what 
 validation should be used. Only by defining a preference in the following way will it be included in the form, 
 just assigning it to a group will not display the preference.</p>
 <code>
-$config['fields']['<var>setting_name</var>'] = array('type'=>'<var>type</var>','rules'=>'<var>rules</var>', 'params'=><kbd>params</kbd>);<br />
+$config['fields']['<var>setting_name</var>'] = array('type'=&gt;'<var>type</var>','rules'=&gt;'<var>rules</var>', 'params'=&gt;<kbd>params</kbd>);<br />
 ..<br />
 ..<br /> 
-$config['fields']['<var>setting_name</var>'] = array('type'=>'<var>type</var>','rules'=>'<var>rules</var>', 'params'=> <kbd>params</kbd>); 
+$config['fields']['<var>setting_name</var>'] = array('type'=&gt;'<var>type</var>','rules'=&gt;'<var>rules</var>', 'params'=&gt; <kbd>params</kbd>); 
 </code>
 
-<p>Now I'm affraid explaining this can be quite tricky.
+<p>Now I'm affraid explaining this can be quite tricky.</p>
 <ul>
     <li><var>setting_name</var> is the name you have called the preference in the database.</li>
-    <li><var>type</var> is the type of input you want, pleas see futher down the page for more details on types.</p></li>
+    <li><var>type</var> is the type of input you want, pleas see futher down the page for more details on types.</li>
     <li><var>rules</var> is a validation string you want to run the input through on submittion. E.g. <dfn>'trim|required|valid_email'</dfn></li>
-    <li><kbd>params</kbd> is an array of extra parameters you want assigned to the input E.g. <dfn>array('size'=>'20','onClick'=>'..')</dfn>.</li>
+    <li><kbd>params</kbd> is an array of extra parameters you want assigned to the input E.g. <dfn>array('size'=&gt;'20','onClick'=&gt;'..')</dfn>.</li>
 </ul>
 
 <p>Now as said it is a bit complex and this is why. The preference form class has defaults. What I mean by this if you don't
@@ -132,7 +131,7 @@ $this-&gt;load-&gt;module_library('preferences','preference_form');&lt;br&nbsp;/
 $this-&gt;preference_form-&gt;initalize($config);<br />
 <br />
 // Get the form output and assign to a variable ready to display<br />
-$form_output = $this->preference_form->display();
+$form_output = $this-&gt;preference_form-&gt;display();
 </code>
 
 <h2>Form Input Types</h2>
@@ -154,7 +153,7 @@ $form_output = $this->preference_form->display();
 <tr>
     <td class="td"><strong>textarea</strong></td>
     <td class="td">trim</td>
-    <td class="td">Creates a basic textarea input. You may need to specify rows and cols in the 'params' array, E.g. <dfn> 'params' => array('rows'=>'15','cols'=>'15')</dfn></td>
+    <td class="td">Creates a basic textarea input. You may need to specify rows and cols in the 'params' array, E.g. <dfn> 'params' =&gt; array('rows'=&gt;'15','cols'=&gt;'15')</dfn></td>
 </tr>
 <tr>
     <td class="td"><strong>boolean</strong></td>
@@ -164,7 +163,7 @@ $form_output = $this->preference_form->display();
 <tr>
     <td class="td"><strong>dropdown</strong></td>
     <td class="td"></td>                                               
-    <td class="td">Creates a dropdown select box. To specify the possible options pass an 'options' array in the 'params' array. E.g <dfn>'params' => array('options' => array('1'=>'Option 1','2'=>'Option 2'))</dfn></td>
+    <td class="td">Creates a dropdown select box. To specify the possible options pass an 'options' array in the 'params' array. E.g <dfn>'params' =&gt; array('options' =&gt; array('1'=&gt;'Option 1','2'=&gt;'Option 2'))</dfn></td>
 </tr>
 </table>
 <p>If you require a form input which is not provided by default you can add your own inputs to the class. 
@@ -188,14 +187,14 @@ function&nbsp;_field_<var>fieldname</var>($key)<br />
 
 <h2>Preference Form Function Reference</h2>
 
-<h3>$this->preference_form->initalize()</h3>
+<h3>$this-&gt;preference_form-&gt;initalize()</h3>
 <p>Initalize Form:</p>
-<code>$this->preference_form->initalize(<var>$config</var>);</code>
+<code>$this-&gt;preference_form-&gt;initalize(<var>$config</var>);</code>
 <p>Set up a form using the settings defined in the array <var>$config</var></p>
 
-<h3>$this->preference_form->display()</h3>
+<h3>$this-&gt;preference_form-&gt;display()</h3>
 <p>Output Form:</p>
-<code>$this->preference_form->display(<var>TRUE/FALSE</var>);</code>
+<code>$this-&gt;preference_form-&gt;display(<var>TRUE/FALSE</var>);</code>
 <p>Process the form setup using <strong>initalize</strong> and return the output.</p>
 <p>The first <strong>optional</strong> parameter defines whether the output should 
 be returned or <strong>printed</strong>, if <strong>TRUE</strong> the form will be printed, otherwise 

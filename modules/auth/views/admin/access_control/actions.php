@@ -44,5 +44,5 @@
                 <?=form_submit('submit',$this->lang->line('general_add'))?>
             </li>
         </ol>
-    </fielset>
+    </fieldset>
 <?=form_close()?>

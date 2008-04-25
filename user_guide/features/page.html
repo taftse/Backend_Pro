@@ -52,7 +52,7 @@ Page Class
 
 <p>The Page Class provides you with features useful to outputing infomation from 
 PHP to controller views. Examples of these features include asset management, breadcrumb
-trail creation & PHP to JS variable conversion.
+trail creation &amp; PHP to JS variable conversion.</p>
 
 <p class="important"><strong>Important:</strong>&nbsp; This class is initialized automatically by the system so there is no need to do it manually.</p>
 
@@ -157,10 +157,10 @@ through this process corrupts the cache and the website.</p>
 
 <h2>Page Class Function Reference</h2>
 
-<h3>$this->page->set_asset()</h3>
+<h3>$this-&gt;page-&gt;set_asset()</h3>
 <p>Load an asset file:</p>
-<code>$this->page->set_asset('<var>shared/admin/public</var>','<var>css/js</var>','<var>filename</var>')</code>
-Allows you to specify an asset file to be loaded just for that controller. Please 
+<code>$this-&gt;page-&gt;set_asset('<var>shared/admin/public</var>','<var>css/js</var>','<var>filename</var>')</code>
+<p>Allows you to specify an asset file to be loaded just for that controller. Please 
 note any assets loaded through this method will not be cached.</p>
 <p>The first parameter specifys what type of asset you want to load.</p> 
 <p>The second parameter is if the asset is a javascript file or a css style sheet.</p>
@@ -168,24 +168,24 @@ note any assets loaded through this method will not be cached.</p>
 note you can use <var>.php</var> files since they are executed before inclusion. Please 
 see <strong>Asset Caching</strong> above for more information.</p>
 
-<h3>$this->page->set_variable()</h3>
+<h3>$this-&gt;page-&gt;set_variable()</h3>
 <p>Specify a variable for conversion:</p>
-<code>$this->page->set_variable('<var>name</var>',<var>value</var>)</code>
+<code>$this-&gt;page-&gt;set_variable('<var>name</var>',<var>value</var>)</code>
 <p>Converts a PHP variable into a javascript variable.</p> 
 <p>The first parameter is the name you want the javascript variable to be called.</p> 
 <p>The second parameter is the value you want to convert. You can specify any of
 the following: <kbd>string</kbd>, <kbd>integer</kbd>, <kbd>boolean</kbd>, <kbd>null</kbd>,
 <kbd>non-associative nested array</kbd>.</p>
 
-<h3>$this->page->set_crumb()</h3>
+<h3>$this-&gt;page-&gt;set_crumb()</h3>
 <p>Create breadcrumb</p>
-<code>$this->page->set_crumb('<var>name</var>','<var>link</var>')</code>
+<code>$this-&gt;page-&gt;set_crumb('<var>name</var>','<var>link</var>')</code>
 <p>Create a new crumb in the breadcrumb trail for this controller. The <var>link</var>
 should be in the form used by the rest of CodeIgniter, i.e. <var>controller/method</var></p>  
 
-<h3>$this->page->output_trail()</h3>
+<h3>$this-&gt;page-&gt;output_trail()</h3>
 <p>Output breadcrumb trail:</p>
-<code>$this->page->output_trail(<var>TRUE/FALSE</var>)</code>
+<code>$this-&gt;page-&gt;output_trail(<var>TRUE/FALSE</var>)</code>
 <p>Creates breadcrumb trail HTML. An example of the code created:</p> 
 <code>
 &lt;div id=&quot;breadcrumb&quot;&gt;
@@ -198,9 +198,9 @@ should be in the form used by the rest of CodeIgniter, i.e. <var>controller/meth
 printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
 if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 
-<h3>$this->page->output_assets()</h3>
+<h3>$this-&gt;page-&gt;output_assets()</h3>
 <p>Output assets:</p>
-<code>$this->page->output_assets('<var>admin/public</var>',TRUE/FALSE)</code>
+<code>$this-&gt;page-&gt;output_assets('<var>admin/public</var>',TRUE/FALSE)</code>
 <p>Creates HTML code to include asset files into view file. Ane example of the code created:</p>
 <code>
 &lt;div id=&quot;breadcrumb&quot;&gt;

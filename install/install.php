@@ -157,7 +157,7 @@
     <p>Your system has been fully setup, please delete the <b>/install</b> directory 
     otherwise other people will be able to reset your system setup.</p>
     
-    <p>You may now use the system, <a href="../index.php">click here</a> to do so.</b>
+    <p>You may now use the system, <a href="../index.php">click here</a> to do so.</p>
 
     </div>
     
