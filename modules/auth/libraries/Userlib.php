@@ -577,30 +577,6 @@
         }
         
         /**
-        * Generate random string
-        * 
-        * Can be used to generate a randome string of set length
-        * 
-        * @access private
-        * @param integer $length Length of string
-        * @return string
-        * @deprecated
-        */
-        function _generate_random_string($length=32)
-        {
-            // Base chars
-            $base = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            $max=strlen($base)-1;
-            
-            $string='';
-            mt_srand((double)microtime()*1000000);
-            while (strlen($string)<$length)
-                $string.=$base{mt_rand(0,$max)};
-                
-            return $string;            
-        }
-        
-        /**
          * Set User Login data
          *
          * When given a user ID it will fetch the required data
