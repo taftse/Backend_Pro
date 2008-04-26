@@ -25,6 +25,8 @@
      */
     class Page
     {
+    	var $meta_tags = array();
+    	
         function Page()
         {
             // Create CI instance
@@ -48,6 +50,23 @@
         }
         // ---------------------------------------------------------------------------
 
+        /**
+         * Set meta tags
+         *
+         * @param string $name Tag name
+         * @param string $value Tag content
+         * @param boolean $http Tag type, TRUE means an http-equiv tag, FALSE for a name tag
+         * @return boolean
+         */
+        function set_metatag($name = NULL, $content = NULL, $http = FALSE)
+        {
+        	if ( is_null($name))
+        		return FALSE;
+        	
+        	$this->meta_tags[$name] = array('content' => $content, 'type' => ($http?'http-equiv':'name'));        		
+        	return TRUE;
+        }
+        
         /**
          * Load Asset file
          *
@@ -115,6 +134,27 @@
             return;
         }
 
+        /**
+         * Output meta tags
+         *
+         * @param boolean $print Print tags to page or return them
+         * @return string
+         */
+        function output_metatags($print = TRUE)
+        {
+        	if (count($this->meta_tags) == 0)
+        		return '';
+        	
+        	$output = '';
+        	foreach($this->meta_tags as $name => $tag)
+        		$output .= "<meta ".$tag['type']."=\"".$name."\" content=\"".$tag['content']."\" />\n";
+        	
+        	if ($print)
+        		print $output;
+        	else
+        		return $output;        	
+        }
+        
         /**
          * Output Breadcrumb Trail
          *

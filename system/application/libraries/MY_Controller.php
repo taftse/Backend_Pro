@@ -35,6 +35,12 @@
                 $this->output->enable_profiler(TRUE);
             }*/
             
+            // Set site meta tags
+            //$this->page->set_metatag('name','content',TRUE/FALSE);
+            $this->page->set_metatag('content-type','text/html; charset=utf-8',TRUE);
+            $this->page->set_metatag('robots','all');
+            $this->page->set_metatag('pragma','cache',TRUE);
+            
             log_message('debug','Site_Controller Class Initialized');
         }
     }
@@ -62,6 +68,9 @@
             {
                 redirect('auth/maintenance','location');
             }
+            
+            // Set public meta tags
+            //$this->page->set_metatag('name','content',TRUE/FALSE);
             
             log_message('debug','Public_Controller Class Initialized');
         }
@@ -117,6 +126,11 @@
             if($this->preference->item('maintenance_mode'))
                 flashMsg('warning',$this->lang->line('backendpro_site_off'));
             
+            // Set private meta tags
+            //$this->page->set_metatag('name','content',TRUE/FALSE);
+            $this->page->set_metatag('robots','nofollow, noindex');
+            $this->page->set_metatag('pragma','nocache',TRUE);
+                
             log_message('debug','Admin_Controller Class Initialized');
         }
     }

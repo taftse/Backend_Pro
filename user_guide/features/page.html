@@ -63,6 +63,7 @@ trail creation &amp; PHP to JS variable conversion.</p>
     <li>Asset Management</li>
     <li>Breadcrumb Trail</li>
     <li>PHP to JS variable conversion</li>
+    <li>Meta tag creation</li>
 </ul>
 
 <h2>How to use the Page Class?</h2>
@@ -183,6 +184,34 @@ the following: <kbd>string</kbd>, <kbd>integer</kbd>, <kbd>boolean</kbd>, <kbd>n
 <p>Create a new crumb in the breadcrumb trail for this controller. The <var>link</var>
 should be in the form used by the rest of CodeIgniter, i.e. <var>controller/method</var></p>  
 
+<h3>$this-&gt;page-&gt;set_metatag()</h3>
+<p>Create meta tag:</p>
+<code>$this-&gt;page-&gt;set_metatag('<var>name</var>','<var>content</var>',<var>TRUE/FALSE</var>)</code>
+<p>The first parameter is the name of the tag e.g keywords, description</p>
+<p>The second paramter is the content of the meta tag e.g 'text/html; charset=utf-8'</p>
+<p>The third <strong>optional</strong> parameter is a <strong>boolean</strong> to set whether
+the tag is the default 'name' or 'http-equiv' version. By default it is set to <kbd>false</kbd> ('name' tag type)</p>
+<code>
+$this-&gt;page-&gt;set_metatag('author','John Doe');<br>
+// Creates the following<br>
+// &lt;meta name="author" content="John Doe" /&gt;<br>
+<br>
+$this-&gt;page-&gt;set_metatag('content-type','text/html; charset=utf-8',TRUE);<br>
+// Creates the following<br>
+// &lt;meta http-eqiv="content-type" content="text/html; charset=utf-8" /&gt;
+</code>
+<p>It is advised to set base meta tags (i.e. ones to be used throughout the site)
+in the MY_Controller.php file, in the required classes.</p>
+<p>Setting two identical meta tags (i.e the same name) will cause for the second 
+to be displayed, due to it overwriting the initial value.</p>
+
+<h3>$this-&gt;page-&gt;output_metatags()</h3>
+<p>Output meta tags:</p>
+<code>$this-&gt;page-&gt;output_metatags(<var>TRUE/FALSE</var>)</code>
+<p>The first <strong>optional</strong> parameter specifys if the HTML should be 
+printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
+if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
+
 <h3>$this-&gt;page-&gt;output_trail()</h3>
 <p>Output breadcrumb trail:</p>
 <code>$this-&gt;page-&gt;output_trail(<var>TRUE/FALSE</var>)</code>
@@ -194,7 +223,7 @@ should be in the form used by the rest of CodeIgniter, i.e. <var>controller/meth
 <br />    &nbsp;&nbsp;&nbsp;&nbsp;Third Crumb
 <br />&lt;/div&gt;
 </code>
-<p>The second <strong>optional</strong> parameter specifys if the HTML should be 
+<p>The first <strong>optional</strong> parameter specifys if the HTML should be 
 printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
 if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 
@@ -209,9 +238,9 @@ if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 <br />    &nbsp;&nbsp;&nbsp;&nbsp;Third Crumb
 <br />&lt;/div&gt;
 </code>
-<p>The second <strong>optional</strong> parameter specifys if the HTML should be 
+<p>The first <strong>optional</strong> parameter specifys if the HTML should be 
 printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
-if set to <kbd>false</kbd> (boolean) the output will be returned.</p> 
+if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 
 </div>
 <!-- END CONTENT -->
