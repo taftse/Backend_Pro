@@ -31,7 +31,7 @@
         $row = $query->row();     
         
         // Get Offset
-        $offset = $this->access_control_model->buildPrettyOffset(&$obj,$tree);
+        $offset = $this->access_control_model->buildPrettyOffset($obj,$tree);
         $edit = ($obj->checkNodeIsRoot($tree['row'])?'&nbsp;':'<a href="'.site_url('auth/admin/acl_resources/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets'). 'icons/pencil.png').'</a>');           
         $disable = ($row->disabled?'tick.png':'cross.png');
         $edit = ($obj->checkNodeIsRoot($tree['row']))?'':'<a href="'.site_url('auth/admin/acl_groups/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets').'icons/pencil.png').'</a>';
