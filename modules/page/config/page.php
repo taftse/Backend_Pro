@@ -34,32 +34,53 @@
 	| To include a shared css file call style.css the code below should be as follows:
 	|
 	| $config['default_assets'] = array(
-	|	'admin' 		=> array(
-	|		'css' 			=> array(),
-	|		'js' 	  	 		=> array()),
-	|	'public' 	=> array(
-	|		'css' 			=> array(),
-	|		'js' 	  	 		=> array()),
-	|	'shared' 	=> array(
-	|		'css' 			=> array('style.css'),
-	|		'js' 	  	 		=> array())
+	|	'admin' => array(
+	|		'css' 		=> array(),
+	|		'js'		=> array(),
+	|		'cond_css' 	=> array()),
+	|	'public'=> array(
+	|		'css' 		=> array(),
+	|		'js'		=> array(),
+	|		'cond_css' 	=> array()),
+	|	'shared'=> array(
+	|		'css' 		=> array(),
+	|		'js'		=> array(),
+	|		'cond_css' 	=> array()),
 	| );
 	|
-	| The files entered do not have to end in .js or .css. The library will only know what type
-	| of file it is due to the array key the file name belongs to. These means you can include
+	| The files entered do not have to end in .js or .css. The library will know what type
+	| of file it is due to the array key the file name belongs to. This means you can include
 	| .php files which dynamicly create your css files.
 	| DO NOT CHANGE THE KEYS OF THE ARRAY OR ADD EXTRA ARRAY KEYS IN
+	|
+	| Note on Conditional CSS:
+	| Conditional CSS files are possible. By using these you can have only specific browsers
+ 	| load certain files. To achive this create a css file as you normaly would and store it
+	| in either the admin/public/shared css folder. To specifiy a certain file should only be
+	| loaded for a certain browser you must format the name accordingly
+	|
+	|	Formats of string passed as param are
+    |		{browser}.css													eg ie.css
+    |		{browser}_{major version}.css 									eg ie_6.css
+    |		{browser}_{major version}#{minor version}.css 					eg ie_5#008.css
+    |		{condition}_{browser}_{major version}.css 						eg gte_ie_6.css
+    |		{condition}_{browser}_{major version}#{minor version}.css 		eg gte_ie_5#008.css
+	|
+	| Please note conditional css files are loaded last.
 	*/
 	 $config['default_assets'] = array(
 	    'admin'  => array(
-		    'css'   => array('layout.css','style.css','navigation.css'),
-			'js'    => array('navigation.js','select_all.js')),
+		    'css'   	=> array('layout.css','style.css'),
+			'js'    	=> array('navigation.js','select_all.js'),
+	 		'cond_css' 	=> array()),
 		'public' => array(
-			'css'   => array('layout.css'),
-			'js'    => array()),
+			'css'   	=> array('layout.css'),
+			'js'    	=> array(),
+	 		'cond_css' 	=> array()),
 		'shared' => array(
-			'css'   => array('reset.css','ie.css','typography.css','forms.css','FlashStatus.css','icons.php','treeview.css'),
-			'js'    => array('jquery.js','interface.js','jquery.cookie.js','jquery.treeview.js'))
+			'css'   	=> array('reset.css','typography.css','forms.css','FlashStatus.css','icons.php','treeview.css'),
+			'js'    	=> array('jquery.js','interface.js','jquery.cookie.js','jquery.treeview.js'),
+	 		'cond_css' 	=> array('ie_6.css','gte_ie_6.css'))
 	);
 
 	 /*

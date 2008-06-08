@@ -224,18 +224,22 @@
             // PREPARE ASSET OUTPUT
             $this->CI->load->helper('file');
             foreach(array('shared',$area) as $type)
-            //foreach(array($area) as $type)
             {
-                foreach(array('css','js') as $asset)
+                foreach(array('js','css','cond_css') as $asset)
                 {
                     // Asset path
-                    $dir = $this->CI->config->item($type . "_assets") . $asset . "/";
+                    if($asset == 'cond_css'){
+                    	$dir = $this->CI->config->item($type . "_assets") . "css/";
+                    }
+                    else{
+                		$dir = $this->CI->config->item($type . "_assets") . $asset . "/";
+                    }
 
                     // Get all files in asset path
                     $asset_files = get_filenames($dir);
 
                     // First lets check if there is a cache
-                    if($this->CI->config->item('asset_cache_length') != 0)
+                    if($this->CI->config->item('asset_cache_length') != 0 && $asset != 'cond_css')
                     {
                         $is_cache = FALSE;
                         foreach($asset_files as $file)
@@ -292,6 +296,142 @@
             }
         }
 
+        /**
+         * Include Conditional CSS File
+         *
+         * @access private
+         * @author ddrury
+         * @param string $file Filename
+         */
+    	function _include_cond_css($file)
+        {
+            if ($this->_test_conditions(basename($file,'.css')))
+            {
+                $this->output .= '<link rel="stylesheet" type="text/css" href="' . base_url() . $file . '" />';
+                $this->output .= "\n";
+            }
+        }
+        
+        /**
+         * Test Browser Version
+         *
+         * When given a file name, check whether it should be displayed
+         * for this browser.
+         * 
+         * @access private
+         * @author ddrury
+         * @param string $str Filename
+         * @return boolean
+         */
+    	function _test_conditions($str)
+        {
+            static $feature;
+            if (!isset($feature))
+            {
+                $this->CI->load->library('user_agent');
+
+                switch($this->CI->agent->browser())
+                {
+                    case('Internet Explorer'):
+                        $feature = 'ie';
+                        break;
+                    case('Firefox'):
+                        $feature = 'ff';
+                        break;
+                    case('Opera'):
+                        $feature = 'op';
+                        break;
+                    case('Safari'):
+                        $feature = 'sf';
+                        break;
+                    default:
+                        $feature = '??';
+                }
+            }
+
+            $elements=explode('_',$str);
+
+            switch (count($elements))
+            {
+                case(1): // only browser
+                    $condition = (strtolower($elements[0]) == $feature);
+                    break;
+                case(2): // browser and it's version
+                    $condition = (strtolower($elements[0]) == $feature);
+                    if ($condition)
+                        $condition = $this->_compare_versions($elements[1], '');
+                	break;
+                case(3): // operator, browser & version
+                    $condition = (strtolower($elements[1]) == $feature);
+                    if ($condition)
+                        $condition = $this->_compare_versions($elements[2],$elements[0]);
+                	break;
+            }
+            return $condition;
+        }
+        
+        /**
+         * Compare Browser Versions
+         *
+         * @access private
+         * @author ddrury
+         * @param string $value
+         * @param string $operator Operater value
+         * @return unknown
+         */
+    	function _compare_versions($value, $operator)
+        {
+            static $major;
+            static $minor = '0';
+            if (! isset($major))
+            {
+        		/* Build an array containing the major & minor
+        		 * browser versions. e.g array(2),(0014)
+        		 */
+                $elements = explode('.',$this->CI->agent->version());
+                $num = count($elements);
+                $major = $elements[0];
+                if ($num>1)
+                {
+                    $minor ='';
+                    for ($i=1; $i<$num;$i++)
+                        $minor .= $elements[$i];
+                }
+            }
+            switch ($operator)
+            {
+                case('lt'):
+                    $op = '<';
+                    break;
+                case('gt'):
+                    $op = '>';
+                    break;
+                case('lte'):
+                    $op = '<=';
+                    break;
+                case('gte'):
+                    $op = '>=';
+                    break;
+                case('ne'):
+                    $op = '!=';
+                    break;
+                default:
+                    $op = '==';
+                }
+                $parts = explode('#',$value);
+                if (count($parts)>1)
+                {
+                    $str = "($major.$minor $op $parts[0].$parts[1])";
+                }
+                else
+                {
+                    $str = "($major $op $parts[0])";
+                }
+                eval("\$result = $str;");
+                return $result;
+
+        }
+        
         /**
          * Write cache file
          *

@@ -110,7 +110,7 @@ trail creation &amp; PHP to JS variable conversion.</p>
     <td class="td"><strong>default_assets</strong></td>
     <td class="td">Array</td>
     <td class="td">None</td>
-    <td class="td">Array of assets to load on every controller</td>
+    <td class="td">Array of assets to load on every controller. Please see <var>modules/page/config/page.php</var> for futher details.</td>
 </tr>
 <tr>
     <td class="td"><strong>asset_cache_length</strong></td>
@@ -230,17 +230,30 @@ if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 <h3>$this-&gt;page-&gt;output_assets()</h3>
 <p>Output assets:</p>
 <code>$this-&gt;page-&gt;output_assets('<var>admin/public</var>',TRUE/FALSE)</code>
-<p>Creates HTML code to include asset files into view file. Ane example of the code created:</p>
+<p>Creates HTML code to include asset files into view file. An example of the code created:</p>
 <code>
-&lt;div id=&quot;breadcrumb&quot;&gt;
-<br />    &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href=&quot;first-link&quot; title=&quot;First Crumb&quot;&gt;First Crumb&lt;/a&gt; &amp;#187;
-<br />    &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href=&quot;second-link&quot; title=&quot;Second Crumb&quot;&gt;Second Crumb&lt;/a&gt; &amp;#187;
-<br />    &nbsp;&nbsp;&nbsp;&nbsp;Third Crumb
-<br />&lt;/div&gt;
+
 </code>
-<p>The first <strong>optional</strong> parameter specifys if the HTML should be 
+<p>The first paramter specifies which asset area should be outputed. This allows either the public or
+administration assets to be choosen between.</p> 
+<p>The second <strong>optional</strong> parameter specifys if the HTML should be 
 printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
 if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
+
+<p class="important"><strong>Important:</strong> Assets are outputed to the page in a specific order.<br/>
+&nbsp;&nbsp;Shared Javascript Files<br/>
+&nbsp;&nbsp;Shared CSS Files<br/>
+&nbsp;&nbsp;Shared Conditional CSS Files<br/>
+THEN EITHER<br/>
+&nbsp;&nbsp;Admin Javascript Files<br/>
+&nbsp;&nbsp;Admin CSS Files<br/>
+&nbsp;&nbsp;Admin Conditional CSS Files<br/>
+OR<br/>
+&nbsp;&nbsp;Public Javascript Files<br/>
+&nbsp;&nbsp;Public CSS Files<br/>
+&nbsp;&nbsp;Public Conditional CSS Files<br/>
+Depending on what string you specific as the first parameter to the function call.
+</p>
 
 </div>
 <!-- END CONTENT -->
