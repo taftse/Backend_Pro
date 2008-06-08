@@ -82,7 +82,7 @@
 			'js'    	=> array('jquery.js','interface.js','jquery.cookie.js','jquery.treeview.js'),
 	 		'cond_css' 	=> array('ie_6.css','gte_ie_6.css'))
 	);
-
+	
 	 /*
 	 |--------------------------------------------------------------------------
 	 | Asset Cache Length
@@ -104,6 +104,15 @@
 	*/
 	$config['asset_cache_file_pfx'] = "cache_";
 
+	/*
+	|--------------------------------------------------------------------------
+	| Asset Caching Settings
+	|--------------------------------------------------------------------------
+	| All settings to handle asset caching
+	*/
+	// Path relative to BASEPATH to the CSS Tidy main class
+	$config['csstidy_path'] = "plugins/csstidy/class.csstidy.php";
+	
 	/*
 	|--------------------------------------------------------------------------
 	| Default javascript variables to assign

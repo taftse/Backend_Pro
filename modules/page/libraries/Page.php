@@ -45,7 +45,7 @@
 
             // Setup output string
             $this->output = "";
-
+            
             log_message('debug', "Page Class Initialized");
         }
         // ---------------------------------------------------------------------------
@@ -492,7 +492,7 @@
             ob_start();
             
             // Compress the cache data
-            $cache_output = $this->_cache_compress($cache_output);
+            $cache_output = $this->_cache_compress($cache_output, $asset_type);
 
             // Write the cache file and link it
             $this->{'_include_' . $asset_type}($asset_path);
@@ -500,18 +500,40 @@
         }
 
         /**
-         * Compress cache
+         * Compress Cache
          *
-         * Given a string remove comments/line breaks/tabs
-         *
-         * @access private
-         * @param string $data Cache data string
-         * @return string Compress Cache data string
+         * @param string $data File contents
+         * @param string $type Asset type
+         * @return string
          */
-        function _cache_compress($data)
+        function _cache_compress($data, $type)
         {        
-            log_message('debug','Cache file compressed');
-            return $data;
+        	if($type == 'css')
+        	{
+        		// CSS output, use csstidy
+	            if ( !class_exists('csstidy'))
+	            {
+	            	// Load class
+	            	$csstidy = BASEPATH.$this->CI->config->item('csstidy_path');
+	            	if (file_exists($csstidy)){
+	            		require_once($csstidy);	
+	            	} else {
+	            		log_message('error','Could not find CSS tidy class at '.$csstidy);
+	            		return $data;
+	            	}           	
+	            }
+	            
+	            // Create new instance of CSSTidy
+	            $this->csstidy = new csstidy();
+	            $this->csstidy->load_template('highest_compression');
+	            
+	            // Parse code	            
+	            $this->csstidy->parse($data);
+	            
+	            return $this->csstidy->print->plain();
+        	}
+     
+        	return $data;
         }
 
         /**
