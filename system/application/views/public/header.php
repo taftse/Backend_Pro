@@ -3,6 +3,7 @@
 <head>
 	<?=$this->page->output_metatags(); ?>
 	<title><?=$header.' | '.$this->preference->item('site_name')?></title>
+	<?=$this->page->output_variables()?>
 	<?=$this->page->output_assets('public')?>
 </head>
     

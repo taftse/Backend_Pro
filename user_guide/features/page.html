@@ -205,6 +205,13 @@ in the MY_Controller.php file, in the required classes.</p>
 <p>Setting two identical meta tags (i.e the same name) will cause for the second 
 to be displayed, due to it overwriting the initial value.</p>
 
+<h3>$this-&gt;page-&gt;output_variables()</h3>
+<p>Output javascript variables:</p>
+<code>$this-&gt;page-&gt;output_variables(<var>TRUE/FALSE</var>)</code>
+<p>The first <strong>optional</strong> parameter specifys if the HTML should be 
+printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
+if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
+
 <h3>$this-&gt;page-&gt;output_metatags()</h3>
 <p>Output meta tags:</p>
 <code>$this-&gt;page-&gt;output_metatags(<var>TRUE/FALSE</var>)</code>

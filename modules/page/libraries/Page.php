@@ -25,7 +25,11 @@
      */
     class Page
     {
-    	var $meta_tags = array();
+    	var $meta_tags = array();		// Meta tag array
+    	var $variables = array();		// PHP -> JS variable array
+    	var $default_assets = array();	// Default page assets
+    	var $extra_assets = array();	// On-the-fly assets
+    	var $breadcrumb = array();		// Breadcrumb trail
     	
         function Page()
         {
@@ -37,14 +41,10 @@
 
             // Setup default, js_vars & on-fly asset arrays
             $this->default_assets = $this->CI->config->item('default_assets');
-            $this->extra_assets = array();
             $this->variables = $this->CI->config->item('default_page_variables');
 
             // Setup output string
             $this->output = "";
-
-            // Breadcrumb trail
-            $this->breadcrumb = array();
 
             log_message('debug', "Page Class Initialized");
         }
@@ -133,7 +133,7 @@
             log_message('debug','Breadcrumb link "'.$name.'" pointing to "'.$link.'" created'); 
             return;
         }
-
+        
         /**
          * Output meta tags
          *
@@ -164,8 +164,7 @@
          */
         function output_breadcrumb($print = TRUE)
         {
-            $output = "";
-
+            $output = '';
             $i = 1;
             foreach ( $this->breadcrumb_trail as $name => $link )
             {
@@ -188,6 +187,34 @@
         }
 
         /**
+         * Output PHP to JS variable conversion code
+         *
+         * @param boolean $print If true output is printed, otherwise it is returned
+         * @return string
+         */
+        function output_variables($print = TRUE)
+        {
+            if (count($this->variables) != 0)
+            {
+                $output = "<script type=\"text/javascript\">\n<!--\n";
+                foreach($this->variables as $name => $value)
+                {
+                    $output .= "var " . $name . " = ";
+                    $output .= $this->_handle_variable($value);
+                    $output .= ";\n";
+                }
+                $output .= "// -->\n</script>\n";
+            
+	            // Output HTML
+	            if($print){
+	                print $output;
+	            } else {
+	                return $output;
+	            }
+            }    
+        }
+        
+        /**
          * Output Page Assets & Variables
          *
          * Create HTML code to include css/js files and transfer php variables
@@ -205,20 +232,6 @@
                 // Just check a valid area has been given
                 log_message("error","Cannot link asset area '" . $area . "'.");
                 return;
-            }
-
-            // PREPARE VARIABLE OUTPUT
-            // Transfer PHP variables into JS variables
-            if (count($this->variables) != 0)
-            {
-                $this->output .= "<script type=\"text/javascript\">\n<!--\n";
-                foreach($this->variables as $name => $value)
-                {
-                    $this->output .= "var " . $name . " = ";
-                    $this->_handle_variable($value);
-                    $this->output .= ";\n";
-                }
-                $this->output .= "// -->\n</script>\n";
             }
 
             // PREPARE ASSET OUTPUT
@@ -532,41 +545,43 @@
          *
          * @access private
          * @param mixed $value
-         * @return void
+         * @return string
          */
         function _handle_variable($value)
         {
-            switch(gettype($value))
+        	$output = '';
+        	switch(gettype($value))
             {
                 case 'boolean':
-                    $this->output .= ($value===TRUE) ? "true" : "false";
-                break;
+                    $output .= ($value===TRUE) ? "true" : "false";
+                	break;
 
                 case 'integer':
                 case 'double':
-                    $this->output .= $value;
-                break;
+                    $output .= $value;
+                	break;
 
                 case 'string':
-                    $this->output .= "\"".$value."\"";
-                break;
+                    $output .= "\"".$value."\"";
+                	break;
 
                 case 'array':
-                    $this->output .= "new Array(";
+                    $output .= "new Array(";
                     foreach($array as $value)
                     {
-                        $this->_handle_variable($value);
-                        $this->output .= ",";
+                        $output .= $this->_handle_variable($value);
+                        $output .= ",";
                     }
-                    $this->output = substr($this->output,0,-1);
-                    $this->output .= ")";
-                break;
+                    $output = substr($variable_output,0,-1);
+                    $output .= ")";
+                	break;
 
                 default:
                     // Otherwise assume its NULL
-                    $this->output .= "null";
-                break;
+                    $output .= "null";
+                	break;
             }
+            return $output;
         }
     }
 ?>
