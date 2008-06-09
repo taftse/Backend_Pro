@@ -6,7 +6,7 @@
      *
      */
 
-     $config['acl_tables'] = array(
+     $config['acl']['tables'] = array(
         'aros'           => 'be_acl_groups',
         'acos'           => 'be_acl_resources',
         'axos'           => 'be_acl_actions',

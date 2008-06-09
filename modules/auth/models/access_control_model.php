@@ -36,8 +36,10 @@
             parent::Model();
             
             // Setup allowed tables
-            $this->load->config('khacl');
-            $this->_TABLES = $this->config->item('acl_tables');
+            $this->load->config('khaos', true, true);  
+        	$options = $this->config->item('acl', 'khaos');
+            $this->_TABLES = $options['tables'];            
+            
             $this->_TABLES['groups'] = $this->config->item('backendpro_table_prefix')."groups";  
             $this->_TABLES['resources'] = $this->config->item('backendpro_table_prefix')."resources";  
             

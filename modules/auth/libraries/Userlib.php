@@ -36,8 +36,9 @@
 			$this->CI->load->helper('userlib');
             $this->CI->load->library('validation');  
             $this->CI->load->library('Useremail');
-            $this->CI->load->library('khacl');
+            //$this->CI->load->library('khacl');
             $this->CI->load->helper('string');
+            $this->CI->load->helper('Khacl');
 
 			// Initialise the class
 			$this->_init();
@@ -132,7 +133,7 @@
                 {
                     // There user has a session with values
                     // Lets check there valid                    
-                    if ($this->CI->khacl->check($group,$resource,$action))
+                    if (kh_acl_check($group,$resource,$action))
                     {
                         // They can access this resource
                         log_message('debug','Yes they do have access');

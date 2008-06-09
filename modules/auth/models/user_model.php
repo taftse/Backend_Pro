@@ -111,8 +111,9 @@
         function getUsers($where = NULL, $limit = array('limit' => NULL, 'offset' => ''))
         {
             // Load the khacl config file so we can get the correct table name
-            $this->load->module_config('auth','khacl');
-            $acl_tables = $this->config->item('acl_tables');
+            $this->load->config('khaos', true, true);  
+        	$options = $this->config->item('acl', 'khaos');
+            $acl_tables = $options['tables'];  
             
             // If Profiles are enabled load get their values also
             $profile_columns = '';
