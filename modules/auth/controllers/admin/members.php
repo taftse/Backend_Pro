@@ -176,6 +176,10 @@
              // RUN
              if ($this->validation->run() === FALSE)
              {
+             	 // Load Generate Password Assets
+             	 $this->page->set_asset('admin','js','generate_password.js');
+             	 $this->page->set_asset('admin','css','generate_password.css');
+             	
                  // Construct Groups dropdown
                  $this->load->model('access_control_model');
                  $data['groups'] = $this->access_control_model->buildAClDropdown('group','id');                 
