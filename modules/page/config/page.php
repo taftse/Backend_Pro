@@ -22,6 +22,7 @@
 	$config['asset_images']  = 'images/';
 	$config['asset_css']     = 'css/';
 	$config['asset_js']      = 'js/';
+	$config['asset_icons'] 	 = 'icons/';
 	$config['admin_assets']  = $config['assets_dir'] . 'admin/';
 	$config['public_assets'] = $config['assets_dir'] . 'public/';
 	$config['shared_assets'] = $config['assets_dir'] . 'shared/';

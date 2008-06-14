@@ -215,6 +215,22 @@
         }
         
         /**
+         * Icon Image
+         * 
+         * Outputs code to show an icon image tag
+         *
+         * @param string $name Icon name
+         * @return mixed
+         */
+        function icon($name = NULL)
+        {
+        	if( is_null($name))
+        		return false;
+        		
+        	return '<img src="'.base_url() . $this->CI->config->item('shared_assets') . $this->CI->config->item('asset_icons') . $name . '.png" alt="'.$name.'"/>';
+        }
+        
+        /**
          * Output Page Assets & Variables
          *
          * Create HTML code to include css/js files and transfer php variables

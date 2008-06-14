@@ -209,7 +209,13 @@ the following: <kbd>string</kbd>, <kbd>integer</kbd>, <kbd>boolean</kbd>, <kbd>n
 <p>Create breadcrumb</p>
 <code>$this-&gt;page-&gt;set_crumb('<var>name</var>','<var>link</var>')</code>
 <p>Create a new crumb in the breadcrumb trail for this controller. The <var>link</var>
-should be in the form used by the rest of CodeIgniter, i.e. <var>controller/method</var></p>  
+should be in the form used by the rest of CodeIgniter, i.e. <var>controller/method</var></p>
+
+<h3>$this-&gt;page-&gt;icon()</h3>
+<p>Display Icon</p>
+<code>$this-&gt;page-&gt;icon('<var>name</var>')</code>
+<p>Return a HTML image tag to display the requested icon. Where <var>name</var> can be any icon file in
+<dfn>assets/shared/icons</dfn> excluding the <kbd>.png</kbd> file extension.</p>  
 
 <h3>$this-&gt;page-&gt;set_metatag()</h3>
 <p>Create meta tag:</p>
