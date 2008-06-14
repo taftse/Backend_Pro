@@ -70,13 +70,13 @@ the <a href="../controllers/public_controller.html">Public Controller</a> a clas
 which you can only access by using <dfn>$this->_container</dfn>. This variable 
 is the <strong>container</strong> view file I was talking about for the respective Controller class.</p>
 
-<p>The master view files and their children view files are located in <kbd>system/application/views/admin</kbd> 
-and <kbd>system/application/views/public</kbd> respectivly.
+<p>The master view files and their children view files are located in <var>system/application/views/admin</var> 
+and <var>system/application/views/public</var> respectivly.
 
 <h2>Possible Page Content</h2>
 <p>As said above, I wanted to design a system so content could be passed into a 
 default view file and it would work, for this reason there is three ways to add content 
-to a page. In all three a 'header' variable is set. This sets the text to be displayed 
+to a page. In all three a <var>header</var> variable is set. This sets the text to be displayed 
 in the title bar of the browser.</p>
 <ol>
     <li><strong>Basic plain text</strong><br />
@@ -98,7 +98,7 @@ in the title bar of the browser.</p>
     <li><strong>View File</strong><br />
     <p>For the times when you want to load a more compelx page, passing the data by 
     string can get confusing and messy. For this reason you can specify a <kbd>page</kbd> to load in 
-    ites place (read page as view file).</p>
+    its place (read page as view file).</p>
     <code>
     function&nbsp;index()<br />
     {<br />
@@ -108,7 +108,7 @@ in the title bar of the browser.</p>
     }
     </code>
     <p>In the above example you will see I specify a <kbd>page</kbd> to load.
-    So in this example it will load the view file <kbd>system/application/<dfn>view/admin/</dfn>my_view_file.php</kbd>.</p> 
+    So in this example it will load the view file <var>system/application/</var><dfn>view/admin/</dfn><kbd>my_view_file.php</kbd>.</p> 
     </li>
     
     <li><strong>View File in a Module</strong><br />

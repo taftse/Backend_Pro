@@ -66,7 +66,7 @@ this page to get the basics.</p>
 </ul>
 
 <p class="important"><strong>Important:</strong>&nbsp; The user authentication class stores passwords using an additional salt (More infomation <a href="http://en.wikipedia.org/wiki/Salt_(cryptography)">here</a>).
-The salt used is that of the <var>encryption_key</var> defined in the file <kbd>system/application/config/config.php</kbd>. Changing the key 
+The salt used is that of the <var>encryption_key</var> defined in the file <var>system/application/config/config.php</var>. Changing the key 
 after user accounts have been created will corupt their passwords requiring the user to request a new password.</p>
 
 <h2>Configuration Settings</h2>
@@ -139,7 +139,7 @@ after user accounts have been created will corupt their passwords requiring the 
 
 <h2>Custom User Profiles</h2>
 <p><strong>BackendPro</strong> comes with the ability to create extra user profile fields 
-for registered users. I will say now that unlike other systems, mine dosn't hold you hand along the way 
+for registered users. I will say now that unlike other systems, mine dosn't hold your hand along the way 
 to implement extra profile fields. If you want the functionallity you have to provide it. The reason for 
 going along this kind of path is I decided a system which assumes to much is too restrictive. Its fine 
 for a CMS but not for developers. I will explain what you need to change to implement a basic user field, I'm 
@@ -151,7 +151,7 @@ not that cruel.</p>
     a column called <var>gender</var>.</li>
     
     <li><strong>Update the Userlib config file</strong><br />Locate the file 
-    <kbd>modules/auth/config/userlib.php</kbd> and scroll down to the bottom. There you will
+    <var>modules/auth/config/userlib.php</var> and scroll down to the bottom. There you will
     find two arrays, <kbd>userlib_profile_fields</kbd> and <kbd>userlib_profile_rules</kbd>. Here you want 
     to update them to suit your new field.
     <code>
@@ -166,8 +166,8 @@ not that cruel.</p>
     </li>
     
     <li><strong>Update the Member area in the Control Panel</strong><br />
-    We want to allow administrators to now manage this new field for all users. Locate the file <kbd>modules/auth/controllers/admin/members.php</kbd>,
-    this file contains all the logic to manage a users account. There are several functions we must update to the form knows how to handle 
+    We want to allow administrators to now manage this new field for all users. Locate the file <var>modules/auth/controllers/admin/members.php</var>,
+    this file contains all the logic to manage a users account. There are several functions we must update so the form knows how to handle 
     our new field.<br />
     <br />
     <dfn>_set_profile_defaults()</dfn> : This method is used when a new user is being created. In here you want to specify what value 
@@ -179,8 +179,8 @@ not that cruel.</p>
     <dfn>_get_profile_details()</dfn> : This method is used to extract the data submitted from a form and prepare it to
     be submiited to the database. There is an example in the method of what is expected.<br />
     <br />
-    The last thing we must do is update the form which data can be entered into, locate and open the file <kbd>modules/auth/views/admin/members/form_member.php</kbd>,
-    scroll to the bottom and you will find an area for your custom profile fields (The format the form is layed out in is disscused <a href="../assets/css.html">here</a>).
+    The last thing we must do is update the form which data can be entered into, locate and open the file <var>modules/auth/views/admin/members/form_member.php</var>,
+    scroll to the bottom and you will find an area for your custom profile fields (The format the form is layed out in is disscused <a href="../assets/css.html#forms">here</a>).
     For our example I will add a simple radio button,<code>
     &lt;li&gt;<br />
     &nbsp;&nbsp;&nbsp;&nbsp;&lt;?=form_label('Gender','gender')?&gt;<br />
@@ -200,8 +200,8 @@ not that cruel.</p>
 collect extra information from the user on registration then you must extend the current 
 <var>userlib.php</var> class file.</p>
 
-<p>This is rather simple, just create a new file called <kbd>MY_Userlib.php</kbd> in the
-<kbd>modules/auth/libraries</kbd> directory. Then you can overwrite any methods to achive 
+<p>This is rather simple, just create a new file called <var>MY_Userlib.php</var> in the
+<var>modules/auth/libraries</var> directory. Then you can overwrite any methods to achive 
 the desired effect.</p>
 
 <table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">

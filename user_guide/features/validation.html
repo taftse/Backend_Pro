@@ -61,10 +61,12 @@ a way to transfer error messages to use the <a href="status.html">Status Class</
 
 <h2>Validation Class Function Reference</h2>
 
+<a name="output_errors"></a>
 <h3>$this->validation->output_errors()</h3>
 <p>Calling this method will transfer any form error messages into the <a href="status.html">Status Class</a>
 message system.</p>
 
+<a name="set_default_value"></a>
 <h3>$this->validation->set_default_value()</h3>
 <p>Set Default Form Field:</p>
 <code>$this->validation->set_default_value(<var>field</var>,<var>value</var>);</code>
@@ -121,37 +123,31 @@ function&nbsp;myform()<br />
     <th>Rule</th>
     <th>Parameter</th>
     <th>Description</th>
-    <th>Example</th>
 </tr>
 <tr>
     <td class="td">valid_captcha</td>
     <td class="td">No</td>
     <td class="td">Returns FALSE if the form captcha is invalid</td>
-    <td class="td">&nbsp;</td>
 </tr>
 <tr>
     <td class="td">spare_username</td>
     <td class="td">No</td>
     <td class="td">Returns FALSE if the provided string is already in use as a username for another user</td>
-    <td class="td">&nbsp;</td>
 </tr>
 <tr>
     <td class="td">spare_email</td>
     <td class="td">No</td>
     <td class="td">Returns FALSE if the provided email is already in use by another user</td>
-    <td class="td">&nbsp;</td>
 </tr>
 <tr>
     <td class="td">spare_edit_username</td>
     <td class="td">No</td>
     <td class="td">Returns FALSE if the provided string is already in use as a username by another user apart from by the user whos details are being changed. This should be used instead of spare_username when editing a users details.</td>
-    <td class="td">&nbsp;</td>
 </tr>
 <tr>
     <td class="td">spare_edit_email</td>
     <td class="td">No</td>
     <td class="td">Returns FALSE if the provided string is already in use as an email by another user apart from by the user whos details are being changed. This should be used instead of spare_email when editing a users details.</td>
-    <td class="td">&nbsp;</td>
 </tr>
 </table>
 
