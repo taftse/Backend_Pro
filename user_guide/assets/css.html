@@ -92,7 +92,7 @@ nesseasry to use it.</p>
 
 <p>The final <strong>li</strong> in the form has a class of value <kbd>submit</kbd>, this
 tells the form when in <dfn>horizontal</dfn> mode to indent the submit button so it lines up with the
-other form elements.</p>
+other form elements. To create 'pretty' buttons please see <strong>Icon Buttons</strong> below.</p>
 
 <p class="important"><strong>Note:</strong>&nbsp; For full details of what the form styles please see <kbd>assets/shared/css/forms.css</kbd>.</p>  
 
@@ -106,11 +106,10 @@ tabular data.</p>
 -->
 
 <h2>Icons</h2>
-
 <p>Throughout <strong>BackendPro</strong> you will see links with an icon next to them. These are controlled by
 a php generated stylesheet located at <kbd>assets/shared/css/icons.php</kbd>.</p>
 
-<p>Every icon stored in <kdb>assets/shared/icons</kbd> has automaticly the css code created
+<p>Every icon stored in <kbd>assets/shared/icons</kbd> has automaticly the css code created
 so it can be used as a link icon, all you need to do is use the format below:</p>
 
 <code>
@@ -118,6 +117,40 @@ so it can be used as a link icon, all you need to do is use the format below:</p
 </code>
 
 <p>Where <var>name</var> is the name of the icon file you want to display next to the link, excluding the extension.</p>
+
+
+<a name="icon_buttons"></a>
+<h2>Icon Buttons</h2>
+<p><strong>BackendPro</strong> offers a simple but stylish method to create buttons using the HTML <dfn>button</dfn>
+tag. Instead of creating boring bland buttons you can add interesting icons.</p>
+
+<p>Example Button Code:</p>
+<code>
+&lt;div&nbsp;class=&quot;buttons&quot;&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;type=&quot;submit&quot;&nbsp;class=&quot;positive&quot;&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	&lt;?=&nbsp;$this-&gt;page-&gt;icon('disk');?&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	Submit<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/button&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=&quot;#&quot;&nbsp;class=&quot;negative&quot;&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	&lt;?=&nbsp;$this-&gt;page-&gt;icon('cross');?&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	Cancel<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/a&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=&quot;#&quot;&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	&lt;?=&nbsp;$this-&gt;page-&gt;icon('key');?&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	Change&nbsp;Password<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/a&gt;<br />
+&lt;/div&gt;
+</code>
+
+<p>As you can see in the example above, 3 buttons are created. You can either create them using the <dfn>&lt;button&gt;</dfn>
+tag or using a <dfn>&lt;a&gt;</dfn> tag. By applying a class of either <var>positive/negative</var> it will color the button green/red respectivily.
+Not specifying a class results in a netural button.</p>
+
+<p>As you can see in the example above, <dfn>$this-&gt;page-&gt;icon('cross');</dfn> has been used to include an icon image. For 
+more information of this function please consult the <a href="../features/page.html#icon">Page</a> library.</p>
+
 
 </div>
 <!-- END CONTENT -->

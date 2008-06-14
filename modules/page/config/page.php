@@ -79,7 +79,7 @@
 			'js'    	=> array(),
 	 		'cond_css' 	=> array()),
 		'shared' => array(
-			'css'   	=> array('reset.css','typography.css','forms.css','FlashStatus.css','icons.php','treeview.css'),
+			'css'   	=> array('reset.css','typography.css','forms.css','FlashStatus.css','icons.php','treeview.css','buttons.css'),
 			'js'    	=> array('jquery.js','interface.js','jquery.cookie.js','jquery.treeview.js'),
 	 		'cond_css' 	=> array('ie_6.css','gte_ie_6.css'))
 	);
