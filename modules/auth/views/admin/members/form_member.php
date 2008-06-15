@@ -1,6 +1,6 @@
 <div id="generatePasswordWindow">
 	<table>
-		<tr><th width="50%"><?=$this->lang->line('userlib_generate_password'); ?></th><th class="right"><a href="javascript:void(0);" class="icon_cancel" id="gpCloseWindow">&nbsp;</a></th></tr>
+		<tr><th width="50%"><?=$this->lang->line('userlib_generate_password'); ?></th><th class="right"><a href="javascript:void(0);" id="gpCloseWindow"><?=$this->page->icon('cross') ?></a></th></tr>
 		<tr><td rowspan="3"><?=$this->lang->line('userlib_password'); ?>:<br/>&nbsp;&nbsp;&nbsp;<b id="gpPassword">PASSWORD</b></td><td class="right"><?=$this->lang->line('general_uppercase'); ?> <?=form_checkbox('uppercase','1',TRUE); ?></td></tr>
 		<tr><td class="right"><?=$this->lang->line('general_numeric'); ?> <?=form_checkbox('numeric','1',TRUE); ?></td></tr>
 		<tr><td class="right"><?=$this->lang->line('general_symbols'); ?> <?=form_checkbox('symbols','1',FALSE); ?></td></tr>
