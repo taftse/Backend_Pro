@@ -8,7 +8,7 @@
 </div><br/><br/>
 
 <?=form_open('auth/admin/acl_resources/delete')?> 
-<table class="data_grid">
+<table class="data_grid" cellspacing="0">
 <thead>
     <tr>
         <th width=5%><?=$this->lang->line('general_id')?></th>
@@ -42,7 +42,7 @@
             <td><?=$tree['row']['id']?></td>
             <td><?=$offset.$tree['row']['name']?></td>  
             <td class="middle"><?=$edit?></td>  
-            <td><?=($row->locked?'':form_checkbox('select[]',$tree['row']['name'],FALSE))?></td>
+            <td><?=($row->locked?'&nbsp;':form_checkbox('select[]',$tree['row']['name'],FALSE))?></td>
         </tr>
     <?php endwhile; ?>
 </tbody>

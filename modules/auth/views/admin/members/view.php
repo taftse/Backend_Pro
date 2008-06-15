@@ -8,7 +8,7 @@
 </div><br/><br/>
 
 <?=form_open('auth/admin/members/delete')?>
-<table class="data_grid">
+<table class="data_grid" cellspacing="0">
     <thead>
         <tr>
             <th width=5%><?=$this->lang->line('general_id')?></th>
@@ -23,7 +23,7 @@
     </thead>
     <tfoot>
         <tr>
-            <td colspan=7></td>
+            <td colspan=7>&nbsp;</td>
             <td><?=form_submit('delete',$this->lang->line('general_delete'),'onClick="return confirm(\''.$this->lang->line('userlib_delete_user_confirm').'\');"')?></td>
         </tr>
     </tfoot>
@@ -31,7 +31,7 @@
         <?php foreach($members->result_array() as $row):
             // Check if this user account belongs to the person logged in
             // if so don't allow them to delete it
-            $delete  = ($row['id'] == $this->session->userdata('id')?'':form_checkbox('select[]',$row['id'],FALSE));            
+            $delete  = ($row['id'] == $this->session->userdata('id')?'&nbsp;':form_checkbox('select[]',$row['id'],FALSE));            
         ?>
         <tr>
             <td><?=$row['id']?></td>

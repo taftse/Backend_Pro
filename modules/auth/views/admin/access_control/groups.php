@@ -8,7 +8,7 @@
 </div><br/><br/>
 
 <?=form_open('auth/admin/acl_groups/delete')?> 
-<table class="data_grid">
+<table class="data_grid" cellspacing="0">
 <thead>
     <tr>
         <th width=5%><?=$this->lang->line('general_id')?></th>
@@ -37,16 +37,15 @@
         
         // Get Offset
         $offset = $this->access_control_model->buildPrettyOffset($obj,$tree);
-        $edit = ($obj->checkNodeIsRoot($tree['row'])?'&nbsp;':'<a href="'.site_url('auth/admin/acl_resources/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets'). 'icons/pencil.png').'</a>');           
         $disable = ($row->disabled?'tick.png':'cross.png');
-        $edit = ($obj->checkNodeIsRoot($tree['row']))?'':'<a href="'.site_url('auth/admin/acl_groups/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets').'icons/pencil.png').'</a>';
+        $edit = ($obj->checkNodeIsRoot($tree['row']))?'&nbsp;':'<a href="'.site_url('auth/admin/acl_groups/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets').'icons/pencil.png').'</a>';
     ?>  
         <tr>
             <td><?=$tree['row']['id']?></td>
             <td><?=$offset.$tree['row']['name']?></td>
             <td class="middle"><?=img($this->config->item('shared_assets').'icons/'.$disable)?></td> 
             <td class="middle"><?=$edit?></td> 
-            <td><?=($row->locked OR $this->preference->item('default_user_group')==$tree['row']['id'])?'':form_checkbox('select[]',$tree['row']['name'],FALSE)?></td>
+            <td><?=($row->locked OR $this->preference->item('default_user_group')==$tree['row']['id'])?'&nbsp;':form_checkbox('select[]',$tree['row']['name'],FALSE)?></td>
         </tr>
     <?php endwhile; ?>
 </tbody>

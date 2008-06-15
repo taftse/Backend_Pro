@@ -1,6 +1,6 @@
 <h2><?=$header?></h2>
 
-<table id="access_control_menu">
+<table id="access_control_menu" cellspacing="0">
 <tr>
     <td><?=img($this->config->item('admin_assets') . 'images/ac_permissions.png')?></td>
     <td>
