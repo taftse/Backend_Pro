@@ -1,6 +1,11 @@
 <h2><?=$header?></h2>
 
-<a href="#create" class="icon_add"><?=$this->lang->line('access_create_action')?></a>
+<div class="buttons">
+	<a href="#create">
+		<?=$this->page->icon('add') ?>
+		<?=$this->lang->line('access_create_action')?>
+	</a>
+</div><br/><br/>
 
 <?=form_open('auth/admin/acl_actions/delete')?> 
 <table class="data_grid">
@@ -31,6 +36,13 @@
 </table>
 <?=form_close()?>
 
+<div class="buttons">
+	<a href="<?=site_url('auth/admin/access_control') ?>">
+		<?=$this->page->icon('arrow_left') ?>
+		<?=$this->lang->line('general_back')?>
+	</a>
+</div><br/><br/>
+
 <a name="create"></a>
 <h2><?=$this->lang->line('access_create_action')?></h2>
 <?=form_open('auth/admin/acl_actions/create',array('class'=>'horizontal'))?>
@@ -41,7 +53,12 @@
                 <?=form_input('name','','class="text"')?>
             </li>
             <li class="submit">
-                <?=form_submit('submit',$this->lang->line('general_add'))?>
+            	<div class="buttons">
+            		<button type="submit" class="positive">
+            			<?=$this->page->icon('disk') ?>
+            			<?=$this->lang->line('general_save') ?>
+            		</button>
+            	</div>
             </li>
         </ol>
     </fieldset>

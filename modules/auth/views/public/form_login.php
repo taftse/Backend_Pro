@@ -24,12 +24,22 @@
             </li>
             <?php } ?>
             
-            <li class="submit">                
-                <?=form_submit('submit',$this->lang->line('userlib_login'))?>
-                <br />
-                <?=anchor('auth/forgotten_password',$this->lang->line('userlib_forgotten_password').'?')?>
-                &nbsp;
-                <?=anchor('auth/register',$this->lang->line('userlib_register'))?>    
+            <li class="submit">
+            	<div class="buttons">
+            		<button type="submit" class="positive">
+            			<?=$this->page->icon('key') ?>
+            			<?=$this->lang->line('userlib_login')?>
+            		</button>
+
+            		<a href="<?=site_url('auth/forgotten_password') ?>">
+            			<?=$this->page->icon('arrow_refresh') ?>
+            			<?=$this->lang->line('userlib_forgotten_password')?>
+            		</a>
+            		
+            		<a href="<?=site_url('auth/register') ?>">
+            			<?=$this->page->icon('user') ?>
+            			<?=$this->lang->line('userlib_register')?>
+            		</a>             
             </li>
         </ol>
     </fieldset>

@@ -28,7 +28,17 @@
             </li>
             <?php } ?>
             <li class="submit">
-                <input type="submit" name="submit" value="<?=$this->lang->line('userlib_register')?>" /> &nbsp;
+            	<div class="buttons">
+            		<button type="submit" class="positive">
+            			<?=$this->page->icon('user') ?>
+            			<?=$this->lang->line('userlib_register')?>
+            		</button>
+            		
+            		<a href="<?=site_url('auth/login') ?>" class="negative">
+            			<?=$this->page->icon('cross') ?>
+            			<?=$this->lang->line('general_cancel')?>
+            		</a>
+            	</div>
             </li>
         </ol>
     </fieldset>

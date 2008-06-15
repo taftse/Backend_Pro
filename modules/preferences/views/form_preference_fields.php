@@ -18,5 +18,16 @@
 <?php } ?>       
 
 </table>
-<?=form_submit('submit',$this->lang->line('general_save'))?>
+
+<div class="buttons">
+	<button type="submit" class="positive">
+    <?= $this->page->icon('disk');?>
+    <?=$this->lang->line('general_save')?>
+    </button>
+                
+    <a href="<?=site_url($cancel_link)?>" class="negative">
+    <?= $this->page->icon('cross');?>
+    <?=$this->lang->line('general_cancel')?>
+    </a>      
+</div>
 <?=form_close()?>

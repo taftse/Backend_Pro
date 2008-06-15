@@ -22,7 +22,15 @@
      $lang['general_edit'] = "Modify";
      $lang['general_delete'] = "Delete";
      $lang['general_save'] = "Save";
+     $lang['general_cancel'] = "Cancel";
+     $lang['general_back'] = "Back";
      $lang['general_documentation'] = "Documentation";
+     $lang['general_apply'] = "Apply";
+     $lang['general_generate'] = "Generate";
+     $lang['general_numeric'] = "Numeric";
+     $lang['general_symbols'] = "Symbols";
+     $lang['general_uppercase'] = "Uppercase";
+     $lang['general_length'] = "Length";
      
      $lang['backendpro_control_panel'] = "Control Panel";
      $lang['backendpro_view_website'] = 'View Website'; 

@@ -13,7 +13,17 @@
             </li>
             <li class="submit">
                 <?=form_hidden('id',$this->validation->id)?>
-                <?=form_submit('submit',$this->lang->line('general_save'))?>
+                <div class="buttons">
+					<button type="submit" class="positive">
+						<?=$this->page->icon('disk') ?>
+						<?=$this->lang->line('general_save') ?>
+					</button>
+					
+					<a href="<?=site_url('auth/admin/acl_resources')?>" class="negative">
+						<?=$this->page->icon('cross') ?>
+						<?=$this->lang->line('general_cancel')?>
+					</a>
+				</div>
             </li>
         </ol>
     </fieldset>

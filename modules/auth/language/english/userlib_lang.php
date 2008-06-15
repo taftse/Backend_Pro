@@ -70,5 +70,9 @@
      $lang['userlib_registration_failed'] = 'We could not create your user account, please try again.';
      $lang['userlib_registration_success'] = 'Your new account has been created, please check your email for further details';
      $lang['userlib_activation_success'] = 'Your account has been activated, you may now login.';
-     $lang['userlib_activation_failed'] = 'We could not activate your account. Please check the url is exactly like in the email and has no spaces in it.'
+     $lang['userlib_activation_failed'] = 'We could not activate your account. Please check the url is exactly like in the email and has no spaces in it.';
+
+	 /* Password Generation */
+     $lang['userlib_generate_password'] = "Generate Password";
+          
 ?>

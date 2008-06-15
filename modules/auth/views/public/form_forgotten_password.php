@@ -7,7 +7,17 @@
                 <input type="text" name="email" id="email" class="text" />
             </li>
             <li class="submit">
-                <input type="submit" name="submit" value="<?=$this->lang->line('userlib_reset_password')?>" /> &nbsp;
+            	<div class="buttons">
+            		<button type="submit" class="positive">
+            			<?=$this->page->icon('arrow_refresh') ?>
+            			<?=$this->lang->line('userlib_reset_password')?>
+            		</button>
+            		
+            		<a href="<?=site_url('auth/login') ?>" class="negative">
+            			<?=$this->page->icon('cross') ?>
+            			<?=$this->lang->line('general_cancel')?>
+            		</a>
+            	</div>
             </li>
         </ol>
     </fieldset>

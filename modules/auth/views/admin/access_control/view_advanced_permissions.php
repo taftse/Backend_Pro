@@ -13,3 +13,10 @@
         <td><div class="advanced_view_tree" id="access_actions">Please select a resource to view its action permissions.</div></td>     
     </tr>
 </table>
+
+<div class="buttons">
+	<a href="<?=site_url('auth/admin/acl_permissions') ?>">
+		<?=$this->page->icon('arrow_left') ?>
+		<?=$this->lang->line('general_back') ?>
+	</a>
+</div>

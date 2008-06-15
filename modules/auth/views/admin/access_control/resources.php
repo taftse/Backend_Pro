@@ -1,6 +1,11 @@
 <h2><?=$header?></h2>
 
-<a href="<?=site_url('auth/admin/acl_resources/form')?>" class="icon_add"><?=$this->lang->line('access_create_resource')?></a>
+<div class="buttons">
+	<a href="<?=site_url('auth/admin/acl_resources/form')?>">
+		<?=$this->page->icon('add') ?>
+		<?=$this->lang->line('access_create_resource')?>
+	</a>
+</div><br/><br/>
 
 <?=form_open('auth/admin/acl_resources/delete')?> 
 <table class="data_grid">
@@ -43,3 +48,10 @@
 </tbody>
 </table>
 <?=form_close()?>
+
+<div class="buttons">
+	<a href="<?=site_url('auth/admin/access_control')?>">
+		<?=$this->page->icon('arrow_left') ?>
+		<?=$this->lang->line('general_back')?>
+	</a>
+</div><br/><br/>

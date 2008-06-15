@@ -22,5 +22,15 @@
     </tr>
 </table>
 <?=form_hidden('id',$this->validation->id)?>
-<?=form_submit('submit',$this->lang->line('general_save'))?>
+<div class="buttons">                
+	<button type="submit" class="positive">
+		<?=$this->page->icon('disk');?>
+		<?=$this->lang->line('general_save');?>
+	</button>
+	
+	<a href="<?=site_url('auth/admin/acl_permissions')?>" class="negative">
+		<?=$this->page->icon('cross');?>
+		<?=$this->lang->line('general_cancel');?>
+	</a>
+</div> 
 <?=form_close()?>

@@ -1,6 +1,12 @@
 <h2><?=$header?></h2>
 
-<?=anchor('auth/admin/members/form',$this->lang->line('userlib_create_user'),'class="icon_add"')?>
+<div class="buttons">                
+	<a href="<?= site_url('auth/admin/members/form')?>">
+    <?= $this->page->icon('add');?>
+    <?=$this->lang->line('userlib_create_user')?>
+    </a>
+</div><br/><br/>
+
 <?=form_open('auth/admin/members/delete')?>
 <table class="data_grid">
     <thead>

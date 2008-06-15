@@ -1,5 +1,17 @@
 <h2><?=$header?></h2>
 
+<div class="buttons">                
+	<a href="<?= site_url('auth/admin/acl_permissions/form')?>">
+    <?=$this->page->icon('add');?>
+    <?=$this->lang->line('access_create_permission')?>
+    </a>
+    
+    <a href="<?= site_url('auth/admin/acl_permissions/view')?>">
+    <?=$this->page->icon('lightning');?>
+    <?=$this->lang->line('access_advanced_permissions')?>
+    </a>
+</div><br/><br/>
+
 <?=form_open('auth/admin/acl_permissions/delete')?>   
 <table width=100% cellspacing=0>
 <thead>
@@ -47,5 +59,10 @@
 </tbody>
 <?=form_close()?>
 </table>
-<?=anchor('auth/admin/acl_permissions/form',$this->lang->line('access_create_permission'),array('class'=>'icon_add'))?>&nbsp;&nbsp;&nbsp;
-<?=anchor('auth/admin/acl_permissions/view',$this->lang->line('access_advanced_permissions'),array('class'=>'icon_lightning'))?>                                                                                      
+
+<div class="buttons">                    
+    <a href="<?=site_url('auth/admin/access_control')?>">
+    <?=$this->page->icon('arrow_left');?>
+    <?=$this->lang->line('general_back')?>
+    </a>
+</div>                                                                                     

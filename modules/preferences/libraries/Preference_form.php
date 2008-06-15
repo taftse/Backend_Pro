@@ -214,6 +214,7 @@
                 // Display Page
                 $data['header'] = ( is_null($group_id) ? $this->form_name : $this->group[$group_id]['name']);
                 $data['form_link'] = $this->form_link . "/" . $group_id;
+                $data['cancel_link'] = $this->form_link;
                 return $this->CI->load->view("form_preference_fields",$data,!$print);
             }
             else
