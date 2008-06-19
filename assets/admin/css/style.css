@@ -1,13 +1,63 @@
 /* DASHBOARD DIVS */
-#dashboard_left_container { float: left; width: 48%; }       
-#dashboard_right_container { float: right; width: 48%; }
-
-div.dashboard_widget {
-    height: 100px;
-    margin-bottom: 1.0em;
+/* dashboard area sections */
+#dashboard {
+	width: 100%;
 }
 
-div.dashboard_widget #note { padding: 0.5em; }
+#dashboard #topsection {
+	width: 100%;
+	min-height: 20px;
+}
+#dashboard #leftsection {
+	float: left;
+	width: 49%;
+	min-height: 20px;
+}
+#dashboard #rightsection {
+	float: right;
+	width: 49%;
+	min-height: 20px;
+}
+
+#dashboard .ui-sortable {
+	background-color: #E6E6FA;
+}
+
+#dashboard .ui-sortable-disabled {
+	background-color: #FFF;
+}
+
+#dashboard .ui-sortable-helper {
+	width: 300px;
+}
+/* widgets */
+#dashboard div.widget {
+	position: relative;
+	display: block;
+	border: 1px #CCC solid;	
+	margin-bottom: 16px;
+}
+
+#dashboard div.widget div.header {
+	font-weight: bold;
+	background-color: #999;
+	display: block;	
+	color: #FFF;
+	padding-left: 5px;
+	line-height: 20px;
+}
+
+#dashboard div.widget div.body {
+	display: block;
+	margin: 5px;
+}
+
+#dashboard div.widget div.action {
+	position: absolute;
+	right: 2px;
+	top: 2px;
+	line-height: 20px;
+}
 
 /* MENU NAVIGATION */
 #navigation #menu { padding: 2em 0 2em 2em; }
