@@ -150,7 +150,7 @@
 	 	 */
 	 	function _name_convert()
 	 	{
-	 		return strtolower($this->name);
+	 		return preg_replace("/ /","_",strtolower($this->name));
 	 	}
 	 }
 
