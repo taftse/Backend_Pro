@@ -7,10 +7,10 @@ $(document).ready(function(){
     /********************************************* USED TO MANAGE PERMISSIONS */
     // Create permission trees
     $('#groups').treeview({
-        cookie_name: 'group_tree'
+        cookie_name: 'bep_group_tree'
     });
     $('#resources').treeview({
-        cookie_name: 'resource_tree'
+        cookie_name: 'bep_resource_tree'
     });
     
     // Setup inital actions depending on checkboxes
