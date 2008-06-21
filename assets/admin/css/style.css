@@ -83,6 +83,8 @@ h2 { margin-top: 0.5em; border-bottom: 1px solid #777; }
 div.scrollable_tree {
     height: 300px;
     overflow: scroll;
+    width: 33.333%;
+    float: left;
 }
 
 /* STYLE FOR ACTION ITEMS ON MANAGE PERMISSIONS PAGE */

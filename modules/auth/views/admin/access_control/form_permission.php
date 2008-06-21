@@ -8,9 +8,11 @@
         <td width="33%"><b><?=$this->lang->line('access_actions')?></b></td>
     </tr>
     <tr>
-        <td><div class="scrollable_tree"><ul id="groups"><?=$this->access_control_model->buildGroupSelector(($_POST['id']!=NULL))?></ul></div></td>
-        <td><div class="scrollable_tree"><ul id="resources"><?=$this->access_control_model->buildResourceSelector(($_POST['id']!=NULL))?></ul></div></td>
-        <td><div class="scrollable_tree"><?=$this->access_control_model->buildActionSelector()?></div></td>
+        <td colspan="3">
+	        <div class="scrollable_tree"><ul id="groups"><?=$this->access_control_model->buildGroupSelector(($_POST['id']!=NULL))?></ul></div>
+			<div class="scrollable_tree"><ul id="resources"><?=$this->access_control_model->buildResourceSelector(($_POST['id']!=NULL))?></ul></div>
+			<div class="scrollable_tree"><?=$this->access_control_model->buildActionSelector()?></div>
+        </td>
     </tr>
     <tr>
         
