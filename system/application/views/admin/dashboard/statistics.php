@@ -1,4 +1,4 @@
-<table width="100%">
+<table width="100%" cellspacing="0">
 	<thead>
 		<tr><th width="50%"><?=$this->lang->line('dashboard_statistics_name') ?></th><th><?=$this->lang->line('dashboard_statistics_value') ?></th></tr>
 	</thead>
