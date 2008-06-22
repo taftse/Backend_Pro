@@ -54,7 +54,7 @@
             </li>
             <li class="submit">
             	<div class="buttons">
-            		<button type="submit" class="positive">
+            		<button type="submit" class="positive" name="submit" value="submit">
             			<?=$this->page->icon('disk') ?>
             			<?=$this->lang->line('general_save') ?>
             		</button>

@@ -29,7 +29,7 @@
             <?php } ?>
             <li class="submit">
             	<div class="buttons">
-            		<button type="submit" class="positive">
+            		<button type="submit" class="positive" name="submit" value="submit">
             			<?=$this->page->icon('user') ?>
             			<?=$this->lang->line('userlib_register')?>
             		</button>
