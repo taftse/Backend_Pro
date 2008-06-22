@@ -35,7 +35,6 @@ $(document).ready(function(){
   
   	// Make regions sortable
     regions.sortable({
-    	handle: $('#dashboard .widget .header'),
     	cursor: 'move',
     	connectWith: [$('#topsection'),$('#leftsection'),$('#rightsection')],
     	opacity: 0.8,
