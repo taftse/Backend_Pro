@@ -26,7 +26,7 @@
      * @package			BackendPro
      * @subpackage		Libraries
      */
-    define('BEP_VERSION','0.2 alpha RC1');
+    define('BEP_VERSION','0.3');
 	class BackendPro
 	{
 		function BackendPro()
