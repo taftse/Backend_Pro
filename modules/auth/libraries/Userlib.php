@@ -411,7 +411,7 @@
             {
                 case 'none':
                     // Send welcome email, account already activated
-                    $data['users']['acive'] = 1;
+                    $data['users']['active'] = 1;
                     $activation_message = $this->CI->lang->line('userlib_no_activation');
                 break;
                 
