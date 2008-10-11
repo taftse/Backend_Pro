@@ -138,11 +138,11 @@
              if( is_null($id)){     // CREATE USER
                 $rules['username'] = "trim|required|spare_username";
                 $rules['email'] = "trim|required|valid_email|spare_email";
-                $rules['password'] = "trim|required|min_length[".$this->preference->item('min_password_length')."]|matchs[confirm_password]";
+                $rules['password'] = "trim|required|min_length[".$this->preference->item('min_password_length')."]|matches[confirm_password]";
              } else {               // EDIT USER
                 $rules['username'] = "trim|required|spare_edit_username";
                 $rules['email'] = "trim|required|valid_email|spare_edit_email";             
-                $rules['password'] = "trim|min_length[".$this->preference->item('min_password_length')."]|matchs[confirm_password]";
+                $rules['password'] = "trim|min_length[".$this->preference->item('min_password_length')."]|matches[confirm_password]";
              }           
              $rules = array_merge($rules,$this->config->item('userlib_profile_rules'));
              
