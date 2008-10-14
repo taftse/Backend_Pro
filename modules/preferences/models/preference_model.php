@@ -76,11 +76,9 @@
 					return $object;
 				}
 			}
-			else
-			{
-				show_error("The option '".$name."' is not valid.");
-				return FALSE;
-			}
+
+			log_message("error","The preference '".$name."' is not valid");
+			return FALSE;
 		}
 
 		/**
