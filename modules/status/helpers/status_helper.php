@@ -7,9 +7,9 @@
 	 *
 	 * @package			BackendPro
 	 * @subpackage		Helpers
-	 * @author				Adam Price
-	 * @copyright			Copyright (c) 2007
-	 * @license				http://www.gnu.org/licenses/lgpl.html
+	 * @author			Adam Price
+	 * @copyright		Copyright (c) 2007
+	 * @license			http://www.gnu.org/licenses/lgpl.html
 	 */
 
 	/**

@@ -53,7 +53,7 @@
 
 			// Check its a valid type
 			if ( ! in_array($type,$this->types) )
-				show_error("'".$type."' is not a valid status message type.");
+				log_message('error',$type." is not a valid status message type");
 
 			// Fetch current flashdata from session
 			$data = $this->_fetch();
@@ -79,6 +79,8 @@
 		 */
 		function display($type = NULL,$print = TRUE)
 		{
+			log_message('debug','Display all '.$type.' messages');
+			// Fetch messages
 			$msgdata = $this->_fetch();
 
 			// Output variable
@@ -145,12 +147,10 @@
 		function _fetch()
 		{
 			$data = $this->CI->session->userdata($this->flash_var);
-			if ( empty( $data ) ) {
+			if ( empty( $data ) )
 				return array();
-			}
-			else {
+			else
 				return unserialize($data);
-			}
 		}
 	}
 ?>
