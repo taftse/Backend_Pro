@@ -63,7 +63,7 @@
         	if ( is_null($name))
         		return FALSE;
         	
-        	$this->meta_tags[$name] = array('content' => $content, 'type' => ($http?'http-equiv':'name'));        		
+        	$this->meta_tags[$name] = array('content' => $content, 'type' => ($http?'http-equiv':'name'));
         	return TRUE;
         }
         
@@ -130,7 +130,7 @@
         function set_crumb($name, $link = '')
         {
             $this->breadcrumb_trail[$name] = $link;
-            log_message('debug','Breadcrumb link "'.$name.'" pointing to "'.$link.'" created'); 
+            log_message('debug','Breadcrumb link "'.$name.'" pointing to "'.$link.'" created');
             return;
         }
         
@@ -152,7 +152,7 @@
         	if ($print)
         		print $output;
         	else
-        		return $output;        	
+        		return $output;
         }
         
         /**
@@ -211,12 +211,12 @@
 	            } else {
 	                return $output;
 	            }
-            }    
+            }
         }
         
         /**
          * Icon Image
-         * 
+         *
          * Outputs code to show an icon image tag
          *
          * @param string $name Icon name
@@ -346,7 +346,7 @@
          *
          * When given a file name, check whether it should be displayed
          * for this browser.
-         * 
+         *
          * @access private
          * @author ddrury
          * @param string $str Filename
@@ -354,12 +354,13 @@
          */
     	function _test_conditions($str)
         {
+        	// HACK: This is only a temp fix until I can find out why the origonal code didn't work
+        	$this->CI->load->library('user_agent');
+        	$CI = &get_instance();
             static $feature;
             if (!isset($feature))
             {
-                $this->CI->load->library('user_agent');
-
-                switch($this->CI->agent->browser())
+                switch($CI->agent->browser())
                 {
                     case('Internet Explorer'):
                         $feature = 'ie';
@@ -410,6 +411,8 @@
          */
     	function _compare_versions($value, $operator)
         {
+        	// HACK: Again this is related to the code in the above function, just a short fix for now
+        	$CI = &get_instance();
             static $major;
             static $minor = '0';
             if (! isset($major))
@@ -417,7 +420,7 @@
         		/* Build an array containing the major & minor
         		 * browser versions. e.g array(2),(0014)
         		 */
-                $elements = explode('.',$this->CI->agent->version());
+                $elements = explode('.',$CI->agent->version());
                 $num = count($elements);
                 $major = $elements[0];
                 if ($num>1)
@@ -500,7 +503,7 @@
             foreach($this->default_assets[$asset_area][$asset_type] as $asset_file)
             {
                 ob_start();
-                include $tmp_path . $asset_file;    
+                include $tmp_path . $asset_file;
                 $cache_output .= ob_get_contents();
                 ob_end_clean();
             }
@@ -523,7 +526,7 @@
          * @return string
          */
         function _cache_compress($data, $type)
-        {        
+        {
         	if($type == 'css')
         	{
         		// CSS output, use csstidy
@@ -532,18 +535,18 @@
 	            	// Load class
 	            	$csstidy = BASEPATH.$this->CI->config->item('csstidy_path');
 	            	if (file_exists($csstidy)){
-	            		require_once($csstidy);	
+	            		require_once($csstidy);
 	            	} else {
 	            		log_message('error','Could not find CSS tidy class at '.$csstidy);
 	            		return $data;
-	            	}           	
+	            	}
 	            }
 	            
 	            // Create new instance of CSSTidy
 	            $this->csstidy = new csstidy();
 	            $this->csstidy->load_template('highest_compression');
 	            
-	            // Parse code	            
+	            // Parse code
 	            $this->csstidy->parse($data);
 	            
 	            return $this->csstidy->print->plain();
