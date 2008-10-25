@@ -4,34 +4,35 @@
      *
      * A website backend system for developers for PHP 4.3.2 or newer
      *
-     * @package			BackendPro
+     * @package				BackendPro
      * @author				Adam Price
      * @copyright			Copyright (c) 2008
      * @license				http://www.gnu.org/licenses/lgpl.html
-     * @tutorial				BackendPro.pkg
+     * @tutorial			BackendPro.pkg
      */
 
      // ---------------------------------------------------------------------------
 
     /**
-     * Auth
+     * auth.php
      *
      * Authentication Controller
      *
      * @package			BackendPro
      * @subpackage		Controllers
      */
-	class Auth extends Public_Controller
+	class auth extends Public_Controller
 	{
 		/**
 		 * Constructor
 		 */
-		function Auth()
+		function auth()
 		{
 			// Call parent constructor
 			parent::Public_Controller();
-            
-			log_message('debug','Auth Class Initialized');
+			
+			// Load the Auth_form_processing class
+			$this->load->library('auth_form_processing');
 		}
 
         function index()
@@ -41,27 +42,27 @@
         
 		function login()
 		{
-            $this->userlib->login_form($this->_container);
+            $this->auth_form_processing->login_form($this->_container);
 		}
         
         function logout()
         {
-            $this->userlib->logout();
+            $this->auth_form_processing->logout();
         }
         
         function forgotten_password()
         {
-            $this->userlib->forgotten_password_form($this->_container);
+            $this->auth_form_processing->forgotten_password_form($this->_container);
         }
         
         function register()
         {
-            $this->userlib->register_form($this->_container);
+            $this->auth_form_processing->register_form($this->_container);
         }
         
         function activate()
         {
-            $this->userlib->activate();
+            $this->auth_form_processing->activate();
         }
 	}
 ?>

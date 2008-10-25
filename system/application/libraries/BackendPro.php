@@ -16,36 +16,35 @@
     /**
      * BackendPro
      *
-     * This is the main file that does all are work for us. It controles all user authentication
+     * This is the main file that does all are work for us. It controls all user authentication
      * and user functions. It also pulls together all parts of the BackendPro system, including
      * site settings, asset management, flashstatus message system, user email module and site
      * maintance control
      *
-     * Please autoload this library in the CI autoload feature
+     * This library should be loaded automaticly when a BackendPro controller is loaded
      *
      * @package			BackendPro
      * @subpackage		Libraries
      */
-    define('BEP_VERSION','0.3.1');
+    define('BEP_VERSION','0.4');
 	class BackendPro
 	{
 		function BackendPro()
 		{
 			// Get CI Instance
 			$this->CI = &get_instance();
-
+			
 			// Load base files
-			//$this->CI->load->module_library('language','detect_language');		// Load language detection
-			$this->CI->load->config('backendpro');												// Load main config file
-			$this->CI->lang->load('backendpro');													// Load main language file
-			$this->CI->load->model('base_model');											// Load base model
+			$this->CI->load->config('backendpro');								// Load main config file
+			$this->CI->lang->load('backendpro');								// Load main language file
+			$this->CI->load->model('base_model');								// Load base model
 
 			// Load site wide modules
-			$this->CI->load->module_library('status','status');							// Load status module
-			$this->CI->load->module_model('preferences','preference_model','preference');	        // Load site preference module
-			$this->CI->load->module_library('page','page');								// Load page_services module
-			$this->CI->load->module_library('auth','userlib');									// Load authentication module
-
+			$this->CI->load->module_library('status','status');								// Load status module
+			$this->CI->load->module_model('preferences','preference_model','preference');	// Load site preference module
+			$this->CI->load->module_library('page','page');									// Load page_services module
+			$this->CI->load->module_library('auth','userlib');								// Load authentication module
+			
 			log_message('debug','BackendPro Class Initialized');
 		}
 	}

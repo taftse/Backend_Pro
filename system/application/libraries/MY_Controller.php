@@ -16,7 +16,8 @@
     /**
      * Site_Controller
      *
-     * Extends the default CI Controller class so I can declare special site controllers
+     * Extends the default CI Controller class so I can declare special site controllers.
+     * Also loads the BackendPro library since if this class is part of the BackendPro system
      *
      * @package         BackendPro
      * @subpackage      Controllers
@@ -29,6 +30,9 @@
             // Call parent constructor
             parent::Controller();
         
+            // Load the BackendPro library
+            $this->load->library('BackendPro');
+            
             // Display page debug messages if needed
             /*if ( is_superadmin() AND $this->preference->item('page_debug'))
             {
@@ -54,14 +58,14 @@
     * @subpackage        Controllers
     */
     class Public_Controller extends Site_Controller
-    {                                 
+    {
         function Public_Controller()
         {
             // Call parent constructor
             parent::Site_Controller();
             
             // Set container variable
-            $this->_container = $this->config->item('backendpro_template_public') . "container.php";            
+            $this->_container = $this->config->item('backendpro_template_public') . "container.php";
             
             // Check whether to show the site offline message
             if( $this->preference->item('maintenance_mode') AND $this->uri->rsegment(1) != 'auth')
@@ -77,9 +81,9 @@
         
         /**
         * Maintenance Message
-        * 
+        *
         * Dispaly the maintenance message
-        * 
+        *
         * @access public
         * @return void
         */
@@ -89,7 +93,7 @@
             $data['header'] = $this->lang->line('backendpro_under_maintenance');
             $data['content'] = "<h3>" . $data['header'] . "</h3>";
             $data['content'] .= "<p>" . $this->preference->item('maintenance_message') . "</p>";
-            $data['content'] .= "<p>" . $this->lang->line('backendpro_maintenance_login') . "</p>";   
+            $data['content'] .= "<p>" . $this->lang->line('backendpro_maintenance_login') . "</p>";
             $this->load->view($this->_container,$data);
         }
     }
