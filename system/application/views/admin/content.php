@@ -4,9 +4,9 @@
 <div id="breadcrumb">
         <?php $this->page->output_breadcrumb();?>
     </div>
-<div id="content">            
+<div id="content">
     <a name="top"></a>
-    <?=$this->status->display();?>
+    <?=displayStatus();?>
     <?=(isset($content)) ? $content : NULL; ?>
     <?php
     if( isset($page)){
@@ -14,6 +14,6 @@
             $this->load->module_view($module,$page);
         } else {
             $this->load->view($page);
-        }} 
+        }}
     ?>
 </div>
