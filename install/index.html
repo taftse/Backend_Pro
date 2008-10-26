@@ -49,6 +49,7 @@
                     </li>
                 </ol>
             </fieldset>
+            
             <br>
             <h3>User Account</h3>
             <p>Now lets get you setup with some login details, please remember your email address is
@@ -71,10 +72,27 @@
             </fieldset>
             
             <br>
+            <h3>Encryption Key</h3>
+            <p>Throught the BackendPro system, encryption is used to protect sensetive data. 
+            For this we need an encryption key, please specify one below. If you do not 
+            provide one, a random key will be generated for you. When picking a key please 
+            ensure it is at least 32 characters long and as random as possible. <b>If this key 
+            is lost for any reason any data encrypted using it will also be lost.</b></p>
+            <fieldset>
+                <ol>
+                    <li>
+                        <label for="username">Key</label>
+                        <input type="text" name="encryption_key" class="text" value="" />
+                    </li>
+                </ol>
+            </fieldset>
+            
+            <br>
             <h3>ReCAPTCHA</h3>
             <p>Now BackendPro can use ReCAPTCHA to verify someone isn't a bot, but for this we need both
             your public and private keys. If you don't have a public/private key please go <a href="https://admin.recaptcha.net/accounts/signup/?next=%2Frecaptcha%2Fcreatesite%2F">here</a> 
-            to get one.</p>
+            to get one. <b>This is an optional field, not entering a key will only mean ReCAPTCHA isn't 
+            available to you</b></p>
             <fieldset>
                 <ol>
                     <li>
@@ -91,7 +109,7 @@
             <fieldset>
                 <ol>
                     <li class="submit">
-                        <input type="submit" name="submit" value="Setup my BackendPro System" />
+                        <input type="submit" name="submit" value="INSTALL BACKENDPRO" />
                     </li>
                 </ol>
             </fieldset>
@@ -100,7 +118,7 @@
     
     <div id="footer">
         <a href="#top">Top</a><br />
-        This site is powered by BackendPro 0.2<br />
+        This site is powered by BackendPro 0.4<br />
         &copy; Copyright 2008 - Adam Price -  All rights Reserved
     </div> 
 </div>
