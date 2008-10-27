@@ -190,8 +190,6 @@ INSERT INTO `be_preferences` (`name`, `value`) VALUES
 ('use_registration_captcha', '0'),
 ('maintenance_message', 'In an effort to better serve you, we are currently making enhancements to our site. We appreciate your patience during this time, and encourage you to return here shortly.'),
 ('page_debug', '0'),
-('webmaster_email', 'webmaster@localhost.com'),
-('webmaster_name', 'Webmaster'),
 ('automated_from_name', 'BackendPro'),
 ('allow_user_registration', '1'),
 ('use_login_captcha', '0'),
