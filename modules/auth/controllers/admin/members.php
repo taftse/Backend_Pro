@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');  
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
     /**
      * BackendPro
      *
@@ -14,12 +14,12 @@
 
     /**
      * Members
-     * 
+     *
      * Allow the user to manage website users
      *
      * @package         BackendPro
      * @subpackage      Controllers
-     */     
+     */
      class Members extends Admin_Controller
      {
          function Members()
@@ -36,14 +36,17 @@
              // Check for access permission
              check('Members');
              
-             log_message('debug','Members Class Initialized'); 
+             // Load the validation library
+             $this->load->library('validation');
+             
+             log_message('debug','Members Class Initialized');
          }
          
          /**
           * View Members
-          * 
+          *
           * @access public
-          * @return void 
+          * @return void
           */
          function index()
          {
@@ -60,31 +63,31 @@
          
          /**
           * Set Profile Defaults
-          * 
+          *
           * Specify what values should be shown in the profile fields when creating
           * a new user by default
-          * 
+          *
           * @access private
-          * @return void 
+          * @return void
           */
          function _set_profile_defaults()
          {
              //$this->validation->set_default_value('field1','value');
-             //$this->validation->set_default_value('field2','value'); 
+             //$this->validation->set_default_value('field2','value');
              return;
          }
          
          /**
           * Get User Details
-          * 
+          *
           * Load user detail values from the submited form
-          * 
+          *
           * @access private
           * @return array
           */
          function _get_user_details()
-         {   
-             $data['id'] = $this->input->post('id');           
+         {
+             $data['id'] = $this->input->post('id');
              $data['username'] = $this->input->post('username');
              $data['email'] = $this->input->post('email');
              $data['group'] = $this->input->post('group');
@@ -99,27 +102,27 @@
          
          /**
           * Get Profile Details
-          * 
+          *
           * Load user profile detail values from the submited form
-          * 
+          *
           * @access private
-          * @return array 
+          * @return array
           */
          function _get_profile_details()
          {
              $data = array();
              //$data['field1'] = $this->input->post('field1');
              //$data['field2'] = $this->input->post('field2');
-             //$data['field3'] = $this->input->post('field3');        
+             //$data['field3'] = $this->input->post('field3');
              return $data;
-         }         
+         }
          
          /**
           * Display Member Form
-          * 
+          *
           * @access public
           * @param integer $id Member ID
-          * @return void 
+          * @return void
           */
          function form($id = NULL)
          {
@@ -141,9 +144,9 @@
                 $rules['password'] = "trim|required|min_length[".$this->preference->item('min_password_length')."]|matches[confirm_password]";
              } else {               // EDIT USER
                 $rules['username'] = "trim|required|spare_edit_username";
-                $rules['email'] = "trim|required|valid_email|spare_edit_email";             
+                $rules['email'] = "trim|required|valid_email|spare_edit_email";
                 $rules['password'] = "trim|min_length[".$this->preference->item('min_password_length')."]|matches[confirm_password]";
-             }           
+             }
              $rules = array_merge($rules,$this->config->item('userlib_profile_rules'));
              
              // SETUP FORM DEFAULT VALUES
@@ -156,21 +159,21 @@
                  $this->validation->set_default_value('group',$user['group_id']);
                  unset($user['group']);
                  unset($user['group_id']);
-                 $this->validation->set_default_value($user);                
+                 $this->validation->set_default_value($user);
              }
              elseif( is_null($id) AND ! $this->input->post('submit'))
              {
-                 // Create form, first load 
+                 // Create form, first load
                  $this->validation->set_default_value('group',$this->preference->item('default_user_group'));
                  $this->validation->set_default_value('active','1');
                  
                  // Setup profile defaults
-                 $this->_set_profile_defaults();    
+                 $this->_set_profile_defaults();
              }
              elseif( $this->input->post('submit'))
              {
                  // Form submited, check rules
-                 $this->validation->set_rules($rules);                 
+                 $this->validation->set_rules($rules);
              }
              
              // RUN
@@ -182,7 +185,7 @@
              	
                  // Construct Groups dropdown
                  $this->load->model('access_control_model');
-                 $data['groups'] = $this->access_control_model->buildAClDropdown('group','id');                 
+                 $data['groups'] = $this->access_control_model->buildAClDropdown('group','id');
                  
                  // Display form
                  $this->validation->output_errors();
@@ -190,7 +193,7 @@
                  $this->page->set_crumb($data['header'],'auth/admin/members/form/'.$id);
                  $data['page'] = $this->config->item('backendpro_template_admin') . "members/form_member";
                  $data['module'] = 'auth';
-                 $this->load->view($this->_container,$data);                 
+                 $this->load->view($this->_container,$data);
              }
              else
              {
@@ -200,7 +203,7 @@
                     // CREATE
                     // Fetch form values
                     $user = $this->_get_user_details();
-                    $user['created'] = date('Y-m-d H:i:s');                    
+                    $user['created'] = date('Y-m-d H:i:s');
                     $profile = $this->_get_profile_details();
                     
                     $this->db->trans_start();
@@ -209,7 +212,7 @@
                     $this->user_model->insert('UserProfiles',$profile);
                     
                     if($this->db->trans_status() === TRUE)
-                    {                        
+                    {
                         $this->db->trans_commit();
                         flashMsg('success',sprintf($this->lang->line('userlib_user_saved'),$user['username']));
                     }
@@ -224,7 +227,7 @@
                  {
                     // SAVE
                     $user = $this->_get_user_details();
-                    $user['modified'] = date('Y-m-d H:i:s');                    
+                    $user['modified'] = date('Y-m-d H:i:s');
                     $profile = $this->_get_profile_details();
                     
                     $this->db->trans_start();
@@ -233,7 +236,7 @@
                         $this->user_model->update('UserProfiles',$profile,array('user_id'=>$user['id']));
                     
                     if($this->db->trans_status() === TRUE)
-                    {                        
+                    {
                         $this->db->trans_commit();
                         flashMsg('success',sprintf($this->lang->line('userlib_user_saved'),$user['username']));
                     }
@@ -244,28 +247,28 @@
                     }
                     redirect('auth/admin/members');
                  }
-             }         
+             }
          }
          
          /**
           * Delete
-          * 
+          *
           * Delete the selected users from the system
-          * 
+          *
           * @access public
-          * @return void 
+          * @return void
           */
          function delete()
          {
              if(FALSE === ($selected = $this->input->post('select')))
-                redirect('auth/admin/members','location'); 
+                redirect('auth/admin/members','location');
                 
              foreach($selected as $user)
              {
                  $this->user_model->delete('Users',array('id'=>$user));
              }
              
-             flashMsg('success',$this->lang->line('userlib_user_deleted')); 
+             flashMsg('success',$this->lang->line('userlib_user_deleted'));
              redirect('auth/admin/members','location');
          }
      }
