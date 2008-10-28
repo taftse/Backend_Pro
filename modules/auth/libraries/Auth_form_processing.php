@@ -106,7 +106,7 @@
         {
             // Fetch what they entered in the login
             $values['email'] = $this->CI->input->post('email');
-            $values['password'] = $this->encode_password($this->CI->input->post('password'));
+            $values['password'] = $this->CI->userlib->encode_password($this->CI->input->post('password'));
 
             // See if a user exists with the given credentials
             $query = $this->CI->user_model->validateLogin($values['email'],$values['password']);
@@ -236,7 +236,7 @@
                 // Generate a new password
                 $this->CI->load->helper('string');
                 $password = random_string('alnum',$this->CI->preference->item('min_password_length'));
-                $encoded_password = $this->encode_password($password);
+                $encoded_password = $this->CI->userlib->encode_password($password);
                 
                 // Email the new password to the user
                 $query = $this->CI->user_model->fetch('Users','username',NULL,array('email'=>$email));
@@ -278,7 +278,7 @@
             // Build
             $data['users']['username'] = $this->CI->input->post('username');
             $data['users']['email'] = $this->CI->input->post('email');
-            $data['users']['password'] = $this->encode_password($this->CI->input->post('password'));
+            $data['users']['password'] = $this->CI->userlib->encode_password($this->CI->input->post('password'));
             $data['users']['group'] = $this->CI->preference->item('default_user_group');
             $data['users']['created'] = date("Y-m-d H:i:s",time());
             
@@ -417,27 +417,6 @@
                 flashMsg('error',$this->CI->lang->line('userlib_activation_failed'));
                 redirect('auth/login','location');
             }
-        }
-        
-		/**
-         * Encode Password
-         *
-         * Encode the users password using a set method.
-         * Use SHA-1 and a salt appended to password
-         *
-         * @access public
-         * @return string
-         */
-        function encode_password($string=NULL)
-        {
-            if($string == NULL)
-                return NULL;
-            
-            // Append the salt to the password
-            $string .= $this->CI->config->item('encryption_key');
-            
-            // Return the SHA-1 encryption
-            return sha1($string);
         }
         
 		/**

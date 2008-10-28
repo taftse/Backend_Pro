@@ -196,5 +196,26 @@
             $this->CI->user_model->updateUserLogin($id);
             return;
         }
+        
+		/**
+		 * Encode Password
+		 *
+		 * Encode the users password using a set method.
+		 * Use SHA-1 and a salt appended to password
+		 *
+		 * @parm string Password string
+		 * @return string
+		 */
+		function encode_password($string=NULL)
+		{
+			if($string == NULL)
+				return NULL;
+		
+			// Append the salt to the password
+			$string .= $this->CI->config->item('encryption_key');
+		
+			// Return the SHA-1 encryption
+			return sha1($string);
+		}
 	}
 ?>
