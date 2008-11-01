@@ -65,6 +65,7 @@ the page. To do this I implemented a container system. What this is is instead o
 single view file, you call a <strong>master</strong> view file which then goes and loads 
 its respective headers and footers etc.</p>
 
+<h3>Container</h3>
 <p>When you extend either of the <a href="../controllers/admin_controller.html">Admin Controller</a> or 
 the <a href="../controllers/public_controller.html">Public Controller</a> a class variable is inherited 
 which you can only access by using <dfn>$this->_container</dfn>. This variable 
@@ -72,6 +73,14 @@ is the <strong>container</strong> view file I was talking about for the respecti
 
 <p>The master view files and their children view files are located in <var>system/application/views/admin</var> 
 and <var>system/application/views/public</var> respectivly.
+
+<a name="popup_container"></a>
+<h3>Popup Container</h3>
+<p class="important"><strong>Note:</strong> This feature is only avaiable when extending an <a href="../controllers/admin_controller.html">Admin Controller</a>.</p>
+<p>There may be times when instead of re-directing the user to a whole new page, you just want to open a popup, but 
+with all the styles of the main window and with all the normal container features. This is where a popup container 
+comes in. By using the <dfn>$this->_popup_container</dfn> variable you can load all your custom views into a window 
+which doesn't have the default admin navigation/header/footer.</p>
 
 <h2>Possible Page Content</h2>
 <p>As said above, I wanted to design a system so content could be passed into a 

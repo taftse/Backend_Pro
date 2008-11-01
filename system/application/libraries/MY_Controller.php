@@ -119,6 +119,9 @@
             // Set container variable
             $this->_container = $this->config->item('backendpro_template_admin') . "container.php";
 
+            // Set Pop container variable
+            $this->_popup_container = $this->config->item('backendpro_template_admin') . "popup.php";
+            
             // Make sure user is logged in
             check('Control Panel');
             
