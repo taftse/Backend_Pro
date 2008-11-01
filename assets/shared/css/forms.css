@@ -15,6 +15,7 @@ form em { color: red; background-color: #fff; }
 /* Input elements */
 form input.text, form textarea { width: 20em; }
 form select { width: 15em; }
+form input.file { width: 20em; }
 
 /* Form rows */
 form.horizontal li label { display: -moz-inline-box; width: 15em; vertical-align: top; }  
