@@ -71,9 +71,9 @@
         
         /**
         * Valid Email
-        * 
+        *
         * Checks the given email is one that belongs to a valid email
-        * 
+        *
         * @access public
         * @param string $email Email to validate
         * @return boolean
@@ -86,9 +86,9 @@
         
         /**
         * Activate User Account
-        * 
+        *
         * When given an activation_key, make that user account active
-        * 
+        *
         * @access public
         * @param string $key Activation Key
         * @return boolean
@@ -102,30 +102,31 @@
         
         /**
          * Get Users
-         * 
+         *
          * @access public
          * @param mixed $where Where query string/array
          * @param array $limit Limit array including offset and limit values
-         * @return object 
+         * @return object
          */
         function getUsers($where = NULL, $limit = array('limit' => NULL, 'offset' => ''))
         {
             // Load the khacl config file so we can get the correct table name
-            $this->load->config('khaos', true, true);  
+            $this->load->config('khaos', true, true);
         	$options = $this->config->item('acl', 'khaos');
-            $acl_tables = $options['tables'];  
+            $acl_tables = $options['tables'];
             
             // If Profiles are enabled load get their values also
             $profile_columns = '';
             if($this->preference->item('allow_user_profiles'))
             {
             	// Select only the column names of the profile fields
+            	$this->load->config('userlib');
             	$profile_fields_array = array_keys($this->config->item('userlib_profile_fields'));
             		
             	// Implode and seperate with comma
             	$profile_columns = implode(', profiles.',$profile_fields_array);
-            	$profile_columns = (empty($profile_fields_array)) ? '': ', profiles.'.$profile_columns;           	
-            }            
+            	$profile_columns = (empty($profile_fields_array)) ? '': ', profiles.'.$profile_columns;
+            }
             
             $this->db->select('users.id, users.username, users.email, users.active, users.last_visit, users.created, users.modified, groups.name `group`, groups.id group_id'.$profile_columns);
             $this->db->from($this->_TABLES['Users'] . " users");
@@ -138,17 +139,17 @@
         
         /**
         * Delete Users
-        * 
+        *
         * Extend the delete users function to make sure we delete all data related
         * to the user
-        * 
+        *
         * @access private
         * @param mixed $where Delete user where
         * @return boolean
         */
         function _delete_Users($where)
         {
-            // Get the ID's of the users to delete          
+            // Get the ID's of the users to delete
             $query = $this->fetch('Users','id',NULL,$where);
             foreach($query->result() as $row)
             {
@@ -156,10 +157,10 @@
                 // -- ADD USER REMOVAL QUERIES/METHODS BELOW HERE
                 
                 // Delete main user details
-                $this->db->delete($this->_TABLES['Users'],array('id'=>$row->id)); 
+                $this->db->delete($this->_TABLES['Users'],array('id'=>$row->id));
                 
                 // Delete user profile
-                $this->delete('UserProfiles',array('user_id'=>$row->id)); 
+                $this->delete('UserProfiles',array('user_id'=>$row->id));
 
                 // -- DON'T CHANGE BELOW HERE
                 // Check all the tasks completed
@@ -169,7 +170,7 @@
                     return FALSE;
                 } else {
                     $this->db->trans_commit();
-                } 
+                }
             }
             return TRUE;
         }

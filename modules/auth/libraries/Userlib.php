@@ -29,6 +29,7 @@
 			$this->CI = &get_instance();
 
 			// Load any files directly related to the authentication module
+			$this->CI->load->config('userlib');
 			$this->CI->lang->load('userlib');
 			$this->CI->load->model('user_model');
 			$this->CI->load->helper('userlib');

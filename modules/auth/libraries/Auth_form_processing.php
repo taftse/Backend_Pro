@@ -33,7 +33,7 @@
 			$this->CI = &get_instance();
 
 			// Load any files directly related to the authentication module
-			$this->CI->load->config('userlib');
+			
 			
 			// Load any other helpers/libraries needed
 			$this->CI->load->library('validation');
