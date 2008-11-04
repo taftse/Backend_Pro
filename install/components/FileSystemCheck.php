@@ -5,30 +5,30 @@
 	 * This file contains all the component classes for the FileSystem Check
 	 * feature. COMPONENTS ARE ONLY DEFINED HERE NOT CREATED
 	 */
-	
+
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Log files are writable
+	 * Log Folder is writable
 	 *
-	 * Check the log files folder is writable
+	 * Check the log folder is writable
 	 */
-	class LogFilesWritable extends Component
+	class LogFolderWritable extends Component
 	{
-		var $name = "Log files writable";
+		var $name = "Log Folder writable";
 		var $path = "/system/logs";
-		
+
 		function install()
 		{
 			if( is_writeable(BASEPATH.$this->path))
 				$this->status = TRUE;
 			else
 				$this->error = $this->path . " folder isn't writable";
-				
+
 			return $this->status;
 		}
 	}
-	
+
 	/**
 	 * Asset folders are writable
 	 *
@@ -45,7 +45,7 @@
 			'/assets/public/js',
 			'/assets/shared/css',
 			'/assets/shared/js');
-		
+
 		function install()
 		{
 			foreach($this->path_array as $path)
@@ -60,7 +60,28 @@
 			return $this->status;
 		}
 	}
-	
+
+	/**
+	 * Cache folder is writable
+	 *
+	 * Check the CodeIgniter cache folder is writable
+	 */
+	class CacheFolderWritable extends Component
+	{
+		var $name = "Cache Folder writable";
+		var $path = "/system/cache";
+
+		function install()
+		{
+			if( is_writeable(BASEPATH.$this->path))
+				$this->status = TRUE;
+			else
+				$this->error = $this->path . " folder isn't writable";
+
+			return $this->status;
+		}
+	}
+
 	/**
 	 * Config files are writable
 	 *
@@ -74,7 +95,7 @@
 			'/system/application/config/config.php',
 			'/system/application/config/database.php',
 			'/modules/recaptcha/config/recaptcha.php');
-		
+
 		function install()
 		{
 			foreach($this->file_array as $file)
