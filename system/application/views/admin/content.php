@@ -16,4 +16,5 @@
             $this->load->view($page);
         }}
     ?>
+    <br style="clear: both" />
 </div>
