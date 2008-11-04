@@ -33,12 +33,12 @@
             </li>
             <li>
                 <?=form_label($this->lang->line('userlib_group'),'group')?>
-                <?=form_dropdown('group',$groups,$this->validation->group,'id="group" size="10" style="width:20.3em;"')?>                
+                <?=form_dropdown('group',$groups,$this->validation->group,'id="group" size="10" style="width:20.3em;"')?>
             </li>
             <li>
                 <?=form_label($this->lang->line('userlib_active'),'active')?>
-                Yes <?=form_radio('active','1',$this->validation->set_radio('active','1'),'id="active"')?>
-                No <?=form_radio('active','0',$this->validation->set_radio('active','0'))?>
+                <?=$this->lang->line('general_yes')?> <?=form_radio('active','1',$this->validation->set_radio('active','1'),'id="active"')?>
+                <?=$this->lang->line('general_no')?> <?=form_radio('active','0',$this->validation->set_radio('active','0'))?>
             </li>
             <li class="submit">
                 <?=form_hidden('id',$this->validation->id)?>
@@ -47,12 +47,12 @@
 	                	<?= $this->page->icon('disk');?>
 	                	<?=$this->lang->line('general_save')?>
 	                </button>
-	                
+
 	                <a href="<?= site_url('auth/admin/members')?>" class="negative">
 	                	<?= $this->page->icon('cross');?>
 	                	<?=$this->lang->line('general_cancel')?>
 	                </a>
-	                
+
 	                <a href="javascript:void(0);" id="generate_password">
 	                	<?= $this->page->icon('key');?>
 	                	<?=$this->lang->line('userlib_generate_password'); ?>
@@ -62,11 +62,11 @@
         </ol>
     </fieldset>
 <h2><?=$this->lang->line('userlib_user_profile')?></h2>
-<?php 
+<?php
     if( ! $this->preference->item('allow_user_profiles')):
         print "<p>".$this->lang->line('userlib_profile_disabled')."</p>";
     else:
-?>       
+?>
     <fieldset>
         <ol>
             <li class="submit">
@@ -75,7 +75,7 @@
 	                	<?= $this->page->icon('disk');?>
 	                	<?=$this->lang->line('general_save')?>
 	                </button>
-	                
+
 	                <a href="<?= site_url('auth/admin/members')?>" class="negative">
 	                	<?= $this->page->icon('cross');?>
 	                	<?=$this->lang->line('general_cancel')?>

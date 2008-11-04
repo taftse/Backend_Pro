@@ -30,7 +30,7 @@
             'text'     => 'trim',
             'textarea' => 'trim'
         );
-        
+
         function Preference_form($config = array())
         {
             // Get CI Instance
@@ -39,18 +39,18 @@
             // Initalize Class
             if(count($config) != 0)
                 $this->initalize($config);
-            
+
             // Load language files
             $this->CI->lang->load('preferences');
 
             log_message('debug','Preference_form Class Initialized');
         }
-        
+
         /**
          * Initalize Class
-         * 
+         *
          * Setup the class using the config array
-         * 
+         *
          * @access public
          * @param array $config Config array
          * @return void;
@@ -63,14 +63,14 @@
             }
             return;
         }
-        
+
         /**
          * Setup fields
-         * 
+         *
          * Make sure that each field has a label, type, rule & param array
-         * 
+         *
          * @access private
-         * @return void 
+         * @return void
          */
         function _setup_fields()
         {
@@ -83,7 +83,7 @@
                         $this->field[$name] = array();
                 }
             }
-            
+
             foreach($this->field as $field => $data)
             {
                 // Assign default label name
@@ -105,12 +105,12 @@
                     $this->field[$field]['params'] = array();
             }
         }
-        
+
         /**
          * Display Preference Form
-         * 
+         *
          * Display either the field groupings menu OR the actual field form
-         * 
+         *
          * @access public
          * @param boolean $print Output to screen
          * @return mixed
@@ -120,41 +120,41 @@
             // Check a form base link is set
             if( is_null($this->form_link))
                 show_error("You must specify the full base url to the controller creating the preference form. E.g. ".$this->CI->uri->ruri_string());
-            
+
             // Set breadcrumb
             $this->CI->page->set_crumb($this->form_name,$this->form_link);
-            
+
             // Setup fields
             $this->_setup_fields();
-            
+
             if(count($this->group) != 0)
-            {  
+            {
                 $group_id = $this->CI->uri->segment($this->CI->uri->total_segments());
                 if(array_key_exists($group_id,$this->group))
                 {
-                    // Display group fields                    
+                    // Display group fields
                     $this->CI->page->set_crumb($this->group[$group_id]['name'],$this->form_link."/".$group_id);
                     return $this->_display_fields($print, $group_id);
                 }
                 else
-                {                
+                {
                     // Display group listings
-                    $data['group'] = $this->group; 
+                    $data['group'] = $this->group;
                     $data['form_link'] = $this->form_link;
-                    $data['header'] = $this->form_name;      
+                    $data['header'] = $this->form_name;
                     return $this->CI->load->view("field_groups",$data, !$print);
                 }
             }
 
             // Display fields
-            return $this->_display_fields($print);   
+            return $this->_display_fields($print);
         }
-        
+
         /**
          * Display Fields
-         * 
+         *
          * Display the form to edit the requested fields
-         * 
+         *
          * @access private
          * @param boolean $print Output to screen
          * @param string $group_id Group id
@@ -176,7 +176,7 @@
                 // Show all fields
                 $fields_to_show = $this->field;
             }
-            
+
             // Setup form validation
             $this->CI->load->library('validation');
             foreach($fields_to_show as $key => $value)
@@ -185,7 +185,7 @@
                 $form_rules[$key] = $value['rules'];
             }
             $this->CI->validation->set_fields($form_fields);
-            $this->CI->validation->set_rules($form_rules);             
+            $this->CI->validation->set_rules($form_rules);
 
             // If this is the first load, get preference values from the DB
             if( ! $this->CI->input->post('submit'))
@@ -210,7 +210,7 @@
                     // Pass field data over to view
                     $data['field'][$key] = $this->field[$key];
                 }
-                        
+
                 // Display Page
                 $data['header'] = ( is_null($group_id) ? $this->form_name : $this->group[$group_id]['name']);
                 $data['form_link'] = $this->form_link . "/" . $group_id;
@@ -257,19 +257,19 @@
 
             // Set checked status
             if ($this->CI->validation->{$key}){$params['checked'] = TRUE;}
-            $field = "Yes " . form_radio($params);
+            $field = $this->CI->lang->line('general_yes') . " " . form_radio($params);
 
             // Set checked status
             if ( ! $this->CI->validation->{$key}){$params['checked'] = TRUE;} else {$params['checked'] = FALSE;}
             $params['value'] = 0;
-            $field .= " No " . form_radio($params);
+            $field .= " " . $this->CI->lang->line('general_no') . " " . form_radio($params);
             return $field;
         }
 
         function _field_dropdown($key)
         {
             $options = $this->field[$key]['params']['options'];
-            unset($this->field[$key]['params']['options']);            
+            unset($this->field[$key]['params']['options']);
             return form_dropdown($key,$options,$this->CI->validation->{$key},$this->field[$key]['params']);
         }
 
