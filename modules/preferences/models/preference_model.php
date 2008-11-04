@@ -31,7 +31,13 @@
 
             // Cache to store already fetched items
             $this->_CACHE = array();
-            
+
+            // Object keyword
+            // I wouldn't advise changing this, it could corrupt current
+            // preferences, the reason for needed this is to stop unserialze
+            // errors spamming the log files
+            $this->object_keyword = "BeP::Object::";
+
 			log_message('debug','Preference_model Class Initialized');
 		}
 
@@ -49,7 +55,7 @@
 		{
 			if( is_null($name))
                 return;
-            
+
             // See if we have already got the setting
             if( isset($this->_CACHE[$name]))
                 return $this->_CACHE[$name];
@@ -63,17 +69,19 @@
 				$string = $row->value;
 
                 log_message('debug',"Fetching the preference '".$name."'");
-				if( FALSE === ($object = @unserialize($string)))
+
+				if($this->object_keyword == substr($string,0,strlen($this->object_keyword)-1))
 				{
-					// String was not an object
-                    $this->_CACHE[$name] = $string;
-					return $string;
+					// Return object
+					$object = substr($string,strlen($this->object_keyword));
+					$this->_CACHE[$name] = unserialize($object);
+					return $this->_CACHE[$name];
 				}
 				else
 				{
-					// Return object
-                    $this->_CACHE[$name] = $object;
-					return $object;
+					// Return string
+					$this->_CACHE[$name] = $string;
+					return $this->_CACHE[$name];
 				}
 			}
 
@@ -97,7 +105,7 @@
 				return FALSE;
 
 			if( is_array($value))
-				$value = serialize($value);
+				$value = $this->object_keyword . serialize($value);
 
 			return $this->update('Option',array('value'=>$value),array('name'=>$name));
 		}
