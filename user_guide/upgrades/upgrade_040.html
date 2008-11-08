@@ -64,7 +64,22 @@ with a static one.</p>
 </ul>
 <p class="important"><strong>Note:</strong> If you have any custom developed files in these folders please make copies of them first. This may include customer user authentication and custom website preference forms.</p>
  
-<h2>Step 2: Update your user guide</h2>
+<h2>Step 2: Update your Database</h2>
+<p>To get 0.4 working with your current database we need to perform some updates, please perform them in the order listed below.</p>
+<ol>
+	<li><strong>Update Preference Table</strong>
+	<p class="important"><strong>Note:</strong> You only need to do this if you are storing objects e.g arrays etc, in the preference class. <strong>Do not peform this action upon all preference values.</strong></p>
+	<p>Open the preference table in phpmyadmin (or similar) and view all the rows. You need to manualy edit any row which contains a value storing a 
+	serialized object and preppend <dfn>BeP::Object::</dfn> to the value. A serialized object will look something like the following:</p>
+	<code>a:2:{i:0;s:1:"1";i:1;s:3654:"asdasd3hj23432gyhdsady87ayda";}<br/>
+	<br/>
+	Should be turned into:<br/>
+	<br/>
+	BeP::Object::a:2:{i:0;s:1:"1";i:1;s:3654:"1a1dc91c907325c69271ddf0c944bc72";}</code>
+	</li>
+</ol>
+ 
+<h2>Step 3: Update your user guide</h2>
 <p>Please replace your local copy of the user guide with the new version, including the image files.</p> 
 </div>
 <!-- END CONTENT -->
