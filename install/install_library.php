@@ -10,9 +10,9 @@
 	 * @copyright		Copyright (c) 2008
 	 * @license			http://www.gnu.org/licenses/lgpl.html
 	 */
-	
+
 	// -------------------------------------------------------------------------
-	
+
 	/**
 	 * Logger Class
 	 *
@@ -25,7 +25,7 @@
 	{
 		var $file_name  = 'install_log.txt';
 		var	$date_fmt   = 'Y-m-d H:i:s';
-		
+
 		/**
 		 * Write Log Message
 		 *
@@ -41,27 +41,27 @@
 			{
 				return FALSE;
 			}
-				
+
 			$type = strtoupper($type);
-			
+
 			// Open the log file
 			if ( ! $fp = fopen($this->file_name, 'ab'))
 			{
 				return FALSE;
 			}
-			
+
 			$message = $type . " " . (($type == 'INFO') ? ' - ' : '- ') . date($this->date_fmt,time()) . " --> " . $msg . "\r\n";
-			
+
 			flock($fp, LOCK_EX);
 			fwrite($fp, $message);
 			flock($fp, LOCK_UN);
 			fclose($fp);
-		
+
 			@chmod($this->file_name, 0666);
 			return TRUE;
 		}
 	}
-	
+
 	/**
  	 * Database Class
  	 *
@@ -73,7 +73,7 @@
 	class Database
 	{
 		var $connection;
-		
+
 		/**
 		 * Connect to Database
 		 *
@@ -86,7 +86,7 @@
 		function Connect($host = NULL, $database = NULL, $user = NULL, $password = NULL)
 		{
 			global $logger;
-			
+
 			$this->connection = @mysql_connect($host,$user,$password);
 	    	if ( !$this->connection)
 	    	{
@@ -99,10 +99,10 @@
 	    		$logger->write('error',mysql_error());
 	    		return FALSE;
 	    	}
-		    	
+
 		    return TRUE;
 		}
-		
+
 		/**
 		 * Query
 		 *
@@ -114,12 +114,12 @@
 		function Query($sql = NULL)
 		{
 			global $logger;
-			
+
 			if ($sql == NULL)
 			{
 				return FALSE;
 			}
-			
+
 			if( ! @mysql_query($sql,$this->connection))
 			{
 				$logger->write('error',mysql_error());
@@ -127,7 +127,7 @@
 			}
 			return TRUE;
 		}
-		
+
 		/**
 		 * Run SQL Schema File
 		 *
@@ -139,37 +139,37 @@
 		function RunSQLFile($file = NULL)
 		{
 			global $logger;
-	
+
 			$path = 'files/' . $file;
-			
+
 			if($file == NULL)
 			{
 				return FALSE;
 			}
-		    
+
 		    if( !$fp = @fopen($path,'r'))
 		    {
 		        $logger->write('error',"Couldn't open " . $path);
 		        return FALSE;
 		    }
-		
+
 		    $contents = fread($fp, filesize($path));
 		    fclose($fp);
-		
+
 		    // Lets get rid of comment lines
 		    $contents = preg_replace('/--(.)*/','',$contents);
-		
+
 		    // Get rid of newlines
 		    $contents = preg_replace('/\n/','',$contents);
-		
+
 		    // Turn each statement into an array item
 		    $contents = explode(';',$contents);
-		
+
 		    foreach($contents as $sql)
 		    {
 		        if( $sql == '')
 		            continue;
-		
+
 		        if($this->Query($sql) === FALSE)
 		        {
 		        	return FALSE;
@@ -178,8 +178,8 @@
 		    return TRUE;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Feature Class
 	 *
@@ -194,15 +194,15 @@
 		var $components 			= array();	// Emptey list of components
 		var $status 			 	= FALSE;	// Status of component installation
 		var $prerequisiteFeature 	= NULL;		// Pre-requisite feature link
-	
+
 		function Feature($name="My Feature")
 		{
 			global $logger;
-			
+
 			$logger->write("info","New feature '" . $name . "' created");
 			$this->name = $name;
 		}
-		
+
 		/**
 		 * Attach Component
 		 *
@@ -214,15 +214,15 @@
 		function attach_component($component=NULL)
 		{
 			global $logger;
-			
-			if($component == NULL OR !is_object($component) OR get_parent_class($component) != "component")
+
+			if($component == NULL OR !is_object($component) OR strtolower(get_parent_class($component)) != "component")
 				return FALSE;
-				
+
 			$this->components[] = &$component;
 			$logger->write("info","Component '" . $component->name . "' attached to feature '" . $this->name . "'");
 			return TRUE;
 		}
-		
+
 		/**
 		 * Set Prerequisite Feature
 		 *
@@ -235,15 +235,15 @@
 		function set_prerequisite_feature($feature = NULL)
 		{
 			global $logger;
-			
-			if($feature == NULL OR !is_object($feature) OR get_class($feature) != "feature")
+
+			if($feature == NULL OR !is_object($feature) OR strtolower(get_class($feature)) != "feature")
 				return FALSE;
-				
+
 			$this->prerequisiteFeature = &$feature;
 			$logger->write("info","Feature '" . $this->name . "' now has prerequisite '" . $feature->name . "'");
 			return TRUE;
 		}
-		
+
 		/**
 		 * Install Feature
 		 *
@@ -254,7 +254,7 @@
 		function install()
 		{
 			global $logger;
-			
+
 			// First check to see if a prerequisite feature
 			// failed to install
 			if( $this->prerequisiteFeature != NULL && $this->prerequisiteFeature->status===FALSE)
@@ -263,7 +263,7 @@
 				$logger->write("info",$this->name . " Feature installation haulted since its prerequisite feature '" . $this->prerequisiteFeature->name . "' failed to install");
 				return $this->status;
 			}
-			
+
 			// Lets procede with the install of this feature
 			// So for each component try and install it
 			$i=0;
@@ -309,7 +309,7 @@
 			return $this->status;
 		}
 	}
-	
+
 	/**
 	 * Component Class
 	 *
@@ -323,7 +323,7 @@
 		var $status = FALSE;
 		var $name 	= "My Component";
 		var $error 	= NULL;				// Error message if thrown
-		
+
 		/**
 		 * Install Component
 		 *
