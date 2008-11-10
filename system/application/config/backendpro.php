@@ -25,18 +25,6 @@ $config['backendpro_table_prefix'] = 'be_';
 
 /*
  |--------------------------------------------------------------------------
- | BackendPro Image Controller Settings
- |--------------------------------------------------------------------------
- | These settings relate to how the image controller will operate. You
- | can specify things like which folders to look for images in, default
- | image quality. Please see the userguide for more details.
- */
-$config['backendpro_image_default_quality'] = 100;
-$config['backendpro_image_folders'] = array(
-	'assets/images/');
-
-/*
- |--------------------------------------------------------------------------
  | View File Locations
  |--------------------------------------------------------------------------
  | Contains variables setting where the default view file directories are located.

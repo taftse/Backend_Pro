@@ -59,7 +59,7 @@ and then displaying them on a page. It has the following features:</p>
 </ul>
 
 <h2>Setup</h2>
-<p>Before using the image library there are a few settings you may want to tweek. Thse can be found in <dfn>system/application/config/backendpro.php</dfn>.</p>
+<p>Before using the image library there are a few settings you may want to tweek. Thse can be found in <dfn>modules/image/config/image.php</dfn>.</p>
 
 <table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
 <tr>
@@ -70,13 +70,13 @@ and then displaying them on a page. It has the following features:</p>
 	<th>Description</th>
 </tr>
 <tr>
-	<td class="td"><strong>backendpro_image_default_quality</strong></td>
+	<td class="td"><strong>image_default_quality</strong></td>
 	<td class="td">100</td>
 	<td class="td">None</td>
 	<td class="td">The default image quality to output images at.</td>
 </tr>
 <tr>
-	<td class="td"><strong>backendpro_image_folders</strong></td>
+	<td class="td"><strong>image_folders</strong></td>
 	<td class="td">assets/images/</td>
 	<td class="td">None</td>
 
@@ -92,7 +92,7 @@ of the class. The basic way you use the class is to pass the required parameters
 <code>&lt;img src="&lt;?=site_url('image/get/<dfn>file/my_image.jpg</dfn>')?&gt;" /&gt;</code>
 
 <p>Thats it, thats all you need. Now as said this is a rather simple use of the controller. All this will do is load an image called my_image.jpg. To 
-find this image it will search all the folders specified in the <dfn>backendpro.php</dfn> config.</p>
+find this image it will search all the folders specified in the <dfn>image.php</dfn> config.</p>
 
 <a name="resizing"></a>
 <h3>Resizing an Image</h3>

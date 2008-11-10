@@ -32,7 +32,7 @@ class Image extends Controller
 		parent::Controller();
 
 		// Load BackendPro config file
-		$this->load->config('backendpro');
+		$this->load->config('image');
 
 		$this->img_path = NULL;
 
@@ -65,7 +65,7 @@ class Image extends Controller
 		}
 
 		// Try to find the image
-		foreach($this->config->item('backendpro_image_folders') as $folder)
+		foreach($this->config->item('image_folders') as $folder)
 		{
 			if ( file_exists($folder.$uri_array['file']))
 				$this->img_path = $folder.$uri_array['file'];
@@ -173,7 +173,7 @@ class Image extends Controller
 		// @TODO: Implement watermarking
 
 		// QUALITY
-		$quality = ($uri_array['quality'] != NULL) ? $uri_array['quality'] : $this->config->item('backendpro_image_default_quality');
+		$quality = ($uri_array['quality'] != NULL) ? $uri_array['quality'] : $this->config->item('image_default_quality');
 
 		$dst_image = imagecreatetruecolor($new_width, $new_height);
 		$src_image = imagecreatefromjpeg($this->img_path);
