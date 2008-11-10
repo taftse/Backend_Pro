@@ -58,11 +58,14 @@
 			// Fetch current flashdata from session
 			$data = $this->_fetch();
 
-			// Append our message to the end
-			$data[$type][] = $message;
+			// Append our message to the end if not already created
+			if( !array_key_exists($type,$data) OR !in_array($message,$data[$type]))
+			{
+				$data[$type][] = $message;
 
-			// Save the data back into the session
-			$this->CI->session->set_userdata($this->flash_var,serialize($data));
+				// Save the data back into the session
+				$this->CI->session->set_userdata($this->flash_var,serialize($data));
+			}
 		}
 
 		/**
