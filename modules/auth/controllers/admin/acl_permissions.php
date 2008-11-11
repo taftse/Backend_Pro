@@ -118,20 +118,33 @@
           */
          function save()
          {
-             $aro = $this->input->post('aro');
-             $aco = $this->input->post('aco');
-             $allow = $this->input->post('allow');
+         	 // Get values from form
              $id = $this->input->post('id');
+             $allow = $this->input->post('allow');
+
+             // INFO: This is a bit of a dirty fix for bug #20 there must be a better way
+         	 if($id != NULL)
+         	 {
+         	 	// Form has been submited, so we need to fetch the
+         	 	// aro and aco values from the database
+         	 	$result = $this->access_control_model->getPermissions(NULL,array('acl.id'=>$id));
+                $row = $result[$id];
+
+                $_POST['aro'] = $row['aro'];
+                $_POST['aco'] = $row['aco'];
+         	 }
+
+         	 $aro = $this->input->post('aro');
+             $aco = $this->input->post('aco');
 
              $this->load->library('khacl');
 
              $this->db->trans_start();
 
-             // Remove old actions
-             if($id != '')
+             // Remove old actions if modifying
+             if($id != NULL)
                  $this->access_control_model->delete('access_actions',array('access_id'=>$id));
 
-             // Create permission
              // First we will process the actions
              foreach($_POST as $key=>$value)
              {
@@ -146,10 +159,13 @@
              }
 
              // Now process the main permission
-             switch($allow)
+             if($id == NULL)
              {
-                 case 'Y':$this->khacl->allow($aro,$aco);break;
-                 case 'N':$this->khacl->deny($aro,$aco);break;
+	             switch($allow)
+	             {
+	                 case 'Y':$this->khacl->allow($aro,$aco);break;
+	                 case 'N':$this->khacl->deny($aro,$aco);break;
+	             }
              }
 
              // Did everything go OK?
