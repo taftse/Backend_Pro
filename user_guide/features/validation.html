@@ -56,25 +56,25 @@ a way to transfer error messages to use the <a href="status.html">Status Class</
 
 <h2>How to use the Validation Class?</h2>
 
-<code>$this->load->library('validation');</code>
+<code>$this-&gt;load-&gt;library('validation');</code>
 <p>The class file can be found at <var>system/application/libraries/MY_Validation.php</var></p>
 
 <h2>Validation Class Function Reference</h2>
 
 <a name="output_errors"></a>
-<h3>$this->validation->output_errors()</h3>
+<h3>$this-&gt;validation-&gt;output_errors()</h3>
 <p>Calling this method will transfer any form error messages into the <a href="status.html">Status Class</a>
 message system.</p>
 
 <a name="set_default_value"></a>
-<h3>$this->validation->set_default_value()</h3>
+<h3>$this-&gt;validation-&gt;set_default_value()</h3>
 <p>Set Default Form Field:</p>
-<code>$this->validation->set_default_value(<var>field</var>,<var>value</var>);</code>
+<code>$this-&gt;validation->set_default_value(<var>field</var>,<var>value</var>);</code>
 <p>When used as above it will set the initial <var>value</var> of the specified <var>field</var>. Another method 
-of using this method is to give it an associtive array of field names to values.</p>
+of using this method is to give it an associative array of field names to values.</p>
 <code>
-$data = array('field1' => 'value1', 'field2' => 'value2');<br />
-$this->validation->set_default_value($data);
+$data = array('field1' =&gt; 'value1', 'field2' =&gt; 'value2');<br />
+$this-&gt;validation-&gt;set_default_value($data);
 </code>
 
 <p>The main reason for using this method over other ways of setting the default value
@@ -98,7 +98,7 @@ function&nbsp;myform()<br />
 &nbsp;&nbsp;&nbsp;&nbsp;}<br />
 &nbsp;&nbsp;&nbsp;&nbsp;else<br />
 &nbsp;&nbsp;&nbsp;&nbsp;{<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Form&nbsp;submited<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Form&nbsp;submitted<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Validate&nbsp;form&nbsp;input<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;validation-&gt;set_rules($rules);<br />
 &nbsp;&nbsp;&nbsp;&nbsp;}<br />

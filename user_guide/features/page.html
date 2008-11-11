@@ -50,7 +50,7 @@ Page Class
 
 <h1>Page Class</h1>
 
-<p>The Page Class provides you with features useful to outputing infomation from 
+<p>The Page Class provides you with features useful to outputting information from 
 PHP to controller views. Examples of these features include asset management, breadcrumb
 trail creation &amp; PHP to JS variable conversion.</p>
 
@@ -110,7 +110,7 @@ trail creation &amp; PHP to JS variable conversion.</p>
     <td class="td"><strong>default_assets</strong></td>
     <td class="td">Array</td>
     <td class="td">None</td>
-    <td class="td">Array of assets to load on every controller. Please see <var>modules/page/config/page.php</var> for futher details.</td>
+    <td class="td">Array of assets to load on every controller. Please see <var>modules/page/config/page.php</var> for further details.</td>
 </tr>
 <tr>
     <td class="td"><strong>asset_cache_length</strong></td>
@@ -166,7 +166,7 @@ comes with the ability to optimise code but requires some steps to turn this fea
 
 <h2>Dynamic Asset files</h2>
 <p>It is possible to to use php files to create asset files therefore making use 
-of dynaimc data. If you do want to use a php file as an asset file you must make 
+of dynamic data. If you do want to use a php file as an asset file you must make 
 sure it is formed correctly otherwise when trying to load the page the site will fail.</p>
 <p>Example of a PHP CSS asset file</p>
 <code>
@@ -180,7 +180,7 @@ sure it is formed correctly otherwise when trying to load the page the site will
 </code>
 <p>As you will see above, the first 4 lines have a condition statement on whether 
 to include information about the file type. What this code does is it only includes 
-the header infomation if the page is not being cached. The reason for this, is when 
+the header information if the page is not being cached. The reason for this, is when 
 the cache is created it is done by including each file. Trying to change the header part way 
 through this process corrupts the cache and the website. Therefore the need for this check.</p>
 
@@ -220,16 +220,16 @@ should be in the form used by the rest of CodeIgniter, i.e. <kbd>controller/meth
 <p>Create meta tag:</p>
 <code>$this-&gt;page-&gt;set_metatag('<var>name</var>','<var>content</var>',<var>TRUE/FALSE</var>)</code>
 <p>The first parameter is the name of the tag e.g keywords, description</p>
-<p>The second paramter is the content of the meta tag e.g 'text/html; charset=utf-8'</p>
+<p>The second parameter is the content of the meta tag e.g 'text/html; charset=utf-8'</p>
 <p>The third <strong>optional</strong> parameter is a <strong>boolean</strong> to set whether
 the tag is the default 'name' or 'http-equiv' version. By default it is set to <kbd>false</kbd> ('name' tag type)</p>
 <code>
-$this-&gt;page-&gt;set_metatag('author','John Doe');<br>
-// Creates the following<br>
-// &lt;meta name="author" content="John Doe" /&gt;<br>
-<br>
-$this-&gt;page-&gt;set_metatag('content-type','text/html; charset=utf-8',TRUE);<br>
-// Creates the following<br>
+$this-&gt;page-&gt;set_metatag('author','John Doe');<br />
+// Creates the following&lt;br&gt;
+// &lt;meta name="author" content="John Doe" /&gt;<br />
+<br />
+$this-&gt;page-&gt;set_metatag('content-type','text/html; charset=utf-8',TRUE);<br />
+// Creates the following<br />
 // &lt;meta http-eqiv="content-type" content="text/html; charset=utf-8" /&gt;
 </code>
 <p>It is advised to set base meta tags (i.e. ones to be used throughout the site)
@@ -242,7 +242,7 @@ to be displayed, due to it overwriting the initial value.</p>
 <p>Output javascript variables:</p>
 <code>$this-&gt;page-&gt;output_variables(<var>TRUE/FALSE</var>)</code>
 <p>The first <strong>optional</strong> parameter specifys if the HTML should be 
-printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
+printed or returned. The default behaviour is <kbd>true</kbd> (boolean), the output will be printed, 
 if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 
 <a name="output_metatags"></a>
@@ -250,7 +250,7 @@ if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 <p>Output meta tags:</p>
 <code>$this-&gt;page-&gt;output_metatags(<var>TRUE/FALSE</var>)</code>
 <p>The first <strong>optional</strong> parameter specifys if the HTML should be 
-printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
+printed or returned. The default behaviour is <kbd>true</kbd> (boolean), the output will be printed, 
 if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 
 <a name="output_trail"></a>
@@ -266,7 +266,7 @@ if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 <br />&lt;/div&gt;
 </code>
 <p>The first <strong>optional</strong> parameter specifys if the HTML should be 
-printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
+printed or returned. The default behaviour is <kbd>true</kbd> (boolean), the output will be printed, 
 if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 
 <a name="output_assets"></a>
@@ -280,13 +280,13 @@ if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 &lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;type=&quot;text/css&quot;&nbsp;href=&quot;http://localhost/backendpro/assets/shared/css/typography.css&quot;&nbsp;/&gt;<br />
 &lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;type=&quot;text/css&quot;&nbsp;href=&quot;http://localhost/backendpro/assets/admin/css/style.css&quot;&nbsp;/&gt;
 </code>
-<p>The first paramter specifies which asset area should be outputed. This allows either the public or
-administration assets to be choosen between.</p> 
+<p>The first parameter specifies which asset area should be outputted. This allows either the public or
+administration assets to be chosen between.</p> 
 <p>The second <strong>optional</strong> parameter specifys if the HTML should be 
-printed or returned. The default behavior is <kbd>true</kbd> (boolean), the output will be printed, 
+printed or returned. The default behaviour is <kbd>true</kbd> (boolean), the output will be printed, 
 if set to <kbd>false</kbd> (boolean) the output will be returned.</p>
 
-<p class="important"><strong>Important:</strong> Assets are outputed to the page in a specific order.<br/>
+<p class="important"><strong>Important:</strong> Assets are outputted to the page in a specific order.<br/>
 &nbsp;&nbsp;Shared Javascript Files<br/>
 &nbsp;&nbsp;Shared CSS Files<br/>
 &nbsp;&nbsp;Shared Conditional CSS Files<br/>

@@ -95,14 +95,14 @@ function&nbsp;<dfn>_widget_statistics()</dfn><br />
 }
 </code>
 
-<p>As you can see from above this controller looks exactly like any other. Some library is called and an ouput is given.
+<p>As you can see from above this controller looks exactly like any other. Some library is called and an output is given.
 So lets step through the main four sections of this code.</p>
 <ol>
 	<li>This little section includes the <var>dashboard.js</var> javascript file which is used
 	to allow the user to modify the dashboard how they want.</li>
 	
-	<li>The next section loads the required libraries I talked about earliyer, and creates an instance 
-	of the <a href="#dashboard">Dashboard class</a>, storing it in <dfn>$this->dashboard</dfn>.</li>
+	<li>The next section loads the required libraries I talked about earlier, and creates an instance 
+	of the <a href="#dashboard">Dashboard class</a>, storing it in <dfn>$this-&gt;dashboard</dfn>.</li>
 	
 	<li>This section is where I create and assign widgets to the dashboard. As you can see two widgets are created 
 	and assigned to the dashboard object. More details of the class methods used can be found below.</li>
@@ -112,13 +112,13 @@ So lets step through the main four sections of this code.</p>
 
 <p>You will notice a private function in the example above called <dfn>_widget_statistics()</dfn>. This function 
 is used to generate the body contents of the statistics widget. The reason the code is in a function instead of inline 
-with the rest of the dashboard code is just to make it easiyer to read. <strong>I would advise you also put widget body 
+with the rest of the dashboard code is just to make it easier to read. <strong>I would advise you also put widget body 
 creation code inside their own functions to make your script more readable.</strong></p>
 
 <h2>Guarding a Widget</h2>
 
 <p>You may find a time when you only want a widget to be displayed if the user has permission to view the required data. 
-This can be achived through using the <a href="acl.html">Access Control</a> feature. Lets take a look at how this may be done:</p>
+This can be achieved through using the <a href="acl.html">Access Control</a> feature. Lets take a look at how this may be done:</p>
 
 <code>
 if(&nbsp;<dfn>check</dfn>('<kbd>member_widget</kbd>',NULL,<kbd>FALSE</kbd>))<br />
@@ -126,8 +126,8 @@ if(&nbsp;<dfn>check</dfn>('<kbd>member_widget</kbd>',NULL,<kbd>FALSE</kbd>))<br 
 </code>
 
 <p>So in the example above we have used the <dfn>check</dfn> helper function to see if the user has access to the resource 
-<kbd>member_widget</kbd>. By specifying the last paramter of the call 
-to <dfn>check</dfn> as <kbd>FALSE</kbd> it means it will just return a boolean result instead of possibilty redirecting
+<kbd>member_widget</kbd>. By specifying the last parameter of the call 
+to <dfn>check</dfn> as <kbd>FALSE</kbd> it means it will just return a boolean result instead of possibly redirecting
 the user to an error page (Please see the <a href="acl.html">Access Control</a> feature for more details about this). 
 If the user does pass this test, the widget will be created and assigned to the dashboard.</p>
 
@@ -138,7 +138,7 @@ If the user does pass this test, the widget will be created and assigned to the 
 the required HTML code to display the dashboard to the user.</p>
 
 <p class="important"><strong>Note</strong>: Widgets are assigned to the sections in the order you create them in the controller. 
-So a widget assigned before another will apear above the later widget. Of course this is only the default setup. The 
+So a widget assigned before another will appear above the later widget. Of course this is only the default setup. The 
 user may change the order for their personal viewing.</p>
 
 <h2>Dashboard Class Function Reference</h2>
@@ -153,7 +153,7 @@ $this-&gt;dashboard-&gt;assign_widget(<dfn>Widget Object</dfn>,'<var>position</v
 <p>The first parameter is a <a href="#widget">Widget Class Object</a>. Please see below for how one of these 
 can be created.</p>
 
-<p>The second paramter is the <var>position</var> where you want the widget to appear by default. It can take 
+<p>The second parameter is the <var>position</var> where you want the widget to appear by default. It can take 
 the value of <kbd>top</kbd>, <kbd>left</kbd> or <kbd>right</kbd>.</p>
 
 
@@ -162,7 +162,7 @@ the value of <kbd>top</kbd>, <kbd>left</kbd> or <kbd>right</kbd>.</p>
 <h1>Widget Class</h1>
 
 <p>The Widget class allows a widget to be created and then when needed its HTML code created. There is not much
-use using the Widget class on its own, it is for that reason meant to be used in conjuction 
+use using the Widget class on its own, it is for that reason meant to be used in conjunction 
 with the <a href="#dashboard">Dashboard</a> class.</p>
 
 <h2>Using the class</h2>

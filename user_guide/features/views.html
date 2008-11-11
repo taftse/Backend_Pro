@@ -51,12 +51,12 @@ Views
 <h1>Views</h1>
 
 <p>CodeIgniter provides a very clever way to <a href="http://codeigniter.com/user_guide/general/views.html">load views</a> from a controller 
-and pass data into them to be dislayed. Since <strong>BackendPro</strong> provides you the developer 
-with a pre-built administration area I had to take decisions on how to handle the views for the applcations.</p>
+and pass data into them to be displayed. Since <strong>BackendPro</strong> provides you the developer 
+with a pre-built administration area I had to take decisions on how to handle the views for the applications.</p>
 
-<p>Views should always be seperated into two different folders inside the main views folder, <kbd>admin</kbd> 
+<p>Views should always be separated into two different folders inside the main views folder, <kbd>admin</kbd> 
 and <kbd>public</kbd>. The reason for this is not only does it provide a nice way for you to 
-seperate the different files but also means my inbuilt data output process can be used.</p>
+separate the different files but also means my inbuilt data output process can be used.</p>
 
 <h2>Containers</h2>
 <p>Since <strong>BackendPro</strong> tries to use modular code as much as possible I wanted 
@@ -68,18 +68,18 @@ its respective headers and footers etc.</p>
 <h3>Container</h3>
 <p>When you extend either of the <a href="../controllers/admin_controller.html">Admin Controller</a> or 
 the <a href="../controllers/public_controller.html">Public Controller</a> a class variable is inherited 
-which you can only access by using <dfn>$this->_container</dfn>. This variable 
+which you can only access by using <dfn>$this-&gt;_container</dfn>. This variable 
 is the <strong>container</strong> view file I was talking about for the respective Controller class.</p>
 
 <p>The master view files and their children view files are located in <var>system/application/views/admin</var> 
-and <var>system/application/views/public</var> respectivly.
+and <var>system/application/views/public</var> respectively.</p>
 
 <a name="popup_container"></a>
 <h3>Popup Container</h3>
-<p class="important"><strong>Note:</strong> This feature is only avaiable when extending an <a href="../controllers/admin_controller.html">Admin Controller</a>.</p>
+<p class="important"><strong>Note:</strong> This feature is only available when extending an <a href="../controllers/admin_controller.html">Admin Controller</a>.</p>
 <p>There may be times when instead of re-directing the user to a whole new page, you just want to open a popup, but 
 with all the styles of the main window and with all the normal container features. This is where a popup container 
-comes in. By using the <dfn>$this->_popup_container</dfn> variable you can load all your custom views into a window 
+comes in. By using the <dfn>$this-&gt;_popup_container</dfn> variable you can load all your custom views into a window 
 which doesn't have the default admin navigation/header/footer.</p>
 
 <h2>Possible Page Content</h2>
@@ -96,16 +96,16 @@ in the title bar of the browser.</p>
     {<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['header']&nbsp;=&nbsp;&quot;My&nbsp;Page&quot;;<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['<kbd>content</kbd>']&nbsp;=&nbsp;&quot;Just&nbsp;displays&nbsp;some&nbsp;basic&nbsp;text,&nbsp;nothing&nbsp;more&quot;;<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view(<kbd>$this->_container</kbd>,$data);<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view(<kbd>$this-&gt;_container</kbd>,$data);<br />
     }
     </code>
     <p>As you can see in the example above, instead of calling a view file I tell it 
-    to load the file defined by <dfn>$this->_container</dfn>. The text string 
+    to load the file defined by <dfn>$this-&gt;_container</dfn>. The text string 
     is passed as input using the <kbd>content</kbd> variable entry.
     </li>
     
     <li><strong>View File</strong><br />
-    <p>For the times when you want to load a more compelx page, passing the data by 
+    <p>For the times when you want to load a more complex page, passing the data by 
     string can get confusing and messy. For this reason you can specify a <kbd>page</kbd> to load in 
     its place (read page as view file).</p>
     <code>
@@ -113,7 +113,7 @@ in the title bar of the browser.</p>
     {<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['header']&nbsp;=&nbsp;&quot;My&nbsp;Page&quot;;<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['<kbd>page</kbd>']&nbsp;=&nbsp;<dfn>$this-&gt;config-&gt;item('backendpro_template_admin')</dfn>&nbsp;.&nbsp;&quot;<kbd>my_view_file</kbd>&quot;<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view($this->_container,$data);<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view($this-&gt;_container,$data);<br />
     }
     </code>
     <p>In the above example you will see I specify a <kbd>page</kbd> to load.
@@ -130,7 +130,7 @@ in the title bar of the browser.</p>
     &nbsp;&nbsp;&nbsp;&nbsp;$data['header']&nbsp;=&nbsp;&quot;My&nbsp;Page&quot;;<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['page']&nbsp;=&nbsp;$this-&gt;config-&gt;item('backendpro_template_admin')&nbsp;.&nbsp;&quot;my_view_file&quot;<br />
     &nbsp;&nbsp;&nbsp;&nbsp;$data['module']&nbsp;='<var>module</var>';<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view($this->_container,$data);<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view($this-&gt;_container,$data);<br />
     }
     </code>
     <p>In the above example you will see I specify a <var>module</var> to load the view from.

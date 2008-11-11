@@ -65,9 +65,9 @@ this page to get the basics.</p>
     <li>Custom user profiles</li>
 </ul>
 
-<p class="important"><strong>Important:</strong>&nbsp; The user authentication class stores passwords using an additional salt (More infomation <a href="http://en.wikipedia.org/wiki/Salt_(cryptography)">here</a>).
+<p class="important"><strong>Important:</strong>&nbsp; The user authentication class stores passwords using an additional salt (More information <a href="http://en.wikipedia.org/wiki/Salt_(cryptography)">here</a>).
 The salt used is that of the <var>encryption_key</var> defined in the file <var>system/application/config/config.php</var>. Changing the key 
-after user accounts have been created will corupt their passwords requiring the user to request a new password.</p>
+after user accounts have been created will corrupt their passwords requiring the user to request a new password.</p>
 
 <h2>Configuration Settings</h2>
 
@@ -139,8 +139,8 @@ after user accounts have been created will corupt their passwords requiring the 
 
 <h2>Custom User Profiles</h2>
 <p><strong>BackendPro</strong> comes with the ability to create extra user profile fields 
-for registered users. I will say now that unlike other systems, mine dosn't hold your hand along the way 
-to implement extra profile fields. If you want the functionallity you have to provide it. The reason for 
+for registered users. I will say now that unlike other systems, mine doesn't hold your hand along the way 
+to implement extra profile fields. If you want the functionality you have to provide it. The reason for 
 going along this kind of path is I decided a system which assumes to much is too restrictive. Its fine 
 for a CMS but not for developers. I will explain what you need to change to implement a basic user field, I'm 
 not that cruel.</p>
@@ -180,7 +180,7 @@ not that cruel.</p>
     be submiited to the database. There is an example in the method of what is expected.<br />
     <br />
     The last thing we must do is update the form which data can be entered into, locate and open the file <var>modules/auth/views/admin/members/form_member.php</var>,
-    scroll to the bottom and you will find an area for your custom profile fields (The format the form is layed out in is disscused <a href="../assets/css.html#forms">here</a>).
+    scroll to the bottom and you will find an area for your custom profile fields (The format the form is laid out in is discussed <a href="../assets/css.html#forms">here</a>).
     For our example I will add a simple radio button,<code>
     &lt;li&gt;<br />
     &nbsp;&nbsp;&nbsp;&nbsp;&lt;?=form_label('Gender','gender')?&gt;<br />
@@ -201,7 +201,7 @@ collect extra information from the user on registration then you must extend the
 <var>userlib.php</var> class file.</p>
 
 <p>This is rather simple, just create a new file called <var>MY_Userlib.php</var> in the
-<var>modules/auth/libraries</var> directory. Then you can overwrite any methods to achive 
+<var>modules/auth/libraries</var> directory. Then you can overwrite any methods to achieve 
 the desired effect.</p>
 
 <table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
