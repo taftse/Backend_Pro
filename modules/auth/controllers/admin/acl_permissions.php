@@ -26,21 +26,21 @@
          {
              // Call parent constructor
              parent::Admin_Controller();
-             
+
              // Load files
              $this->lang->load('access_control');
              $this->load->model('access_control_model');
-             
+
              // Set breadcrumb
              $this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
              $this->page->set_crumb($this->lang->line('access_permissions'),'auth/admin/acl_permissions');
-             
+
              // Check for access permission
              check('Permissions');
-             
+
              log_message('debug','ACL Permissions Cass Initialized');
          }
-         
+
          /**
           * View Permissions
           *
@@ -55,7 +55,7 @@
              $data['module'] = 'auth';
              $this->load->view($this->_container,$data);
          }
-         
+
          /**
           * Permission Form
           *
@@ -68,16 +68,16 @@
              $this->load->library('validation');
              // Load required JS
              $this->page->set_asset('admin','js','access_control.js');
-             
+
              // Set action defauts since this is needed for both CREATE & MODIFY
              $query = $this->access_control_model->fetch('axos');
              foreach($query->result() as $action)
                 $this->validation->set_default_value('allow_'.$action->name,'N');
-             
+
              if( is_null($id)){
                 // CREATE PERMISSION
                 $data['header'] = $this->lang->line('access_create_permission');
-                
+
                 // Set form defaults
                 $this->validation->set_default_value('allow','N');
                 $this->validation->set_default_value('id','');
@@ -85,7 +85,7 @@
              else {
                 // MODIFY PERMISSION
                 $data['header'] = $this->lang->line('access_edit_permission');
-                                                         
+
                 // Fetch form data
                 $this->validation->set_default_value('id',$id);
                 $result = $this->access_control_model->getPermissions(NULL,array('acl.id'=>$id));
@@ -93,7 +93,7 @@
                 $this->validation->set_default_value('aro',$row['aro']);
                 $this->validation->set_default_value('aco',$row['aco']);
                 $this->validation->set_default_value('allow',($row['allow']?'Y':'N'));
-                
+
                 if( isset($row['actions'])){
                     foreach($row['actions'] as $action)
                     {
@@ -102,14 +102,14 @@
                     }
                 }
              }
-             
+
              // Display Page
              $this->page->set_crumb($data['header'],'auth/admin/acl_permissions/form/'.$id);
              $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/form_permission";
              $data['module'] = 'auth';
              $this->load->view($this->_container,$data);
          }
-         
+
          /**
           * Save Permission
           *
@@ -122,15 +122,15 @@
              $aco = $this->input->post('aco');
              $allow = $this->input->post('allow');
              $id = $this->input->post('id');
-             
+
              $this->load->library('khacl');
-             
+
              $this->db->trans_start();
-             
+
              // Remove old actions
              if($id != '')
                  $this->access_control_model->delete('access_actions',array('access_id'=>$id));
-                 
+
              // Create permission
              // First we will process the actions
              foreach($_POST as $key=>$value)
@@ -144,14 +144,14 @@
                     }
                  }
              }
-             
+
              // Now process the main permission
              switch($allow)
              {
                  case 'Y':$this->khacl->allow($aro,$aco);break;
                  case 'N':$this->khacl->deny($aro,$aco);break;
              }
-             
+
              // Did everything go OK?
              if($this->db->trans_status() === TRUE)
              {
@@ -173,7 +173,7 @@
              }
              redirect('auth/admin/acl_permissions','location');
          }
-         
+
          /**
           * Delete Permissions
           *
@@ -184,7 +184,7 @@
          {
              if(FALSE === ($permissions = $this->input->post('select')))
                 redirect('auth/admin/acl_permissions','location');
-                
+
              foreach($permissions as $permission)
              {
                  $this->access_control_model->delete('access',array('id'=>$permission));
@@ -192,7 +192,7 @@
              flashMsg('success',$this->lang->line('access_permissions_deleted'));
              redirect('auth/admin/acl_permissions','location');
          }
-         
+
          /**
           * View Permissions in Advanced Mode
           *
@@ -204,9 +204,12 @@
           */
          function show()
          {
+         	// INFO: This line has been added to solve "Fatal error: Call to a member function on a non-object in C:\xampp\htdocs\BackendPro\modules\auth\models\access_control_model.php on line 320" being thrown on advanced permission page
+         	$this->load->library('validation');
+
              // Load required JS
              $this->page->set_asset('admin','js','access_control.js');
-             
+
              // Display Page
              $this->page->set_crumb($this->lang->line('access_advanced_permissions'),'auth/admin/acl_permissions/show');
              $data['header'] = $this->lang->line('access_advanced_permissions');
@@ -214,7 +217,7 @@
              $data['module'] = 'auth';
              $this->load->view($this->_container,$data);
          }
-         
+
          /**
           * Ajax Function to fetch resources
           *
@@ -226,7 +229,7 @@
          {
              $this->load->model('access_control_model');
              $this->load->library('khacl');
-             
+
              $obj = $this->access_control_model->resource;
              $tree = $obj->getTreePreorder($obj->getRoot());
              $lvl = 0;
@@ -240,21 +243,21 @@
                         print "</ul></li>";
                 }
                 $lvl = $newLvl;
-                
+
                 $allow = $this->khacl->check($group,$tree['row']['name']);
-                 
+
                 print '<li id="'.$tree['row']['name'].'"><span ';
                 print ($allow) ? 'class="icon_tick">' : 'class="icon_cross">';
                 print $tree['row']['name'];
                 print '</span>';
-                
+
                 if($obj->checkNodeHasChildren($tree['row']))
                     print "<ul>";
                 else
                     print "</li>";
              }
          }
-         
+
          /**
           * Ajax Function to fetch a groups resources
           *
@@ -265,6 +268,8 @@
           */
          function ajax_fetch_actions($group,$resource)
          {
+         	// INFO: This line was added to stop the error Fatal error: Call to a member function on a non-object in C:\xampp\htdocs\BackendPro\modules\auth\controllers\admin\acl_permissions.php on line 274 being thrown on advanced permission page
+         	 $this->load->library('khacl');
              $query = $this->access_control_model->fetch('axos');
              foreach($query->result() as $result)
              {
