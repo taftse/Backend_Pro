@@ -5,7 +5,7 @@
         <ol>
             <li>
                 <?=form_label($this->lang->line('access_name'),'name')?>
-                <?=form_input('name',$this->validation->name,'class="text"'.($this->validation->id==''?'':' READONLY'))?>
+                <?=form_input('name',$this->validation->name,'class="text'.($this->validation->id==''?'"':' readonly" READONLY'))?>
             </li>
             <li>
                 <?=form_label($this->lang->line('access_parent_name'),'parent')?>
@@ -18,7 +18,7 @@
 						<?=$this->page->icon('disk') ?>
 						<?=$this->lang->line('general_save') ?>
 					</button>
-					
+
 					<a href="<?=site_url('auth/admin/acl_resources')?>" class="negative">
 						<?=$this->page->icon('cross') ?>
 						<?=$this->lang->line('general_cancel')?>

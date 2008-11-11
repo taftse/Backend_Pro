@@ -17,6 +17,9 @@ form input.text, form textarea { width: 20em; }
 form select { width: 15em; }
 form input.file { width: 20em; }
 
+/* Special readonly style */
+form .readonly { background-color: #E0DFE3; color: #99968A; }
+
 /* Form rows */
 form.horizontal li label { display: -moz-inline-box; width: 15em; vertical-align: top; }  
 * form.horizontal li label { display: inline-block;  }
