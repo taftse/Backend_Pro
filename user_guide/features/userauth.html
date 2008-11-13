@@ -198,9 +198,10 @@ not that cruel.</p>
 <h2>Extending the User Authentication System</h2>
 <p>As said above if you want to add/change the way authentication is performed, maybe 
 collect extra information from the user on registration then you must extend the current 
-<var>userlib.php</var> class file.</p>
+<var>Auth_form_processing.php</var> class file. <strong>(Was userlib.php but has now changed
+since version 0.4)</strong></p>
 
-<p>This is rather simple, just create a new file called <var>MY_Userlib.php</var> in the
+<p>This is rather simple, just create a new file called <var>MY_Auth_form_processing.php</var> in the
 <var>modules/auth/libraries</var> directory. Then you can overwrite any methods to achieve 
 the desired effect.</p>
 
