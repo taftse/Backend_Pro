@@ -33,7 +33,7 @@
 			$this->CI->lang->load('userlib');
 			$this->CI->load->model('user_model');
 			$this->CI->load->helper('userlib');
-			
+
 			// Load any other helpers/libraries needed
 			$this->CI->load->helper('cookie');
             $this->CI->load->helper('Khacl');
@@ -72,14 +72,14 @@
 					}
 				}
 			}
-            
+
             // Remove any user accounts which have not been activated
             // within the specified deadline
             $query = $this->CI->user_model->delete('Users','DATE_ADD(created,INTERVAL '.$this->CI->preference->item('account_activation_time').' DAY) <= NOW() AND active=0');
 
 			return;
 		}
-        
+
         /**
          * Check a user is logged in
          *
@@ -89,12 +89,12 @@
         function is_user()
         {
             $CI = &get_instance();
-         
+
              if($CI->session)
              {
                 $email = $CI->session->userdata('email');
                 $group = $CI->session->userdata('group');
-                
+
                 if ($email !== FALSE && $group !== FALSE)
                 {
                     // Logged in
@@ -102,12 +102,12 @@
                     return TRUE;
                 }
              }
-             
+
              // Not logged in
              log_message('debug','User is not logged in');
              return FALSE;
         }
-        
+
 		/**
 		 * Check User Permissions
 		 *
@@ -124,7 +124,7 @@
                 // Get details from user
                 $email = $this->CI->session->userdata('email');
                 $group = $this->CI->session->userdata('group');
-                
+
                 if ( $email !== FALSE && $group !== FALSE)
                 {
                     // There user has a session with values
@@ -137,7 +137,7 @@
                     }
                 }
             }
-            
+
             // DENIED ACCESS
             log_message('debug','Access is denied for user');
             if ($redirect)
@@ -152,7 +152,7 @@
                 {
                     // They arn't logged in
                     flashMsg('warning',$this->CI->lang->line('userlib_status_require_login'));
-                     
+
                     // Save requested page
                     $this->CI->session->set_flashdata('requested_page',$this->CI->uri->uri_string());
                     redirect('auth/login','location');
@@ -160,11 +160,7 @@
             }
             return FALSE;
 		}
-                     
-      
-        
-        
-        
+
         /**
          * Set User Login data
          *
@@ -197,7 +193,7 @@
             $this->CI->user_model->updateUserLogin($id);
             return;
         }
-        
+
 		/**
 		 * Encode Password
 		 *
@@ -211,10 +207,10 @@
 		{
 			if($string == NULL)
 				return NULL;
-		
+
 			// Append the salt to the password
 			$string .= $this->CI->config->item('encryption_key');
-		
+
 			// Return the SHA-1 encryption
 			return sha1($string);
 		}

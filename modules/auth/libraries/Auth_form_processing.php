@@ -33,14 +33,14 @@
 			$this->CI = &get_instance();
 
 			// Load any files directly related to the authentication module
-			
-			
+			$this->CI->load->library('User_email');
+
 			// Load any other helpers/libraries needed
 			$this->CI->load->library('validation');
-			
+
 			log_message('debug','Auth_form_processing Class Initialized');
 		}
-		
+
 		/**
          * Login Form
          *
@@ -67,7 +67,7 @@
             $fields['password'] = $this->CI->lang->line('userlib_password');
             $fields['recaptcha_response_field'] = $this->CI->lang->line('userlib_captcha');
             $this->CI->validation->set_fields($fields);
-            
+
             // Set Rules
             // Only run captcha check if needed
             $rules['email'] = 'trim|required|valid_email';
@@ -78,14 +78,14 @@
             if ( $this->CI->validation->run() === FALSE ) {
                 // Output any errors
                 $this->CI->validation->output_errors();
-                
+
                 // Display page
                 $data['header'] = $this->CI->lang->line('userlib_login');
                 $data['captcha'] = ($this->CI->preference->item('use_login_captcha')?$this->_generate_captcha():'');
                 $data['page'] = $this->CI->config->item('backendpro_template_public') . 'form_login';
                 $data['module'] = 'auth';
                 $this->CI->load->view($container,$data);
-                
+
                 $this->CI->session->keep_flashdata('requested_page');
             }
             else {
@@ -93,7 +93,7 @@
                 $this->_login();
             }
         }
-        
+
         /**
          * Log User In
          *
@@ -113,14 +113,14 @@
             if ( $query->num_rows() == 1 ) {
                 // We we have a valid user
                 $user = $query->row();
-                
+
                 // Check if the users account hasn't been activated yet
                 if ( $user->active == 0 ) {
                     // NEEDS ACTIVATION
                     flashMsg('warning',$this->CI->lang->line('userlib_account_unactivated'));
                     redirect('auth/login','location');
                 }
-                
+
                 // Everything is OK
                 // Save details to session
                 //@TODO: This dosn't seem very safe having the login code totaly exposed
@@ -152,7 +152,7 @@
             }
             redirect('auth/login','location');
         }
-        
+
         /**
          * Logout User
          *
@@ -178,7 +178,7 @@
             flashMsg('success',$this->CI->lang->line('userlib_logout_successfull'));
             redirect($this->CI->config->item('userlib_action_logout'),'location');
         }
-        
+
         /**
          * Forgotten Password Form
          *
@@ -193,7 +193,7 @@
             // Setup fields
             $fields['email'] = $this->CI->lang->line('userlib_email');
             $this->CI->validation->set_fields($fields);
-            
+
             // Set Rules
             $rules['email'] = 'trim|required|valid_email';
             $this->CI->validation->set_rules($rules);
@@ -201,13 +201,13 @@
             if ( $this->CI->validation->run() === FALSE ) {
                 // Output any errors
                 $this->CI->validation->output_errors();
-                
+
                 // Display page
                 $data['header'] = $this->CI->lang->line('userlib_forgotten_password');
                 $data['page'] = $this->CI->config->item('backendpro_template_public') . 'form_forgotten_password';
                 $data['module'] = 'auth';
                 $this->CI->load->view($container,$data);
-                
+
                 $this->CI->session->keep_flashdata('requested_page');
             }
             else {
@@ -215,7 +215,7 @@
                 $this->_forgotten_password();
             }
         }
-        
+
         /**
          * Forgotten Password
          *
@@ -227,17 +227,15 @@
         function _forgotten_password()
         {
             $email = $this->CI->input->post('email');
-            
+
             if ($this->CI->user_model->validEmail($email))
             {
                 // Valid Email
-                $this->CI->load->library('Useremail');
-            	
                 // Generate a new password
                 $this->CI->load->helper('string');
                 $password = random_string('alnum',$this->CI->preference->item('min_password_length'));
                 $encoded_password = $this->CI->userlib->encode_password($password);
-                
+
                 // Email the new password to the user
                 $query = $this->CI->user_model->fetch('Users','username',NULL,array('email'=>$email));
                 $user = $query->row();
@@ -248,11 +246,11 @@
                     'site_name'=>$this->CI->preference->item('site_name'),
                     'site_url'=>base_url()
                 );
-                $this->CI->useremail->send($email,$this->CI->lang->line('userlib_email_forgotten_password'),'public/email_forgotten_password',$data);
-                
+                $this->CI->user_email->send($email,$this->CI->lang->line('userlib_email_forgotten_password'),'public/email_forgotten_password',$data);
+
                 // Update password in database
                 $this->CI->user_model->update('Users',array('password'=>$encoded_password),array('email'=>$email));
-                
+
                 flashMsg('success',$this->CI->lang->line('userlib_new_password_sent'));
             }
             else
@@ -262,7 +260,7 @@
             }
             redirect($this->CI->config->item('userlib_action_forgotten_password','location'));
         }
-           
+
         /**
          * Process registration
          *
@@ -281,7 +279,7 @@
             $data['users']['password'] = $this->CI->userlib->encode_password($this->CI->input->post('password'));
             $data['users']['group'] = $this->CI->preference->item('default_user_group');
             $data['users']['created'] = date("Y-m-d H:i:s",time());
-            
+
             // Check how the account should be activated
             switch($this->CI->preference->item('activation_method'))
             {
@@ -290,12 +288,12 @@
                     $data['users']['active'] = 1;
                     $activation_message = $this->CI->lang->line('userlib_no_activation');
                 break;
-                
+
                 case 'admin':
                     // Admin must activate, do nothing
                     $activation_message = $this->CI->lang->line('userlib_admin_activation');
                 break;
-                
+
                 default:
                     // Send email with activation link
                     $this->CI->load->helper('string');
@@ -303,22 +301,22 @@
                     $activation_message = sprintf($this->CI->lang->line('userlib_email_activation'), site_url('auth/activate/'.$data['users']['activation_key']), $this->CI->preference->item('account_activation_time'));
                 break;
             }
-              
+
             $this->CI->db->trans_start();
             // Add user details to DB
             $this->CI->user_model->insert('Users',$data['users']);
-            
+
             // Get the auto insert ID
             $data['user_profiles']['user_id'] = $this->CI->db->insert_id();
-            
+
             // Add user_profile details to DB
             $this->CI->user_model->insert('UserProfiles',$data['user_profiles']);
-            
+
             if ($this->CI->db->trans_status() === FALSE)
             {
                 // Registration failed
                 $this->CI->db->trans_rollback();
-                
+
                 flashMsg('error',$this->CI->lang->line('userlib_registration_failed'));
                 redirect('auth/register','location');
             }
@@ -326,9 +324,8 @@
             {
                 // User registered
                 $this->CI->db->trans_commit();
-                
+
                 // Send email to user
-                $this->CI->load->library('Useremail');
                 $edata = array(
                     'username'=> $data['users']['username'],
                     'email'=> $data['users']['email'],
@@ -337,13 +334,13 @@
                     'site_name'=>$this->CI->preference->item('site_name'),
                     'site_url'=>base_url()
                 );
-                $this->CI->useremail->send($data['users']['email'],$this->CI->lang->line('userlib_email_register'),'public/email_register',$edata);
-            
+                $this->CI->user_email->send($data['users']['email'],$this->CI->lang->line('userlib_email_register'),'public/email_register',$edata);
+
                 flashMsg('success',$this->CI->lang->line('userlib_registration_success'));
                 redirect($this->CI->config->item('userlib_action_register'),'location');
             }
         }
-        
+
         /**
          * Register form
          *
@@ -361,7 +358,7 @@
                 flashMsg('info',$this->CI->lang->line('userlib_registration_denied'));
                 redirect('auth/login','location');
             }
-            
+
             // Setup fields
             $fields['username'] = $this->CI->lang->line('userlib_username');
             $fields['password'] = $this->CI->lang->line('userlib_password');
@@ -369,7 +366,7 @@
             $fields['email'] = $this->CI->lang->line('userlib_email');
             $fields['recaptcha_response_field'] = $this->CI->lang->line('userlib_captcha');
             $this->CI->validation->set_fields($fields);
-            
+
             // Set Rules
             $rules['username'] = 'trim|required|max_length[32]|spare_username';
             $rules['password'] = 'trim|required|min_length['.$this->CI->preference->item('min_password_length').']|matches[confirm_password]';
@@ -380,7 +377,7 @@
             if ( $this->CI->validation->run() === FALSE ) {
                 // Output any errors
                 $this->CI->validation->output_errors();
-                
+
                 // Display page
                 $data['header'] = $this->CI->lang->line('userlib_register');
                 $data['captcha'] = ($this->CI->preference->item('use_registration_captcha')?$this->_generate_captcha():'');
@@ -393,7 +390,7 @@
                 $this->_register();
             }
         }
-            
+
         /**
          * Activate User Account
          *
@@ -404,7 +401,7 @@
         {
             // Fetch code from url
             $key = $this->CI->uri->segment(3);
-            
+
             if( $this->CI->user_model->activateUser($key) )
             {
                 // Activation successful
@@ -418,7 +415,7 @@
                 redirect('auth/login','location');
             }
         }
-        
+
 		/**
          * Generate Captcha Image
          *
