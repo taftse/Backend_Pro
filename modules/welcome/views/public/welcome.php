@@ -3,11 +3,11 @@
 <p>Since your reading this it means BackendPro is setup and ready for you to
 start to develop using it.</p>
 
-<p>I won't go into a lot here but my best advise to start off with is just have a 
+<p>I won't go into a lot here but my best advise to start off with is just have a
 play with the system before you think about writing code using it. Of course if you
 want the full documentation on BackendPro just get it <a href="<?=base_url()?>user_guide/index.html">here</a>.</p>
 
-<p><b>My only real advice is be very carefull with member accounts and access control 
+<p><b>My only real advice is be very carefull with member accounts and access control
 permissions untill you understand them fully. Performing certain actions could lock you
 out of your system.</b></p>
 
@@ -18,5 +18,3 @@ out of your system.</b></p>
     else
         print "<font color='red'><b>logged out</b></font>";
 ?>.</p>
-
-<p>Enjoy, Adam</p>
