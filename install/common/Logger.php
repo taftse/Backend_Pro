@@ -24,7 +24,7 @@
  */
 class Logger
 {
-	var $file_name  = 'install_log.txt';
+	var $file_name  = 'install.log';
 	var	$date_fmt   = 'Y-m-d H:i:s';
 
 	/**
