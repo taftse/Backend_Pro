@@ -1,18 +1,18 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * BackendPro Config Array
+ * BackendPro
  *
- * Contains the basic base config settings
+ * An open source development control panel written in PHP
  *
- * @package			BackendPro
- * @subpackage		Configurations
- * @author			Adam Price
- * @copyright		Copyright (c) 2008
- * @license			http://www.gnu.org/licenses/lgpl.html
- * @link            http://backendpro.kaydoo.co.uk
+ * @package		BackendPro
+ * @author		Adam Price
+ * @copyright	Copyright (c) 2008, Adam Price
+ * @license		http://www.gnu.org/licenses/lgpl.html
+ * @link		http://www.kaydoo.co.uk/projects/backendpro
+ * @filesource
  */
 
-// ---------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 
 /*
  |--------------------------------------------------------------------------

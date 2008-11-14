@@ -1,5 +1,4 @@
-<?php
-
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Matchbox Configuration file
  *
@@ -24,9 +23,7 @@
  * @version   $Id: matchbox.php 191 2008-02-06 13:34:30Z zacharias@dynaknudsen.dk $
  */
 
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+// ---------------------------------------------------------------------------
 
 /**
  * The files that should be excluded from the caller search
@@ -67,4 +64,5 @@ $config['callers'] = array('Parser');
  */
 $config['directories'] = array('../../modules');
 
-?>
+/* End of file matchbox.php */
+/* Location: ./system/application/config/matchbox.php */
