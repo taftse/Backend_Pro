@@ -1,64 +1,77 @@
 <?php
-	/**
-	 * RUN THE BACKENDPRO INSTALL PROCESS
-	 */
-	include_once('install_library.php');
-	$logger = new Logger();
-	$database = new Database();
+/**
+ * BackendPro
+ *
+ * An open source development control panel written in PHP
+ *
+ * @package		BackendPro
+ * @author		Adam Price
+ * @copyright	Copyright (c) 2008, Adam Price
+ * @license		http://www.gnu.org/licenses/lgpl.html
+ * @link		http://www.kaydoo.co.uk/projects/backendpro
+ * @filesource
+ */
 
-	// Define the base path of the CI installation
-	// this should relative to the components folder
-	define('BASEPATH','./..');
-	define('BASEDIR',dirname(dirname($_SERVER['PHP_SELF'])));
-	$logger->write('info','Basepath set to ' . BASEPATH);
+// ------------------------------------------------------------------------
 
-	/**
-	 * DEFINE INSTALL FEATURES
-	 */
-	$features['writable_check'] = new Feature("FileSystem Check");
-	$features['copy_files'] = new Feature("Setup FileSystem");
-	$features['database_setup'] = new Feature("Setup Database");
+include_once('common/Logger.php');
+include_once('common/Database.php');
+include_once('common/Feature.php');
+include_once('common/Component.php');
 
-	// Make sure 'Setup Custom Filesystem has a prerequiste that the file system
-	// is writable
-	$features['copy_files']->set_prerequisite_feature(&$features['writable_check']);
-	$features['database_setup']->set_prerequisite_feature(&$features['copy_files']);
+// Setup a logger
+$logger = new Logger();
 
-	// Load component libraies
-	include_once("components/FileSystemCheck.php");
-	include_once("components/SetupFileSystem.php");
-	include_once("components/SetupDatabase.php");
+// Setup the database connector
+$database = new Database();
 
-	/*
-	 * ASSOCIATE COMPONENTS TO FILESYSTEM CHECK FEATURE
-	 */
-	$features['writable_check']->attach_component(new LogFolderWritable());
-	$features['writable_check']->attach_component(new AssetFoldersWritable());
-	$features['writable_check']->attach_component(new CacheFolderWritable());
-	$features['writable_check']->attach_component(new ConfigFilesWritable());
+// Define the base path of the CI installation
+// this should be relative to the components folder
+define('BASEPATH','./..');
+define('BASEDIR',dirname(dirname($_SERVER['PHP_SELF'])));
+$logger->write('info','Basepath set to ' . BASEPATH);
 
-	/*
-	 * ASSOCIATE COMPONENTS TO FILESYSTEM CHECK FEATURE
-	 */
-	$features['copy_files']->attach_component(new OverWriteSystemConfig());
-	$features['copy_files']->attach_component(new OverWriteDatabaseConfig());
-	$features['copy_files']->attach_component(new OverWriteRecaptchaConfig());
+// Define Install components
+$features['writable_check'] = new Feature("FileSystem Check");
+$features['copy_files'] = new Feature("Setup FileSystem");
+$features['database_setup'] = new Feature("Setup Database");
 
-	/*
-	 * ASSOCIATE COMPONENTS TO FILESYSTEM CHECK FEATURE
-	 */
-	$features['database_setup']->attach_component(new ConnectToDatabase());
-	$features['database_setup']->attach_component(new UpdateSchema());
-	$features['database_setup']->attach_component(new CreateAdministrator());
+// Setup any prerequisites
+$features['copy_files']->set_prerequisite_feature(&$features['writable_check']);
+$features['database_setup']->set_prerequisite_feature(&$features['copy_files']);
 
-	/*
-	 * PERFORM THE INSTALLATION
-	 */
-	$install_status = TRUE;
-	foreach($features as $key => $feature)
+// Load component libraies
+include_once("components/FileSystemCheck.php");
+include_once("components/SetupFileSystem.php");
+include_once("components/SetupDatabase.php");
+
+// Associate components to filesystem check feature
+$features['writable_check']->attach_component(new LogFolderWritable());
+$features['writable_check']->attach_component(new AssetFoldersWritable());
+$features['writable_check']->attach_component(new CacheFolderWritable());
+$features['writable_check']->attach_component(new ConfigFilesWritable());
+
+// Associate components to Setup Filesystem feature
+$features['copy_files']->attach_component(new OverWriteSystemConfig());
+$features['copy_files']->attach_component(new OverWriteDatabaseConfig());
+$features['copy_files']->attach_component(new OverWriteRecaptchaConfig());
+
+// Associate components to Setup Database Feature
+$features['database_setup']->attach_component(new ConnectToDatabase());
+$features['database_setup']->attach_component(new UpdateSchema());
+$features['database_setup']->attach_component(new CreateAdministrator());
+
+// Perform the install
+$install_status = TRUE;
+foreach($features as $key => $feature)
+{
+	// We need to do this since php4 dosn't support reference in forloops
+	$block =& $features[$key];
+	if ($block->install() === FALSE)
 	{
-		$block =& $features[$key];			// We need to do this since php4 dosn't support reference in forloops
-		if ($block->install() === FALSE)
-			$install_status = FALSE;
+		$install_status = FALSE;
 	}
-?>
+}
+
+/* End of file RUN.php */
+/* Location: ./install/RUN.php */
