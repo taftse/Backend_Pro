@@ -26,7 +26,7 @@
     {
         var $resource;
         var $group;
-        
+
         /**
          * Constructor
          */
@@ -34,20 +34,20 @@
         {
             // Inherit from parent class
             parent::Model();
-            
+
             // Setup allowed tables
-            $this->load->config('khaos', true, true);  
+            $this->load->config('khaos', true, true);
         	$options = $this->config->item('acl', 'khaos');
-            $this->_TABLES = $options['tables'];            
-            
-            $this->_TABLES['groups'] = $this->config->item('backendpro_table_prefix')."groups";  
-            $this->_TABLES['resources'] = $this->config->item('backendpro_table_prefix')."resources";  
-            
+            $this->_TABLES = $options['tables'];
+
+            $this->_TABLES['groups'] = $this->config->item('backendpro_table_prefix')."groups";
+            $this->_TABLES['resources'] = $this->config->item('backendpro_table_prefix')."resources";
+
             // Setup ACO Model
             $this->resource = new Nested_sets_model();
             $this->resource->setControlParams($this->_TABLES['acos']);
             $this->resource->setPrimaryKeyColumn('id');
-            
+
             // Setup ARO Model
             $this->group = new Nested_sets_model();
             $this->group->setControlParams($this->_TABLES['aros']);
@@ -55,11 +55,11 @@
 
             log_message('debug','Access Control Model Class Initialized');
         }
-        
-        
+
+
         /**
          * Get Tree Array
-         * 
+         *
          * @access public
          * @param object $obj Reference to a Nested_sets_model object, ie $this->resource OR $this->group
          * @return array
@@ -68,7 +68,7 @@
         {
             // Tree array to return
             $tree_array = array();
-            
+
             $tree = $obj->getTreePreorder($obj->getRoot());
             while($obj->getTreeNext($tree))
             {
@@ -80,22 +80,22 @@
                 }
                 else
                 {
-                    // We have a child                    
+                    // We have a child
                     // Lets get its parent
                     $parent = $obj->getAncestor($tree['row']);
-                    
+
                     // Work out root from here back to the root
-                    $route_link = array($parent['name']);   
+                    $route_link = array($parent['name']);
                     while( ! $obj->checkNodeIsRoot($parent))
                     {
                         $parent = $obj->getAncestor($parent);
                         $route_link[] = $parent['name'];
                     }
                     $route_link = array_reverse($route_link);
-                    
+
                     // We now have route from root down to this node.
                     $target =& $tree_array[array_shift($route_link)];
-                    
+
                     if( ! empty($route_link))
                     {
                         foreach($route_link as $route)
@@ -105,33 +105,33 @@
                     }
                     $target['children'][$tree['row']['name']] = $tree['row'];
                     $target['children'][$tree['row']['name']]['children'] = array();
-                }  
+                }
             }
-            
+
             return $tree_array;
         }*/
-        
+
         /**
          * Create Pretty Offset
-         * 
+         *
          * Creates a pretty text offset to display nested items using basic text
-         * 
+         *
          * @access public
          * @param object $obj Reference to a Nested_sets_model object, e.g. $this->group, $this->resource
          * @param array $tree Current Tree array
-         * @param string $next_ancestor_sibling String prepended to offset if there is a next sibling after the current ancestor    
+         * @param string $next_ancestor_sibling String prepended to offset if there is a next sibling after the current ancestor
          * @param string $no_next_ancestor_sibling String prepended to offset if there is no next sibling after the current ancestor
-         * @param string $last_sibling String appended to offset if this is the last node of the current level   
-         * @param string $not_last_siling String appended to offset if this is not the last node of the current level  
+         * @param string $last_sibling String appended to offset if this is the last node of the current level
+         * @param string $not_last_siling String appended to offset if this is not the last node of the current level
          */
-        function buildPrettyOffset($obj, $tree, 
+        function buildPrettyOffset($obj, $tree,
             $next_ancestor_sibling = "|&nbsp;&nbsp; ",
             $no_next_ancestor_sibling = "&nbsp;&nbsp;&nbsp; ",
             $last_sibling = "`- ",
             $not_last_sibling = "|- ")
         {
             $lvl = $obj->getTreeLevel($tree);
-            
+
             // Nest the tree
             $offset = '';
             if($lvl > 1){
@@ -143,12 +143,12 @@
                         $offset = $next_ancestor_sibling . $offset;
                     else:
                         // No next sibling just put space
-                        $offset = $no_next_ancestor_sibling . $offset;   
-                    endif; 
-                    $ancestor = $obj->getAncestor($ancestor);                            
+                        $offset = $no_next_ancestor_sibling . $offset;
+                    endif;
+                    $ancestor = $obj->getAncestor($ancestor);
                 }
-            }                      
-            
+            }
+
             // If this is the last node add branch terminator
             if($obj->checkNodeHasNextSibling($tree['row']))
                 $offset .= $not_last_sibling;
@@ -156,68 +156,68 @@
                 $offset .= $last_sibling;
             return $offset;
         }
-        
+
         /**
          * Build Pretty array for dropdown
-         * 
+         *
          * Constructs an array of the given tree to be used for a dropdown menu
-         * 
+         *
          * @access public
          * @param string $tree_id Tree ID, either 'resource' OR 'group'
          * @param string $value_field Table field to use as the option value
-         * @return array 
+         * @return array
          */
         function buildACLDropdown($tree_id = NULL,$value_field = 'name')
         {
             if( $tree_id != 'group' AND $tree_id != 'resource')
                 show_error("The tree_id for the dropdown must be either 'group' OR 'resource'.");
-            
+
             $obj =& $this->{$tree_id};
             $tree = $obj->getTreePreorder($obj->getRoot());
-            
+
             $dropdown = array();
             while($obj->getTreeNext($tree))
             {
                 // Get offset
                 $offset = $this->buildPrettyOffset($obj,$tree);
-                
+
                 $dropdown[$tree['row'][$value_field]] = $offset . $tree['row']['name'];
-            }        
+            }
             return $dropdown;
-        }             
-        
+        }
+
         /**
          * Get Permissions
-         * 
+         *
          * This is used to display the table of all the permissions
-         * 
+         *
          * @access public
          * @param
-         * @return array 
+         * @return array
          */
         function getPermissions($limit=NULL,$where=NULL)
         {
-            // Run Query            
+            // Run Query
             $this->db->select("acl.id, acl.allow, aros.name AS aro, acos.name AS aco, axos.name AS axo, actions.allow AS axo_allow");
             $this->db->from($this->_TABLES['access'].' AS acl');
             $this->db->join($this->_TABLES['access_actions'].' AS actions', 'acl.id=actions.access_id', 'left');
-            $this->db->join($this->_TABLES['aros'].' AS aros','acl.aro_id=aros.id'); 
-            $this->db->join($this->_TABLES['acos'].' AS acos','acl.aco_id=acos.id'); 
-            $this->db->join($this->_TABLES['axos'].' AS axos','actions.axo_id=axos.id','left');      
-            $this->db->order_by('aro, aco, axo');           
+            $this->db->join($this->_TABLES['aros'].' AS aros','acl.aro_id=aros.id');
+            $this->db->join($this->_TABLES['acos'].' AS acos','acl.aco_id=acos.id');
+            $this->db->join($this->_TABLES['axos'].' AS axos','actions.axo_id=axos.id','left');
+            $this->db->order_by('aro asc, aco, axo');
             if( ! is_null($where)){$this->db->where($where);}
             if(is_array($limit)){$this->db->limit($limit['limit'],$limit['offset']);}
             $query = $this->db->get();
-            
+
             $data = array();
-            
+
             foreach($query->result_array() as $row)
             {
                 $id = $row['id'];
-                $data[$id]['aro'] = $row['aro']; 
+                $data[$id]['aro'] = $row['aro'];
                 $data[$id]['aco'] = $row['aco'];
-                $data[$id]['allow'] = ($row['allow']=='Y') ? TRUE : FALSE;     
-                
+                $data[$id]['allow'] = ($row['allow']=='Y') ? TRUE : FALSE;
+
                 if( ! is_null($row['axo'])){
                     $allow = ($row['axo_allow']=='Y') ? TRUE : FALSE;
                     $data[$id]['actions'][] = array('allow'=>$allow,'axo'=>$row['axo']);
@@ -225,15 +225,15 @@
             }
             return $data;
         }
-        
+
         /**
          * Build Action Selector
-         * 
+         *
          * Constructs the interface to be used when creating/modifying a permission.
          * It allows the user to select what actions if any the permission has.
-         * 
+         *
          * @access public
-         * @return string 
+         * @return string
          */
         function buildActionSelector()
         {
@@ -242,68 +242,68 @@
             foreach($query->result() as $action)
             {
                 $checkbox = 'action_'.$action->name;
-                $radio = 'allow_'.$action->name;   
+                $radio = 'allow_'.$action->name;
                 $value .= form_checkbox($checkbox,$action->name,$this->validation->set_checkbox($checkbox,$action->name));
                 $value .= $action->name . "<br>\n";
-                
+
                 $value .= '<div id="'.$radio.'" class="action_item">';
                 $value .= form_radio($radio,'Y',$this->validation->set_radio($radio,'Y')) . $this->lang->line('access_allow');
                 $value .= form_radio($radio,'N',$this->validation->set_radio($radio,'N')) . $this->lang->line('access_deny') . '</div>';
             }
             return $value;
         }
-        
+
         /**
          * Build Resource Selector
-         * 
+         *
          * Used to build the tree like radio button interface to select a resource
-         * 
+         *
          * @access public
          * @param boolean $disabled Whether the radio buttons should be clickable
-         * @return string 
+         * @return string
          */
         function buildResourceSelector($disabled = FALSE)
         {
-            return $this->_buildSelector($disabled,'aco'); 
+            return $this->_buildSelector($disabled,'aco');
         }
-        
+
         /**
          * Build Group Selector
-         * 
+         *
          * Used to build the tree like radio button interface to select a group
-         * 
+         *
          * @access public
          * @param boolean $disabled Whether the radio buttons should be clickable
-         * @return string 
+         * @return string
          */
         function buildGroupSelector($disabled = FALSE)
         {
             return $this->_buildSelector($disabled,'aro');
         }
-        
+
         /**
          * Build Selector
-         * 
+         *
          * Abstract method to construct a generic tree like radio button interface
-         * 
+         *
          * @access private
          * @param boolean $disabled Whether the radio buttons should be clickable
          * @param string $type Table ID to use, either 'aro' => 'group', or 'aco' => 'resource'
-         * @return string 
+         * @return string
          */
         function _buildSelector($disabled,$type)
-        {            
+        {
             // Value to return
             $value = '';
-            
+
             // Set the table type
             switch($type){
                 case 'aco': $obj = & $this->resource; break;
                 case 'aro': $obj = & $this->group; break;
             }
-            
-            $disabled = ($disabled) ? ' disabled' : ''; 
-            
+
+            $disabled = ($disabled) ? ' disabled' : '';
+
             // Create Selector
             $tree = $obj->getTreePreorder($obj->getRoot());
             $lvl = 0;
@@ -316,25 +316,25 @@
                     $value .= str_repeat("</ul></li>",$lvl-$newLvl);
                 }
                 $lvl = $newLvl;
-                
+
                 $set = $this->validation->set_radio($type,$tree['row']['name']);
-                
+
                 // If no node is set and this is the root, set it
                 if( ! is_null($set) AND $obj->checkNodeIsRoot($tree['row']))
                     $set = ' checked';
-                
+
                 $open = ( ! is_null($set)) ? ' class="open"' : '';
-                $value .='<li id="'.$tree['row']['id'].'"'.$open.'>'.form_radio($type,$tree['row']['name'],$set,$disabled).'<span>'.$tree['row']['name'].'</span>';   
+                $value .='<li id="'.$tree['row']['id'].'"'.$open.'>'.form_radio($type,$tree['row']['name'],$set,$disabled).'<span>'.$tree['row']['name'].'</span>';
 
                 if($obj->checkNodeHasChildren($tree['row']))
                     $value .= "<ul>";
                 else
                     $value .= "</li>";
             }
-            
+
             // Close Tree
             $value .= str_repeat("</ul></li>",$lvl);
-                
+
             return $value;
         }
     }
