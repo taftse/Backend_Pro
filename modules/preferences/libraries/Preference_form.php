@@ -42,6 +42,7 @@
 
             // Load language files
             $this->CI->lang->load('preferences');
+            $this->CI->load->helper('form');
 
             log_message('debug','Preference_form Class Initialized');
         }

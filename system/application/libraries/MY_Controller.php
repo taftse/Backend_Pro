@@ -29,26 +29,40 @@
         {
             // Call parent constructor
             parent::Controller();
-        
-            // Load the BackendPro library
-            $this->load->library('BackendPro');
-            
+
+            // Load Base CodeIgniter files
+			$this->load->database();
+			$this->load->library('session');
+			$this->load->helper('url');
+			$this->load->helper('html');
+
+			// Load Base BackendPro files
+			$this->load->config('backendpro');
+			$this->lang->load('backendpro');
+			$this->load->model('base_model');
+
+			// Load site wide modules
+			$this->load->module_library('status','status');
+			$this->load->module_model('preferences','preference_model','preference');
+			$this->load->module_library('page','page');
+			$this->load->module_library('auth','userlib');
+
             // Display page debug messages if needed
             /*if ( is_superadmin() AND $this->preference->item('page_debug'))
             {
                 $this->output->enable_profiler(TRUE);
             }*/
-            
+
             // Set site meta tags
             //$this->page->set_metatag('name','content',TRUE/FALSE);
             $this->page->set_metatag('content-type','text/html; charset=utf-8',TRUE);
             $this->page->set_metatag('robots','all');
             $this->page->set_metatag('pragma','cache',TRUE);
-            
+
             log_message('debug','Site_Controller Class Initialized');
         }
     }
-    
+
     /**
     * Public_Controller
     *
@@ -63,22 +77,22 @@
         {
             // Call parent constructor
             parent::Site_Controller();
-            
+
             // Set container variable
             $this->_container = $this->config->item('backendpro_template_public') . "container.php";
-            
+
             // Check whether to show the site offline message
             if( $this->preference->item('maintenance_mode') AND $this->uri->rsegment(1) != 'auth')
             {
                 redirect('auth/maintenance','location');
             }
-            
+
             // Set public meta tags
             //$this->page->set_metatag('name','content',TRUE/FALSE);
-            
+
             log_message('debug','Public_Controller Class Initialized');
         }
-        
+
         /**
         * Maintenance Message
         *
@@ -121,23 +135,23 @@
 
             // Set Pop container variable
             $this->_popup_container = $this->config->item('backendpro_template_admin') . "popup.php";
-            
+
             // Make sure user is logged in
             check('Control Panel');
-            
+
             // Check to see if the install path still exists
             if( is_dir('install'))
                 flashMsg('warning',$this->lang->line('backendpro_remove_install'));
-            
+
             // If the system is down display warning
             if($this->preference->item('maintenance_mode'))
                 flashMsg('warning',$this->lang->line('backendpro_site_off'));
-            
+
             // Set private meta tags
             //$this->page->set_metatag('name','content',TRUE/FALSE);
             $this->page->set_metatag('robots','nofollow, noindex');
             $this->page->set_metatag('pragma','nocache',TRUE);
-                
+
             log_message('debug','Admin_Controller Class Initialized');
         }
     }

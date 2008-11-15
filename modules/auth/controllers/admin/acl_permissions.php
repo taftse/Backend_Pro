@@ -30,6 +30,7 @@
              // Load files
              $this->lang->load('access_control');
              $this->load->model('access_control_model');
+             $this->load->helper('form');
 
              // Set breadcrumb
              $this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');

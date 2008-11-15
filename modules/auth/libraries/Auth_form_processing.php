@@ -32,6 +32,8 @@
 			// Get CI Instance
 			$this->CI = &get_instance();
 
+			$this->CI->load->helper('form');
+
 			// Load any files directly related to the authentication module
 			$this->CI->load->library('User_email');
 

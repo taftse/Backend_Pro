@@ -27,6 +27,8 @@
              // Call parent constructor
              parent::Admin_Controller();
 
+             $this->load->helper('form');
+
              // Load userlib language
              $this->lang->load('userlib');
 

@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');  
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
     /**
      * BackendPro
      *
@@ -14,31 +14,31 @@
 
     /**
      * Access Control
-     * 
+     *
      * Display a splash page showing the access control options
      *
      * @package         BackendPro
      * @subpackage      Controllers
-     */     
+     */
      class Access_control extends Admin_Controller
      {
          function Access_control()
          {
              // Call parent constructor
              parent::Admin_Controller();
-             
+
              // Load files
              $this->lang->load('access_control');
-             
+
              // Set breadcrumb
              $this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
-             
+
              // Check for access permission
              check('Access Control');
-             
-             log_message('debug','Access Control Class Initialized'); 
+
+             log_message('debug','Access Control Class Initialized');
          }
-         
+
          function index()
          {
              // Display Page
