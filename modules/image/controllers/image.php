@@ -152,10 +152,10 @@ class Image extends Controller
 		$new_height = $height;
 		if( $uri_array['width'] != NULL AND $uri_array['height'] != NULL)
 		{	// Resize image to the largest dimension
-			if($ratio > 1)
-				$uri_array['width'] = NULL;		// Height is larger
+			if($uri_array['width'] < $uri_array['height'])
+				$uri_array['height'] = NULL;	// Height is larger
 			else
-				$uri_array['height'] = NULL;	// Width is larger
+				$uri_array['width'] = NULL;		// Width is larger
 		}
 
 		if ( $uri_array['width'] == NULL AND $uri_array['height'] != NULL)
