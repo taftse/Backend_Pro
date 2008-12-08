@@ -37,7 +37,7 @@
 
             log_message('debug','User_model Class Initialized');
         }
-        
+
         /**
          * Validate Login
          *
@@ -68,7 +68,7 @@
             $this->update('Users',array('last_visit'=>date ("Y-m-d H:i:s")),array('id'=>$id));
             return;
         }
-        
+
         /**
         * Valid Email
         *
@@ -83,7 +83,7 @@
             $query = $this->fetch('Users',NULL,NULL,array('email'=>$email));
             return ($query->num_rows() == 0) ? FALSE : TRUE;
         }
-        
+
         /**
         * Activate User Account
         *
@@ -96,10 +96,10 @@
         function activateUser($key)
         {
             $this->update('Users', array('active'=>'1','activation_key'=>NULL), array('activation_key'=>$key));
-            
+
             return ($this->db->affected_rows() == 1) ? TRUE : FALSE;
         }
-        
+
         /**
          * Get Users
          *
@@ -114,20 +114,19 @@
             $this->load->config('khaos', true, true);
         	$options = $this->config->item('acl', 'khaos');
             $acl_tables = $options['tables'];
-            
+
             // If Profiles are enabled load get their values also
             $profile_columns = '';
             if($this->preference->item('allow_user_profiles'))
             {
             	// Select only the column names of the profile fields
-            	$this->load->config('userlib');
             	$profile_fields_array = array_keys($this->config->item('userlib_profile_fields'));
-            		
+
             	// Implode and seperate with comma
             	$profile_columns = implode(', profiles.',$profile_fields_array);
             	$profile_columns = (empty($profile_fields_array)) ? '': ', profiles.'.$profile_columns;
             }
-            
+
             $this->db->select('users.id, users.username, users.email, users.active, users.last_visit, users.created, users.modified, groups.name `group`, groups.id group_id'.$profile_columns);
             $this->db->from($this->_TABLES['Users'] . " users");
             $this->db->join($this->_TABLES['UserProfiles'] . " profiles",'users.id=profiles.user_id');
@@ -136,7 +135,7 @@
             if( ! is_null($limit['limit'])){ $this->db->limit($limit['limit'],( isset($limit['offset'])?$limit['offset']:''));}
             return $this->db->get();
         }
-        
+
         /**
         * Delete Users
         *
@@ -155,10 +154,10 @@
             {
                 $this->db->trans_begin();
                 // -- ADD USER REMOVAL QUERIES/METHODS BELOW HERE
-                
+
                 // Delete main user details
                 $this->db->delete($this->_TABLES['Users'],array('id'=>$row->id));
-                
+
                 // Delete user profile
                 $this->delete('UserProfiles',array('user_id'=>$row->id));
 
