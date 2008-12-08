@@ -187,7 +187,7 @@
                  if( $this->khacl->aco->delete($resource))
                     flashMsg('success',sprintf($this->lang->line('access_resource_deleted'),$resource));
                  else
-                    flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_delete_resoruce')));
+                    flashMsg('error',sprintf($this->lang->line('backendpro_action_failed'),$this->lang->line('access_delete_resource')));
              }
 
              redirect('auth/admin/acl_resources','location');

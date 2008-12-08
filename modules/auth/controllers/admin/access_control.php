@@ -1,52 +1,53 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-    /**
-     * BackendPro
-     *
-     * A website backend system for developers for PHP 4.3.2 or newer
-     *
-     * @package         BackendPro
-     * @author          Adam Price
-     * @copyright       Copyright (c) 2008
-     * @license         http://www.gnu.org/licenses/lgpl.html
-     */
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * BackendPro
+ *
+ * An open source development control panel written in PHP
+ *
+ * @package		BackendPro
+ * @author		Adam Price
+ * @copyright	Copyright (c) 2008, Adam Price
+ * @license		http://www.gnu.org/licenses/lgpl.html
+ * @link		http://www.kaydoo.co.uk/projects/backendpro
+ * @filesource
+ */
 
-     // ---------------------------------------------------------------------------
+// ------------------------------------------------------------------------
 
-    /**
-     * Access Control
-     *
-     * Display a splash page showing the access control options
-     *
-     * @package         BackendPro
-     * @subpackage      Controllers
-     */
-     class Access_control extends Admin_Controller
-     {
-         function Access_control()
-         {
-             // Call parent constructor
-             parent::Admin_Controller();
+/**
+ * Access Control Controller
+ *
+ * Display a splash page showing the access control options
+ *
+ * @package         BackendPro
+ * @subpackage      Controllers
+ */
+class Access_control extends Admin_Controller
+{
+	function Access_control()
+	{
+		parent::Admin_Controller();
 
-             // Load files
-             $this->lang->load('access_control');
+		// Load needed files
+		$this->lang->load('access_control');
 
-             // Set breadcrumb
-             $this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
+		// Check for access permission
+		check('Access Control');
 
-             // Check for access permission
-             check('Access Control');
+		// Set breadcrumb
+		$this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
+	}
 
-             log_message('debug','Access Control Class Initialized');
-         }
+	function index()
+	{
+		// Display Page
+		$data['header'] = $this->lang->line('backendpro_access_control');
+		$data['page'] = $this->config->item('backendpro_template_admin') . "access_control/home";
+		$data['module'] = 'auth';
+		$this->load->view($this->_container,$data);
+		return;
+	}
+}
 
-         function index()
-         {
-             // Display Page
-             $data['header'] = $this->lang->line('backendpro_access_control');
-             $data['page'] = $this->config->item('backendpro_template_admin') . "access_control/home";
-             $data['module'] = 'auth';
-             $this->load->view($this->_container,$data);
-             return;
-         }
-     }
-?>
+/* End of file access_control.php */
+/* Location: ./modules/controllers/admin/access_control.php */
