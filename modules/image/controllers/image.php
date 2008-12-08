@@ -9,6 +9,7 @@
  * @copyright       Copyright (c) 2008
  * @license         http://www.gnu.org/licenses/lgpl.html
  * @link            http://backendpro.kaydoo.co.uk
+ * @filesource
  */
 
 // ---------------------------------------------------------------------------
@@ -54,7 +55,7 @@ class Image extends Controller
 	function get()
 	{
 		// Get the properties from the URI
-		$default = array('file','width','height','watermark','crop','quality','nocache');
+		$default = array('file','width','height','crop','quality','nocache');
 		$uri_array = $this->uri->uri_to_assoc(3, $default);
 
 		if( $uri_array['file'] == NULL)
@@ -97,7 +98,7 @@ class Image extends Controller
 			$data	= file_get_contents($this->img_path);
 			header("Content-type:". $size['mime']);
 			header('Content-Length: ' . strlen($data));
-			echo $data;
+			print $data;
 			return;
 		}
 
@@ -105,17 +106,22 @@ class Image extends Controller
 		// cache of the image already
 		if( $uri_array['nocache'] == NULL)
 		{
+			// TODO: This should check to see if the image has changed since the last cache?
 			$image_cache_string = $this->img_path . " - " . $uri_array['width'] . "x" . $uri_array['height'];
-			$image_cache_string.= "x" . $uri_array['watermark'] . "x" . $uri_array['crop'] . "x" . $uri_array['quality'];
+			$image_cache_string.= "x" . $uri_array['crop'] . "x" . $uri_array['quality'];
 			$image_cache_string = md5($image_cache_string);
 
 			if (file_exists($this->cache_path.$image_cache_string))
 			{
 				// Yes a cached image exists
 				$data	= file_get_contents($this->cache_path.$image_cache_string);
-				header("Content-type:". $size['mime']);
+
+				// Before we output the image, does the local cache have the image?
+				$this->_ConditionalGet($data);
+
+				header("Content-type: ". $size['mime']);
 				header('Content-Length: ' . strlen($data));
-				echo $data;
+				print $data;
 				return;
 			}
 		}
@@ -151,8 +157,9 @@ class Image extends Controller
 		$new_width = $width;
 		$new_height = $height;
 		if( $uri_array['width'] != NULL AND $uri_array['height'] != NULL)
-		{	// Resize image to the largest dimension
-			if($uri_array['width'] < $uri_array['height'])
+		{	// Resize image to fit into both dimensions
+			$new_ratio = $uri_array['width'] / $uri_array['height'];
+			if($ratio > $new_ratio)
 				$uri_array['height'] = NULL;	// Height is larger
 			else
 				$uri_array['width'] = NULL;		// Width is larger
@@ -169,9 +176,6 @@ class Image extends Controller
 			$new_height = $new_width / $ratio;
 		}
 
-		// WATERMARK
-		// @TODO: Implement watermarking
-
 		// QUALITY
 		$quality = ($uri_array['quality'] != NULL) ? $uri_array['quality'] : $this->config->item('image_default_quality');
 
@@ -183,21 +187,55 @@ class Image extends Controller
 		if( $uri_array['nocache'] == NULL)
 		{
 			// Make sure Cache dir is writable
+			// INFO: This may be the source of the images sometimes not showing, seems some of the cache files can't be found
+			// INFO: Since we are running this on a linux server its fine but this could cause issues http://codeigniter.com/forums/viewthread/94359/
 			if ( !is_really_writable($this->cache_path))
+			//if( !is_writable($this->cache_path))
 			{
 				log_message('error',"Cache folder isn't writable: ".$this->cache_path);
-				return;
 			}
-
-			// Write image to cache
-			imagejpeg($dst_image,$this->cache_path.$image_cache_string,$quality);
+			else
+			{
+				// Write image to cache
+				imagejpeg($dst_image,$this->cache_path.$image_cache_string,$quality);
+			}
 		}
 
 		header("Content-type:". $size['mime']);
 		imagejpeg($dst_image,NULL,$quality);
 	}
+
+	function _ConditionalGet($data)
+	{
+		$lastModified	= gmdate('D, d M Y H:i:s', filemtime($this->img_path)) . ' GMT';
+		$etag = md5($data);
+
+		header("Last-Modified: $lastModified");
+		header("ETag: \"{$etag}\"");
+
+		$if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ?
+			stripslashes($_SERVER['HTTP_IF_NONE_MATCH']) :
+			false;
+
+		$if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ?
+			stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) :
+			false;
+
+		if (!$if_modified_since && !$if_none_match)
+			return;
+
+		if ($if_none_match && $if_none_match != $etag && $if_none_match != '"' . $etag . '"')
+			return; // etag is there but doesn't match
+
+		if ($if_modified_since && $if_modified_since != $lastModified)
+			return; // if-modified-since is there but doesn't match
+
+		// Nothing has changed since their last request - serve a 304 and exit
+		header('HTTP/1.1 304 Not Modified');
+		exit();
+	}
 }
 // END Image
 
 /* End of file image.php */
-/* Location: system/applications/controllers/image.php */
+/* Location : ./modules/image/controllers/image.php */
