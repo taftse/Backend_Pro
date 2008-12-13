@@ -168,13 +168,10 @@ class Acl_permissions extends Admin_Controller
 		}
 
 		// Now process the main permission
-		if($id == NULL)
+		switch($allow)
 		{
-			switch($allow)
-			{
-				case 'Y':$this->khacl->allow($aro,$aco);break;
-				case 'N':$this->khacl->deny($aro,$aco);break;
-			}
+			case 'Y':$this->khacl->allow($aro,$aco);break;
+			case 'N':$this->khacl->deny($aro,$aco);break;
 		}
 
 		// Did everything go OK?
