@@ -21,7 +21,8 @@ $(document).ready(function(){
     // Function to hide/show action options
     function toggleActions(checkbox)
     {
-        var id = checkbox.val();
+        var id = checkbox.attr('name').replace('action_','');
+        
         if(checkbox.is(':checked')){
             $("div[id=allow_"+id+"]",'div.scrollable_tree').show();
         } else {
