@@ -79,7 +79,17 @@ with a static one.</p>
 	</li>
 </ol>
  
-<h2>Step 3: Update your user guide</h2>
+<h3>Step 3: File System Changes</h3>
+<p>In this upgrade there are several files which are now redundant, this is either becasue their location
+has changed or they have been replaced. If you have made changes in either of these files you will need to transfer
+them over to the new ones, files which have moved or been replace are listed below:</p>
+<ul>
+	<li><strong>Removed</strong> - <dfn>system/application/libraries/BackendPro.php</dfn></li>
+	<li><strong>Renamed</strong> - <dfn>modules/auth/libraries/Useremail.php</dfn> to <dfn>modules/auth/libraries/User_email.php</dfn></li>
+	<li><strong>Refactored</strong> - <dfn>modules/auth/libraries/Userlib.php</dfn> split over into <dfn>modules/auth/libraries/Auth_form_processing.php</dfn></li>
+</ul>
+ 
+<h2>Step 4: Update your user guide</h2>
 <p>Please replace your local copy of the user guide with the new version, including the image files.</p> 
 </div>
 <!-- END CONTENT -->
