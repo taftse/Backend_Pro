@@ -177,7 +177,10 @@ not that cruel.</p>
     </code>
     <br />    
     <dfn>_get_profile_details()</dfn> : This method is used to extract the data submitted from a form and prepare it to
-    be submiited to the database. There is an example in the method of what is expected.<br />
+    be submited to the database. So for our example we would need to fetch the checkbox value and assign it to an array item.<br />
+    <code>
+    $data['gender'] = $this-&gt;input-&gt;post('gender');
+    </code>
     <br />
     The last thing we must do is update the form which data can be entered into, locate and open the file <var>modules/auth/views/admin/members/form_member.php</var>,
     scroll to the bottom and you will find an area for your custom profile fields (The format the form is laid out in is discussed <a href="../assets/css.html#forms">here</a>).
