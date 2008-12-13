@@ -7,13 +7,13 @@
 	</a>
 </div><br/><br/>
 
-<?=form_open('auth/admin/acl_resources/delete')?> 
+<?=form_open('auth/admin/acl_resources/delete')?>
 <table class="data_grid" cellspacing="0">
 <thead>
     <tr>
         <th width=5%><?=$this->lang->line('general_id')?></th>
-        <th><?=$this->lang->line('access_resources')?></th>  
-        <th width=10% class="middle"><?=$this->lang->line('general_edit')?></th>   
+        <th><?=$this->lang->line('access_resources')?></th>
+        <th width=10% class="middle"><?=$this->lang->line('general_edit')?></th>
         <th width=10%><?=form_checkbox('all','select',FALSE)?> <?=$this->lang->line('general_delete')?></th>
     </tr>
 </thead>
@@ -24,24 +24,34 @@
     </tr>
 </tfoot>
 <tbody>
-    <?php 
+    <?php
     // Output nested resource view
     $obj = & $this->access_control_model->resource;
     $tree = $obj->getTreePreorder($obj->getRoot());
-    
-    while($obj->getTreeNext($tree)):        
+
+    while($obj->getTreeNext($tree)):
         // See if this resource is locked
         $query = $this->access_control_model->fetch('resources','locked',NULL,array('id'=>$tree['row']['id']));
-        $row = $query->row();     
-        
+        $row = $query->row();
+
         // Get Offset
-        $offset = $this->access_control_model->buildPrettyOffset(&$obj,$tree);
-        $edit = ($obj->checkNodeIsRoot($tree['row'])?'&nbsp;':'<a href="'.site_url('auth/admin/acl_resources/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets'). 'icons/pencil.png').'</a>');           
-    ?>  
+        // INFO: This is a bit of a hack for php 4 as noted in bug #55
+        if (floor(phpversion()) < 5)
+		{
+			// Use pass by reference since its not deprecated yet
+        	$offset = $this->access_control_model->buildPrettyOffset(&$obj,$tree);
+		}
+		else
+		{
+			// Can't use pass by reference since it may be deprecated
+			$offset = $this->access_control_model->buildPrettyOffset($obj,$tree);
+		}
+        $edit = ($obj->checkNodeIsRoot($tree['row'])?'&nbsp;':'<a href="'.site_url('auth/admin/acl_resources/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets'). 'icons/pencil.png').'</a>');
+    ?>
         <tr>
             <td><?=$tree['row']['id']?></td>
-            <td><?=$offset.$tree['row']['name']?></td>  
-            <td class="middle"><?=$edit?></td>  
+            <td><?=$offset.$tree['row']['name']?></td>
+            <td class="middle"><?=$edit?></td>
             <td><?=($row->locked?'&nbsp;':form_checkbox('select[]',$tree['row']['name'],FALSE))?></td>
         </tr>
     <?php endwhile; ?>
