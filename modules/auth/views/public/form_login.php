@@ -3,8 +3,8 @@
     <fieldset>
         <ol>
             <li>
-                <label for="email"><?=$this->lang->line('userlib_email')?>:</label>
-                <input type="text" name="email" id="email" class="text" value="<?=$this->validation->email?>"/>
+                <label for="identification"><?=$login_method?>:</label>
+                <input type="text" name="identification" id="identification" class="text" value="<?=$this->validation->identification?>"/>
             </li>
             <li>
                 <label for="password"><?=$this->lang->line('userlib_password')?>:</label>
@@ -16,13 +16,12 @@
             </li>
             <?php
             // Only display captcha if needed
-            if($this->preference->item('use_login_captcha')){
-            ?>
+            if($this->preference->item('use_login_captcha')):?>
             <li class="captcha">
                 <label for="recaptcha_response_field"><?=$this->lang->line('userlib_captcha')?>:</label>
                 <?=$captcha?>
             </li>
-            <?php } ?>
+            <?php endif;?>
 
             <li class="submit">
             	<div class="buttons">

@@ -63,6 +63,13 @@ with a static one.</p>
 	<li><dfn>system</dfn></li>
 </ul>
 <p class="important"><strong>Note:</strong> If you have any custom developed files in these folders please make copies of them first. This may include customer user authentication and custom website preference forms.</p>
+
+<h3>Step 3: Upgrade the database</h3>
+<p>Due to some changes between this version and the last you will needs to run some queries on your
+database. Run the following queries seperatly on the database containing your BackendPro data</p>
+<code>
+INSERT INTO `be_preferences` (`name` ,`value`)VALUES ('user_login_method', 'email');
+</code>
  
 <h2>Step 2: Update your user guide</h2>
 <p>Please replace your local copy of the user guide with the new version, including the image files.</p> 

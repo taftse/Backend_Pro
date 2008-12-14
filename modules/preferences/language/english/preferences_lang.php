@@ -10,21 +10,22 @@
      * @copyright       Copyright (c) 2008
      * @license         http://www.gnu.org/licenses/lgpl.html
      */
-     
+
      $lang['preference_saved_successfully'] = "The '%s' preferences have been saved successfully";
-     
+
      /** -------------------------------------- CONTROL PANEL SETTING STRINGS */
      // General Configuration
      $lang['preference_label_site_name'] = "Name of your site";
-     
+
      // Member Settings
      $lang['preference_desc_account_activation_time'] = 'Number of days before a user must have activated their account';
      $lang['preference_desc_autologin_period'] = 'Number of days for which the user will be logged in automaticaly';
-     
+     $lang['preference_desc_user_login_method'] = 'What way to allow users to login to the system using';
+
      // Security Preferences
      $lang['preference_label_use_login_captcha'] = 'Use Login Captcha?';
      $lang['preference_label_use_registration_captcha'] = 'Use Registration Captcha?';
-     
+
      // Email Configuration
      $lang['preference_label_automated_from_name'] = 'Return name for auto-generated emails';
      $lang['preference_label_automated_from_email'] = 'Return email address for auto-generated emails';
@@ -49,27 +50,27 @@
      $lang['preference_desc_bcc_batch_mode'] = 'Batch Mode breaks up large mailings into smaller groups, which get sent at intervals. Recommended if your site is hosted on a shared-hosting account.';
      $lang['preference_label_bcc_batch_size'] = 'Number of Emails Per Batch';
      $lang['preference_desc_bcc_batch_size'] = 'For average servers, 200 is a safe number';
-     
-     // Maintenance & Debuging Settings  
+
+     // Maintenance & Debuging Settings
      $lang['preference_label_maintenance_mode'] = 'Is system off?';
-     $lang['preference_desc_maintenance_mode'] = 'If system is off, only Super Admins will be able to see your site';     
+     $lang['preference_desc_maintenance_mode'] = 'If system is off, only Super Admins will be able to see your site';
      $lang['preference_label_maintenance_message'] = 'Message';
-     $lang['preference_desc_maintenance_message'] = 'Message displayed if system is off';     
+     $lang['preference_desc_maintenance_message'] = 'Message displayed if system is off';
      $lang['preference_label_page_debug'] = 'Enable System Debugging?';
-     $lang['preference_desc_page_debug'] = 'Show important infomation about code execution';     
+     $lang['preference_desc_page_debug'] = 'Show important infomation about code execution';
      $lang['preference_label_keep_error_logs_for'] = 'Archive Error Logs?';
      $lang['preference_desc_keep_error_logs_for'] = 'Number of days to archive error logs for';
-     
-     
+
+
      /**
       *     BELOW HERE DEFINE ANY LANGUAGE STRINGS FOR YOUR APPLICATIONS
-      * 
+      *
       *     Format:
       *     For a preference label name:
       *     $lang['preference_label_{preference_name}'] = '';
-      * 
+      *
       *     For a preference description:
-      *     $lang['preference_desc_{preference_desc}'] = ''; 
+      *     $lang['preference_desc_{preference_desc}'] = '';
       */
 
 ?>

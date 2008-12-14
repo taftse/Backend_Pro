@@ -64,15 +64,31 @@
                 redirect($this->CI->config->item('userlib_action_login'),'location');
             }
 
+            // Lets see what login methods are allowed and setup the form as so
+            switch($this->CI->preference->item('user_login_method'))
+            {
+            	case 'email':
+            		$fields['identification'] = $this->CI->lang->line('userlib_email');
+            		$rules['identification']  = 'trim|required|valid_email';
+            		break;
+            	case 'username':
+            		$fields['identification'] = $this->CI->lang->line('userlib_username');
+            		$rules['identification']  = 'trim|required';
+            		break;
+
+            	default:
+            		$fields['identification'] = $this->CI->lang->line('userlib_email_username');
+            		$rules['identification']  = 'trim|required';
+            		break;
+            }
+
             // Setup fields
-            $fields['email'] = $this->CI->lang->line('userlib_email');
             $fields['password'] = $this->CI->lang->line('userlib_password');
             $fields['recaptcha_response_field'] = $this->CI->lang->line('userlib_captcha');
             $this->CI->validation->set_fields($fields);
 
             // Set Rules
             // Only run captcha check if needed
-            $rules['email'] = 'trim|required|valid_email';
             $rules['password'] = 'trim|required';
             if($this->CI->preference->item('use_login_captcha')){ $rules['recaptcha_response_field'] = 'trim|required|valid_captcha';}
             $this->CI->validation->set_rules($rules);
@@ -80,6 +96,9 @@
             if ( $this->CI->validation->run() === FALSE ) {
                 // Output any errors
                 $this->CI->validation->output_errors();
+
+                // TODO: There must be a better way to do this
+                $data['login_method'] = $fields['identification'];
 
                 // Display page
                 $data['header'] = $this->CI->lang->line('userlib_login');
@@ -107,11 +126,11 @@
         function _login()
         {
             // Fetch what they entered in the login
-            $values['email'] = $this->CI->input->post('email');
+            $values['identification'] = $this->CI->input->post('identification');
             $values['password'] = $this->CI->userlib->encode_password($this->CI->input->post('password'));
 
             // See if a user exists with the given credentials
-            $query = $this->CI->user_model->validateLogin($values['email'],$values['password']);
+            $query = $this->CI->user_model->validateLogin($values['identification'],$values['password']);
             if ( $query->num_rows() == 1 ) {
                 // We we have a valid user
                 $user = $query->row();

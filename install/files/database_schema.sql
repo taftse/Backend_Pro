@@ -211,7 +211,8 @@ INSERT INTO `be_preferences` (`name`, `value`) VALUES
 ('email_mailtype', 'text'),
 ('email_charset', 'utf-8'),
 ('bcc_batch_mode', '0'),
-('bcc_batch_size', '200');
+('bcc_batch_size', '200'),
+('user_login_method','email');
 
 -- --------------------------------------------------------
 
