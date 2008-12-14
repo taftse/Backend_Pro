@@ -63,12 +63,12 @@
 					$autologin = unserialize($autologin);
 
 					// Check its valid
-					$query = $this->CI->user_model->validateLogin($autologin['email'],$autologin['password']);
+					$query = $this->CI->user_model->validateLogin($autologin['identification'],$autologin['password']);
 					if($query->num_rows() == 1)
 					{
 						// Log user in
 						$this->set_userlogin($autologin['id']);
-                        log_message('debug','Logged user in using autologin cookie');
+                        log_message('debug','User logged in using autologin cookie');
 					}
 				}
 			}

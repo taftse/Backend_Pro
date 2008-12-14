@@ -151,7 +151,7 @@
                 // If they asked to remember login, store details
                 if ( $this->CI->input->post('remember') ) {
                     set_cookie('autologin',
-                                       serialize(array('id'=>$user->id, 'email'=>$values['email'], 'password'=>$values['password'])),
+                                       serialize(array('id'=>$user->id, 'identification'=>$values['identification'], 'password'=>$values['password'])),
                                        $this->CI->preference->item('autologin_period')*86400);
                 }
 
