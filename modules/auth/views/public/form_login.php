@@ -23,7 +23,7 @@
                 <?=$captcha?>
             </li>
             <?php } ?>
-            
+
             <li class="submit">
             	<div class="buttons">
             		<button type="submit" class="positive" name="submit" value="submit">
@@ -35,11 +35,13 @@
             			<?=$this->page->icon('arrow_refresh') ?>
             			<?=$this->lang->line('userlib_forgotten_password')?>
             		</a>
-            		
+
+            		<?php if($this->preference->item('allow_user_registration')):?>
             		<a href="<?=site_url('auth/register') ?>">
             			<?=$this->page->icon('user') ?>
             			<?=$this->lang->line('userlib_register')?>
-            		</a>             
+            		</a>
+            		<?php endif;?>
             </li>
         </ol>
     </fieldset>
