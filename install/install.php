@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/public/css/layout.css" />
     <link rel="stylesheet" type="text/css" href="../assets/shared/css/forms.css" />
     <title>Installation</title>
-    
+
     <style>
     <!--
     	ul { list-style-type: none; margin: 0; }
@@ -29,7 +29,7 @@
     <div id="content">
         <a name="top"></a>
 	    <?php include_once("RUN.php");?>
-	    
+
 	    <h2>
 	    <?php
 	    	// Output the overall install status
@@ -39,7 +39,7 @@
 	    		print "<font color='red'>BackendPro Install was Unsuccessful</font>";
 	    ?>
 	    </h2>
-	    
+
 	    <ul class="results">
 	    <?php
 	    	foreach($features as $feature)
@@ -57,7 +57,7 @@
 	    	}
 	    ?>
 	    </ul>
-	    
+
 	    <?php if($install_status):?>
 	    <p>Your system has been fully setup, please delete the <b>/install</b> directory
     	otherwise other people will be able to reset your system setup.</p>
@@ -75,7 +75,7 @@
 
     <div id="footer">
         <a href="#top">Top</a><br />
-        This site is powered by BackendPro 0.4<br />
+        This site is powered by BackendPro 0.5<br />
         &copy; Copyright 2008 - Adam Price -  All rights Reserved
     </div>
 </div>

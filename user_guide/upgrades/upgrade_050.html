@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>BackendPro User Guide : Nested Sets Model</title>
+<title>BackendPro User Guide : Upgrading from 0.4 to 0.5</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -32,8 +32,9 @@
 <tr>
 <td id="breadcrumb">
 <a href="http://www.kaydoo.co.uk/projects/backendpro">BackendPro Home</a> &nbsp;&#8250;&nbsp;
-<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;  
-Nested Sets Model
+<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;    
+<a href="../general/upgrade.html">Upgrading From a Previous Version</a> &nbsp;&#8250;&nbsp;    
+Upgrading from 0.4 to 0.5
 </td>
 <td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="kaydoo.co.uk/projects/backendpro/user_guide/" />Search User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
 </tr>
@@ -48,12 +49,23 @@ Nested Sets Model
 <div id="content">
 
 
-<h1>Nested Sets Model</h1>
+<h1>Upgrading from 0.4 to 0.5</h1>
 
-<p>The nested sets model class was created by 'thunder uk' on the <a href="http://www.codeigniter.com">CodeIgniter</a> forums, there is a inactive thread <a href="http://codeigniter.com/forums/viewthread/47671/">here</a>. 
-I did not create this class but <strong>BackendPro</strong> uses it in the administration control panel 
-to allow the user to manage access control permissions. For full documentation on its methods please see <var>system/application/models/Nested_sets_model.php</var>.</p>
+<p>Before you start the upgrade process please take a full backup of both your website files
+and also your database. Please also take your site offline by replacing the index.php file 
+with a static one.</p>
 
+<h2>Step 1: Update Files</h2>
+<p>Replace the files in the following folders with the newly downloaded versions.</p>
+<ul>
+	<li><dfn>assets</dfn></li>
+	<li><dfn>modules</dfn></li>
+	<li><dfn>system</dfn></li>
+</ul>
+<p class="important"><strong>Note:</strong> If you have any custom developed files in these folders please make copies of them first. This may include customer user authentication and custom website preference forms.</p>
+ 
+<h2>Step 2: Update your user guide</h2>
+<p>Please replace your local copy of the user guide with the new version, including the image files.</p> 
 </div>
 <!-- END CONTENT -->
 
