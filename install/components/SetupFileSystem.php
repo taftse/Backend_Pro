@@ -66,7 +66,7 @@ class OverWriteSystemConfig extends Component
 {
 	var $name 		= "Create new system config file";
 	var $copyFrom 	= "config.txt";
-	var $copyTo 	= "/system/application/config/config.php";
+	var $copyTo 	= "/config/config.php";
 
 	function Install()
 	{
@@ -94,7 +94,7 @@ class OverWriteSystemConfig extends Component
 				'base_url'			=> 'http://' . $_SERVER['SERVER_NAME'] . BASEDIR . "/",
 		    	'encryption_key' 	=> $_POST['encryption_key']);
 
-		if ($result = PerformOverWrite($this->copyFrom, BASEPATH . $this->copyTo, $replace) !== TRUE)
+		if ($result = PerformOverWrite($this->copyFrom, BASEPATH . APPLICATION . $this->copyTo, $replace) !== TRUE)
 		{
 			$this->error = $result;
 		}
@@ -120,7 +120,7 @@ class OverWriteDatabaseConfig extends Component
 {
 	var $name 		= "Create new database config file";
 	var $copyFrom 	= "database.txt";
-	var $copyTo 	= "/system/application/config/database.php";
+	var $copyTo 	= "/config/database.php";
 
 	function Install()
 	{
@@ -131,7 +131,7 @@ class OverWriteDatabaseConfig extends Component
                 'database_password'	=> $_POST['database_password'],
                 'database_name'		=> $_POST['database_name']);
 
-		if ($result = PerformOverWrite($this->copyFrom, BASEPATH . $this->copyTo, $replace) !== TRUE)
+		if ($result = PerformOverWrite($this->copyFrom, BASEPATH . APPLICATION . $this->copyTo, $replace) !== TRUE)
 		{
 			$this->error = $result;
 		}
@@ -157,7 +157,7 @@ class OverWriteRecaptchaConfig extends Component
 {
 	var $name 		= "Create new ReCAPTCHA config file";
 	var $copyFrom 	= "recaptcha.txt";
-	var $copyTo 	= "/modules/recaptcha/config/recaptcha.php";
+	var $copyTo 	= "/recaptcha/config/recaptcha.php";
 
 	function Install()
 	{
@@ -166,7 +166,7 @@ class OverWriteRecaptchaConfig extends Component
 				'public_key'	=> $_POST['public_key'],
                 'private_key'	=> $_POST['private_key']);
 
-		if ($result = PerformOverWrite($this->copyFrom, BASEPATH . $this->copyTo, $replace) !== TRUE)
+		if ($result = PerformOverWrite($this->copyFrom, BASEPATH . MODULES . $this->copyTo, $replace) !== TRUE)
 		{
 			$this->error = $result;
 		}

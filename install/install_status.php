@@ -68,7 +68,7 @@
 	    <?php else:?>
 	    <p>An error has occured during the installation of BackendPro. Please check the
 	    details above to fix the problem before trying to install again. A
-	    <a href="install_log.txt">log file</a> has been created which more in depth
+	    <a href="install.log">log file</a> has been created which more in depth
 	    details about what went wrong.
 	    <?php endif;?>
     </div>

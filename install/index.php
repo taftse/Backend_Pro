@@ -3,32 +3,65 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="../assets/shared/css/reset.css" />   
-    <link rel="stylesheet" type="text/css" href="../assets/shared/css/ie.css" />   
+    <link rel="stylesheet" type="text/css" href="../assets/shared/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/shared/css/ie.css" />
     <link rel="stylesheet" type="text/css" href="../assets/shared/css/typography.css" />
     <link rel="stylesheet" type="text/css" href="../assets/public/css/layout.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/shared/css/forms.css" />   
+    <link rel="stylesheet" type="text/css" href="../assets/shared/css/forms.css" />
     <title>Installation</title>
 </head>
-    
+
 <body>
 <div id="wrapper">
     <a name="top"></a>
-    <div id="header">  
+    <div id="header">
         <h1>BackendPro Installation Process</h1>
     </div>
-    
-    <div id="content">            
+
+    <div id="content">
         <a name="top"></a>
         <p>Lets get started, all we are going to do here is setup some basic details to get
-        your system up and running.</p>  
-        
-        <form action="install.php" method="POST" class="horizontal">
+        your system up and running.</p>
+
+        <form action="install_status.php" method="POST" class="horizontal">
+            <h3>CodeIgniter File System</h3>
+            <p>First lets get some information about your CodeIgniter setup.
+            Please make sure all the following paths are relative to the Base Path.
+            <b>Please note this will not change the files in CI and is only used
+            during the install process.</b></p>
+            <p>Make sure all folders are relative to <b><?php print dirname(dirname($_SERVER['PHP_SELF']))?>/</b></p>
+
+            <fieldset>
+                <ol>
+                    <li>
+                        <label for="ci_system">System Folder</label>
+                        <input type="text" name="ci_system" class="text" value="system" />
+                    </li>
+                    <li>
+                        <label for="ci_application">Application Folder</label>
+                        <input type="text" name="ci_application" class="text" value="system/application" />
+                    </li>
+                    <li>
+                        <label for="ci_modules">Modules Folder</label>
+                        <input type="text" name="ci_modules" class="text" value="modules" />
+                    </li>
+                    <li>
+                        <label for="ci_logs">Log Folder</label>
+                        <input type="text" name="ci_logs" class="text" value="system/logs" />
+                    </li>
+                    <li>
+                        <label for="ci_cache">Cache Folder</label>
+                        <input type="text" name="ci_cache" class="text" value="system/cache" />
+                    </li>
+                </ol>
+            </fieldset>
+
+            <br>
             <h3>Database</h3>
-            <p>First lets get some information about your database you are going to use.
-            Please make sure the user you specify has the ability to create new tables, 
+            <p>Now lets get some information about your database you are going to use.
+            Please make sure the user you specify has the ability to create new tables,
             and insert data.</p>
-        
+
             <fieldset>
                 <ol>
                     <li>
@@ -49,7 +82,7 @@
                     </li>
                 </ol>
             </fieldset>
-            
+
             <br>
             <h3>User Account</h3>
             <p>Now lets get you setup with some login details, please remember your email address is
@@ -70,13 +103,13 @@
                     </li>
                 </ol>
             </fieldset>
-            
+
             <br>
             <h3>Encryption Key</h3>
-            <p>Throughout the BackendPro system, encryption is used to protect sensetive data. 
-            For this we need an encryption key, please specify one below. If you do not 
-            provide one, a random key will be generated for you. When picking a key please 
-            ensure it is at least 32 characters long and as random as possible. <b>If this key 
+            <p>Throughout the BackendPro system, encryption is used to protect sensetive data.
+            For this we need an encryption key, please specify one below. If you do not
+            provide one, a random key will be generated for you. When picking a key please
+            ensure it is at least 32 characters long and as random as possible. <b>If this key
             is lost for any reason any data encrypted using it will also be lost.</b></p>
             <fieldset>
                 <ol>
@@ -86,12 +119,12 @@
                     </li>
                 </ol>
             </fieldset>
-            
+
             <br>
             <h3>ReCAPTCHA</h3>
             <p>Now BackendPro can use ReCAPTCHA to verify someone isn't a bot, but for this we need both
-            your public and private keys. If you don't have a public/private key please go <a href="https://admin.recaptcha.net/accounts/signup/?next=%2Frecaptcha%2Fcreatesite%2F">here</a> 
-            to get one. <b>This is an optional field, not entering a key will only mean ReCAPTCHA isn't 
+            your public and private keys. If you don't have a public/private key please go <a href="https://admin.recaptcha.net/accounts/signup/?next=%2Frecaptcha%2Fcreatesite%2F">here</a>
+            to get one. <b>This is an optional field, not entering a key will only mean ReCAPTCHA isn't
             available to you</b></p>
             <fieldset>
                 <ol>
@@ -105,7 +138,7 @@
                     </li>
                 </ol>
             </fieldset>
-            
+
             <fieldset>
                 <ol>
                     <li class="submit">
@@ -115,12 +148,12 @@
             </fieldset>
         </form>
     </div>
-    
+
     <div id="footer">
         <a href="#top">Top</a><br />
         This site is powered by BackendPro 0.5<br />
         &copy; Copyright 2008 - Adam Price -  All rights Reserved
-    </div> 
+    </div>
 </div>
 
 </body>

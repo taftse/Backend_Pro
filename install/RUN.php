@@ -25,11 +25,35 @@ $logger = new Logger();
 // Setup the database connector
 $database = new Database();
 
-// Define the base path of the CI installation
-// this should be relative to the components folder
-define('BASEPATH','./..');
+// Remove any trailing slashes from the paths
+foreach($_POST as $key => $value)
+{
+	if(substr($key,0,3) == 'ci_')
+	{
+		// Found a path form input
+		if(substr($value,-1) == '/')
+		{
+			// Trailing slash found, remove it
+			$_POST[$key] = substr($value,0,-1);
+		}
+	}
+}
+
+// Define constants for the paths and folders
+define('BASEPATH','./../');
 define('BASEDIR',dirname(dirname($_SERVER['PHP_SELF'])));
-$logger->write('info','Basepath set to ' . BASEPATH);
+define('SYSTEM',$_POST['ci_system']);
+define('APPLICATION',$_POST['ci_application']);
+define('MODULES',$_POST['ci_modules']);
+define('LOGS',$_POST['ci_logs']);
+define('CACHE',$_POST['ci_cache']);
+$logger->write('info','Base path set to: ' . BASEPATH);
+$logger->write('info','Base dir set to: ' . BASEDIR);
+$logger->write('info','System path set to: ' . SYSTEM);
+$logger->write('info','Application path set to: ' . APPLICATION);
+$logger->write('info','Modules path set to: ' . MODULES);
+$logger->write('info','Logs path set to: ' . LOGS);
+$logger->write('info','Cache path set to: ' . CACHE);
 
 // Define Install components
 $features['writable_check'] = new Feature("FileSystem Check");

@@ -25,17 +25,16 @@
 class LogFolderWritable extends Component
 {
 	var $name = "Log Folder writable";
-	var $path = "/system/logs";
 
 	function install()
 	{
-		if( is_writeable(BASEPATH.$this->path))
+		if( is_writeable(BASEPATH.LOGS))
 		{
 			$this->status = TRUE;
 		}
 		else
 		{
-			$this->error = $this->path . " folder isn't writable";
+			$this->error = BASEPATH . LOGS . " folder isn't writable";
 		}
 
 		return $this->status;
@@ -54,12 +53,12 @@ class AssetFoldersWritable extends Component
 {
 	var $name = "Asset folders writable";
 	var $path_array = array(
-			'/assets/admin/css',
-			'/assets/admin/js',
-			'/assets/public/css',
-			'/assets/public/js',
-			'/assets/shared/css',
-			'/assets/shared/js');
+			'assets/admin/css',
+			'assets/admin/js',
+			'assets/public/css',
+			'assets/public/js',
+			'assets/shared/css',
+			'assets/shared/js');
 
 	function install()
 	{
@@ -67,7 +66,7 @@ class AssetFoldersWritable extends Component
 		{
 			if ( ! is_writable(BASEPATH . $path))
 			{
-				$this->error = $path . " folder isn't writable";
+				$this->error = BASEPATH . $path . " folder isn't writable";
 				return $this->status;
 			}
 		}
@@ -87,17 +86,16 @@ class AssetFoldersWritable extends Component
 class CacheFolderWritable extends Component
 {
 	var $name = "Cache Folder writable";
-	var $path = "/system/cache";
 
 	function install()
 	{
-		if( is_writeable(BASEPATH . $this->path))
+		if( is_writeable(BASEPATH . CACHE))
 		{
 			$this->status = TRUE;
 		}
 		else
 		{
-			$this->error = $this->path . " folder isn't writable";
+			$this->error = BASEPATH . CACHE . " folder isn't writable";
 		}
 		return $this->status;
 	}
@@ -115,10 +113,14 @@ class CacheFolderWritable extends Component
 class ConfigFilesWritable extends Component
 {
 	var $name = "Config files writable";
-	var $file_array = array(
-			'/system/application/config/config.php',
-			'/system/application/config/database.php',
-			'/modules/recaptcha/config/recaptcha.php');
+	var $file_array = array();
+
+	function ConfigFilesWritable()
+	{
+		$file_array[] = APPLICATION . '/config/config.php';
+		$file_array[] = APPLICATION . '/config/database.php';
+		$file_array[] = MODULES . '/recaptcha/config/recaptcha.php';
+	}
 
 	function install()
 	{
@@ -126,7 +128,7 @@ class ConfigFilesWritable extends Component
 		{
 			if ( !is_writable(BASEPATH.$file))
 			{
-				$this->error = $file . " file isn't writable";
+				$this->error = BASEPATH . $file . " file isn't writable";
 				return $this->status;
 			}
 		}
