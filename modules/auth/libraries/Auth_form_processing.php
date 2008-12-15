@@ -65,20 +65,20 @@
             }
 
             // Lets see what login methods are allowed and setup the form as so
-            switch($this->CI->preference->item('user_login_method'))
+            switch($this->CI->preference->item('login_field'))
             {
             	case 'email':
-            		$fields['identification'] = $this->CI->lang->line('userlib_email');
-            		$rules['identification']  = 'trim|required|valid_email';
+            		$fields['login_field'] = $this->CI->lang->line('userlib_email');
+            		$rules['login_field']  = 'trim|required|valid_email';
             		break;
             	case 'username':
-            		$fields['identification'] = $this->CI->lang->line('userlib_username');
-            		$rules['identification']  = 'trim|required';
+            		$fields['login_field'] = $this->CI->lang->line('userlib_username');
+            		$rules['login_field']  = 'trim|required';
             		break;
 
             	default:
-            		$fields['identification'] = $this->CI->lang->line('userlib_email_username');
-            		$rules['identification']  = 'trim|required';
+            		$fields['login_field'] = $this->CI->lang->line('userlib_email_username');
+            		$rules['login_field']  = 'trim|required';
             		break;
             }
 
@@ -98,7 +98,7 @@
                 $this->CI->validation->output_errors();
 
                 // TODO: There must be a better way to do this
-                $data['login_method'] = $fields['identification'];
+                $data['login_field'] = $fields['login_field'];
 
                 // Display page
                 $data['header'] = $this->CI->lang->line('userlib_login');
@@ -126,11 +126,11 @@
         function _login()
         {
             // Fetch what they entered in the login
-            $values['identification'] = $this->CI->input->post('identification');
+            $values['login_field'] = $this->CI->input->post('login_field');
             $values['password'] = $this->CI->userlib->encode_password($this->CI->input->post('password'));
 
             // See if a user exists with the given credentials
-            $query = $this->CI->user_model->validateLogin($values['identification'],$values['password']);
+            $query = $this->CI->user_model->validateLogin($values['login_field'],$values['password']);
             if ( $query->num_rows() == 1 ) {
                 // We we have a valid user
                 $user = $query->row();
@@ -151,7 +151,7 @@
                 // If they asked to remember login, store details
                 if ( $this->CI->input->post('remember') ) {
                     set_cookie('autologin',
-                                       serialize(array('id'=>$user->id, 'identification'=>$values['identification'], 'password'=>$values['password'])),
+                                       serialize(array('id'=>$user->id, 'login_field'=>$values['login_field'], 'password'=>$values['password'])),
                                        $this->CI->preference->item('autologin_period')*86400);
                 }
 

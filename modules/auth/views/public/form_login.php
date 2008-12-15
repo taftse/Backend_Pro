@@ -3,8 +3,8 @@
     <fieldset>
         <ol>
             <li>
-                <label for="identification"><?=$login_method?>:</label>
-                <input type="text" name="identification" id="identification" class="text" value="<?=$this->validation->identification?>"/>
+                <label for="login_field"><?=$login_field?>:</label>
+                <input type="text" name="login_field" id="login_field" class="text" value="<?=$this->validation->login_field?>"/>
             </li>
             <li>
                 <label for="password"><?=$this->lang->line('userlib_password')?>:</label>

@@ -63,7 +63,7 @@
 					$autologin = unserialize($autologin);
 
 					// Check its valid
-					$query = $this->CI->user_model->validateLogin($autologin['identification'],$autologin['password']);
+					$query = $this->CI->user_model->validateLogin($autologin['login_field'],$autologin['password']);
 					if($query->num_rows() == 1)
 					{
 						// Log user in

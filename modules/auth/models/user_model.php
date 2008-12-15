@@ -39,29 +39,29 @@ class User_model extends Base_model
 	/**
 	 * Validate Login
 	 *
-	 * Verify that the given identification and password
+	 * Verify that the given login_field and password
 	 * are correct
 	 *
 	 * @access public
-	 * @param string $identification Email/Username
+	 * @param string $login_field Email/Username
 	 * @param string $password Users password
 	 * @return Query
 	 */
-	function validateLogin($identification, $password)
+	function validateLogin($login_field, $password)
 	{
-		switch($this->preference->item('user_login_method'))
+		switch($this->preference->item('login_field'))
 		{
 			case'email':
-				$this->db->where('email',$identification);
+				$this->db->where('email',$login_field);
 				break;
 
 			case 'username':
-				$this->db->where('username',$identification);
+				$this->db->where('username',$login_field);
 				break;
 
 			default:
-				$this->db->where('email',$identification);
-				$this->db->or_where('username',$identification);
+				$this->db->where('email',$login_field);
+				$this->db->or_where('username',$login_field);
 				break;
 		}
 

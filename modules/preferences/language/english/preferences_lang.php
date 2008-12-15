@@ -20,7 +20,7 @@
      // Member Settings
      $lang['preference_desc_account_activation_time'] = 'Number of days before a user must have activated their account';
      $lang['preference_desc_autologin_period'] = 'Number of days for which the user will be logged in automaticaly';
-     $lang['preference_desc_user_login_method'] = 'What way to allow users to login to the system using';
+     $lang['preference_desc_login_field'] = 'What way to allow users to login to the system using';
 
      // Security Preferences
      $lang['preference_label_use_login_captcha'] = 'Use Login Captcha?';
