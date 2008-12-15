@@ -32,7 +32,7 @@ class access_control_model extends Base_Model
 
 	function access_control_model()
 	{
-		parent::Model();
+		parent::Base_model();
 
 		// Setup allowed tables
 		$this->load->config('khaos', true, true);
