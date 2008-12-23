@@ -48,10 +48,10 @@
 			$this->load->module_library('auth','userlib');
 
             // Display page debug messages if needed
-            /*if ( is_superadmin() AND $this->preference->item('page_debug'))
+            if ($this->preference->item('page_debug'))
             {
                 $this->output->enable_profiler(TRUE);
-            }*/
+            }
 
             // Set site meta tags
             //$this->page->set_metatag('name','content',TRUE/FALSE);

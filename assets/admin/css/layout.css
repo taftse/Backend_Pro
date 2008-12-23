@@ -1,4 +1,3 @@
-
 /* Setup Control Panel Layout */
 body { margin: 0px; }
 
@@ -69,3 +68,6 @@ body { margin: 0px; }
 
 #copyright { float: left; margin-left: 1em; }
 #version { float: right; margin-right: 1em; }
+
+/* Setup the modified style for the CI profiler output */
+#codeigniter_profiler { margin: 0pt 0pt 3em 18em; }
