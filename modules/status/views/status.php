@@ -1,4 +1,4 @@
 <div class="status_box <?php print $type; ?>">
-    <?php print heading(ucfirst($type),6); ?>
+    <h6><?php print ucfirst($type);?></h6>
     <?php print ul($messages); ?>
 </div>
