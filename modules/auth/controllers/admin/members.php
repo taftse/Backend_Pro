@@ -136,7 +136,6 @@
              $fields['confirm_password'] = $this->lang->line('userlib_confirm_password');
              $fields['group'] = $this->lang->line('userlib_group');
              $fields['active'] = $this->lang->line('userlib_active');
-             // TODO: Make sure the config file is loaded here
              $fields = array_merge($fields, $this->config->item('userlib_profile_fields'));
              $this->validation->set_fields($fields);
 
