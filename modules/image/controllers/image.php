@@ -111,10 +111,10 @@ class Image extends Controller
 			$image_cache_string.= "x" . $uri_array['crop'] . "x" . $uri_array['quality'];
 			$image_cache_string = md5($image_cache_string);
 
-			if (file_exists($this->cache_path.$image_cache_string))
+			if (file_exists($this->cache.$image_cache_string))
 			{
 				// Yes a cached image exists
-				$data	= file_get_contents($this->cache_path.$image_cache_string);
+				$data	= file_get_contents($this->cache.$image_cache_string);
 
 				// Before we output the image, does the local cache have the image?
 				$this->_ConditionalGet($data);
@@ -189,15 +189,15 @@ class Image extends Controller
 			// Make sure Cache dir is writable
 			// INFO: This may be the source of the images sometimes not showing, seems some of the cache files can't be found
 			// INFO: Since we are running this on a linux server its fine but this could cause issues http://codeigniter.com/forums/viewthread/94359/
-			if ( !is_really_writable($this->cache_path))
-			//if( !is_writable($this->cache_path))
+			if ( !is_really_writable($this->cache))
+			//if( !is_writable($this->cache))
 			{
-				log_message('error',"Cache folder isn't writable: ".$this->cache_path);
+				log_message('error',"Cache folder isn't writable: ".$this->cache);
 			}
 			else
 			{
 				// Write image to cache
-				imagejpeg($dst_image,$this->cache_path.$image_cache_string,$quality);
+				imagejpeg($dst_image,$this->cache.$image_cache_string,$quality);
 			}
 		}
 
