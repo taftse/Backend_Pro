@@ -32,7 +32,7 @@ class Image extends Controller
 	{
 		parent::Controller();
 
-		// Load BackendPro config file
+		// Load Image config file
 		$this->load->config('image');
 
 		$this->img_path = NULL;
