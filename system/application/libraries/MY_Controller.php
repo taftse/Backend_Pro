@@ -55,7 +55,8 @@
 
             // Set site meta tags
             //$this->page->set_metatag('name','content',TRUE/FALSE);
-            $this->page->set_metatag('content-type','text/html; charset=utf-8',TRUE);
+            $this->output->set_header('Content-Type: text/html; charset='.config_item('charset'));
+			$this->page->set_metatag('content-type','text/html; charset='.config_item('charset'),TRUE);
             $this->page->set_metatag('robots','all');
             $this->page->set_metatag('pragma','cache',TRUE);
 

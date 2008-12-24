@@ -63,7 +63,7 @@
     	otherwise other people will be able to reset your system setup.</p>
 
     	<p>You may now use the system, <a href="../index.php">click here</a> to do so.</p>
-    	<p>A <a href="install_log.txt">log file</a> has been created with detailed
+    	<p>A <a href="install.log">log file</a> has been created with detailed
     	information about the install</p>
 	    <?php else:?>
 	    <p>An error has occured during the installation of BackendPro. Please check the

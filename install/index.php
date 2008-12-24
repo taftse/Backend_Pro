@@ -106,7 +106,7 @@
 
             <br>
             <h3>Encryption Key</h3>
-            <p>Throughout the BackendPro system, encryption is used to protect sensetive data.
+            <p>Throughout the BackendPro system, encryption is used to protect sensitive data.
             For this we need an encryption key, please specify one below. If you do not
             provide one, a random key will be generated for you. When picking a key please
             ensure it is at least 32 characters long and as random as possible. <b>If this key

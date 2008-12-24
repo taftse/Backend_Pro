@@ -49,7 +49,7 @@
      $lang['userlib_admin_activation'] = 'Before you can login to your new account an administrator must verify it, this may take a few days. Please be patient. You will recive an email informing you when your account has been activated. Untill this time you will not be able to login to the system.';
 
      /* Email subject titles */
-     $lang['userlib_email_forgotten_password'] = 'Requested new login infomation';
+     $lang['userlib_email_forgotten_password'] = 'Requested new login information';
      $lang['userlib_email_register'] = 'Your new Account has been created';
 
      /* Auth validation messages */
@@ -67,7 +67,7 @@
      $lang['userlib_logout_failed'] = 'We could not log you out, please try again.';
      $lang['userlib_email_not_found'] = 'The email provided is not in our database.';
      $lang['userlib_new_password_sent'] = 'A new password has been emailed to you.';
-     $lang['userlib_registration_denied'] = 'Registration is not permited with this website.';
+     $lang['userlib_registration_denied'] = 'Registration is not permitted with this website.';
      $lang['userlib_registration_failed'] = 'We could not create your user account, please try again.';
      $lang['userlib_registration_success'] = 'Your new account has been created, please check your email for further details';
      $lang['userlib_activation_success'] = 'Your account has been activated, you may now login.';
