@@ -2,13 +2,13 @@
 /**
  * BackendPro
  *
- * An open source development control panel written in PHP
+ * A website backend system for developers for PHP 4.3.2 or newer
  *
- * @package		BackendPro
- * @author		Adam Price
- * @copyright	Copyright (c) 2008, Adam Price
- * @license		http://www.gnu.org/licenses/lgpl.html
- * @link		http://www.kaydoo.co.uk/projects/backendpro
+ * @package         BackendPro
+ * @author          Adam Price
+ * @copyright       Copyright (c) 2008
+ * @license         http://www.gnu.org/licenses/lgpl.html
+ * @link            http://www.kaydoo.co.uk/projects/backendpro
  * @filesource
  */
 
@@ -19,8 +19,8 @@
  *
  * Allows the creation and display of status messages to the user.
  *
- * @package		BackendPro
- * @subpackage	Libraries
+ * @package			BackendPro
+ * @subpackage		Libraries
  */
 class Status
 {
@@ -34,6 +34,8 @@ class Status
 
 		// Load other module files
 		$this->CI->load->helper('status');
+
+		log_message('debug','BackendPro : Status class loaded');
 	}
 
 	/**
@@ -41,9 +43,10 @@ class Status
 	 *
 	 * The message will be live until $this->display() is called
 	 *
-	 * @param 	string $type Type of message
-	 * @param 	string $message Message to display
-	 * @return 	bool
+	 * @access public
+	 * @param string $type Type of message
+	 * @param string $message Message to display
+	 * @return bool
 	 */
 	function set($type = NULL, $message = NULL)
 	{
@@ -55,7 +58,7 @@ class Status
 		// Check its a valid type
 		if ( ! in_array($type, $this->types) )
 		{
-			log_message('error',$type . " is not a valid status message type");
+			log_message('error','BackendPro->Status->set : Invalid status message type: ' . $type);
 		}
 
 		// Fetch current flashdata from session
@@ -69,6 +72,7 @@ class Status
 			// Save the data back into the session
 			$this->CI->session->set_userdata($this->flash_var,serialize($data));
 		}
+		return TRUE;
 	}
 
 	/**
@@ -85,7 +89,7 @@ class Status
 	 */
 	function display($type = NULL,$print = TRUE)
 	{
-		log_message('debug','Display all '.$type.' messages');
+		log_message('debug','BackendPro->Status->display : Display all messages of type: ' . $type);
 		// Fetch messages
 		$msgdata = $this->_fetch();
 
@@ -130,7 +134,6 @@ class Status
 	 *
 	 * @access private
 	 * @param string $type Message type to remove
-	 * @return void
 	 */
 	function _remove($type = NULL)
 	{
@@ -146,7 +149,6 @@ class Status
 			unset($data[$type]);
 			$this->CI->session->set_userdata($this->flash_var,serialize($data));
 		}
-		return;
 	}
 
 	/**
