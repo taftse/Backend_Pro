@@ -65,6 +65,8 @@ class User_model extends Base_model
 				break;
 		}
 
+		$this->db->where('password',$password);
+
 		return $this->fetch('Users','id,active');
 	}
 
