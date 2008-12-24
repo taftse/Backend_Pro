@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * BackendPro
  *
@@ -8,7 +8,7 @@
  * @author          Adam Price
  * @copyright       Copyright (c) 2008
  * @license         http://www.gnu.org/licenses/lgpl.html
- * @link            http://backendpro.kaydoo.co.uk
+ * @link            http://www.kaydoo.co.uk/projects/backendpro
  * @filesource
  */
 
@@ -40,9 +40,15 @@ class Image extends Controller
 		// Setup the cache path so it uses that declared in the
 		// CodeIgniter config file
 		if ($this->config->item('cache_path') == "")
+		{
 			$this->cache = BASEPATH . "cache/";
+		}
 		else
+		{
 			$this->cache = $this->config->item('cache_path');
+		}
+
+		log_message('debug','BackendPro : Image class loaded');
 	}
 
 	/**
@@ -50,6 +56,7 @@ class Image extends Controller
 	 *
 	 * Process an image and output it to the browser
 	 *
+	 * @access public
 	 * @return Image
 	 */
 	function get()
@@ -61,7 +68,7 @@ class Image extends Controller
 		if( $uri_array['file'] == NULL)
 		{
 			// Don't continue
-			log_message("error","Badly formed image request string:".$this->uri->uri_string());
+			log_message("error","BackendPro->Image->get : Badly formed image request string: " . $this->uri->uri_string());
 			return;
 		}
 
@@ -69,13 +76,15 @@ class Image extends Controller
 		foreach($this->config->item('image_folders') as $folder)
 		{
 			if ( file_exists($folder.$uri_array['file']))
+			{
 				$this->img_path = $folder.$uri_array['file'];
+			}
 		}
 
 		// Image couldn't be found
 		if ($this->img_path == NULL)
 		{
-			log_message("error","Image dosn't exisit: ".$uri_array['file']);
+			log_message("error","BackendPro->Image->get : Image dosn't exisit: " . $uri_array['file']);
 			return;
 		}
 
@@ -87,7 +96,7 @@ class Image extends Controller
 		// Make sure that the requested file is actually an image
 		if (substr($size['mime'], 0, 6) != 'image/')
 		{
-			log_message("error","Requested file is not an accepted type: ".$this->img_path);
+			log_message("error","BackendPro->Image->get : Requested file is not an accepted type: " . $this->img_path);
 			return;
 		}
 
@@ -157,12 +166,19 @@ class Image extends Controller
 		$new_width = $width;
 		$new_height = $height;
 		if( $uri_array['width'] != NULL AND $uri_array['height'] != NULL)
-		{	// Resize image to fit into both dimensions
+		{
+			// Resize image to fit into both dimensions
 			$new_ratio = $uri_array['width'] / $uri_array['height'];
 			if($ratio > $new_ratio)
-				$uri_array['height'] = NULL;	// Height is larger
+			{
+				// Height is larger
+				$uri_array['height'] = NULL;
+			}
 			else
-				$uri_array['width'] = NULL;		// Width is larger
+			{
+				// Width is larger
+				$uri_array['width'] = NULL;
+			}
 		}
 
 		if ( $uri_array['width'] == NULL AND $uri_array['height'] != NULL)
@@ -192,7 +208,7 @@ class Image extends Controller
 			if ( !is_really_writable($this->cache))
 			//if( !is_writable($this->cache))
 			{
-				log_message('error',"Cache folder isn't writable: ".$this->cache);
+				log_message('error',"BackendPro->Image->get : Cache folder isn't writable: " . $this->cache);
 			}
 			else
 			{
@@ -222,20 +238,27 @@ class Image extends Controller
 			false;
 
 		if (!$if_modified_since && !$if_none_match)
+		{
 			return;
+		}
 
 		if ($if_none_match && $if_none_match != $etag && $if_none_match != '"' . $etag . '"')
-			return; // etag is there but doesn't match
+		{
+			// Etag is there but doesn't match
+			return;
+		}
 
 		if ($if_modified_since && $if_modified_since != $lastModified)
-			return; // if-modified-since is there but doesn't match
+		{
+			// if-modified-since is there but doesn't match
+			return;
+		}
 
 		// Nothing has changed since their last request - serve a 304 and exit
 		header('HTTP/1.1 304 Not Modified');
 		exit();
 	}
 }
-// END Image
 
 /* End of file image.php */
 /* Location : ./modules/image/controllers/image.php */
