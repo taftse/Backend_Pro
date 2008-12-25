@@ -28,6 +28,8 @@ class Settings extends Admin_Controller
 	{
 		parent::Admin_Controller();
 
+		$this->lang->module_load('preferences','preferences');
+
 		log_message('debug','BackendPro : Settings class loaded');
 	}
 
@@ -51,12 +53,12 @@ class Settings extends Admin_Controller
 		$config['field']['site_name'] = array('rules'=>'trim|required');
 
 		$config['field']['allow_user_registration'] = array('type'=>'boolean');
-		$config['field']['activation_method'] = array('type'=>'dropdown','params'=>array('options'=>array('none'=>'No activation required','email'=>'Self activation by email','admin'=>'Manual activation by an administrator')));
+		$config['field']['activation_method'] = array('type'=>'dropdown','params'=>array('options'=>array('none'=>$this->lang->line('preference_field_activation_method_none'),'email'=>$this->lang->line('preference_field_activation_method_email'),'admin'=>$this->lang->line('preference_field_activation_method_admin'))));
 		$config['field']['account_activation_time'] = array('rules'=>'trim|required|numeric');
 		$config['field']['autologin_period'] = array('rules'=>'trim|required|numeric');
 		$config['field']['default_user_group'] = array('type'=>'dropdown','params'=>array('options'=>$this->access_control_model->buildACLDropdown('group','id')));
 		$config['field']['allow_user_profiles'] = array('type'=>'boolean');
-		$config['field']['login_field'] = array('type'=>'dropdown','params'=>array('options'=>array('email'=>'Email','username'=>'Username','either'=>'Either')));
+		$config['field']['login_field'] = array('type'=>'dropdown','params'=>array('options'=>array('email'=>$this->lang->line('userlib_email'),'username'=>$this->lang->line('userlib_username'),'either'=>$this->lang->line('userlib_email_username'))));
 
 		$config['field']['use_login_captcha'] = array('type'=>'boolean');
 		$config['field']['use_registration_captcha'] = array('type'=>'boolean');

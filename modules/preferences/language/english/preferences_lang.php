@@ -26,6 +26,10 @@ $lang['preference_desc_account_activation_time'] = 'Number of days before a user
 $lang['preference_desc_autologin_period'] = 'Number of days for which the user will be logged in automaticaly';
 $lang['preference_desc_login_field'] = 'What way to allow users to login to the system using';
 
+$lang['preference_field_activation_method_none'] = 'No activation required';
+$lang['preference_field_activation_method_email'] = 'Self activation by email';
+$lang['preference_field_activation_method_admin'] = 'Manual activation by an administrator';
+
 // Security Preferences
 $lang['preference_label_use_login_captcha'] = 'Use Login Captcha?';
 $lang['preference_label_use_registration_captcha'] = 'Use Registration Captcha?';
