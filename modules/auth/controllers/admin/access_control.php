@@ -36,6 +36,8 @@ class Access_control extends Admin_Controller
 
 		// Set breadcrumb
 		$this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
+
+		log_message('debug','BackendPro : Access_control class loaded');
 	}
 
 	function index()

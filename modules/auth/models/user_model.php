@@ -33,7 +33,7 @@ class User_model extends Base_model
 		$this->_TABLES = array(    'Users' => $this->_prefix . 'users',
                                     'UserProfiles' => $this->_prefix . 'user_profiles');
 
-		log_message('debug','User_model Class Initialized');
+		log_message('debug','BackendPro : User_model class loaded');
 	}
 
 	/**
@@ -77,12 +77,10 @@ class User_model extends Base_model
 	 *
 	 * @access public
 	 * @param integer $user_id Users user_id
-	 * @return void
 	 */
 	function updateUserLogin($id)
 	{
 		$this->update('Users',array('last_visit'=>date ("Y-m-d H:i:s")),array('id'=>$id));
-		return;
 	}
 
 	/**

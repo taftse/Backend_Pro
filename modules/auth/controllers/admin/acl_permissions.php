@@ -39,6 +39,8 @@ class Acl_permissions extends Admin_Controller
 
 		// Check for access permission
 		check('Permissions');
+
+		log_message('debug','BackendPro : Acl_permissions class loaded');
 	}
 
 	/**

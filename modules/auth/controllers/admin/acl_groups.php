@@ -39,6 +39,8 @@ class Acl_groups extends Admin_Controller
 		// Set breadcrumb
 		$this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
 		$this->page->set_crumb($this->lang->line('access_groups'),'auth/admin/acl_groups');
+
+		log_message('debug','BackendPro : Acl_groups class loaded');
 	}
 
 	function index()

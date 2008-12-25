@@ -2,19 +2,19 @@
 /**
  * BackendPro
  *
- * An open source development control panel written in PHP
+ * A website backend system for developers for PHP 4.3.2 or newer
  *
- * @package		BackendPro
- * @author		Adam Price
- * @copyright	Copyright (c) 2008, Adam Price
- * @license		http://www.gnu.org/licenses/lgpl.html
- * @link		http://www.kaydoo.co.uk/projects/backendpro
+ * @package         BackendPro
+ * @author          Adam Price
+ * @copyright       Copyright (c) 2008
+ * @license         http://www.gnu.org/licenses/lgpl.html
+ * @link            http://www.kaydoo.co.uk/projects/backendpro
  * @filesource
  */
 
-// ------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
-include_once(APPPATH.'models/Nested_sets_model.php');
+include_once(APPPATH . 'models/Nested_sets_model.php');
 
 /**
  * Access Control Model
@@ -52,7 +52,7 @@ class access_control_model extends Base_Model
 		$this->group->setControlParams($this->_TABLES['aros']);
 		$this->group->setPrimaryKeyColumn('id');
 
-		log_message('debug','Access Control Model Class Initialized');
+		log_message('debug','BackendPro : Access_control_model class loaded');
 	}
 
 
@@ -124,10 +124,10 @@ class access_control_model extends Base_Model
 	 * @param string $not_last_siling String appended to offset if this is not the last node of the current level
 	 */
 	function buildPrettyOffset($obj, $tree,
-	$next_ancestor_sibling = "|&nbsp;&nbsp; ",
-	$no_next_ancestor_sibling = "&nbsp;&nbsp;&nbsp; ",
-	$last_sibling = "`- ",
-	$not_last_sibling = "|- ")
+		$next_ancestor_sibling = "|&nbsp;&nbsp; ",
+		$no_next_ancestor_sibling = "&nbsp;&nbsp;&nbsp; ",
+		$last_sibling = "`- ",
+		$not_last_sibling = "|- ")
 	{
 		$lvl = $obj->getTreeLevel($tree);
 
@@ -178,7 +178,7 @@ class access_control_model extends Base_Model
 	{
 		if( $tree_id != 'group' AND $tree_id != 'resource')
 		{
-			show_error("The tree_id for the dropdown must be either 'group' OR 'resource'.");
+			show_error("BackendPro->Access_control_model->buildACLDropDown : The tree_id for the dropdown must be either 'group' OR 'resource'.");
 		}
 
 		$obj =& $this->{$tree_id};
