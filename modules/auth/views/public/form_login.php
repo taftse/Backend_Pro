@@ -1,47 +1,47 @@
-<h3><?=$header?></h3>
-<?=form_open('auth/login',array('class'=>'horizontal'))?>
+<h3><?php print $header?></h3>
+<?php print form_open('auth/login',array('class'=>'horizontal'))?>
     <fieldset>
         <ol>
             <li>
-                <label for="login_field"><?=$login_field?>:</label>
-                <input type="text" name="login_field" id="login_field" class="text" value="<?=$this->validation->login_field?>"/>
+                <label for="login_field"><?php print $login_field?>:</label>
+                <input type="text" name="login_field" id="login_field" class="text" value="<?php print $this->validation->login_field?>"/>
             </li>
             <li>
-                <label for="password"><?=$this->lang->line('userlib_password')?>:</label>
+                <label for="password"><?php print $this->lang->line('userlib_password')?>:</label>
                 <input type="password" name="password" id="password" class="text" />
             </li>
             <li>
-                <label for="remember"><?=$this->lang->line('userlib_remember_me')?>?</label>
-                <?=form_checkbox('remember','yes',$this->input->post('remember'))?>
+                <label for="remember"><?php print $this->lang->line('userlib_remember_me')?>?</label>
+                <?php print form_checkbox('remember','yes',$this->input->post('remember'))?>
             </li>
             <?php
             // Only display captcha if needed
             if($this->preference->item('use_login_captcha')):?>
             <li class="captcha">
-                <label for="recaptcha_response_field"><?=$this->lang->line('userlib_captcha')?>:</label>
-                <?=$captcha?>
+                <label for="recaptcha_response_field"><?php print $this->lang->line('userlib_captcha')?>:</label>
+                <?php print $captcha?>
             </li>
             <?php endif;?>
 
             <li class="submit">
             	<div class="buttons">
             		<button type="submit" class="positive" name="submit" value="submit">
-            			<?=$this->page->icon('key') ?>
-            			<?=$this->lang->line('userlib_login')?>
+            			<?php print $this->page->icon('key') ?>
+            			<?php print $this->lang->line('userlib_login')?>
             		</button>
 
-            		<a href="<?=site_url('auth/forgotten_password') ?>">
-            			<?=$this->page->icon('arrow_refresh') ?>
-            			<?=$this->lang->line('userlib_forgotten_password')?>
+            		<a href="<?php print site_url('auth/forgotten_password') ?>">
+            			<?php print $this->page->icon('arrow_refresh') ?>
+            			<?php print $this->lang->line('userlib_forgotten_password')?>
             		</a>
 
             		<?php if($this->preference->item('allow_user_registration')):?>
-            		<a href="<?=site_url('auth/register') ?>">
-            			<?=$this->page->icon('user') ?>
-            			<?=$this->lang->line('userlib_register')?>
+            		<a href="<?php print site_url('auth/register') ?>">
+            			<?php print $this->page->icon('user') ?>
+            			<?php print $this->lang->line('userlib_register')?>
             		</a>
             		<?php endif;?>
             </li>
         </ol>
     </fieldset>
-<?=form_close()?>
+<?php print form_close()?>

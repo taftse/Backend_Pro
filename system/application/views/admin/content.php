@@ -1,13 +1,13 @@
 <div id="navigation">
-    <?=$this->load->view($this->config->item('backendpro_template_admin') . 'menu');?>
+    <?php print $this->load->view($this->config->item('backendpro_template_admin') . 'menu');?>
 </div>
 <div id="breadcrumb">
         <?php $this->page->output_breadcrumb();?>
     </div>
 <div id="content">
     <a name="top"></a>
-    <?=displayStatus();?>
-    <?=(isset($content)) ? $content : NULL; ?>
+    <?php print displayStatus();?>
+    <?php print (isset($content)) ? $content : NULL; ?>
     <?php
     if( isset($page)){
     if( isset($module)){

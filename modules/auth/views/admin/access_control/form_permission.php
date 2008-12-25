@@ -1,11 +1,11 @@
-<h2><?=$header?></h2>
+<h2><?php print $header?></h2>
 
-<?=form_open('auth/admin/acl_permissions/save')?>
+<?php print form_open('auth/admin/acl_permissions/save')?>
 <table width="100%" cellspacing="0">
     <tr>
-        <td width="33%"><b><?=$this->lang->line('access_groups')?></b></td>
-        <td width="33%"><b><?=$this->lang->line('access_resources')?></b></td>
-        <td width="33%"><b><?=$this->lang->line('access_actions')?></b></td>
+        <td width="33%"><b><?php print $this->lang->line('access_groups')?></b></td>
+        <td width="33%"><b><?php print $this->lang->line('access_resources')?></b></td>
+        <td width="33%"><b><?php print $this->lang->line('access_actions')?></b></td>
     </tr>
     <tr>
         <td colspan="3">
@@ -13,30 +13,30 @@
         		// Show regions as readonly?
         		$readonly = ($_POST['id'] == NULL)?'':' readonly';
         	?>
-	        <div class="scrollable_tree<?=$readonly?>"><ul id="groups"><?=$this->access_control_model->buildGroupSelector(($_POST['id']!=NULL))?></ul></div>
-			<div class="scrollable_tree<?=$readonly?>"><ul id="resources"><?=$this->access_control_model->buildResourceSelector(($_POST['id']!=NULL))?></ul></div>
-			<div class="scrollable_tree"><?=$this->access_control_model->buildActionSelector()?></div>
+	        <div class="scrollable_tree<?php print $readonly?>"><ul id="groups"><?php print $this->access_control_model->buildGroupSelector(($_POST['id']!=NULL))?></ul></div>
+			<div class="scrollable_tree<?php print $readonly?>"><ul id="resources"><?php print $this->access_control_model->buildResourceSelector(($_POST['id']!=NULL))?></ul></div>
+			<div class="scrollable_tree"><?php print $this->access_control_model->buildActionSelector()?></div>
         </td>
     </tr>
     <tr>
 
         <td colspan="3">
-            <b><?=$this->lang->line('access')?>:</b><br/>
-            <?=form_radio('allow','Y',$this->validation->set_radio('allow','Y')) . $this->lang->line('access_allow')?>
-            <?=form_radio('allow','N',$this->validation->set_radio('allow','N')) . $this->lang->line('access_deny')?>
+            <b><?php print $this->lang->line('access')?>:</b><br/>
+            <?php print form_radio('allow','Y',$this->validation->set_radio('allow','Y')) . $this->lang->line('access_allow')?>
+            <?php print form_radio('allow','N',$this->validation->set_radio('allow','N')) . $this->lang->line('access_deny')?>
         </td>
     </tr>
 </table>
-<?=form_hidden('id',$this->validation->id)?>
+<?php print form_hidden('id',$this->validation->id)?>
 <div class="buttons">
 	<button type="submit" class="positive" name="submit" value="submit">
-		<?=$this->page->icon('disk');?>
-		<?=$this->lang->line('general_save');?>
+		<?php print $this->page->icon('disk');?>
+		<?php print $this->lang->line('general_save');?>
 	</button>
 
-	<a href="<?=site_url('auth/admin/acl_permissions')?>" class="negative">
-		<?=$this->page->icon('cross');?>
-		<?=$this->lang->line('general_cancel');?>
+	<a href="<?php print site_url('auth/admin/acl_permissions')?>" class="negative">
+		<?php print $this->page->icon('cross');?>
+		<?php print $this->lang->line('general_cancel');?>
 	</a>
 </div>
-<?=form_close()?>
+<?php print form_close()?>

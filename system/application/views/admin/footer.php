@@ -3,9 +3,9 @@
             <a href="http://www.kaydoo.co.uk/projects/backendpro">BackendPro</a> &copy; Copyright 2008 - <a href="http://www.kaydoo.co.uk">Adam Price</a> -  All rights Reserved
         </div>
         <div id="version">
-            <a href="#top"><?=$this->lang->line('general_top')?></a> |
-            <a href="<?=base_url()?>user_guide"><?=$this->lang->line('general_documentation')?></a> |
-            Version <?=BEP_VERSION?></div>
+            <a href="#top"><?php print $this->lang->line('general_top')?></a> |
+            <a href="<?php print base_url()?>user_guide"><?php print $this->lang->line('general_documentation')?></a> |
+            Version <?php print BEP_VERSION?></div>
     </div>
 </div>
 

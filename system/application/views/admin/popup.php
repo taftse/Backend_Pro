@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title><?=$header.' | '.$this->preference->item('site_name')?></title>
-	<?=$this->page->output_variables()?>
-	<?=$this->page->output_assets('admin')?>
+	<title><?php print $header.' | '.$this->preference->item('site_name')?></title>
+	<?php print $this->page->output_variables()?>
+	<?php print $this->page->output_assets('admin')?>
 </head>
 <body style="padding: 2em;">
     <a name="top"></a>
-    <?=displayStatus();?>
-    <?=(isset($content)) ? $content : NULL; ?>
+    <?php print displayStatus();?>
+    <?php print (isset($content)) ? $content : NULL; ?>
     <?php
     if( isset($page)){
     if( isset($module)){

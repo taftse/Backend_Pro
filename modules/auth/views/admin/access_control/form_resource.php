@@ -1,30 +1,30 @@
-<h2><?=$header?></h2>
+<h2><?php print $header?></h2>
 
-<?=form_open('auth/admin/acl_resources/form/'.$this->validation->id,array('class'=>'horizontal'))?>
+<?php print form_open('auth/admin/acl_resources/form/'.$this->validation->id,array('class'=>'horizontal'))?>
     <fieldset>
         <ol>
             <li>
-                <?=form_label($this->lang->line('access_name'),'name')?>
-                <?=form_input('name',$this->validation->name,'class="text'.($this->validation->id==''?'"':' readonly" READONLY'))?>
+                <?php print form_label($this->lang->line('access_name'),'name')?>
+                <?php print form_input('name',$this->validation->name,'class="text'.($this->validation->id==''?'"':' readonly" READONLY'))?>
             </li>
             <li>
-                <?=form_label($this->lang->line('access_parent_name'),'parent')?>
-                <?=form_dropdown('parent',$resources,$this->validation->parent,'size=10 style="width:20.3em;"')?>
+                <?php print form_label($this->lang->line('access_parent_name'),'parent')?>
+                <?php print form_dropdown('parent',$resources,$this->validation->parent,'size=10 style="width:20.3em;"')?>
             </li>
             <li class="submit">
-                <?=form_hidden('id',$this->validation->id)?>
+                <?php print form_hidden('id',$this->validation->id)?>
                 <div class="buttons">
 					<button type="submit" class="positive" name="submit" value="submit">
-						<?=$this->page->icon('disk') ?>
-						<?=$this->lang->line('general_save') ?>
+						<?php print $this->page->icon('disk') ?>
+						<?php print $this->lang->line('general_save') ?>
 					</button>
 
-					<a href="<?=site_url('auth/admin/acl_resources')?>" class="negative">
-						<?=$this->page->icon('cross') ?>
-						<?=$this->lang->line('general_cancel')?>
+					<a href="<?php print site_url('auth/admin/acl_resources')?>" class="negative">
+						<?php print $this->page->icon('cross') ?>
+						<?php print $this->lang->line('general_cancel')?>
 					</a>
 				</div>
             </li>
         </ol>
     </fieldset>
-<?=form_close()?>
+<?php print form_close()?>

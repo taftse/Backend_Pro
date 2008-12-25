@@ -1,30 +1,30 @@
-<h2><?=$header?></h2>
+<h2><?php print $header?></h2>
 
 <div class="buttons">                
-	<a href="<?= site_url('auth/admin/members/form')?>">
-    <?= $this->page->icon('add');?>
-    <?=$this->lang->line('userlib_create_user')?>
+	<a href="<?php print  site_url('auth/admin/members/form')?>">
+    <?php print  $this->page->icon('add');?>
+    <?php print $this->lang->line('userlib_create_user')?>
     </a>
 </div><br/><br/>
 
-<?=form_open('auth/admin/members/delete')?>
+<?php print form_open('auth/admin/members/delete')?>
 <table class="data_grid" cellspacing="0">
     <thead>
         <tr>
-            <th width=5%><?=$this->lang->line('general_id')?></th>
-            <th><?=$this->lang->line('userlib_username')?></th>
-            <th><?=$this->lang->line('userlib_email')?></th>
-            <th><?=$this->lang->line('userlib_group')?></th>
-            <th><?=$this->lang->line('userlib_last_visit')?></th>
-            <th width=5% class="middle"><?=$this->lang->line('userlib_active')?></th> 
-            <th width=5% class="middle"><?=$this->lang->line('general_edit')?></th>
-            <th width=10%><?=form_checkbox('all','select',FALSE)?><?=$this->lang->line('general_delete')?></th>        
+            <th width=5%><?php print $this->lang->line('general_id')?></th>
+            <th><?php print $this->lang->line('userlib_username')?></th>
+            <th><?php print $this->lang->line('userlib_email')?></th>
+            <th><?php print $this->lang->line('userlib_group')?></th>
+            <th><?php print $this->lang->line('userlib_last_visit')?></th>
+            <th width=5% class="middle"><?php print $this->lang->line('userlib_active')?></th> 
+            <th width=5% class="middle"><?php print $this->lang->line('general_edit')?></th>
+            <th width=10%><?php print form_checkbox('all','select',FALSE)?><?php print $this->lang->line('general_delete')?></th>        
         </tr>
     </thead>
     <tfoot>
         <tr>
             <td colspan=7>&nbsp;</td>
-            <td><?=form_submit('delete',$this->lang->line('general_delete'),'onClick="return confirm(\''.$this->lang->line('userlib_delete_user_confirm').'\');"')?></td>
+            <td><?php print form_submit('delete',$this->lang->line('general_delete'),'onClick="return confirm(\''.$this->lang->line('userlib_delete_user_confirm').'\');"')?></td>
         </tr>
     </tfoot>
     <tbody>
@@ -34,16 +34,16 @@
             $delete  = ($row['id'] == $this->session->userdata('id')?'&nbsp;':form_checkbox('select[]',$row['id'],FALSE));            
         ?>
         <tr>
-            <td><?=$row['id']?></td>
-            <td><?=$row['username']?></td>
-            <td><?=$row['email']?></td>
-            <td><?=$row['group']?></td>
-            <td><?=$row['last_visit']?></td>
-            <td class="middle"><?=img($this->config->item('shared_assets').'icons/'.($row['active']?'tick':'cross').'.png')?></td>
-            <td class="middle"><a href="<?=site_url('auth/admin/members/form/'.$row['id'])?>"><?=img($this->config->item('shared_assets').'icons/pencil.png')?></a></td>
-            <td><?=$delete?></td>
+            <td><?php print $row['id']?></td>
+            <td><?php print $row['username']?></td>
+            <td><?php print $row['email']?></td>
+            <td><?php print $row['group']?></td>
+            <td><?php print $row['last_visit']?></td>
+            <td class="middle"><?php print img($this->config->item('shared_assets').'icons/'.($row['active']?'tick':'cross').'.png')?></td>
+            <td class="middle"><a href="<?php print site_url('auth/admin/members/form/'.$row['id'])?>"><?php print img($this->config->item('shared_assets').'icons/pencil.png')?></a></td>
+            <td><?php print $delete?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
-<?=form_close()?>
+<?php print form_close()?>

@@ -1,7 +1,7 @@
 <div id="content">
     <a name="top"></a>
-    <?=displayStatus();?>
-    <?=(isset($content)) ? $content : NULL; ?>
+    <?php print displayStatus();?>
+    <?php print (isset($content)) ? $content : NULL; ?>
     <?php
     if( isset($page)){
     if( isset($module)){
