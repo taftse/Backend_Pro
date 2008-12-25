@@ -1,33 +1,33 @@
-<h2><?=$header?></h2>
+<h2><?php print $header;?></h2>
 
-<?=form_open($form_link)?>
+<?php print form_open($form_link);?>
 <table id="preference_form">
+	<?php foreach($field as $name => $data): ?>
+	<tr>
+	    <td class='label'>
 
-<?php foreach($field as $name => $data){ ?>
-<tr>
-    <td class='label'>
-    
-    <?=form_label($data['label'],$name)?>
-    <?php 
-    if (FALSE !== ($desc = $this->lang->line('preference_desc_'.$name)))
-        print "<small>".$desc."</small>";
-    ?>    
-    </td>
-    <td><?=$data['input']?></td>
-</tr>     
-<?php } ?>       
-
+	    <?php print form_label($data['label'],$name);?>
+	    <?php
+	    if (FALSE !== ($desc = $this->lang->line('preference_desc_'.$name)))
+	    {
+	        print "<small>".$desc."</small>";
+	    }
+	    ?>
+	    </td>
+	    <td><?php print $data['input'];?></td>
+	</tr>
+	<?php endforeach; ?>
 </table>
 
 <div class="buttons">
 	<button type="submit" class="positive" name="submit" value="submit">
-    <?= $this->page->icon('disk');?>
-    <?=$this->lang->line('general_save')?>
+    <?php print $this->page->icon('disk');?>
+    <?php print $this->lang->line('general_save');?>
     </button>
-                
-    <a href="<?=site_url($cancel_link)?>" class="negative">
-    <?= $this->page->icon('cross');?>
-    <?=$this->lang->line('general_cancel')?>
-    </a>      
+
+    <a href="<?php print site_url($cancel_link);?>" class="negative">
+    <?php print $this->page->icon('cross');?>
+    <?php print $this->lang->line('general_cancel');?>
+    </a>
 </div>
-<?=form_close()?>
+<?php print form_close();?>
