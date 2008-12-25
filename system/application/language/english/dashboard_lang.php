@@ -3,18 +3,18 @@
  * Dashboard Language Array
  *
  * This file contains all language strings used by the administration
-	 * area dashboard controller.
+ * area dashboard controller.
  *
- * @package		BackendPro
+ * @package         BackendPro
  * @subpackage 	Languages
- * @author		Adam Price
- * @copyright	Copyright (c) 2008, Adam Price
- * @license		http://www.gnu.org/licenses/lgpl.html
- * @link		http://www.kaydoo.co.uk/projects/backendpro
+ * @author          Adam Price
+ * @copyright       Copyright (c) 2008
+ * @license         http://www.gnu.org/licenses/lgpl.html
+ * @link            http://www.kaydoo.co.uk/projects/backendpro
  * @filesource
  */
 
-// ------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 /* EXAMPLE widget */
 $lang['dashboard_example'] = "Example Widget";
