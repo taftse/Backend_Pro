@@ -34,6 +34,7 @@ class Status
 
 		// Load other module files
 		$this->CI->load->helper('status');
+		$this->CI->lang->load('status');
 
 		log_message('debug','BackendPro : Status class loaded');
 	}
