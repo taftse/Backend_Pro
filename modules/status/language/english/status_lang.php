@@ -18,7 +18,7 @@
 $lang['status_type_info'] = "Info";
 $lang['status_type_warning'] = "Warning";
 $lang['status_type_error'] = "Error";
-$lang['status_type_success'] = "Cuccess";
+$lang['status_type_success'] = "Success";
 
 /* End of file status_lang.php */
 /* Location: ./modules/status/language/english/status_lang.php */
