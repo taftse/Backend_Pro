@@ -4,13 +4,9 @@ body {
 }
 
 #wrapper {
-    position: absolute;
     background-color: #FFF;
     width: 800px;
-    top: 50%;
-    left: 50%;
-    margin-left: -400px;
-    margin-top: -300px;
+    margin: 100px auto auto auto;
     padding: 2em;
     border: 1px solid #808080;
 }
