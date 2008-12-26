@@ -68,4 +68,4 @@ class auth extends Public_Controller
 	}
 }
 /* End of file auth.php */
-/* Location: ./modules/auth/controllers/auth.php *.
+/* Location: ./modules/auth/controllers/auth.php */
