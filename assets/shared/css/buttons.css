@@ -44,6 +44,7 @@
     background-color:#dff4ff;
     border:1px solid #c2e1ef;
     color:#336699;
+    text-decoration: none;
 }
 .buttons a:active{
     background-color:#6299c5;
