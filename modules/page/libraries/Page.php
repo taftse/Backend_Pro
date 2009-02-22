@@ -653,14 +653,14 @@ class Page
 
 			case 'array':
 				$output .= "new Array(";
-				foreach($array as $value)
-				{
-					$output .= $this->_handle_variable($value);
-					$output .= ",";
-				}
-				$output = substr($variable_output,0,-1);
-				$output .= ")";
-				break;
+                foreach($value as $item)
+                {
+                    $output .= $this->_handle_variable($item);
+                    $output .= ",";
+                }
+                $output = substr($output,0,-1);
+                $output .= ")";
+                break;
 
 			default:
 				// Otherwise assume its NULL
