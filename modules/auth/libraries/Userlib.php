@@ -66,8 +66,8 @@ class Userlib
 				$autologin = unserialize($autologin);
 
 				// Check its valid
-				$query = $this->CI->user_model->validateLogin($autologin['login_field'],$autologin['password']);
-				if($query->num_rows() == 1)
+				$result = $this->CI->user_model->validateLogin($autologin['login_field'],$autologin['password']);
+				if($result['valid'])
 				{
 					// Log user in
 					$this->set_userlogin($autologin['id']);
@@ -93,10 +93,35 @@ class Userlib
 
 		if($CI->session)
 		{
-			$email = $CI->session->userdata('email');
-			$group = $CI->session->userdata('group');
+			$logedin = FALSE;
 
-			if ($email !== FALSE && $group !== FALSE)
+			// If the system is setup to store details in the database
+			// only do a quick check since the user can't tamper with the values
+			if(config_item('sess_use_database') === TRUE)
+			{
+				$email = $CI->session->userdata('email');
+				$username = $CI->session->userdata('username');
+
+				$loggedin = ($email !== FALSE && $username !== FALSE);
+
+			}
+			else
+			{
+				// Query the database to verify the details are correct
+				switch($CI->preference->item('login_field'))
+				{
+					case 'email':
+						$check = $CI->session->userdata('email');
+						break;
+
+					default:
+						$check = $CI->session->userdata('username');
+				}
+				$result = $CI->user_model->validateLogin($check,$CI->session->userdata('password'));
+				$loggedin = $result['valid'];
+			}
+
+			if ($loggedin)
 			{
 				// Logged in
 				log_message('debug','BackendPro->Userlib->is_user : User is logged in');

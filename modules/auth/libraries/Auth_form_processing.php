@@ -141,11 +141,11 @@ class Auth_form_processing
 		$values['password'] = $this->CI->userlib->encode_password($this->CI->input->post('password'));
 
 		// See if a user exists with the given credentials
-		$query = $this->CI->user_model->validateLogin($values['login_field'],$values['password']);
-		if ( $query->num_rows() == 1 )
+		$result = $this->CI->user_model->validateLogin($values['login_field'],$values['password']);
+		if ( $result['valid'] )
 		{
 			// We we have a valid user
-			$user = $query->row();
+			$user = $result['query']->row();
 
 			// Check if the users account hasn't been activated yet
 			if ( $user->active == 0 )

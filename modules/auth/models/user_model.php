@@ -45,10 +45,16 @@ class User_model extends Base_model
 	 * @access public
 	 * @param string $login_field Email/Username
 	 * @param string $password Users password
-	 * @return Query
+	 * @return array('valid'=>bool,'query'=>Query)
 	 */
 	function validateLogin($login_field, $password)
 	{
+		if( !$password OR !$login_field)
+		{
+			// If there is no password
+			return array('valid'=>FALSE,'query'=>NULL);
+		}
+
 		switch($this->preference->item('login_field'))
 		{
 			case'email':
@@ -67,7 +73,9 @@ class User_model extends Base_model
 
 		$this->db->where('password',$password);
 
-		return $this->fetch('Users','id,active');
+		$query = $this->fetch('Users','id,active');
+		$found = ($query->num_rows() == 1);
+		return array('valid'=>$found,'query'=>$query);
 	}
 
 	/**
@@ -141,7 +149,7 @@ class User_model extends Base_model
 			$profile_columns = (empty($profile_fields_array)) ? '': ', profiles.'.$profile_columns;
 		}
 
-		$this->db->select('users.id, users.username, users.email, users.active, users.last_visit, users.created, users.modified, groups.name `group`, groups.id group_id'.$profile_columns);
+		$this->db->select('users.id, users.username, users.email, users.password, users.active, users.last_visit, users.created, users.modified, groups.name `group`, groups.id group_id'.$profile_columns);
 		$this->db->from($this->_TABLES['Users'] . " users");
 		$this->db->join($this->_TABLES['UserProfiles'] . " profiles",'users.id=profiles.user_id');
 		$this->db->join($acl_tables['aros'] . " groups",'groups.id=users.group');
