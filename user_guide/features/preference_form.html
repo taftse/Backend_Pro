@@ -61,8 +61,8 @@ what preferences you want to manage and how they should be managed and the rest 
 
 <p>There are two ways to setup the preference form. The first is with <strong>groups</strong>. This 
 method is good if you have a lot of settings you want to manage on the same page. An example of a grouped 
-form is that in the <var>settings.php</var> file metioned earlier. This allows you to have multiple sub-categories 
-of settings, making it easyier for the user to find the setting they want.</p>
+form is that in the <var>settings.php</var> file mentioned earlier. This allows you to have multiple sub-categories 
+of settings, making it easier for the user to find the setting they want.</p>
 
 <p>The other way is to have all the settings on a <strong>single page</strong>. Now this is fine if you only 
 have a couple of settings.</p>
@@ -72,7 +72,7 @@ have a couple of settings.</p>
 <li>
 	<p>To setup a form you pass a <kbd>config</kbd> array into the class when loading it. This config 
 	array must have <kbd>form_name</kbd> and <kbd>form_link</kbd> entries. Where <var>uri_string</var> 
-	is the uri string corrosponding to the controller and method from which the user will visit to display 
+	is the uri string corresponding to the controller and method from which the user will visit to display 
 	the settings form. <strong>If the form is being created when the user visits an <dfn>index()</dfn> method 
 	of a controller you must put <var>/index</var> on the end of the uri string.</strong></p>
 	<code>
@@ -94,9 +94,9 @@ have a couple of settings.</p>
 	</code>
 	<p>From the code above you can see each row of the array defines a new group to split the form into.</p> 
 	<ul>
-	    <li><var>group_id</var> should be a unqiue string for that group which can be passed in the url. So stick to alpha, numeric &amp; underscore strings only.</li>
+	    <li><var>group_id</var> should be a unique string for that group which can be passed in the url. So stick to alpha, numeric &amp; underscore strings only.</li>
 	    <li><var>name</var> is the form title. So 'General Settings' or something.</li>
-	    <li><var>fields</var> is a comma seperated string of all the preference names to include in the group.</li>
+	    <li><var>fields</var> is a comma separated string of all the preference names to include in the group.</li>
 	</ul>
 </li>
 
@@ -111,11 +111,11 @@ have a couple of settings.</p>
 	$config['fields']['<var>setting_name</var>'] = array('type'=&gt;'<var>type</var>','rules'=&gt;'<var>rules</var>', 'params'=&gt; <kbd>params</kbd>); 
 	</code>
 	
-	<p>Now I'm affraid explaining this can be quite tricky.</p>
+	<p>Now I'm afraid explaining this can be quite tricky.</p>
 	<ul>
 	    <li><var>setting_name</var> is the name you have called the preference in the database.</li>
 	    <li><var>type</var> is the type of input you want, please see <a href="#form_input_types">here</a> for the possible types.</li>
-	    <li><var>rules</var> is a validation string you want to run the input through on submittion. E.g. <dfn>'trim|required|valid_email'</dfn></li>
+	    <li><var>rules</var> is a validation string you want to run the input through on submission. E.g. <dfn>'trim|required|valid_email'</dfn></li>
 	    <li><kbd>params</kbd> is an array of extra parameters you want assigned to the input E.g. <dfn>array('size'=&gt;'20','onClick'=&gt;'..')</dfn>.</li>
 	</ul>
 	
