@@ -114,7 +114,11 @@ class Auth_form_processing
 			$data['module'] = 'auth';
 			$this->CI->load->view($container,$data);
 
-			$this->CI->session->keep_flashdata('requested_page');
+			if($this->CI->session->flashdata('requested_page') != "")
+			{
+				// Only remember the flashData if there was some in the first place
+				$this->CI->session->keep_flashdata('requested_page');
+			}
 		}
 		else
 		{
