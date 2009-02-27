@@ -32,6 +32,7 @@ $lang['dashboard_statistics_offline'] = "Offline";
 $lang['dashboard_statistics_user_registration'] = "User Registration";
 $lang['dashboard_statistics_name'] = "Name";
 $lang['dashboard_statistics_value'] = "Value";
+$lang['dashboard_statistics_php_version'] = "PHP Version";
 
 /* End of file dashboard_lang.php */
 /* Location: ./system/application/language/english/dashboard_lang.php */
