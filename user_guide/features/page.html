@@ -208,6 +208,31 @@ see <a href="#asset_caching">Asset Caching</a> above for more information.</p>
 the following: <kbd>string</kbd>, <kbd>integer</kbd>, <kbd>boolean</kbd>, <kbd>null</kbd>,
 <kbd>non-associative nested array</kbd>.</p>
 
+<a name="set_js"></a>
+<h3>$this-&gt;page-&gt;set_js()</h3>
+<p>Add Javascript Code to Page</p>
+<code>$this-&gt;page-&gt;set_js('<var>string</var>')</code>
+<p>Allows a javascript string to be prepended to the final page. Any string
+entered will be surrounded by &lt;script...&gt; HTML tags.</p>
+<code>
+$this-&gt;page-&gt;set_js('alert("Hello World");');<br />
+<br />
+Will be outputed as<br />
+<br />
+&lt;script type="text/javascript"&gt;<br />
+&lt;!--<br />
+alert("Hello World");<br />
+// --&gt;<br />
+&lt;/script&gt;
+</code>
+
+<a name="output_js"></a>
+<h3>$this-&gt;page-&gt;output_js()</h3>
+<p>Output Javascript Code to Page</p>
+<code>$this-&gt;page-&gt;output_js()</code>
+<p>Outputs any javascript set using <dfn>$this-&gt;page-&gt;set_js(...)</dfn> to the page.
+<p class="important"><strong>Note:</strong> By default in the BackendPro views, the order in which things are outputed are: JS variables/Assets/JS Code</p>
+
 <a name="set_crumb"></a>
 <h3>$this-&gt;page-&gt;set_crumb()</h3>
 <p>Create breadcrumb</p>

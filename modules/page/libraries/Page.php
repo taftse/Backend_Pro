@@ -27,6 +27,7 @@
  */
 class Page
 {
+	var $javascript = array();		// Javascript array
 	var $meta_tags = array();		// Meta tag array
 	var $variables = array();		// PHP -> JS variable array
 	var $default_assets = array();	// Default page assets
@@ -235,6 +236,34 @@ class Page
 				return $output;
 			}
 		}
+	}
+
+	/**
+	 * Add a Javascript string to output to the page
+	 *
+	 * @access public
+	 * @param string $js
+	 */
+	function set_js( $js )
+	{
+		$this->javascript[] = $js;
+	}
+
+	/**
+	 * Output Page JavaScript
+	 *
+	 * @return string
+	 */
+	function output_js()
+	{
+		$out = '';
+		if(count($this->javascript) != 0)
+		{
+			$out = "<script type=\"text/javascript\">\n";
+			$out .= implode( "\n", $this->javascript) . "\n" ;
+			$out .= '</script>';
+		}
+		return $out;
 	}
 
 	/**
