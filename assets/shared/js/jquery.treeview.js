@@ -79,9 +79,9 @@ $.fn.treeview = function(options){
             
             // Store change
             if(subtree.css('display')=='none')
-                $.cookie(settings.cookie_name+parent.attr('id'), 'block');
+                $.cookie(settings.cookie_name+parent.attr('id'), 'block',{path: '/'});
             else
-                $.cookie(settings.cookie_name+parent.attr('id'), 'none');
+                $.cookie(settings.cookie_name+parent.attr('id'), 'none',{path: '/'});
             
             // Animate the subtree
             subtree.animate(settings.animate,settings.speed);            
