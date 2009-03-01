@@ -26,58 +26,32 @@ class Home extends Admin_Controller
 	{
 		parent::Admin_Controller();
 
-		// Load dashboard language file
-		$this->lang->load('dashboard');
-
 		log_message('debug','BackendPro : Home class loaded');
 	}
 
-	function index()
-	{
-		// Include dashboard Javascript code
-		$this->page->set_asset('admin','js','dashboard.js');
+function index()
+{
+	// Include dashboard Javascript code
+	$this->page->set_asset('admin','js','dashboard.js');
 
-		// Load the dashboard library
-		$this->load->library('dashboard');
+	// Load the dashboard library
+	$this->load->module_library('dashboard','dashboard');
 
-		// Assign widgets to dashboard
-		$this->dashboard->assign_widget(new widget($this->lang->line('dashboard_example'),$this->lang->line('dashboard_example_body')),'left');
-		$this->dashboard->assign_widget(new widget($this->lang->line('dashboard_statistics'),$this->_widget_statistics()),'right');
+	// Load any widget libraries
+	$this->load->module_library('dashboard','Statistic_widget');
 
-		// Load dashboard onto page
-		$data['dashboard'] = $this->dashboard->output();
+	// Assign widgets to dashboard
+	$this->dashboard->assign_widget(new widget($this->lang->line('dashboard_example'),$this->lang->line('dashboard_example_body')),'left');
+	$this->dashboard->assign_widget(new widget($this->lang->line('dashboard_statistics'),$this->statistic_widget->create()),'right');
 
-		// Display Page
-		$data['header'] = $this->lang->line('backendpro_dashboard');
-		$data['page'] = $this->config->item('backendpro_template_admin') . "home";
-		$this->load->view($this->_container,$data);
-	}
+	// Load dashboard onto page
+	$data['dashboard'] = $this->dashboard->output();
 
-	/**
-	 * Generate Statistics Code
-	 *
-	 * Generate the contents of the statistics widget and return it as a string.
-	 *
-	 * @access private
-	 * @return string
-	 */
-	function _widget_statistics()
-	{
-		$this->load->module_model('auth','user_model');
-
-		// Get total number of members
-		$query = $this->user_model->getUsers();
-		$data['total_members'] = $query->num_rows();
-
-		// Get total number of unactivated members
-		$query = $this->user_model->getUsers(array('users.active'=>'0'));
-		$data['total_unactivated_members'] = $query->num_rows();
-
-		$data['system_status'] = ($this->preference->item('maintenance_mode')) ? '<font color="red">'.$this->lang->line('dashboard_statistics_offline').'</font>' : '<font color="green">'.$this->lang->line('dashboard_statistics_online').'</font>';
-		$data['user_registration'] = ($this->preference->item('allow_user_registration')) ? '<font color="green">'.$this->lang->line('dashboard_statistics_online').'</font>' : '<font color="red">'.$this->lang->line('dashboard_statistics_offline').'</font>';
-
-		return $this->load->view($this->config->item('backendpro_template_admin') . 'dashboard/statistics',$data,TRUE);
-	}
+	// Display Page
+	$data['header'] = $this->lang->line('backendpro_dashboard');
+	$data['page'] = $this->config->item('backendpro_template_admin') . "home";
+	$this->load->view($this->_container,$data);
+}
 }
 /* End of file home.php */
 /* Location: ./system/application/controllers/admin/home.php */

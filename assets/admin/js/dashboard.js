@@ -11,6 +11,18 @@ $(document).ready(function(){
   
   	// Get the current dashboard settings from the cookie
   	// and position the widgets accordingly
+  	//
+  	// When the widgets are saved there are saved in a string with the following
+  	// format
+  	//
+  	// {region}[]={widget_id}&...&{widget_id}[]=visible/hidden
+  	//
+  	// Where the following variables exist:
+  	//	{region} 	= The dashboard region, either topsection, leftsection or rightsection
+  	//	{widget_id} = The widget md5 name hash
+  	//
+  	// The actual widgets have ID of something like widget_98321j3ky98123jk213 but only ever
+  	// the bit after widget_ is stored
   	var arr = $.cookie('bep_dashboard');
   	if( arr != null)
   	{
@@ -28,9 +40,9 @@ $(document).ready(function(){
 	  		{
 	  			// We have a visibility cmd
 	  			if(cmd[1] == 'hidden')
-	  				$('#'+cmd[0],regions).hide();
+	  				$('#widget_'+cmd[0],regions).hide();
 	  		}
-	  	}  	
+	  	}  
 	 }
   
   	// Make regions sortable
@@ -92,25 +104,32 @@ $(document).ready(function(){
     	
     	// Save the order which the widgets are in
     	regions.each(function(){
-    		cookie = cookie + "&" + $(this).sortable("serialize").replace(/widget/g, $(this).attr('id'));
+    		var widget = $(this).sortable("serialize").replace(/widget/g, $(this).attr('id'));
+    		
+    		// If no widgets in region, move to next region
+    		if(widget == "") return true;
+    		
+    		if(cookie == "") cookie = widget;
+    		else cookie = cookie + "&" + widget;
     	});
     	
     	// Loop over all widgets and save their values into cookies
     	// If it isn't meant to be shown hide the widget
     	widgets.each(function(){
+    		newID = $(this).attr('id').replace(/widget_/g, '');
     		if($('div.action img:visible',this).hasClass('db-hidden')){
     			// Cross is showing
-    			cookie = cookie + "&" + $(this).attr('id') + "[]=hidden";
+    			cookie = cookie + "&" + newID + "[]=hidden";
     			$(this).hide();
     		}
     		else{
     			// Tick is showing
-    			cookie = cookie + "&" + $(this).attr('id') + "[]=visible";
+    			cookie = cookie + "&" + newID + "[]=visible";
     		}
     	});
     	
     	// Save cookie
-    	$.cookie('bep_dashboard',cookie.substring(1),{expires: 31});
+    	$.cookie('bep_dashboard',cookie,{expires: 31});
     	
     	// Hide the button and display the edit button
     	saveBnt.hide();

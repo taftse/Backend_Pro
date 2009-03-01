@@ -68,30 +68,27 @@ display a dashboard it requires two classes:</p>
 
 <code>
 function&nbsp;index()<br />
-{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;<kbd>1.</kbd>&nbsp;Include&nbsp;dashboard&nbsp;Javascript&nbsp;code<br />
-&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;page-&gt;set_asset('admin','js','dashboard.js');<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;// <var>1</var> &nbsp;Include&nbsp;dashboard&nbsp;Javascript&nbsp;code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this->page->set_asset('admin','js','dashboard.js');<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;<kbd>2.</kbd>&nbsp;Load&nbsp;the&nbsp;dashboard&nbsp;library<br />
-&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;library('dashboard');<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;<kbd>3.</kbd>&nbsp;Assign&nbsp;widgets&nbsp;to&nbsp;dashboard<br />
-&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;dashboard-&gt;assign_widget(new&nbsp;widget($this-&gt;lang-&gt;line('dashboard_example'),$this-&gt;lang-&gt;line('dashboard_example_body')),'left');<br />
-&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;dashboard-&gt;assign_widget(new&nbsp;widget($this-&gt;lang-&gt;line('dashboard_statistics'),<dfn>$this-&gt;_widget_statistics()</dfn>),'right');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;// <var>2</var> &nbsp;Load&nbsp;the&nbsp;dashboard&nbsp;library<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this->load->module_library('dashboard','dashboard');<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;<kbd>4.</kbd>&nbsp;Load&nbsp;dashboard&nbsp;onto&nbsp;page<br />
-&nbsp;&nbsp;&nbsp;&nbsp;$data['dashboard']&nbsp;=&nbsp;$this-&gt;dashboard-&gt;output();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;// <var>3</var> &nbsp;Load&nbsp;any&nbsp;widget&nbsp;libraries<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this->load->module_library('dashboard','Statistic_widget');<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;// <var>4</var> &nbsp;Assign&nbsp;widgets&nbsp;to&nbsp;dashboard<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this->dashboard->assign_widget(new&nbsp;widget($this->lang->line('dashboard_example'),$this->lang->line('dashboard_example_body')),'left');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this->dashboard->assign_widget(new&nbsp;widget($this->lang->line('dashboard_statistics'),$this->statistic_widget->create()),'right');<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;// <var>5</var> &nbsp;Load&nbsp;dashboard&nbsp;onto&nbsp;page<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$data['dashboard']&nbsp;=&nbsp;$this->dashboard->output();<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Display&nbsp;Page<br />
-&nbsp;&nbsp;&nbsp;&nbsp;$data['header']&nbsp;=&nbsp;$this-&gt;lang-&gt;line('backendpro_dashboard');<br />
-&nbsp;&nbsp;&nbsp;&nbsp;$data['page']&nbsp;=&nbsp;$this-&gt;config-&gt;item('backendpro_template_admin')&nbsp;.&nbsp;&quot;home&quot;;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view($this-&gt;_container,$data);<br />
-}<br />
-<br />
-function&nbsp;<dfn>_widget_statistics()</dfn><br />
-{<br />
-&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Generate&nbsp;widget&nbsp;contents,&nbsp;e.g&nbsp;table&nbsp;of&nbsp;data<br />
-&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;$contents;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$data['header']&nbsp;=&nbsp;$this->lang->line('backendpro_dashboard');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$data['page']&nbsp;=&nbsp;$this->config->item('backendpro_template_admin')&nbsp;.&nbsp;"home";<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this->load->view($this->_container,$data);<br />
 }
 </code>
 
@@ -104,16 +101,15 @@ So lets step through the main four sections of this code.</p>
 	<li>The next section loads the required libraries I talked about earlier, and creates an instance 
 	of the <a href="#dashboard">Dashboard class</a>, storing it in <dfn>$this-&gt;dashboard</dfn>.</li>
 	
+	<li>Here we load any widget classes. These basicly contain code to create the view for the widget.
+	The advantage of having them in their own classes is to improve code readability. Please see <dfn>modules/dashboard/libraries/Statistics_widget.php</dfn>
+	for an example. I would advise creating a similar class for every widget.</li>
+	
 	<li>This section is where I create and assign widgets to the dashboard. As you can see two widgets are created 
-	and assigned to the dashboard object. More details of the class methods used can be found below.</li>
+	and assigned to the dashboard object.</li>
 	
 	<li>This last section generates the dashboard code.</li>
 </ol>
-
-<p>You will notice a private function in the example above called <dfn>_widget_statistics()</dfn>. This function 
-is used to generate the body contents of the statistics widget. The reason the code is in a function instead of inline 
-with the rest of the dashboard code is just to make it easier to read. <strong>I would advise you also put widget body 
-creation code inside their own functions to make your script more readable.</strong></p>
 
 <h2>Guarding a Widget</h2>
 

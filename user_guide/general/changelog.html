@@ -62,6 +62,7 @@ SVN Revision: TBA</p>
 </ul>
 <h3>Modifications</h3>
 <ul>
+	<li>Moved some of the dashboard files into their own module to tidy the file system up a bit. Also have created a new class to store to Statistics Widget creation code it.</li>
 	<li>Improved the <dfn>is_user()</dfn> method so if <dfn>$config['sess_use_database']</dfn> is <var>FALSE</var> then extra user checks are performed. For this to work the value returned by validateLogin() has changed, See <a href="http://trac2.assembla.com/backendpro/ticket/80">Enhancement #80</a></li>
 	<li>Removed PHP short tags from files, See <a href="http://trac2.assembla.com/backendpro/ticket/42">Task #42</a></li>
 	<li>Added some extra language strings for the dropdown options inside <var>application/controllers/admin/settings.php</var>, See <a href="http://trac2.assembla.com/backendpro/ticket/73">Enhancement #73</a></li>
@@ -72,6 +73,7 @@ SVN Revision: TBA</p>
 </ul>
 <h3>Bug Fixes</h3>
 <ul>
+	<li>The dashboard widget system now restores moved widgets, See <a href="http://trac2.assembla.com/backendpro/ticket/64">Bug #64</a></li>
 	<li>The BackendPro tree menu in the admin panel now saves its open/closes status rather than it being lost between different pages, See Bugs <a href="http://trac2.assembla.com/backendpro/ticket/15">#15</a> and <a href="http://trac2.assembla.com/backendpro/ticket/45">#145</a></li>
 	<li>Redirection upon login is now fixed, See <a href="http://trac2.assembla.com/backendpro/ticket/100">Bug #100</a></li>
 	<li>Spelling errors throughout the code, See Bugs <a href="http://trac2.assembla.com/backendpro/ticket/71">#71</a>, <a href="http://trac2.assembla.com/backendpro/ticket/76">#76</a>, <a href="http://trac2.assembla.com/backendpro/ticket/77">#77</a></li>
