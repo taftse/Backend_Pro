@@ -273,9 +273,10 @@ class Page
 	 *
 	 * @access public
 	 * @param string $name Icon name
+	 * @param string $title Icon title
 	 * @return mixed
 	 */
-	function icon($name = NULL)
+	function icon($name = NULL, $title = NULL)
 	{
 		if($name == NULL)
 		{
@@ -284,8 +285,9 @@ class Page
 		}
 
 		$icon = array(
-			'src' => $this->CI->config->item('shared_assets') . $this->CI->config->item('asset_icons') . $name . '.png',
-			'alt' => $name);
+			'src'   => $this->CI->config->item('shared_assets') . $this->CI->config->item('asset_icons') . $name . '.png',
+			'alt'   => $name,
+			'title' => $title);
 
 		return img($icon);
 	}
