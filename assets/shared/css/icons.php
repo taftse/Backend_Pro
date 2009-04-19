@@ -20,7 +20,7 @@
                 if ( ($file_e[1] == 'png') or ($file_e[1] == 'gif') )
                 {
                     // Print css rule
-                    print ".icon_" . $file_e[0] . " { padding-left: 25px; background: url(../icons/" . $file . ") no-repeat 0px 50%;}\n";
+                    print ".icon_" . $file_e[0] . " { padding: 1px 0 1px 25px; background: url(../icons/" . $file . ") no-repeat 0px 50%;}\n";
                 }
             }
         }
