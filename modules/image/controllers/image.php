@@ -78,6 +78,7 @@ class Image extends Controller
 			if ( file_exists($folder.$uri_array['file']))
 			{
 				$this->img_path = $folder.$uri_array['file'];
+				break;
 			}
 		}
 
