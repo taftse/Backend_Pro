@@ -93,7 +93,7 @@ class Userlib
 
 		if($CI->session)
 		{
-			$logedin = FALSE;
+			$loggedin = FALSE;
 
 			// If the system is setup to store details in the database
 			// only do a quick check since the user can't tamper with the values
