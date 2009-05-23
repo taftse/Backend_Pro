@@ -66,14 +66,14 @@ class User_model extends Base_model
 				break;
 
 			default:
-				$this->db->where('email',$login_field);
-				$this->db->or_where('username',$login_field);
-				break;
+			    $this->db->where('(email = '.$this->db->escape($login_field).' OR username = '.$this->db->escape($login_field).')');
+			    break;
 		}
 
 		$this->db->where('password',$password);
 
 		$query = $this->fetch('Users','id,active');
+		
 		$found = ($query->num_rows() == 1);
 		return array('valid'=>$found,'query'=>$query);
 	}
