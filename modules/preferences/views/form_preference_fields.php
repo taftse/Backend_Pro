@@ -21,12 +21,12 @@
 
 <div class="buttons">
 	<button type="submit" class="positive" name="submit" value="submit">
-    <?php print $this->page->icon('disk');?>
+    <?php print $this->bep_assets->icon('disk');?>
     <?php print $this->lang->line('general_save');?>
     </button>
 
     <a href="<?php print site_url($cancel_link);?>" class="negative">
-    <?php print $this->page->icon('cross');?>
+    <?php print $this->bep_assets->icon('cross');?>
     <?php print $this->lang->line('general_cancel');?>
     </a>
 </div>

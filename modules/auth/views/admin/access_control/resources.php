@@ -2,7 +2,7 @@
 
 <div class="buttons">
 	<a href="<?php print site_url('auth/admin/acl_resources/form')?>">
-		<?php print $this->page->icon('add') ?>
+		<?php print $this->bep_assets->icon('add') ?>
 		<?php print $this->lang->line('access_create_resource')?>
 	</a>
 </div><br/><br/>
@@ -46,7 +46,7 @@
 			// Can't use pass by reference since it may be deprecated
 			$offset = $this->access_control_model->buildPrettyOffset($obj,$tree);
 		}
-        $edit = ($obj->checkNodeIsRoot($tree['row'])?'&nbsp;':'<a href="'.site_url('auth/admin/acl_resources/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets'). 'icons/pencil.png').'</a>');
+        $edit = ($obj->checkNodeIsRoot($tree['row'])?'&nbsp;':'<a href="'.site_url('auth/admin/acl_resources/form/'.$tree['row']['id']).'">' . $this->bep_assets->icon('pencil') . '</a>');
     ?>
         <tr>
             <td><?php print $tree['row']['id']?></td>
@@ -61,7 +61,7 @@
 
 <div class="buttons">
 	<a href="<?php print site_url('auth/admin/access_control')?>">
-		<?php print $this->page->icon('arrow_left') ?>
+		<?php print $this->bep_assets->icon('arrow_left') ?>
 		<?php print $this->lang->line('general_back')?>
 	</a>
 </div><br/><br/>

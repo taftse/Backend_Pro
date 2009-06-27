@@ -37,8 +37,8 @@ class Acl_groups extends Admin_Controller
 		check('Groups');
 
 		// Set breadcrumb
-		$this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
-		$this->page->set_crumb($this->lang->line('access_groups'),'auth/admin/acl_groups');
+		$this->bep_site->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
+		$this->bep_site->set_crumb($this->lang->line('access_groups'),'auth/admin/acl_groups');
 
 		log_message('debug','BackendPro : Acl_groups class loaded');
 	}
@@ -117,7 +117,7 @@ class Acl_groups extends Admin_Controller
 
 			// Display Page
 			$data['header'] = (is_null($id)?$this->lang->line('access_create_group'):$this->lang->line('access_edit_group'));
-			$this->page->set_crumb($data['header'],'auth/admin/acl_groups/form/'.$id);
+			$this->bep_site->set_crumb($data['header'],'auth/admin/acl_groups/form/'.$id);
 			$data['page'] = $this->config->item('backendpro_template_admin') . "access_control/form_group";
 			$data['module'] = 'auth';
 			$this->load->view($this->_container,$data);

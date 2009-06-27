@@ -21,7 +21,7 @@ body { margin: 0px; }
     margin-left: 1em;
     font-weight: bold;
     padding-left: 20px;
-    background: transparent url(../../shared/icons/application.png) no-repeat 0 50%;
+    background: transparent url(../icons/application.png) no-repeat 0 50%;
 }
 #info { float: right; margin-right: 1em; }
 

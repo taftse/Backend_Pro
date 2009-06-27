@@ -34,8 +34,8 @@ class Acl_permissions extends Admin_Controller
 		$this->load->helper('form');
 
 		// Set breadcrumb
-		$this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
-		$this->page->set_crumb($this->lang->line('access_permissions'),'auth/admin/acl_permissions');
+		$this->bep_site->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
+		$this->bep_site->set_crumb($this->lang->line('access_permissions'),'auth/admin/acl_permissions');
 
 		// Check for access permission
 		check('Permissions');
@@ -69,7 +69,7 @@ class Acl_permissions extends Admin_Controller
 		$this->load->library('validation');
 
 		// Load the JS file needed
-		$this->page->set_asset('admin','js','access_control.js');
+		$this->bep_assets->load_asset('bep_access_control');
 
 		// Set action defauts since this is needed for both CREATE & MODIFY
 		$query = $this->access_control_model->fetch('axos');
@@ -112,7 +112,7 @@ class Acl_permissions extends Admin_Controller
 		}
 
 		// Display Page
-		$this->page->set_crumb($data['header'],'auth/admin/acl_permissions/form/'.$id);
+		$this->bep_site->set_crumb($data['header'],'auth/admin/acl_permissions/form/'.$id);
 		$data['page'] = $this->config->item('backendpro_template_admin') . "access_control/form_permission";
 		$data['module'] = 'auth';
 		$this->load->view($this->_container,$data);
@@ -242,10 +242,10 @@ class Acl_permissions extends Admin_Controller
 		$this->load->library('validation');
 
 		// Load required JS
-		$this->page->set_asset('admin','js','access_control.js');
+		$this->bep_assets->load_asset('bep_access_control');
 
 		// Display Page
-		$this->page->set_crumb($this->lang->line('access_advanced_permissions'),'auth/admin/acl_permissions/show');
+		$this->bep_site->set_crumb($this->lang->line('access_advanced_permissions'),'auth/admin/acl_permissions/show');
 		$data['header'] = $this->lang->line('access_advanced_permissions');
 		$data['page'] = $this->config->item('backendpro_template_admin') . "access_control/view_advanced_permissions";
 		$data['module'] = 'auth';

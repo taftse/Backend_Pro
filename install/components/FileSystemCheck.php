@@ -53,12 +53,9 @@ class AssetFoldersWritable extends Component
 {
 	var $name = "Asset folders writable";
 	var $path_array = array(
-			'assets/admin/css',
-			'assets/admin/js',
-			'assets/public/css',
-			'assets/public/js',
-			'assets/shared/css',
-			'assets/shared/js');
+			'assets/css',
+			'assets/js',
+			'assets/cache');
 
 	function install()
 	{

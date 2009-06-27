@@ -34,8 +34,8 @@ class Acl_resources extends Admin_Controller
 		$this->load->helper('form');
 
 		// Set breadcrumb
-		$this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
-		$this->page->set_crumb($this->lang->line('access_resources'),'auth/admin/acl_resources');
+		$this->bep_site->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
+		$this->bep_site->set_crumb($this->lang->line('access_resources'),'auth/admin/acl_resources');
 
 		// Check for access permission
 		check('Resources');
@@ -109,7 +109,7 @@ class Acl_resources extends Admin_Controller
 
 			// Display Page
 			$data['header'] = (is_null($id)?$this->lang->line('access_create_resource'):$this->lang->line('access_edit_resource'));
-			$this->page->set_crumb($data['header'],'auth/admin/acl_resources/form/'.$id);
+			$this->bep_site->set_crumb($data['header'],'auth/admin/acl_resources/form/'.$id);
 			$data['page'] = $this->config->item('backendpro_template_admin') . "access_control/form_resource";
 			$data['module'] = 'auth';
 			$this->load->view($this->_container,$data);

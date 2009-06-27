@@ -4,6 +4,6 @@
         &copy; Copyright 2008 - <a href="http://www.kaydoo.co.uk">Adam Price</a> -  All rights Reserved
     </div> 
 </div>
-
+<?php print $this->bep_assets->get_footer_assets();?>
 </body>
 </html>

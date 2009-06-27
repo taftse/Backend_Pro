@@ -1,7 +1,9 @@
 <?php
     // Only include header if we are not processing the file for the cache
     if( ! isset($cache_output))
+	{
         header('content-type:text/css');
+	}
 
     // Create path to icons dir
     $path = dirname(dirname(__FILE__)) . "/icons/";

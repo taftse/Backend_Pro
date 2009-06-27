@@ -16,7 +16,7 @@
 
 <div class="buttons">
 	<a href="<?php print site_url('auth/admin/acl_permissions') ?>">
-		<?php print $this->page->icon('arrow_left') ?>
+		<?php print $this->bep_assets->icon('arrow_left') ?>
 		<?php print $this->lang->line('general_back') ?>
 	</a>
 </div>

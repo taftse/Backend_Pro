@@ -2,7 +2,7 @@
 
 <div class="buttons">
 	<a href="<?php print site_url('auth/admin/acl_groups/form')?>">
-		<?php print $this->page->icon('add')?>
+		<?php print $this->bep_assets->icon('add')?>
 		<?php print $this->lang->line('access_create_group')?>
 	</a>
 </div><br/><br/>
@@ -37,13 +37,13 @@
         
         // Get Offset
         $offset = $this->access_control_model->buildPrettyOffset($obj,$tree);
-        $disable = ($row->disabled?'tick.png':'cross.png');
-        $edit = ($obj->checkNodeIsRoot($tree['row']))?'&nbsp;':'<a href="'.site_url('auth/admin/acl_groups/form/'.$tree['row']['id']).'">'.img($this->config->item('shared_assets').'icons/pencil.png').'</a>';
+        $disable = ($row->disabled?'tick':'cross');
+        $edit = ($obj->checkNodeIsRoot($tree['row']))?'&nbsp;':'<a href="'.site_url('auth/admin/acl_groups/form/'.$tree['row']['id']).'">'.$this->bep_assets->icon('pencil').'</a>';
     ?>  
         <tr>
             <td><?php print $tree['row']['id']?></td>
             <td><?php print $offset.$tree['row']['name']?></td>
-            <td class="middle"><?php print img($this->config->item('shared_assets').'icons/'.$disable)?></td> 
+            <td class="middle"><?php print $this->bep_assets->icon($disable)?></td> 
             <td class="middle"><?php print $edit?></td> 
             <td><?php print ($row->locked OR $this->preference->item('default_user_group')==$tree['row']['id'])?'&nbsp;':form_checkbox('select[]',$tree['row']['name'],FALSE)?></td>
         </tr>
@@ -54,7 +54,7 @@
 
 <div class="buttons">
 	<a href="<?php print site_url('auth/admin/access_control')?>">
-		<?php print $this->page->icon('arrow_left')?>
+		<?php print $this->bep_assets->icon('arrow_left')?>
 		<?php print $this->lang->line('general_back')?>
 	</a>
 </div>

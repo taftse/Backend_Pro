@@ -44,7 +44,9 @@ class Site_Controller extends Controller
 		// Load site wide modules
 		$this->load->module_library('status','status');
 		$this->load->module_model('preferences','preference_model','preference');
-		$this->load->module_library('page','page');
+		$this->load->module_library('site','bep_site');
+		$this->load->module_library('site','bep_assets');
+		
 		$this->load->module_library('auth','userlib');
 
 		// Display page debug messages if needed
@@ -54,11 +56,14 @@ class Site_Controller extends Controller
 		}
 
 		// Set site meta tags
-		//$this->page->set_metatag('name','content',TRUE/FALSE);
+		//$this->bep_site->set_metatag('name','content',TRUE/FALSE);
 		$this->output->set_header('Content-Type: text/html; charset='.config_item('charset'));
-		$this->page->set_metatag('content-type','text/html; charset='.config_item('charset'),TRUE);
-		$this->page->set_metatag('robots','all');
-		$this->page->set_metatag('pragma','cache',TRUE);
+		$this->bep_site->set_metatag('content-type','text/html; charset='.config_item('charset'),TRUE);
+		$this->bep_site->set_metatag('robots','all');
+		$this->bep_site->set_metatag('pragma','cache',TRUE);
+
+		// Load the SITE asset group
+		$this->bep_assets->load_asset_group('SITE');
 
 		log_message('debug','BackendPro : Site_Controller class loaded');
 	}
@@ -88,8 +93,11 @@ class Public_Controller extends Site_Controller
 		}
 
 		// Set public meta tags
-		//$this->page->set_metatag('name','content',TRUE/FALSE);
+		//$this->bep_site->set_metatag('name','content',TRUE/FALSE);
 
+		// Load the PUBLIC asset group
+		$this->bep_assets->load_asset_group('PUBLIC');
+		
 		log_message('debug','BackendPro : Public_Controller class loaded');
 	}
 
@@ -127,7 +135,7 @@ class Admin_Controller extends Site_Controller
 		parent::Site_Controller();
 
 		// Set base crumb
-		$this->page->set_crumb($this->lang->line('backendpro_control_panel'),'admin');
+		$this->bep_site->set_crumb($this->lang->line('backendpro_control_panel'),'admin');
 
 		// Set container variable
 		$this->_container = $this->config->item('backendpro_template_admin') . "container.php";
@@ -151,9 +159,12 @@ class Admin_Controller extends Site_Controller
 		}
 
 		// Set private meta tags
-		//$this->page->set_metatag('name','content',TRUE/FALSE);
-		$this->page->set_metatag('robots','nofollow, noindex');
-		$this->page->set_metatag('pragma','nocache',TRUE);
+		//$this->bep_site->set_metatag('name','content',TRUE/FALSE);
+		$this->bep_site->set_metatag('robots','nofollow, noindex');
+		$this->bep_site->set_metatag('pragma','nocache',TRUE);
+
+		// Load the ADMIN asset group
+		$this->bep_assets->load_asset_group('ADMIN');
 
 		log_message('debug','BackendPro : Admin_Controller class loaded');
 	}

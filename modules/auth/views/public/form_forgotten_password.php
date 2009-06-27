@@ -9,12 +9,12 @@
             <li class="submit">
             	<div class="buttons">
             		<button type="submit" class="positive" name="submit" value="submit">
-            			<?php print $this->page->icon('arrow_refresh') ?>
+            			<?php print $this->bep_assets->icon('arrow_refresh') ?>
             			<?php print $this->lang->line('userlib_reset_password')?>
             		</button>
             		
             		<a href="<?php print site_url('auth/login') ?>" class="negative">
-            			<?php print $this->page->icon('cross') ?>
+            			<?php print $this->bep_assets->icon('cross') ?>
             			<?php print $this->lang->line('general_cancel')?>
             		</a>
             	</div>

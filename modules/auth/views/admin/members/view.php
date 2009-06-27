@@ -2,7 +2,7 @@
 
 <div class="buttons">                
 	<a href="<?php print  site_url('auth/admin/members/form')?>">
-    <?php print  $this->page->icon('add');?>
+    <?php print  $this->bep_assets->icon('add');?>
     <?php print $this->lang->line('userlib_create_user')?>
     </a>
 </div><br/><br/>
@@ -31,7 +31,9 @@
         <?php foreach($members->result_array() as $row):
             // Check if this user account belongs to the person logged in
             // if so don't allow them to delete it
-            $delete  = ($row['id'] == $this->session->userdata('id')?'&nbsp;':form_checkbox('select[]',$row['id'],FALSE));            
+            $delete  = ($row['id'] == $this->session->userdata('id')?'&nbsp;':form_checkbox('select[]',$row['id'],FALSE));  
+			
+			$active =  ($row['active']?'tick':'cross');   
         ?>
         <tr>
             <td><?php print $row['id']?></td>
@@ -39,8 +41,8 @@
             <td><?php print $row['email']?></td>
             <td><?php print $row['group']?></td>
             <td><?php print $row['last_visit']?></td>
-            <td class="middle"><?php print img($this->config->item('shared_assets').'icons/'.($row['active']?'tick':'cross').'.png')?></td>
-            <td class="middle"><a href="<?php print site_url('auth/admin/members/form/'.$row['id'])?>"><?php print img($this->config->item('shared_assets').'icons/pencil.png')?></a></td>
+            <td class="middle"><?php print $this->bep_assets->icon($active);?></td>
+            <td class="middle"><a href="<?php print site_url('auth/admin/members/form/'.$row['id'])?>"><?php print $this->bep_assets->icon('pencil');?></a></td>
             <td><?php print $delete?></td>
         </tr>
         <?php endforeach; ?>

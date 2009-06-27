@@ -1,6 +1,6 @@
 <div id="generatePasswordWindow">
 	<table>
-		<tr><th width="50%"><?php print $this->lang->line('userlib_generate_password'); ?></th><th class="right"><a href="javascript:void(0);" id="gpCloseWindow"><?php print $this->page->icon('cross') ?></a></th></tr>
+		<tr><th width="50%"><?php print $this->lang->line('userlib_generate_password'); ?></th><th class="right"><a href="javascript:void(0);" id="gpCloseWindow"><?php print $this->bep_assets->icon('cross') ?></a></th></tr>
 		<tr><td rowspan="3"><?php print $this->lang->line('userlib_password'); ?>:<br/>&nbsp;&nbsp;&nbsp;<b id="gpPassword">PASSWORD</b></td><td class="right"><?php print $this->lang->line('general_uppercase'); ?> <?php print form_checkbox('uppercase','1',TRUE); ?></td></tr>
 		<tr><td class="right"><?php print $this->lang->line('general_numeric'); ?> <?php print form_checkbox('numeric','1',TRUE); ?></td></tr>
 		<tr><td class="right"><?php print $this->lang->line('general_symbols'); ?> <?php print form_checkbox('symbols','1',FALSE); ?></td></tr>
@@ -44,17 +44,17 @@
                 <?php print form_hidden('id',$this->validation->id)?>
                 <div class="buttons">
 	                <button type="submit" class="positive" name="submit" value="submit">
-	                	<?php print  $this->page->icon('disk');?>
+	                	<?php print  $this->bep_assets->icon('disk');?>
 	                	<?php print $this->lang->line('general_save')?>
 	                </button>
 
 	                <a href="<?php print  site_url('auth/admin/members')?>" class="negative">
-	                	<?php print  $this->page->icon('cross');?>
+	                	<?php print  $this->bep_assets->icon('cross');?>
 	                	<?php print $this->lang->line('general_cancel')?>
 	                </a>
 
 	                <a href="javascript:void(0);" id="generate_password">
-	                	<?php print  $this->page->icon('key');?>
+	                	<?php print  $this->bep_assets->icon('key');?>
 	                	<?php print $this->lang->line('userlib_generate_password'); ?>
 	                </a>
 	            </div>
@@ -72,12 +72,12 @@
             <li class="submit">
                 <div class="buttons">
 	                <button type="submit" class="positive" name="submit" value="submit">
-	                	<?php print  $this->page->icon('disk');?>
+	                	<?php print  $this->bep_assets->icon('disk');?>
 	                	<?php print $this->lang->line('general_save')?>
 	                </button>
 
 	                <a href="<?php print  site_url('auth/admin/members')?>" class="negative">
-	                	<?php print  $this->page->icon('cross');?>
+	                	<?php print  $this->bep_assets->icon('cross');?>
 	                	<?php print $this->lang->line('general_cancel')?>
 	                </a>
 	            </div>

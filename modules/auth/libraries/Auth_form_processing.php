@@ -38,6 +38,7 @@ class Auth_form_processing
 
 		// Load any files directly related to the authentication module
 		$this->CI->load->library('User_email');
+		$this->CI->bep_assets->load_asset_group('FORMS');
 
 		// Load any other helpers/libraries needed
 		$this->CI->load->library('validation');
@@ -466,7 +467,7 @@ class Auth_form_processing
 	 */
 	function _generate_captcha()
 	{
-		$this->CI->page->set_asset('shared','css','recaptcha.css');
+		$this->CI->bep_assets->load_asset('recaptcha');
 		$this->CI->load->module_library('recaptcha','Recaptcha');
 		return $this->CI->recaptcha->recaptcha_get_html();
 	}

@@ -26,18 +26,18 @@
             <li class="submit">
             	<div class="buttons">
             		<button type="submit" class="positive" name="submit" value="submit">
-            			<?php print $this->page->icon('key') ?>
+            			<?php print $this->bep_assets->icon('key') ?>
             			<?php print $this->lang->line('userlib_login')?>
             		</button>
 
             		<a href="<?php print site_url('auth/forgotten_password') ?>">
-            			<?php print $this->page->icon('arrow_refresh') ?>
+            			<?php print $this->bep_assets->icon('arrow_refresh') ?>
             			<?php print $this->lang->line('userlib_forgotten_password')?>
             		</a>
 
             		<?php if($this->preference->item('allow_user_registration')):?>
             		<a href="<?php print site_url('auth/register') ?>">
-            			<?php print $this->page->icon('user') ?>
+            			<?php print $this->bep_assets->icon('user') ?>
             			<?php print $this->lang->line('userlib_register')?>
             		</a>
             		<?php endif;?>

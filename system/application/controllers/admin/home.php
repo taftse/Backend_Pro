@@ -32,7 +32,7 @@ class Home extends Admin_Controller
 function index()
 {
 	// Include dashboard Javascript code
-	$this->page->set_asset('admin','js','dashboard.js');
+	$this->bep_assets->load_asset('bep_dashboard');
 
 	// Load the dashboard library
 	$this->load->module_library('dashboard','dashboard');

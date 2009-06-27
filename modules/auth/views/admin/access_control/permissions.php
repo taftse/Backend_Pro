@@ -2,12 +2,12 @@
 
 <div class="buttons">
 	<a href="<?php print  site_url('auth/admin/acl_permissions/form')?>">
-    <?php print $this->page->icon('add');?>
+    <?php print $this->bep_assets->icon('add');?>
     <?php print $this->lang->line('access_create_permission')?>
     </a>
     
     <a href="<?php print  site_url('auth/admin/acl_permissions/show')?>">
-    <?php print $this->page->icon('lightning');?>
+    <?php print $this->bep_assets->icon('lightning');?>
     <?php print $this->lang->line('access_advanced_permissions')?>
     </a>
 </div><br/><br/>
@@ -52,7 +52,7 @@
                 else { print "&nbsp;"; }
                 ?>
             </td>
-            <td class="middle"><a href="<?php print site_url('auth/admin/acl_permissions/form/'.$key)?>"><img src="<?php print base_url().$this->config->item('shared_assets').'icons/pencil.png'?>" /></a></td>
+            <td class="middle"><a href="<?php print site_url('auth/admin/acl_permissions/form/'.$key)?>"><?php print $this->bep_assets->icon('pencil');?></a></td>
             <td style="vertical-align:middle"><?php print form_checkbox('select[]',$key,FALSE)?></td>
         </tr>
         <?php } ?>
@@ -62,7 +62,7 @@
 
 <div class="buttons">
     <a href="<?php print site_url('auth/admin/access_control')?>">
-    <?php print $this->page->icon('arrow_left');?>
+    <?php print $this->bep_assets->icon('arrow_left');?>
     <?php print $this->lang->line('general_back')?>
     </a>
 </div>

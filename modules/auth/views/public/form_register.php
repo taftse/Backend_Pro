@@ -30,12 +30,12 @@
             <li class="submit">
             	<div class="buttons">
             		<button type="submit" class="positive" name="submit" value="submit">
-            			<?php print $this->page->icon('user') ?>
+            			<?php print $this->bep_assets->icon('user') ?>
             			<?php print $this->lang->line('userlib_register')?>
             		</button>
             		
             		<a href="<?php print site_url('auth/login') ?>" class="negative">
-            			<?php print $this->page->icon('cross') ?>
+            			<?php print $this->bep_assets->icon('cross') ?>
             			<?php print $this->lang->line('general_cancel')?>
             		</a>
             	</div>

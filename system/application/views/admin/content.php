@@ -2,7 +2,7 @@
     <?php print $this->load->view($this->config->item('backendpro_template_admin') . 'menu');?>
 </div>
 <div id="breadcrumb">
-        <?php $this->page->output_breadcrumb();?>
+        <?php print $this->bep_site->get_breadcrumb();?>
     </div>
 <div id="content">
     <a name="top"></a>

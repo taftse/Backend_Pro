@@ -34,7 +34,7 @@ class Members extends Admin_Controller
 		$this->lang->load('userlib');
 
 		// Set breadcrumb
-		$this->page->set_crumb($this->lang->line('backendpro_members'),'auth/admin/members');
+		$this->bep_site->set_crumb($this->lang->line('backendpro_members'),'auth/admin/members');
 
 		// Check for access permission
 		check('Members');
@@ -185,8 +185,7 @@ class Members extends Admin_Controller
 		if ($this->validation->run() === FALSE)
 		{
 			// Load Generate Password Assets
-			$this->page->set_asset('admin','js','generate_password.js');
-			$this->page->set_asset('admin','css','generate_password.css');
+			$this->bep_assets->load_asset_group('GENERATE_PASSWORD');
 
 			// Construct Groups dropdown
 			$this->load->model('access_control_model');
@@ -195,7 +194,7 @@ class Members extends Admin_Controller
 			// Display form
 			$this->validation->output_errors();
 			$data['header'] = ( is_null($id)?$this->lang->line('userlib_create_user'):$this->lang->line('userlib_edit_user'));
-			$this->page->set_crumb($data['header'],'auth/admin/members/form/'.$id);
+			$this->bep_site->set_crumb($data['header'],'auth/admin/members/form/'.$id);
 			$data['page'] = $this->config->item('backendpro_template_admin') . "members/form_member";
 			$data['module'] = 'auth';
 			$this->load->view($this->_container,$data);

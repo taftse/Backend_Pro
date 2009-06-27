@@ -138,7 +138,7 @@ class Preference_form
 		}
 
 		// Set breadcrumb
-		$this->CI->page->set_crumb($this->form_name,$this->form_link);
+		$this->CI->bep_site->set_crumb($this->form_name,$this->form_link);
 
 		// Setup fields
 		$this->_setup_fields();
@@ -149,7 +149,7 @@ class Preference_form
 			if(array_key_exists($group_id,$this->group))
 			{
 				// Display group fields
-				$this->CI->page->set_crumb($this->group[$group_id]['name'],$this->form_link."/".$group_id);
+				$this->CI->bep_site->set_crumb($this->group[$group_id]['name'],$this->form_link."/".$group_id);
 				return $this->_display_fields($print, $group_id);
 			}
 			else

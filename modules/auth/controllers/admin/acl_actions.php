@@ -36,8 +36,8 @@ class Acl_actions extends Admin_Controller
 		check('Actions');
 
 		// Set breadcrumb
-		$this->page->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
-		$this->page->set_crumb($this->lang->line('access_actions'),'auth/admin/acl_actions');
+		$this->bep_site->set_crumb($this->lang->line('backendpro_access_control'),'auth/admin/access_control');
+		$this->bep_site->set_crumb($this->lang->line('access_actions'),'auth/admin/acl_actions');
 
 		log_message('debug','BackendPro : Acl_actions class loaded');
 	}

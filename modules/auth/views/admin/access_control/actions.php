@@ -2,7 +2,7 @@
 
 <div class="buttons">
 	<a href="#create">
-		<?php print $this->page->icon('add') ?>
+		<?php print $this->bep_assets->icon('add') ?>
 		<?php print $this->lang->line('access_create_action')?>
 	</a>
 </div><br/><br/>
@@ -38,7 +38,7 @@
 
 <div class="buttons">
 	<a href="<?php print site_url('auth/admin/access_control') ?>">
-		<?php print $this->page->icon('arrow_left') ?>
+		<?php print $this->bep_assets->icon('arrow_left') ?>
 		<?php print $this->lang->line('general_back')?>
 	</a>
 </div><br/><br/>
@@ -55,7 +55,7 @@
             <li class="submit">
             	<div class="buttons">
             		<button type="submit" class="positive" name="submit" value="submit">
-            			<?php print $this->page->icon('disk') ?>
+            			<?php print $this->bep_assets->icon('disk') ?>
             			<?php print $this->lang->line('general_save') ?>
             		</button>
             	</div>
