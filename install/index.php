@@ -3,11 +3,19 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="../assets/shared/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/shared/css/ie.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/shared/css/typography.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/public/css/layout.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/shared/css/forms.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/reset.css" />
+    
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../assets/css/reset[ie_6].css" />
+    <![endif]-->
+    
+    <!--[if gte IE 6]>
+    <link rel="stylesheet" type="text/css" href="../assets/css/reset[gte_ie_6].css" />
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/typography.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/bep_front_layout.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/forms.css" />
     <title>Installation</title>
 </head>
 
@@ -29,7 +37,7 @@
             Please make sure all the following paths are relative to the Base Path.
             <b>Please note this will not change the files in CI and is only used
             during the install process.</b></p>
-            <p>Make sure all folders are relative to <b><?php print dirname(dirname($_SERVER['PHP_SELF']))?>/</b></p>
+            <p>Make sure all folders are relative to <b><?php print $_SERVER['DOCUMENT_ROOT'] . dirname(dirname($_SERVER['SCRIPT_NAME']))?>/</b></p>
 
             <fieldset>
                 <ol>
@@ -151,8 +159,8 @@
 
     <div id="footer">
         <a href="#top">Top</a><br />
-        This site is powered by BackendPro 0.5.1<br />
-        &copy; Copyright 2008 - Adam Price -  All rights Reserved
+        This site is powered by BackendPro 0.6<br />
+        &copy; Copyright 2009 - Adam Price -  All rights Reserved
     </div>
 </div>
 

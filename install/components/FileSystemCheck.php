@@ -28,13 +28,13 @@ class LogFolderWritable extends Component
 
 	function install()
 	{
-		if( is_writeable(BASEPATH.LOGS))
+		if( is_writeable(LOGS))
 		{
 			$this->status = TRUE;
 		}
 		else
 		{
-			$this->error = BASEPATH . LOGS . " folder isn't writable";
+			$this->error = LOGS . " folder isn't writable";
 		}
 
 		return $this->status;
@@ -53,9 +53,9 @@ class AssetFoldersWritable extends Component
 {
 	var $name = "Asset folders writable";
 	var $path_array = array(
-			'assets/css',
-			'assets/js',
-			'assets/cache');
+			'assets/css/',
+			'assets/js/',
+			'assets/cache/');
 
 	function install()
 	{
@@ -86,13 +86,13 @@ class CacheFolderWritable extends Component
 
 	function install()
 	{
-		if( is_writeable(BASEPATH . CACHE))
+		if( is_writeable(CACHE))
 		{
 			$this->status = TRUE;
 		}
 		else
 		{
-			$this->error = BASEPATH . CACHE . " folder isn't writable";
+			$this->error = CACHE . " folder isn't writable";
 		}
 		return $this->status;
 	}
@@ -114,18 +114,18 @@ class ConfigFilesWritable extends Component
 
 	function ConfigFilesWritable()
 	{
-		$file_array[] = APPLICATION . '/config/config.php';
-		$file_array[] = APPLICATION . '/config/database.php';
-		$file_array[] = MODULES . '/recaptcha/config/recaptcha.php';
+		$file_array[] = APPLICATION . 'config/config.php';
+		$file_array[] = APPLICATION . 'config/database.php';
+		$file_array[] = MODULES . 'recaptcha/config/recaptcha.php';
 	}
 
 	function install()
 	{
 		foreach($this->file_array as $file)
 		{
-			if ( !is_writable(BASEPATH.$file))
+			if ( !is_writable($file))
 			{
-				$this->error = BASEPATH . $file . " file isn't writable";
+				$this->error = $file . " file isn't writable";
 				return $this->status;
 			}
 		}

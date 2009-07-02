@@ -3,18 +3,26 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="../assets/shared/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/shared/css/ie.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/shared/css/typography.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/public/css/layout.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/shared/css/forms.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/reset.css" />
+    
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../assets/css/reset[ie_6].css" />
+    <![endif]-->
+    
+    <!--[if gte IE 6]>
+    <link rel="stylesheet" type="text/css" href="../assets/css/reset[gte_ie_6].css" />
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/typography.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/bep_front_layout.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/forms.css" />
     <title>Installation</title>
 
     <style>
     <!--
     	ul { list-style-type: none; margin: 0; }
-    	ul.results li.fail { background: url(../assets/shared/icons/cross.png) no-repeat; padding-left: 25px;}
-    	ul.results li.done { background: url(../assets/shared/icons/tick.png) no-repeat; padding-left: 25px;}
+    	ul.results li.fail { background: url(../assets/icons/cross.png) no-repeat; padding-left: 25px;}
+    	ul.results li.done { background: url(../assets/icons/tick.png) no-repeat; padding-left: 25px;}
     -->
     </style>
 </head>
@@ -75,8 +83,8 @@
 
     <div id="footer">
         <a href="#top">Top</a><br />
-        This site is powered by BackendPro 0.5.1<br />
-        &copy; Copyright 2008 - Adam Price -  All rights Reserved
+        This site is powered by BackendPro 0.6<br />
+        &copy; Copyright 2009 - Adam Price -  All rights Reserved
     </div>
 </div>
 

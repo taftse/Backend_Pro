@@ -39,14 +39,47 @@ foreach($_POST as $key => $value)
 	}
 }
 
-// Define constants for the paths and folders
-define('BASEPATH','./../');
-define('BASEDIR',dirname(dirname($_SERVER['PHP_SELF'])));
-define('SYSTEM',$_POST['ci_system']);
-define('APPLICATION',$_POST['ci_application']);
-define('MODULES',$_POST['ci_modules']);
-define('LOGS',$_POST['ci_logs']);
-define('CACHE',$_POST['ci_cache']);
+// Define constants for the paths and folders	
+
+
+// This is the extra sub folders needed for the website url to get from the domain name
+// to the index.php file, so if you are on domain.com and your index.php file is located
+// at domain.com/site, this value should be /site
+$basedir = dirname(dirname($_SERVER['SCRIPT_NAME']));
+$basedir.= (substr($basedir,-1)=='/') ? '' : '/';	// Add a trailing slash if needed
+define('BASEDIR',$basedir);
+
+// This is the full server-side path to the folder which contains the BackendPro
+// files and the CI system folder
+$basepath = $_SERVER['DOCUMENT_ROOT'] . BASEDIR;
+define('BASEPATH',$basepath);
+
+// These values should all be relative to the BASEPATH
+$systempath = $_POST['ci_system'];
+$systempath = (substr($systempath,0,1)=='/') ? substr($systempath,1) : $systempath; // Get rid of first slash
+$systempath.= (substr($systempath,-1)=='/') ? '' : '/';	// Add a trailing slash if needed 
+define('SYSTEM',BASEPATH . $systempath);
+
+$apppath = $_POST['ci_application'];
+$apppath = (substr($apppath,0,1)=='/') ? substr($apppath,1) : $apppath; // Get rid of first slash
+$apppath.= (substr($apppath,-1)=='/') ? '' : '/';	// Add a trailing slash if needed 
+define('APPLICATION',BASEPATH . $apppath);
+
+$modulespath = $_POST['ci_modules'];
+$modulespath = (substr($modulespath,0,1)=='/') ? substr($modulespath,1) : $modulespath; // Get rid of first slash
+$modulespath.= (substr($modulespath,-1)=='/') ? '' : '/';	// Add a trailing slash if needed 
+define('MODULES',BASEPATH . $modulespath);
+
+$logspath = $_POST['ci_logs'];
+$logspath = (substr($logspath,0,1)=='/') ? substr($logspath,1) : $logspath; // Get rid of first slash
+$logspath.= (substr($logspath,-1)=='/') ? '' : '/';	// Add a trailing slash if needed 
+define('LOGS',BASEPATH . $logspath);
+
+$cachepath = $_POST['ci_cache'];
+$cachepath = (substr($cachepath,0,1)=='/') ? substr($cachepath,1) : $cachepath; // Get rid of first slash
+$cachepath.= (substr($cachepath,-1)=='/') ? '' : '/';	// Add a trailing slash if needed 
+define('CACHE',BASEPATH . $cachepath);
+
 $logger->write('info','Base path set to: ' . BASEPATH);
 $logger->write('info','Base dir set to: ' . BASEDIR);
 $logger->write('info','System path set to: ' . SYSTEM);
