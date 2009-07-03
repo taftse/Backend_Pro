@@ -276,7 +276,14 @@ class Members extends Admin_Controller
 
 		foreach($selected as $user)
 		{
-			$this->user_model->delete('Users',array('id'=>$user));
+			if($user != 1)
+			{	// Delete as long as its not the Administrator account
+				$this->user_model->delete('Users',array('id'=>$user));
+			}
+			else
+			{
+				flashMsg('error',$this->lang->line('userlib_administrator_delete'));
+			}
 		}
 
 		flashMsg('success',$this->lang->line('userlib_user_deleted'));

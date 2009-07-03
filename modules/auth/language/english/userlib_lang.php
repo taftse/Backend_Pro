@@ -37,6 +37,7 @@ $lang['userlib_register'] = 'Register New Account';
 $lang['userlib_create_user'] = "Create Member";
 $lang['userlib_edit_user'] = "Modify Member";
 $lang['userlib_delete_user'] = "Delete Member";
+$lang['userlib_administrator_delete'] = "You cannot delete the main Administrator user account.";
 $lang['userlib_user_saved'] = "The member '%s' has been saved successfully";
 $lang['userlib_user_deleted'] = "The members have been deleted successfully";
 $lang['userlib_user_profile'] = "User Profile";

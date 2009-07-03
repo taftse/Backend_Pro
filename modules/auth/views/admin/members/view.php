@@ -30,8 +30,9 @@
     <tbody>
         <?php foreach($members->result_array() as $row):
             // Check if this user account belongs to the person logged in
-            // if so don't allow them to delete it
-            $delete  = ($row['id'] == $this->session->userdata('id')?'&nbsp;':form_checkbox('select[]',$row['id'],FALSE));  
+            // if so don't allow them to delete it, also if it belongs to the main
+            // admin user don't allow them to delete it
+            $delete  = ($row['id'] == $this->session->userdata('id') || $row['id'] == 1) ? '&nbsp;' : form_checkbox('select[]',$row['id'],FALSE);  
 			
 			$active =  ($row['active']?'tick':'cross');   
         ?>
