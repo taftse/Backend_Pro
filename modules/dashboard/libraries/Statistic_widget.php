@@ -38,7 +38,6 @@ class Statistic_widget
 		$query = $this->CI->user_model->getUsers(array('users.active'=>'0'));
 		$data['total_unactivated_members'] = $query->num_rows();
 
-		$data['system_status'] = ($this->CI->preference->item('maintenance_mode')) ? '<font color="red">'.$this->CI->lang->line('dashboard_statistics_offline').'</font>' : '<font color="green">'.$this->CI->lang->line('dashboard_statistics_online').'</font>';
 		$data['user_registration'] = ($this->CI->preference->item('allow_user_registration')) ? '<font color="green">'.$this->CI->lang->line('dashboard_statistics_online').'</font>' : '<font color="red">'.$this->CI->lang->line('dashboard_statistics_offline').'</font>';
 
 		return $this->CI->load->module_view('dashboard',$this->CI->config->item('backendpro_template_admin') . 'dashboard/statistics',$data,TRUE);

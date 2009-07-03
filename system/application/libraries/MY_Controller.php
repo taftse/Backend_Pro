@@ -86,12 +86,6 @@ class Public_Controller extends Site_Controller
 		// Set container variable
 		$this->_container = $this->config->item('backendpro_template_public') . "container.php";
 
-		// Check whether to show the site offline message
-		if( $this->preference->item('maintenance_mode') AND $this->uri->rsegment(1) != 'auth')
-		{
-			redirect('auth/maintenance','location');
-		}
-
 		// Set public meta tags
 		//$this->bep_site->set_metatag('name','content',TRUE/FALSE);
 
@@ -99,24 +93,6 @@ class Public_Controller extends Site_Controller
 		$this->bep_assets->load_asset_group('PUBLIC');
 		
 		log_message('debug','BackendPro : Public_Controller class loaded');
-	}
-
-	/**
-	 * Maintenance Message
-	 *
-	 * Dispaly the maintenance message
-	 *
-	 * @access public
-	 * @return void
-	 */
-	function maintenance()
-	{
-		// Display Maintenance message
-		$data['header'] = $this->lang->line('backendpro_under_maintenance');
-		$data['content'] = "<h3>" . $data['header'] . "</h3>";
-		$data['content'] .= "<p>" . $this->preference->item('maintenance_message') . "</p>";
-		$data['content'] .= "<p>" . $this->lang->line('backendpro_maintenance_login') . "</p>";
-		$this->load->view($this->_container,$data);
 	}
 }
 
@@ -150,12 +126,6 @@ class Admin_Controller extends Site_Controller
 		if( is_dir('install'))
 		{
 			flashMsg('warning',$this->lang->line('backendpro_remove_install'));
-		}
-
-		// If the system is down display warning
-		if($this->preference->item('maintenance_mode'))
-		{
-			flashMsg('warning',$this->lang->line('backendpro_site_off'));
 		}
 
 		// Set private meta tags

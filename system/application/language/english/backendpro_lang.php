@@ -41,11 +41,6 @@ $lang['general_length'] = "Length";
 $lang['backendpro_control_panel'] = "Control Panel";
 $lang['backendpro_view_website'] = 'View Website';
 
-/* Maintenance Strings */
-$lang['backendpro_under_maintenance'] = "Under Maintenance";
-$lang['backendpro_maintenance_login'] = "If you know you have permission to access the website please login as usual " . anchor('auth/login','here') . ".";
-$lang['backendpro_site_off'] = "The website is currently in maintenance mode, only people with access to this control panel, can access it.";
-
 /* Status Messages */
 $lang['backendpro_remove_install'] = "Please remove the install directory from your base path, it is not safe to leave it in the system";
 $lang['backendpro_action_failed'] = "The action '%s' has failed, please try again";

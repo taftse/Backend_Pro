@@ -46,7 +46,7 @@ class Settings extends Admin_Controller
                 'members'     => array('name'=> $this->lang->line('preference_page_member_settings'), 'fields'=>'allow_user_registration,activation_method,account_activation_time,autologin_period,default_user_group,login_field,allow_user_profiles'),
                 'security'    => array('name'=> $this->lang->line('preference_page_security_preferences'), 'fields'=>'use_login_captcha,use_registration_captcha,min_password_length'),
                 'email'       => array('name'=> $this->lang->line('preference_page_email_configuration'), 'fields'=>'automated_from_name,automated_from_email,email_protocol,email_mailpath,smtp_host,smtp_user,smtp_pass,smtp_port,smtp_timeout,email_mailtype,email_charset,email_wordwrap,email_wrapchars,bcc_batch_mode,bcc_batch_size'),
-                'maintenance' => array('name'=> $this->lang->line('preference_page_maintenance_debugging_settings'), 'fields'=>'maintenance_mode,maintenance_message,keep_error_logs_for'),
+                'maintenance' => array('name'=> $this->lang->line('preference_page_maintenance_debugging_settings'), 'fields'=>'keep_error_logs_for'),
 		);
 
 		// Setup custom field options
@@ -74,8 +74,6 @@ class Settings extends Admin_Controller
 		$config['field']['bcc_batch_mode'] = array('type'=>'boolean');
 		$config['field']['bcc_batch_size'] = array('rules'=>'trim|numeric');
 
-		$config['field']['maintenance_mode'] = array('type'=>'boolean');
-		$config['field']['maintenance_message'] = array('type'=>'textarea');
 		//$config['field']['page_debug'] = array('type'=>'boolean');
 		$config['field']['keep_error_logs_for'] = array('rules'=>'trim|required|numeric');
 

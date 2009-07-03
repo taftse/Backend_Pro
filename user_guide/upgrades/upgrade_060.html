@@ -116,7 +116,14 @@ loading code with the new <dfn>bep_assets->load_asset</dfn> code.</p>
 <p>Once you are happy with the new Asset and Site Libraries working fine, delete the old 
 Page module folder and old admin/public/shared asset folders.</p>
 
-<h2>Step 7: Update your user guide</h2>
+<h2>Step 7: Update the Database</h2>
+<p>Please run the following SQL queries on your BackendPro database:</p>
+<ol>
+	<li><dfn>DELETE FROM `be_preferences` WHERE `be_preferences`.`name` = 'maintenance_message';</dfn></li>
+	<li><dfn>DELETE FROM `be_preferences` WHERE `be_preferences`.`name` = 'maintenance_mode';</dfn></li>
+</ol>
+
+<h2>Step 8: Update your user guide</h2>
 <p>Please replace your local copy of the user guide with the new version, including the image files.</p> 
 </div>
 <!-- END CONTENT -->
