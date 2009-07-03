@@ -210,7 +210,7 @@ class Members extends Admin_Controller
 				$user['created'] = date('Y-m-d H:i:s');
 				$profile = $this->_get_profile_details();
 
-				$this->db->trans_start();
+				$this->db->trans_begin();
 				$this->user_model->insert('Users',$user);
 				$profile['user_id'] = $this->db->insert_id();
 				$this->user_model->insert('UserProfiles',$profile);
@@ -234,7 +234,7 @@ class Members extends Admin_Controller
 				$user['modified'] = date('Y-m-d H:i:s');
 				$profile = $this->_get_profile_details();
 
-				$this->db->trans_start();
+				$this->db->trans_begin();
 				$this->user_model->update('Users',$user,array('id'=>$user['id']));
 
 				// The && count($profile) > 0 has been added here since if no update keys=>values

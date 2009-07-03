@@ -342,7 +342,7 @@ class Auth_form_processing
 				break;
 		}
 
-		$this->CI->db->trans_start();
+		$this->CI->db->trans_begin();
 		// Add user details to DB
 		$this->CI->user_model->insert('Users',$data['users']);
 

@@ -147,7 +147,7 @@ class Acl_permissions extends Admin_Controller
 
 		$this->load->library('khacl');
 
-		$this->db->trans_start();
+		$this->db->trans_begin();
 
 		// Remove old actions if modifying
 		if($id != NULL)

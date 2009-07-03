@@ -124,7 +124,7 @@ class Acl_resources extends Admin_Controller
 				// Create Resource
 				$this->load->library('khacl');
 
-				$this->db->trans_start();
+				$this->db->trans_begin();
 				if( ! $this->khacl->aco->create($name,$parent))
 				{
 					flashMsg('warning',sprintf($this->lang->line('access_resource_exists'),$name));

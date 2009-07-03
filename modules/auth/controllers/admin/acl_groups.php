@@ -134,7 +134,7 @@ class Acl_groups extends Admin_Controller
 				// Create Group
 				$this->load->library('khacl');
 
-				$this->db->trans_start();
+				$this->db->trans_begin();
 				if( ! $this->khacl->aro->create($name,$parent))
 				{
 					flashMsg('warning',sprintf($this->lang->line('access_group_exists'),$name));
@@ -167,7 +167,7 @@ class Acl_groups extends Admin_Controller
 					redirect('auth/admin/acl_groups/form/'.$id);
 				}
 
-				$this->db->trans_start();
+				$this->db->trans_begin();
 
 				$this->access_control_model->group->setNodeAsLastChild($node,$new_parent);
 				$this->access_control_model->update('groups',array('disabled'=>$disabled),array('id'=>$id));

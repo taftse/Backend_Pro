@@ -55,12 +55,14 @@ Change Log
 SVN Revision:  TBA</p>
 <h3>Libraries</h3>
 <ul>
-	<li>Added a new Site & Assets library. These two new libraries take over the role of the single 
+	<li>Added a new Site &amp; Assets library. These two new libraries take over the role of the single 
 	now <strong>deprecated</strong> Page library. They implement a new asset management system 
 	with added features.</li>
 </ul>
 <h3>Bugs</h3>
 <ul>
+	<li>Upgrade the use of <dfn>$this-&gt;db-&gt;trans_start()</dfn> to <dfn>$this-&gt;db-&gt;trans_begin()</dfn> in all BackendPro 
+	classes since this is what the CI user guide suggests. See <a href="http://www.assembla.com/spaces/backendpro/tickets/108">Bug #108</a></li>
 	<li>Corrected an issue where the install process was using the old asset files. See <a href="http://www.assembla.com/spaces/backendpro/tickets/124">Bug #124</a></li>
 	<li>Fixed a bug where upon install the CI base_url was incorrect due to an extra trailing slash. See <a href="http://www.assembla.com/spaces/backendpro/tickets/67">Bug #67</a></li>
 </ul>
@@ -71,7 +73,7 @@ SVN Revision:  TBA</p>
 SVN Revision:  <a href="http://trac2.assembla.com/backendpro/browser/trunk?rev=232">[232]</a></p>
 <h3>Bug Fixes</h3>
 <ul>
-	<li>Fixed a major security issue where if you had both Username & Email as valid login fields. Entering just a valid email would log you into the system, <a href="http://trac2.assembla.com/backendpro/ticket/106">Bug #106</a></li>
+	<li>Fixed a major security issue where if you had both Username &amp; Email as valid login fields. Entering just a valid email would log you into the system, <a href="http://trac2.assembla.com/backendpro/ticket/106">Bug #106</a></li>
 	<li>Corrected a typo in the userguide on the Image Controller page, <a href="http://trac2.assembla.com/backendpro/ticket/103">Bug #103</a></li>
 </ul>
   
