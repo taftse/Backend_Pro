@@ -25,7 +25,7 @@
  * @author			Adam Price
  * @copyright		Copyright (c) 2009
  */
-class BeP_Browser
+class Bep_browser
 {		
 	/**
 	 * CodeIgniter Instance
@@ -44,7 +44,7 @@ class BeP_Browser
 	 */
 	var $browser_mappings = array();
 
-	function BeP_Browser()
+	function Bep_browser()
 	{
 		log_message('info','BackendPro->Browser : Browser Class loaded');
 		$this->CI = &get_instance();

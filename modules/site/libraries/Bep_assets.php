@@ -14,7 +14,7 @@
 
 // ---------------------------------------------------------------------------
 
-include_once('Bep_AssetFile.php');
+include_once('Bep_assetfile.php');
 
 /**
  * BackendPro Asset Class
@@ -27,7 +27,7 @@ include_once('Bep_AssetFile.php');
  * @author			Adam Price
  * @copyright		Copyright (c) 2009
  */
-class Bep_Assets
+class Bep_assets
 {		
 	/**
 	 * CodeIgniter Instance
@@ -86,7 +86,7 @@ class Bep_Assets
 	 */
 	var $packer = null;
 	
-	function BeP_Assets()
+	function Bep_assets()
 	{
 		log_message('info','BackendPro->BeP_Assets : Class loaded');
 		$this->CI = &get_instance();
@@ -177,7 +177,7 @@ class Bep_Assets
 		}
 		
 		// Load the browser class along with user_agent
-		$this->CI->load->library('Bep_Browser');		
+		$this->CI->load->library('Bep_browser');		
 		$this->CI->bep_browser->LoadUserAgent();
 				
 		if($this->CI->agent->is_browser() === FALSE)

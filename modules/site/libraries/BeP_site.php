@@ -24,7 +24,7 @@
  * @author			Adam Price
  * @copyright		Copyright (c) 2009
  */
-class BeP_Site
+class BeP_site
 {	
 	/**
 	 * Site Meta Tags array
@@ -50,7 +50,7 @@ class BeP_Site
 	 */
 	var $javascript_code_blocks = array();
 
-	function BeP_Site()
+	function BeP_site()
 	{
 		log_message('info','BackendPro->BeP_Site : Class loaded');
 		$CI = &get_instance();

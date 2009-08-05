@@ -24,7 +24,7 @@
  * @author			Adam Price
  * @copyright		Copyright (c) 2009
  */
-class BeP_AssetFile
+class Bep_assetfile
 {
 	/**
 	 * File name
@@ -61,7 +61,7 @@ class BeP_AssetFile
 	 */
 	var $needs = array();
 	
-	function BeP_AssetFile($full_path)
+	function Bep_assetfile($full_path)
 	{		
 		$this->full_path = $full_path;
 		
