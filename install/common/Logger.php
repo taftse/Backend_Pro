@@ -58,7 +58,7 @@ class Logger
 		flock($fp, LOCK_UN);
 		fclose($fp);
 
-		@chmod($this->file_name, 0666);
+		@chmod($this->file_name, 0777);
 		return TRUE;
 	}
 }

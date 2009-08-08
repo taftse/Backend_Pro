@@ -14,6 +14,8 @@
 
 // ------------------------------------------------------------------------
 
+include_once("common/CommonFunctions.php");
+
 /**
  * Log folder is writable
  *
@@ -28,7 +30,7 @@ class LogFolderWritable extends Component
 
 	function install()
 	{
-		if( is_writeable(LOGS))
+		if( is_really_writable(LOGS))
 		{
 			$this->status = TRUE;
 		}
@@ -53,15 +55,13 @@ class AssetFoldersWritable extends Component
 {
 	var $name = "Asset folders writable";
 	var $path_array = array(
-			'assets/css/',
-			'assets/js/',
 			'assets/cache/');
 
 	function install()
 	{
 		foreach($this->path_array as $path)
 		{
-			if ( ! is_writable(BASEPATH . $path))
+			if ( ! is_really_writable(BASEPATH . $path))
 			{
 				$this->error = BASEPATH . $path . " folder isn't writable";
 				return $this->status;
@@ -86,7 +86,7 @@ class CacheFolderWritable extends Component
 
 	function install()
 	{
-		if( is_writeable(CACHE))
+		if( is_really_writable(CACHE))
 		{
 			$this->status = TRUE;
 		}
@@ -114,16 +114,16 @@ class ConfigFilesWritable extends Component
 
 	function ConfigFilesWritable()
 	{
-		$file_array[] = APPLICATION . 'config/config.php';
-		$file_array[] = APPLICATION . 'config/database.php';
-		$file_array[] = MODULES . 'recaptcha/config/recaptcha.php';
+		$this->file_array[] = APPLICATION . 'config/config.php';
+		$this->file_array[] = APPLICATION . 'config/database.php';
+		$this->file_array[] = MODULES . 'recaptcha/config/recaptcha.php';
 	}
 
 	function install()
 	{
 		foreach($this->file_array as $file)
 		{
-			if ( !is_writable($file))
+			if ( !is_really_writable($file))
 			{
 				$this->error = $file . " file isn't writable";
 				return $this->status;

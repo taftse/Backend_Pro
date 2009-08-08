@@ -27,7 +27,17 @@
     </div>
 
     <div id="content">
-        <a name="top"></a>
+    	<a name="top"></a>
+    	<?php
+    		include_once("common/CommonFunctions.php");
+    		
+    		// Check the install folder is realy writable
+    		if(!is_really_writable($_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER['SCRIPT_NAME']))):
+   		?>
+   		<p>Before you can install BackendPro please make sure the following folder is writable, then re-run this 
+   		install:</p>
+   		<p><b><?php print $_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER['SCRIPT_NAME']) ?></b></p>
+   		<?php else:?>        
         <p>Lets get started, all we are going to do here is setup some basic details to get
         your system up and running.</p>
 
@@ -155,6 +165,7 @@
                 </ol>
             </fieldset>
         </form>
+        <?php endif;?>
     </div>
 
     <div id="footer">
