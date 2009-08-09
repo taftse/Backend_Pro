@@ -170,6 +170,10 @@ $config['csstidy']['config'] = array(
  * Example: 
  * BASEPATH . "../modules/site/plugins/packer/class.JavaScriptPacker.php4"
  * 
+ * TURNING THIS ON CAN BREAK YOUR JS CODE. SO PLEASE ONLY USE IF YOU HAVE
+ * FULLY TESTED IT. ALL JS CODE MUST BE UN-MINIMISED/PACKED AS WELL TO
+ * WORK
+ * 
  * @var string
  */
 $config['packer']['path'] = "";
