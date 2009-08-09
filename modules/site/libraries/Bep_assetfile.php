@@ -61,6 +61,13 @@ class Bep_assetfile
 	 */
 	var $needs = array();
 	
+	/**
+	 * Is Asset file external to the local server
+	 * 
+	 * @var bool
+	 */
+	var $is_external = false;
+	
 	function Bep_assetfile($full_path)
 	{		
 		$this->full_path = $full_path;
@@ -84,6 +91,9 @@ class Bep_assetfile
 		
 		// Set the default type to that of the ext
 		$this->type = $this->ext;
+		
+		// Set whether the asset is internal/external
+		$this->is_external = ($base_name != $this->full_path);
 	}
 	
 	/**

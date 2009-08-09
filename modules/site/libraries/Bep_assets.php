@@ -577,10 +577,22 @@ class Bep_assets
 		{
 			if($this->assets[$name]->ext != 'php')
 			{
-				$output .= file_get_contents($this->assets[$name]->full_path);
+				if($this->assets[$name]->is_external)
+				{
+					// We have no other way to get the file contents other than this
+					// but for it to work allow_url_fopen must be true on the target server
+					$output .= file_get_contents($this->assets[$name]->full_path);
+				}
+				else
+				{
+					// TODO: This assets folder should be configurable
+					// Since it is local lets try to load it not using the full URL
+					$output .= file_get_contents('assets/' . $this->assets[$name]->type . '/' . $this->assets[$name]->name . '.' . $this->assets[$name]->ext);
+				}				
 			}
 			else
 			{
+				// BUG: This will fail if the asset is an external php file
 				ob_start();
 				include str_replace(base_url(),'',$this->assets[$name]->full_path);
 				$output .= ob_get_contents();
@@ -723,7 +735,7 @@ class Bep_assets
 			list($file_name,$ext) = $this->_get_file_details($asset['file']);
 		
 		 	// Create an asset file object
-			$new_asset = new BeP_AssetFile($asset['file']);
+			$new_asset = new Bep_assetfile($asset['file']);
 			
 			// Transfer the needs accross
 			if(isset($asset['needs']))
