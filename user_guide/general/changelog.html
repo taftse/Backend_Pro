@@ -58,6 +58,11 @@ SVN Revision:  <a href="http://code.assembla.com/backendpro/subversion/changeset
 	<li>Moved the <b>Admin_Controller</b> and <b>Public_Controller</b> to their own seperate files. 
 	This keeps it so there is 1 class per file. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/99">Enhancement #99</a>.
 </ul>
+<h3>Models</h3>
+<ul>
+	<li>Stopped the preference model from making multiple queries to the DB whenever a preference was fetched. Now they are 
+	all fetched and cached. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/135">Enhancement #135</a>.
+</ul>
 <h3>Bugs</h3>
 <ul>
 	<li>Fixed a bug saying Bep_assets could not find an asset file when attempting to create an asset cache. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/134">Bug #134</a>.
