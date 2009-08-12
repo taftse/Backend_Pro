@@ -69,8 +69,8 @@ class Site_Controller extends Controller
 	}
 }
 
-include_once("Admin_Controller.php");
-include_once("Public_Controller.php");
+include_once("Admin_controller.php");
+include_once("Public_controller.php");
 
 /* End of file MY_Controller.php */
 /* Location: ./system/application/libraries/MY_Controller.php */
