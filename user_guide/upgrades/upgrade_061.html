@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>BackendPro User Guide : Upgrading from 0.5 to 0.5.1</title>
+<title>BackendPro User Guide : Upgrading from 0.6 to 0.6.1</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -34,7 +34,7 @@
 <a href="http://www.kaydoo.co.uk/projects/backendpro">BackendPro Home</a> &nbsp;&#8250;&nbsp;
 <a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;    
 <a href="../general/upgrade.html">Upgrading From a Previous Version</a> &nbsp;&#8250;&nbsp;    
-Upgrading from 0.5 to 0.5.1
+Upgrading from 0.6 to 0.6.1
 </td>
 <td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="http://www.kaydoo.co.uk/backendpro/user_guide/" />Search User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
 </tr>
@@ -49,7 +49,7 @@ Upgrading from 0.5 to 0.5.1
 <div id="content">
 
 
-<h1>Upgrading from 0.5 to 0.5.1</h1>
+<h1>Upgrading from 0.6 to 0.6.1</h1>
 
 <p>Before you start the upgrade process please take a full backup of both your website files
 and also your database. Please also take your site offline by replacing the index.php file 
@@ -64,7 +64,12 @@ with a static one.</p>
 </ul>
 <p class="important"><strong>Note:</strong> If you have any custom developed files in these folders please make copies of them first. This may include customer user authentication and custom website preference forms.</p>
  
-<h2>Step 2: Update your user guide</h2>
+<h2>Step 2: Relocate custom code</h2>
+<p>In this update the classes <b>Admin_Controller</b> and <b>Public_Controller</b> have been moved from there old files
+to two new seperate files in the same directory. If you have made any changes to either of these classes 
+they will need to be moved to the new respective classes.</p>
+ 
+<h2>Step 3: Update your user guide</h2>
 <p>Please replace your local copy of the user guide with the new version, including the image files.</p> 
 </div>
 <!-- END CONTENT -->
