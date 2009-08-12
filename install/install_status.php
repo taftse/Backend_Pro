@@ -83,7 +83,6 @@
 
     <div id="footer">
         <a href="#top">Top</a><br />
-        This site is powered by BackendPro 0.6<br />
         &copy; Copyright 2009 - Adam Price -  All rights Reserved
     </div>
 </div>
