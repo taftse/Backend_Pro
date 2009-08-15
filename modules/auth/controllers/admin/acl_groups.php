@@ -66,7 +66,6 @@ class Acl_groups extends Admin_Controller
 		$this->load->library('validation');
 		$fields['id'] = "ID";
 		$fields['name'] = $this->lang->line('access_name');
-		$fields['disabled'] = $this->lang->line('access_disabled');
 		$fields['parent'] = $this->lang->line('access_parent_name');
 		$this->validation->set_fields($fields);
 
@@ -84,21 +83,11 @@ class Acl_groups extends Admin_Controller
 				redirect('auth/admin/acl_groups');
 			}
 
-			// Fetch the disabled value
-			$query = $this->access_control_model->fetch('groups','disabled',NULL,array('id'=>$id));
-			$row = $query->row();
-
 			// Load default values into form
 			$parent = $this->access_control_model->group->getAncestor($node);
 			$this->validation->set_default_value('id',$id);
-			$this->validation->set_default_value('disabled',$row->disabled);
 			$this->validation->set_default_value('name',$node['name']);
 			$this->validation->set_default_value('parent',$parent['name']);
-		}
-		elseif( is_null($id) AND ! $this->input->post('submit'))
-		{
-			// Create form, first load
-			$this->validation->set_default_value('disabled','0');
 		}
 		elseif( $this->input->post('submit'))
 		{
@@ -126,7 +115,6 @@ class Acl_groups extends Admin_Controller
 		{
 			// PASS
 			$name = $this->input->post('name');
-			$disabled = $this->input->post('disabled');
 			$parent = $this->input->post('parent');
 
 			if( is_null($id))
@@ -141,7 +129,7 @@ class Acl_groups extends Admin_Controller
 					redirect('auth/admin/acl_groups/form');
 				}
 
-				$this->access_control_model->insert('groups',array('id'=>$this->db->insert_id(),'disabled'=>$disabled));
+				$this->access_control_model->insert('groups',array('id'=>$this->db->insert_id()));
 
 				if( $this->db->trans_status() === TRUE)
 				{
@@ -170,7 +158,6 @@ class Acl_groups extends Admin_Controller
 				$this->db->trans_begin();
 
 				$this->access_control_model->group->setNodeAsLastChild($node,$new_parent);
-				$this->access_control_model->update('groups',array('disabled'=>$disabled),array('id'=>$id));
 				$this->access_control_model->update('aros',array('name'=>$name),array('id'=>$id));
 
 				if($this->db->trans_status() === TRUE)

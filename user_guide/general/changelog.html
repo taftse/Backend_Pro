@@ -50,23 +50,33 @@ Change Log
 
 <h1>Change Log</h1>
 
+<h2>Version 0.7</h2>
+<p>Release Date: TBA<br />
+SVN Revision:  TBA<!--
+<a href="http://code.assembla.com/backendpro/subversion/changesets/257">[257]</a></p>
+-->
+<h3>Features</h3>
+<ul>
+	<li>Removed the option to <strong>disable</strong> a user group. This feature wasn't implemented and didn't seem needed. 
+</ul>
+
 <h2>Version 0.6.1</h2>
 <p>Release Date: 12th August 2009<br />
 SVN Revision:  <a href="http://code.assembla.com/backendpro/subversion/changesets/257">[257]</a></p>
 <h3>Libraries</h3>
 <ul>
 	<li>Moved the <b>Admin_Controller</b> and <b>Public_Controller</b> to their own seperate files. 
-	This keeps it so there is 1 class per file. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/99">Enhancement #99</a>.
+	This keeps it so there is 1 class per file. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/99">Enhancement #99</a>.</li>
 </ul>
 <h3>Models</h3>
 <ul>
 	<li>Stopped the preference model from making multiple queries to the DB whenever a preference was fetched. Now they are 
-	all fetched and cached. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/135">Enhancement #135</a>.
+	all fetched and cached. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/135">Enhancement #135</a>.</li>
 </ul>
 <h3>Bugs</h3>
 <ul>
-	<li>Fixed a bug saying Bep_assets could not find an asset file when attempting to create an asset cache. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/134">Bug #134</a>.
-	<li>Fixed bugs in the install process where files where not being checked if they where really writeable. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/133">Bug #133</a>.
+	<li>Fixed a bug saying Bep_assets could not find an asset file when attempting to create an asset cache. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/134">Bug #134</a>.</li>
+	<li>Fixed bugs in the install process where files where not being checked if they where really writeable. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/133">Bug #133</a>.</li>
 	<li>Fixed a bug where it would report <strong>Cannot load library: bep_site</strong>. See  <a href="http://www.assembla.com/spaces/backendpro/tickets/132">Bug #132</a>.</li>
 </ul>
 

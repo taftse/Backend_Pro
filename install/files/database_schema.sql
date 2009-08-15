@@ -152,8 +152,7 @@ INSERT INTO `be_acl_resources` (`id`, `lft`, `rgt`, `name`, `link`) VALUES
 DROP TABLE IF EXISTS `be_groups`;
 CREATE TABLE IF NOT EXISTS `be_groups` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `locked` tinyint(1) unsigned NOT NULL default '0',
-  `disabled` tinyint(1) unsigned NOT NULL default '0',
+  `locked` tinyint(1) unsigned NOT NULL default '0'
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
@@ -161,9 +160,9 @@ CREATE TABLE IF NOT EXISTS `be_groups` (
 -- Dumping data for table `be_groups`
 --
 
-INSERT INTO `be_groups` (`id`, `locked`, `disabled`) VALUES
-(1, 1, 0),
-(2, 1, 0);
+INSERT INTO `be_groups` (`id`, `locked`) VALUES
+(1, 1),
+(2, 1);
 
 -- --------------------------------------------------------
 

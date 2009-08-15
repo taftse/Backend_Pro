@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>BackendPro User Guide : Upgrading From a Previous Version</title>
+<title>BackendPro User Guide : Upgrading from 0.6.1 to 0.7</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -20,7 +20,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>BackendPro User Guide Version 0.6.1</h1></td>
+<td><h1>BackendPro User Guide Version 0.7</h1></td>
 <td id="breadcrumb_right"><a href="../contents.html">Table of Contents</a></td>
 </tr>
 </table>
@@ -33,7 +33,8 @@
 <td id="breadcrumb">
 <a href="http://www.kaydoo.co.uk/projects/backendpro">BackendPro Home</a> &nbsp;&#8250;&nbsp;
 <a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;    
-Upgrading From a Previous Version
+<a href="../general/upgrade.html">Upgrading From a Previous Version</a> &nbsp;&#8250;&nbsp;    
+Upgrading from 0.6.1 to 0.7
 </td>
 <td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="http://www.kaydoo.co.uk/backendpro/user_guide/" />Search User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
 </tr>
@@ -48,18 +49,30 @@ Upgrading From a Previous Version
 <div id="content">
 
 
-<h1>Upgrading From a Previous Version</h1>
+<h1>Upgrading from 0.6.1 to 0.7</h1>
 
-<p>Please select the upgrade notes for the correct version you are upgrading from</p>
+<p>Before you start the upgrade process please take a full backup of both your website files
+and also your database. Please also take your site offline by replacing the index.php file 
+with a static one.</p>
+
+<h2>Step 1: Update Files</h2>
+<p>Replace the files in the following folders with the newly downloaded versions.</p>
 <ul>
-	<li><a href="../upgrades/upgrade_070.html">Upgrading from 0.6.1 to 0.7</a></li>
-	<li><a href="../upgrades/upgrade_061.html">Upgrading from 0.6 to 0.6.1</a></li>
-	<li><a href="../upgrades/upgrade_060.html">Upgrading from 0.5.1 to 0.6</a></li>
-	<li><a href="../upgrades/upgrade_051.html">Upgrading from 0.5 to 0.5.1</a></li>
-	<li><a href="../upgrades/upgrade_050.html">Upgrading from 0.4 to 0.5</a></li>
-	<li><a href="../upgrades/upgrade_040.html">Upgrading from 0.3.1 to 0.4</a></li>
+	<li><dfn>assets</dfn></li>
+	<li><dfn>modules</dfn></li>
+	<li><dfn>system</dfn></li>
+</ul>
+<p class="important"><strong>Note:</strong> If you have any custom developed files in these folders please make copies of them first. This may include customer user authentication and custom website preference forms.</p>
+ 
+<h2>Step 2: Update your Database</h2>
+<p>In this new version a disabled feature was removed from the system since it wasn't actualy used at all. Please run the following queries on
+your database:</p>
+<ul>
+<li>ALTER TABLE `be_groups` DROP `disabled`;</li>
 </ul>
  
+<h2>Step 3: Update your user guide</h2>
+<p>Please replace your local copy of the user guide with the new version, including the image files.</p> 
 </div>
 <!-- END CONTENT -->
 

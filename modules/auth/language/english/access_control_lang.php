@@ -61,7 +61,6 @@ $lang['access_resource_illegal_assignment'] = "Illegal assigment for new parent 
 $lang['access_delete_resources_confirm'] = "Are you SURE you want delete these resources? Doing so will also DELETE all permissions using these resources!";
 
 /* Groups */
-$lang['access_disabled'] = "Disabled";
 $lang['access_create_group'] = "Create Group";
 $lang['access_edit_group'] = "Modify Group";
 $lang['access_delete_group'] = "Delete Group";
