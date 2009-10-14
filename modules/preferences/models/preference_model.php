@@ -22,7 +22,7 @@
  * @package			BackendPro
  * @subpackage		Models
  */
-class Preference_model extends Base_model
+class Preference_model extends Model
 {
 	/**
 	 * Preference Cache
@@ -47,7 +47,7 @@ class Preference_model extends Base_model
  	
 	function Preference_model()
 	{
-		parent::Base_model();		
+		parent::Model();		
 
 		define("PREFERENCES", $this->config->item('backendpro_table_prefix') . 'preferences');
 
@@ -125,7 +125,8 @@ class Preference_model extends Base_model
 			$value = $this->object_keyword . serialize($value);
 		}
 		
-		return $this->update('Option',array('value'=>$value),array('name'=>$name));
+		$this->db->where('name', $name);
+        return $this->db->update(PREFERENCES, array('value'=>$value)); 
 	}
 }
 
