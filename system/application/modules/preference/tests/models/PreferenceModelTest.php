@@ -31,15 +31,33 @@ class PreferenceModelTest extends PHPUnit_Framework_TestCase
 { 
     var $model;
     
+    /**
+     * Setup
+     * 
+     * Prepear the model and the config value it needs
+     * for the constructor
+     */
     function setUp()
     {
         $GLOBALS['config_return'] = "bep_";
         $this->model = new Preference_model();
     }
     
-    function tearDown()
+    /**
+     * Test Constructor
+     * 
+     * Check table definition name is set and other
+     * pre-creation tasks are completed.
+     * 
+     * @test
+     * @covers Preference_model::Preference_model
+     */
+    function constructor()
     {
-        unset($this->model);
+        $this->model = new PreferenceModelTest();
+        
+        $this->assertsEqual('BeP::Object::', $this->model->object_keyword);
+        $this->assertEquals(PREFERENCE_TABLE, 'bep_preferences');
     }
     
     /**
