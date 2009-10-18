@@ -56,7 +56,7 @@ class PreferenceModelTest extends PHPUnit_Framework_TestCase
     {
         $this->model = new PreferenceModelTest();
         
-        $this->assertsEqual('BeP::Object::', $this->model->object_keyword);
+        $this->assertEquals('BeP::Object::', $this->model->object_keyword);
         $this->assertEquals(PREFERENCE_TABLE, 'bep_preferences');
     }
     
