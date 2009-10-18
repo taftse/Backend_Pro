@@ -1,0 +1,5 @@
+<testsuites>
+  <testsuite name="BackendProTestSuite">
+    <directory>/opt/cruisecontrol/projects/backendpro/source/system/application/modules/preference/tests/</directory>
+  </testsuite>
+</testsuites>

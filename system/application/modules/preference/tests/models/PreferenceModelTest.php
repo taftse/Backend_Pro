@@ -12,7 +12,7 @@
  * @filesource
  */
  
-define(BASEPATH,"../htdocs/BackendPro/system/application/");
+define(BASEPATH,"system/application/");
  
 require_once 'PHPUnit/Framework.php';
 require_once BASEPATH . 'tests/Base_test_code.php';

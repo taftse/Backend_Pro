@@ -109,21 +109,19 @@ class Preference_model extends Model
 	 */
 	function set_item($name, $value)
 	{
-		if (is_null($name))
-		{
-			return FALSE;
-		}
-
-		$this->preference_cache[$name] = $value;
-
-		if (is_array($value))
-		{
-			$value = $this->object_keyword . serialize($value);
-		}
-		
-		log_message('debug','BackendPro->Preference_model->set_item : Preference value changed, ' . $name . ' = ' . $value);
-		$this->db->where('name', $name);
-        return $this->db->update(PREFERENCE_TABLE, array('value'=>$value)); 
+        if( ! is_null($name))
+        {
+    		$this->preference_cache[$name] = $value;
+    
+    		if (is_array($value))
+    		{
+    			$value = $this->object_keyword . serialize($value);
+    		}
+    		
+    		log_message('debug','BackendPro->Preference_model->set_item : Preference value changed, ' . $name . ' = ' . $value);
+    		$this->db->where('name', $name);
+            return $this->db->update(PREFERENCE_TABLE, array('value'=>$value));
+        }
 	}
 }
 
