@@ -12,7 +12,7 @@
  * @filesource
  */
  
-define(BASEPATH,"system/application/");
+define(BASEPATH,'system/application/');
  
 require_once 'PHPUnit/Framework.php';
 require_once BASEPATH . 'tests/Base_test_code.php';
@@ -39,7 +39,7 @@ class PreferenceModelTest extends PHPUnit_Framework_TestCase
      */
     function setUp()
     {
-        $GLOBALS['config_return'] = "bep_";
+        $GLOBALS['config_return'] = 'bep_';
         $this->model = new Preference_model();
     }
     
@@ -54,7 +54,7 @@ class PreferenceModelTest extends PHPUnit_Framework_TestCase
      */
     function constructor()
     {
-        $this->model = new PreferenceModelTest();
+        $this->model = new Preference_model();
         
         $this->assertEquals('BeP::Object::', $this->model->object_keyword);
         $this->assertEquals(PREFERENCE_TABLE, 'bep_preferences');
