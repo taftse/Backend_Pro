@@ -39,8 +39,14 @@ class PreferenceModelTest extends PHPUnit_Framework_TestCase
      */
     function setUp()
     {
-        $GLOBALS['config_return'] = 'bep_';
         $this->model = new Preference_model();
+    
+        $config_mock = $this->GetMock('config',array('item'));
+        $config_mock->expects($this->once())
+                    ->method('item')
+                    ->with($this->equalTo('bep_'));
+                    
+        $this->model->config = $config_mock;
     }
     
     /**
@@ -54,7 +60,8 @@ class PreferenceModelTest extends PHPUnit_Framework_TestCase
      */
     function constructor()
     {
-        $this->model = new Preference_model();
+        // Don't normaly do this but its to avoid duplicate code
+        $this->setUp();
         
         $this->assertEquals('BeP::Object::', $this->model->object_keyword);
         $this->assertEquals(PREFERENCE_TABLE, 'bep_preferences');
