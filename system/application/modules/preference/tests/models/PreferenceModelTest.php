@@ -44,7 +44,8 @@ class PreferenceModelTest extends PHPUnit_Framework_TestCase
         $config_mock = $this->GetMock('config',array('item'));
         $config_mock->expects($this->once())
                     ->method('item')
-                    ->with($this->equalTo('bep_'));
+                    ->with($this->equalTo('backendpro_table_prefix'))
+                    ->will($this->returnValue('bep_'));
                     
         $this->model->config = $config_mock;
     }
