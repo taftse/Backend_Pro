@@ -45,7 +45,7 @@ class Preference_model extends Model
 	{
 		parent::Model();		
 
-		define(PREFERENCE_TABLE, $this->config->item('backendpro_table_prefix') . 'preferences');
+		define('PREFERENCE_TABLE', $this->config->item('backendpro_table_prefix') . 'preferences');
 
 		log_message('debug','BackendPro : Preference_model class loaded');
 	}

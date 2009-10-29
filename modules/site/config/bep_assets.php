@@ -64,8 +64,8 @@ $config['asset'][] = array('file'=>'FlashStatus.css');
 $config['asset'][] = array('file'=>'bep_icons.php','type'=>'css');
 
 // BackendPro JS
-$config['asset'][] = array('file'=>'jquery-1.3.2.js', 'name'=>'jquery');
-$config['asset'][] = array('file'=>'jquery_ui.js', 'needs'=>'jquery');
+$config['asset'][] = array('file'=>'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js', 'name'=>'jquery');
+$config['asset'][] = array('file'=>'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js', 'needs'=>'jquery');
 $config['asset'][] = array('file'=>'jquery.cookie.js', 'needs'=>'jquery');
 $config['asset'][] = array('file'=>'jquery.treeview.js', 'needs'=>'jquery.cookie');
 $config['asset'][] = array('file'=>'bep_dashboard.js', 'needs'=>'jquery_ui|jquery.cookie');
