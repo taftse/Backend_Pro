@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Template Library : BackendPro User Guide</title>
+
+    <link rel='stylesheet' type='text/css' media='all' href='../userguide.css'/>
+
+    <script type="text/javascript" src="../nav/nav.js"></script>
+    <script type="text/javascript" src="../nav/prototype.lite.js"></script>
+    <script type="text/javascript" src="../nav/moo.fx.js"></script>
+    <script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+    <meta http-equiv='expires' content='-1'/>
+    <meta http-equiv='pragma' content='no-cache'/>
+    <meta name='robots' content='all'/>
+
+</head>
+
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav">
+    <div id="nav_inner">
+        <script type="text/javascript">create_menu('../');</script>
+    </div>
+</div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img
+        src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents"
+        alt="Toggle Table of Contents"/></a></div>
+<div id="masthead">
+
+    <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+        <tr>
+            <td><h1>Backendpro User Guide Version 1.0 RC 1</h1></td>
+            <td id="breadcrumb_right"><a href="javascript:void(0);" onclick="myHeight.toggle();">Table of Contents</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+    <tr>
+        <td id="breadcrumb">
+            <a href="http://backendpro.co.uk">BackendPro</a> &nbsp;&#8250;&nbsp;
+            <a href="../index.html">User Guide</a> &nbsp;&#8250;&nbsp;
+            Template Library
+        </td>
+        <td id="searchbox">
+            <form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch"
+                                                                            id="as_sitesearch"
+                                                                            value="http://backendpro.co.uk/user_guide/"/>Search
+                BackendPro User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q"
+                                                   size="31" maxlength="255" value=""/>&nbsp;<input type="submit"
+                                                                                                    class="submit"
+                                                                                                    name="sa"
+                                                                                                    value="Go"/></form>
+        </td>
+    </tr>
+
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all"/>
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Template Library</h1>
+
+<p>The Template library provides you with all the functionality to manage your view files and to output your data
+    to the user.</p>
+
+<p class="important"><strong>Note:</strong> This class is initialized automatically by the system so there is no
+    need to do it manually.</p>
+
+
+<p>Features:</p>
+
+<ul>
+    <li>Loading of view files</li>
+    <li>Loading of partial views</li>
+    <li>Master layout view</li>
+    <li>Breadcrumb trail creation</li>
+    <li>Page metadata</li>
+</ul>
+
+<a name="usage"></a>
+
+<h2>Usage</h2>
+
+<h3>Layout View</h3>
+
+<p>One of the main features of the template class is its ability to load your page view into a main layout view. Now you
+    may be asked <i>whats a layout view?</i>.</p>
+
+<p>Lets say you on your site you have the same basic site design with header/footer etc. In every view you don't want
+    to have to repeat yourself (something like below).</p>
+<code>
+    &lt;?php&nbsp;// Output your header&nbsp;?&gt;<br/>
+    &lt;?php&nbsp;$this&gt;load-&gt;view('my_actual_view');?&gt;<br/>
+    &lt;?php&nbsp;// Output your footer&nbsp;?&gt;<br/>
+</code>
+
+<p>With a layout view we have a single view containing the following. What this means is we just inject the view
+    we are interested in into the <dfn>$body</dfn> variable. The advantage of this is our code is only written once and
+    it
+    allows for more complex views which are built up along the way rather than all at once.</p>
+
+<code>
+    &lt;?php&nbsp;// Output your header?&gt;<br/>
+    &lt;?php&nbsp;print&nbsp;<var>$body;</var>?&gt;<br/>
+    &lt;?php&nbsp;// Output your footer?&gt;
+</code>
+
+<p>You could take this layout concept a step further, rather than just having a single layout you may have multiple.
+    Lets
+    say one for mobile content. Then in code you can change which one you want. To change the layout file used set the
+    <a href="#variable_ref_layout">layout variable</a>.</p>
+
+<h3>Partial Views</h3>
+
+<p>Another great feature of the Template Library is partial views. A partial view is a very small self contained view
+    with its own data variables. They mean you can split up a big complex view into smaller parts while at the same time
+    keeping
+    them fully independent.</p>
+
+<p>Lets look at a very simple example. Say we have the following 'complex' view.</p>
+
+<code>
+    //&nbsp;Complex_view.php<br/>
+    Variable&nbsp;1:&nbsp;&lt;?php&nbsp;print&nbsp;$variable_1;?&gt;<br/>
+    Variable&nbsp;2:&nbsp;&lt;?php&nbsp;print&nbsp;$variable_2;?&gt;<br/>
+    Variable&nbsp;3:&nbsp;&lt;?php&nbsp;print&nbsp;$variable_3;?&gt;<br/>
+    <br/>
+    //&nbsp;Code&nbsp;to&nbsp;build&nbsp;view<br/>
+    $this-&gt;template-&gt;build('complex',&nbsp;array('variable_1'&nbsp;=&gt;&nbsp;1,&nbsp;'variable_2'&nbsp;=&gt;&nbsp;2,&nbsp;'variable_3'&nbsp;=&gt;&nbsp;3));
+</code>
+
+<p>We can now split this into two separate views, a main view and a partial view.</p>
+
+<code>
+    //&nbsp;Main_view.php<br/>
+    Variable&nbsp;1:&nbsp;&lt;?php&nbsp;print&nbsp;$variable_1;?&gt;<br/>
+    &lt;?php&nbsp;print&nbsp;$template['partial']['simple'];?&gt;<br/>
+    <br/>
+    //&nbsp;Partial_view.php<br/>
+    Variable&nbsp;2:&nbsp;&lt;?php&nbsp;print&nbsp;$variable_2;?&gt;<br/>
+    Variable&nbsp;3:&nbsp;&lt;?php&nbsp;print&nbsp;$variable_3;?&gt;<br/>
+    <br/>
+    //&nbsp;Code&nbsp;to&nbsp;build&nbsp;view<br/>
+    $this-&gt;template-&gt;set_partial('simple',&nbsp;'Partial_view',&nbsp;array('variable_2'&nbsp;=&gt;&nbsp;2,&nbsp;'variable_3'&nbsp;=&gt;&nbsp;3));<br/>
+    $this-&gt;template-&gt;build('main',&nbsp;array('variable_1'&nbsp;=&gt;&nbsp;1));
+</code>
+
+<h3>Default Template Variables</h3>
+
+<p>When using the <a href="#function_ref_build">build function</a> there are certain default variables passed down. Now
+    most of these will only be used in the main layout file. Below is a list of all variables passed (all must be
+    printed to
+    screen).</p>
+
+<ul>
+    <li><dfn>$template['title']</dfn> - The page title as set using <a href="#function_ref_set_title">set_title</a></li>
+    <li><dfn>$template['site_title']</dfn> - The site title, this is just the title with the site name appended to it.</li>
+    <li><dfn>$template['metadata']</dfn> - The page metadata tags as set using <a href="#function_ref_set_title">set_title</a>
+    </li>
+    <li><dfn>$template['breadcrumbs']</dfn> - The page breadcrumb links as set using <a
+            href="#function_ref_set_breadcrumb">set_breadcrumb</a></li>
+    <li><dfn>$template['partials'][..]</dfn> - The page view partials as set using <a href="#function_ref_set_partial">set_partial</a>.
+        The sub array contains all unique partial view names.
+    </li>
+    <li><dfn>$template['variables']</dfn> - The page JS variables which have been converted from PHP variables.</li>
+</ul>
+
+
+<h2>Configuration</h2>
+
+<p>All the following configurations can be found in <dfn>backendpro_modules/template/config/template.php</dfn>.</p>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+    <tr>
+        <th>Configuration</th>
+        <th>Default&nbsp;Value</th>
+        <th>Options</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td class="td"><strong>display_final_link</strong></td>
+        <td class="td">FALSE</td>
+        <td class="td">None</td>
+        <td class="td">Determines if the last crumb in the breadcrumb trail should be shown as a clickable link.</td>
+    </tr>
+    <tr>
+        <td class="td"><strong>breadcrumb_separator</strong></td>
+        <td class="td"> &gt; </td>
+        <td class="td">None</td>
+        <td class="td">The string separator to use to split up the breadcrumb links. This is inserted between each
+            outputted crumb.
+        </td>
+    </tr>
+    <tr>
+        <td class="td"><strong>title_separator</strong></td>
+        <td class="td"> |</td>
+        <td class="td">None</td>
+        <td class="td">The page title separator string. This is used to split the page name and site name (if set).</td>
+    </tr>
+</table>
+
+<h2>Variable Reference</h2>
+
+<a name="variable_ref_layout"></a>
+
+<h3>$this->template->layout</h3>
+
+<p>Set the main layout view file. This is usually done in your parent Controller and points to a master view file which
+    contains all headers/footers.</p>
+
+<p>The only requirement of this view file is that it contains a <var>$body</var> variable to insert content into.</p>
+
+<h3>$this->template->site_name</h3>
+
+<p>Set the site name to be used in the page title. By default this is done in the <a
+        href="../general/controllers.html#site_controller">Site Controller</a> class.</p>
+
+<p>When a site name is set it will be append it to the page title using the <dfn>title_separator</dfn>.</p>
+
+<h3>$this->template->data</h3>
+
+<p>Set page variables to be passed to the view you are loading. This is a great way to pass high level page variables
+    down. The values must be passed in an associative array format. It works in the same way as you can pass dynamic
+    data to
+    a view when you use <dfn>$this->load->view()</dfn>.</p>
+<code>
+    $this-&gt;template-&gt;data['copyright'] = 'cc 2010';<br/>
+    $this-&gt;template-&gt;data['site_name'] = $this-&gt;setting-&gt;item('site_name');<br/>
+</code>
+
+<h2>Function Reference</h2>
+
+<a name="function_ref_build"></a>
+
+<h3>$this->template->build()</h3>
+
+<p>Output a view to the screen. This behaives very like <dfn>$this-&gt;load-&gt;view()</dfn> with a few extra options.
+</p>
+<code>$this->template->build('<var>my_view</var>', <var>$data</var>, <kbd>FALSE</kbd>, <kbd>TRUE</kbd>);</code>
+
+<p>The first parameter specifies the view file to load. If the view file is located inside a module you must define it
+    like <dfn>module_name/view_name</dfn>.</p>
+
+<p>The second <strong>optional</strong> parameter specifies a data array to pass to the view.</p>
+
+<p>The third <strong>optional</strong> parameter specifies whether the view should be returned or outputted. By default
+    this is set to <kbd>FALSE</kbd>.</p>
+
+<p>The forth <strong>optional</strong> parameter specifies whether the view should be wrapped in the main layout view
+    file
+    (if one has been set using <dfn>$this-&gt;template-&gt;layout</dfn>). By default this is set to <kbd>TRUE</kbd>. You
+    want to
+    turn this feature off if you decide on a specific page you don't want the usual layout.</p>
+
+<a name="function_ref_set_title"></a>
+
+<h3>$this->template->set_title()</h3>
+
+<p>Set the page title</p>
+<code>$this->template->set_title('<var>title</var>')</code>
+
+<a name="function_ref_set_partial"></a>
+
+<h3>$this->template->set_partial()</h3>
+
+<p>Set a view partial to be passed to the main view. </p>
+<code>$this->template->set_partial('<var>name</var>', '<var>view</var>', <var>$data</var>, <kbd>FALSE</kbd>)</code>
+
+<p>The first parameter specifies the unique name assigned to the partial view. This is later used to output it into the
+    actual
+    html.</p>
+
+<p>The second parameter specifies the view file to be used. If the view file is located inside a module you must define
+    it
+    like <dfn>module_name/view_name</dfn>.</p>
+
+<p>The third <strong>optional</strong> parameter specifies a data array to pass to the view.</p>
+
+<p>The forth <strong>optional</strong> parameter specifies whether the view partial should be overwritten. By default
+    specifying
+    a non unique partial view name will cause an error. But if this parameter is set to <kbd>TRUE</kbd> it will not
+    error
+    and instead overwrite the current partial view set for the name. This is useful if the partial view has been set
+    globally but
+    in a special case you need a more specific view.</p>
+
+<a name="function_ref_set_breadcrumb"></a>
+
+<h3>$this->template->set_breadcrumb()</h3>
+
+<p>Set a breadcrumb link</p>
+<code>$this->template->set_breadcrumb('<var>title</var>', '<var>uri</var>')</code>
+
+<p>The first parameter specifies the link title to use for the breadcrumb.</p>
+
+<p>The second <strong>optional</strong> parameter specifies the CodeIgniter URI that the breadcrumb link will go to
+    when clicked.</p>
+
+<a name="function_ref_set_metadata"></a>
+
+<h3>$this->template->set_metadata()</h3>
+
+<p>Set a metadata tag and contents</p>
+<code>$this->template->set_metadata('<var>name</var>', '<var>content</var>', <kbd>FALSE</kbd>)</code>
+
+<p>The first parameter specifies the name of the metadata tag to create. E.g. keywords, description.</p>
+
+<p>The second parameter specifies the contents of the metadata tag.</p>
+
+<p>The third <strong>optional</strong> parameter specifies whether an http <dfn>equiv</dfn> metadata should be created
+    OR if a
+    <dfn>name</dfn> metadata tag should be created. By default <kbd>FALSE</kbd> means a <dfn>name</dfn> metadata tag is
+    created.</p>
+
+<h3>$this->template->set_variable()</h3>
+<p>Set a variable to be outputted to the page</p>
+<code>$this->template->set_variable('<var>name</var>', '<var>value</var>')</code>
+
+<p>This method can be used to create JavaScript variables based on PHP variables. Look at the example below:</p>
+
+<code>
+    // If we have a PHP boolean variable<br/>
+    $bool_variable = TRUE;<br/>
+    <br/>
+    // and we set it to be outputted<br/>
+    $this-&gt;template-&gt;set_variable('bool_variable', $bool_variable);<br/>
+    <br/>
+    // the following will be outputted to your html page<br/>
+    &lt;script type='text/javascript'&gt;<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;var bool_variable = true;<br/>
+    &lt;/script&gt;
+</code>
+
+<p>You can convert the following PHP variable types to their equivalent JavaScript variables.</p>
+<ul>
+    <li>boolean</li>
+    <li>integer</li>
+    <li>double</li>
+    <li>string</li>
+    <li>Array (the array must have numeric indexes but can be nested, associative arrays cannot be represented by JavaScript)</li>
+</ul>
+
+<p>The function can also be passed an array of variables to convert.</p>
+
+<code>
+    $variables = array(<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;'first_variable' =&gt; TRUE,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;'second_variable' =&gt; 7);<br/>
+    <br/>
+    $this-&gt;template-&gt;set_variable($variables);
+</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+    <p>
+        <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+        <a href="../index.html">User Guide Home</a>
+
+    </p>
+
+    <p><a href="http://backendpro.co.uk">BackendPro</a> &nbsp;&middot;&nbsp; Copyright &#169; 2008-2009 &nbsp;&middot;&nbsp;
+        <a href="http://www.adamcprice.co.uk/">Adam Price</a></p>
+</div>
+
+</body>
+</html>

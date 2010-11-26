@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Controllers : BackendPro User Guide</title>
+
+    <link rel='stylesheet' type='text/css' media='all' href='../userguide.css'/>
+
+    <script type="text/javascript" src="../nav/nav.js"></script>
+    <script type="text/javascript" src="../nav/prototype.lite.js"></script>
+    <script type="text/javascript" src="../nav/moo.fx.js"></script>
+    <script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+    <meta http-equiv='expires' content='-1'/>
+    <meta http-equiv='pragma' content='no-cache'/>
+    <meta name='robots' content='all'/>
+
+</head>
+
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav">
+    <div id="nav_inner">
+        <script type="text/javascript">create_menu('../');</script>
+    </div>
+</div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img
+        src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents"
+        alt="Toggle Table of Contents"/></a></div>
+<div id="masthead">
+
+    <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+        <tr>
+            <td><h1>Backendpro User Guide Version 1.0 RC 1</h1></td>
+            <td id="breadcrumb_right"><a href="javascript:void(0);" onclick="myHeight.toggle();">Table of Contents</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+    <tr>
+        <td id="breadcrumb">
+            <a href="http://backendpro.co.uk">BackendPro</a> &nbsp;&#8250;&nbsp;
+            <a href="../index.html">User Guide</a> &nbsp;&#8250;&nbsp;
+            Controllers
+        </td>
+        <td id="searchbox">
+            <form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch"
+                                                                            id="as_sitesearch"
+                                                                            value="http://www.kaydoo.co.uk/backendpro/user_guide/"/>Search
+                BackendPro User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q"
+                                                   size="31" maxlength="255" value=""/>&nbsp;<input type="submit"
+                                                                                                    class="submit"
+                                                                                                    name="sa"
+                                                                                                    value="Go"/></form>
+        </td>
+    </tr>
+
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all"/>
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+    <h1>Controllers</h1>
+
+    <p>BackendPro comes with 3 base controllers. To use any part of the BackendPro system all your controllers must
+        extend from one of the controllers below.</p>
+
+    <p>Quick Reference:</p>
+    <ul>
+        <li><a href='#admin_controller'>Admin Controller</a></li>
+        <li><a href='#public_controller'>Public Controller</a></li>
+        <li><a href='#site_controller'>Site Controller</a></li>
+    </ul>
+
+    <a name='admin_controller'></a>
+
+    <h2>Admin Controller</h2>
+
+    <p>Extends the BackendPro <a href='#site_controller'>Site Controller</a> class.</p>
+
+    <p>The Admin controller should be extended when ever you want a page to appear in the control panel of the
+        website. By default it performs an
+        access control check to make sure the user is allowed to view the control panel. It also loads any specific
+        resources required for the control panel.
+        By extending this controller you will get all the security and features which are available by default in the
+        BackendPro control panel in your custom
+        control panel.</p>
+
+    <h3>Actions Performed</h3>
+    <ul>
+        <li>Checks the user has access to the <dfn>Control Panel</dfn> resource</li>
+        <li>Sets the template layout to <dfn>admin/master</dfn></li>
+        <li>Sets a breadcrumb link pointing to the Control Panel URI</li>
+    </ul>
+
+    <h3>Example</h3>
+    <code>
+        class User_manager extends Admin_Controller<br/>
+        {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;function User_manager()<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::__construct();<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;function index()<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+        }<br/>
+    </code>
+
+    <a name='public_controller'></a>
+
+    <h2>Public Controller</h2>
+
+    <p>Extends the BackendPro <a href='#site_controller'>Site Controller</a> class.</p>
+
+    <p>The Public controller should be extended when ever you want a page to be publicly accessible.</p>
+
+    <h3>Actions Performed</h3>
+    <ul>
+        <li>Sets the template layout to <dfn>public/master</dfn></li>
+    </ul>
+
+    <h3>Example</h3>
+    <code>
+        class Welcome extends Public_Controller<br/>
+        {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;function Welcome()<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::__construct();<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;function index()<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+        }<br/>
+    </code>
+
+    <a name='site_controller'></a>
+
+    <h2>Site Controller</h2>
+
+    <p>Extends the <a href="modular_extensions.html">Modular Extensions</a> <dfn>MX_Controller</dfn> class.</p>
+
+    <p class='important'><strong>Important:</strong> Do not extend Site Controller unless you are creating a new Base
+        controller like the Admin/Public
+        controllers.</p>
+
+    <p>The Site Controller class is the main class which sets up the BackendPro system. It performs the initial security
+        checks
+        and loads the required libraries/helpers/models. For this reason you do not need to load any of the following
+        libraries/helpers again. It also performs the following actions.</p>
+
+    <h3>Resources Loaded</h3>
+    <ul>
+        <li><a href='http://www.codeigniter.com/user_guide/database/index.html'>CodeIgniter Database Class</a></li>
+        <li><a href='http://www.codeigniter.com/user_guide/libraries/sessions.html'>CodeIgniter Session Class</a></li>
+        <li><a href='http://www.codeigniter.com/user_guide/helpers/url_helper.html'>CodeIgniter URL Helper</a></li>
+        <li><a href='http://www.codeigniter.com/user_guide/helpers/html_helper.html'>CodeIgniter HTML Helper</a></li>
+        <li><a href='http://www.codeigniter.com/user_guide/helpers/language_helper.html'>CodeIgniter Language Helper</a>
+        </li>
+        <li>BackendPro Core Configuration</li>
+        <li><a href="exceptions.html">BackendPro Exceptions</a></li>
+        <li><a href="../libraries/Status.html">Status Library</a></li>
+        <li><a href="../libraries/Setting.html">Setting Library</a></li>
+        <li><a href="../libraries/User.html">User Library</a></li>
+        <li><a href="../libraries/Template.html">Template Library</a></li>
+    </ul>
+
+    <h3>Actions Performed</h3>
+    <ul>
+        <li>Sets the site name on the Template Library to that set in <dfn>$this-&gt;setting-&gt;item('site_name')</dfn>.
+        </li>
+        <li>Checks that sessions are stored in the Database.</li>
+        <li>Checks that an encryption key has been set in <dfn>config.php</dfn>.</li>
+        <li>Sets the following JavaScript variables
+            <ul>
+                <li>base_url</li>
+                <li>base_uri</li>
+                <li>index_page</li>
+                <li>url_suffix</li>
+                <li>uri_string</li>
+            </ul>
+        </li>
+    </ul>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+    <p>
+        <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+        <a href="../index.html">User Guide Home</a>
+
+    </p>
+
+    <p><a href="http://www.kaydoo.co.uk">Kaydoo</a> &nbsp;&middot;&nbsp; Copyright &#169; 2008-2009 &nbsp;&middot;&nbsp;
+        <a href="http://www.kaydoo.co.uk/">Adam Price</a></p>
+</div>
+
+</body>
+</html>

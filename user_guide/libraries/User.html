@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>User Library : BackendPro User Guide</title>
+
+    <link rel='stylesheet' type='text/css' media='all' href='../userguide.css'/>
+
+    <script type="text/javascript" src="../nav/nav.js"></script>
+    <script type="text/javascript" src="../nav/prototype.lite.js"></script>
+    <script type="text/javascript" src="../nav/moo.fx.js"></script>
+    <script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+    <meta http-equiv='expires' content='-1'/>
+    <meta http-equiv='pragma' content='no-cache'/>
+    <meta name='robots' content='all'/>
+
+</head>
+
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav">
+    <div id="nav_inner">
+        <script type="text/javascript">create_menu('../');</script>
+    </div>
+</div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img
+        src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents"
+        alt="Toggle Table of Contents"/></a></div>
+<div id="masthead">
+
+    <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+        <tr>
+            <td><h1>Backendpro User Guide Version 1.0 RC 1</h1></td>
+            <td id="breadcrumb_right"><a href="javascript:void(0);" onclick="myHeight.toggle();">Table of Contents</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+    <tr>
+        <td id="breadcrumb">
+            <a href="http://backendpro.co.uk">BackendPro</a> &nbsp;&#8250;&nbsp;
+            <a href="../index.html">User Guide</a> &nbsp;&#8250;&nbsp;
+            User Library
+        </td>
+        <td id="searchbox">
+            <form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch"
+                                                                            id="as_sitesearch"
+                                                                            value="http://backendpro.co.uk/user_guide/"/>Search
+                BackendPro User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q"
+                                                   size="31" maxlength="255" value=""/>&nbsp;<input type="submit"
+                                                                                                    class="submit"
+                                                                                                    name="sa"
+                                                                                                    value="Go"/></form>
+        </td>
+    </tr>
+
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all"/>
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+    <h1>User Library</h1>
+
+    <p>The User library provides you with all the methods you need when trying to perform actions
+    on the current user. For example if you want to get the current logged in users details or you want
+    to log the current user out, the User library is here to help.</p>
+
+    <p class="important"><strong>Note:</strong> This class is initialized automatically by the system so there is no
+        need to do it manually.</p>
+
+
+    <p>Features:</p>
+
+    <ul>
+        <li>Get current user data</li>
+        <li>User authentication actions (login/logout/register etc.)</li>
+        <li>Check if a user has permission to a page</li>
+    </ul>
+
+    <h2>Usage</h2>
+
+    <p>For more details about using this library in your code please read the section on
+        the <a href="../general/permissions.html">Permission System</a>.</p>
+
+    <h2>Main Function Reference</h2>
+
+    <h3>$this->user->logged_in()</h3>
+    <p>Check if the user is logged into the system. Returns <kbd>TRUE</kbd> if they are, otherwise <kbd>FALSE</kbd>
+        is returned.</p>
+    <code>$this-&gt;user-&gt;logged_in(<kbd>TRUE</kbd>);</code>
+    <p>An <strong>optional</strong> parameter can be passed in. By default it is <kbd>FALSE</kbd>, but by passing in
+    <kbd>TRUE</kbd> it means rather than just returning the result. If the user is not logged in, they will be redirected
+    to the login page.</p>
+
+
+    <h3>$this->user->data()</h3>
+    <p>Get the user data for the current logged in user. If the user is not logged in <kbd>FALSE</kbd> will be returned,
+    otherwise a nested object is returned. The object returned contains all values in the <dfn>bep_users</dfn> table along
+    with all values in the <dfn>bep_user_profiles</dfn> table for the <strong>current user</strong>.</p>
+    
+    <code>
+        $this-&gt;user-&gt;data()-&gt;id; // Gets the users ID<br>
+        $this-&gt;user-&gt;data()-&gt;email; // Gets the users email<br>
+        $this-&gt;user-&gt;data()-&gt;profile-&gt;gender; // Gets profile value for gender<br>
+    </code>
+
+    <p>The best way to see what it returns is to log into BackendPro and in a controller use the following code:</p>
+    <code>
+        print "&lt;pre&gt;";<br>
+        print_r($this-&gt;user-&gt;data());<br>
+        print "&lt;/pre&gt;";<br>
+    </code>
+
+
+    <h3>$this->user->has_access()</h3>
+    <p>Check the user has access to a specified Resource</p>
+    <code>$this->user->has_access('<var>resource</var>')</code>
+
+    <p>This uses the the access permission system to allow you to make sure that the current user has the correct
+        permissions to view the page. This uses the Access Model in the Access Module.</p>
+
+    <p>The first parameter is the resource name. E.g. Checking for <dfn>Control Panel</dfn> will make sure the user has access
+    to see the <dfn>Control Panel</dfn> resource.</p>
+    <p>The second <strong>optional</strong> parameter is the action name. Not only can you check if the user has access
+    to a resource but you can check they have access to a specific action on the resource. E.g. <dfn>View</dfn>.</p>
+    <p>The third <strong>optional</strong> parameter is the redirect option. By default it is <kbd>TRUE</kbd> which means
+    if the user doesn't have access then they will be redirected to the correct page and shown an error. Setting it to
+    <kbd>FALSE</kbd> will return the result as a <dfn>bool</dfn>.</p>
+
+    <code>
+        // Checks the user has access to the Members resource and that they can Add a member<br/>
+        $this-&gt;user-&gt;has_access('members', 'add');<br/>
+        <br/>
+        // Checks the user has access to the control panel resource, but doesn't redirect if they don't<br/>
+        if($this-&gt;user-&gt;has_access('control panel', NULL, FALSE);)<br/>
+        {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;...<br/>
+        }
+    </code>
+
+    <h2>Other Function Reference</h2>
+
+    <h3>$this->user->login()</h3>
+    <p>Attempt to log the specified user into the system</p>
+    <code>$this-&gt;user-&gt;login('<var>identity</var>', '<var>password</var>')</code>
+
+    <p>The first parameter should be the identity which the user provided upon login. This will either be their
+        <strong>username</strong> or <strong>email</strong> depending on how you have setup your system.</p>
+    <p>The second parameter is the password provided by the user. This must be in <kbd>clear text</kbd> format. It gets
+    encrypted later.</p>
+    <p>The third <strong>optional</strong> parameter sets whether a cookie will be saved to the users computer
+    to allow automatic login to be performed. The default is <kbd>FALSE</kbd>, i.e. no remember cookie is saved.</p>
+
+    <code>$this-&gt;user-&gt;login('<var>identity</var>', '<var>password</var>', <kbd>TRUE</kbd>)</code>
+
+    <h3>$this->user->logout()</h3>
+    <p>Logs the user out of the system. A redirect to a new page should be done after calling this to make sure
+    the users view is updated.</p>
+    <code>$this-&gt;user-&gt;logout()</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+    <p>
+        <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+        <a href="../index.html">User Guide Home</a>
+
+    </p>
+
+    <p><a href="http://backendpro.co.uk">BackendPro</a> &nbsp;&middot;&nbsp; Copyright &#169; 2008-2009 &nbsp;&middot;&nbsp;
+        <a href="http://www.adamcprice.co.uk/">Adam Price</a></p>
+</div>
+
+</body>
+</html>

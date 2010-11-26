@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Access Class : BackendPro User Guide</title>
+
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+
+</head>
+
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Backendpro User Guide Version 1.0 RC 1</h1></td>
+<td id="breadcrumb_right"><a href="javascript:void(0);" onclick="myHeight.toggle();">Table of Contents</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://backendpro.co.uk">BackendPro</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">User Guide</a> &nbsp;&#8250;&nbsp;
+Access Class
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="http://backendpro.co.uk/user_guide/" />Search BackendPro User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Access Class</h1>
+
+<p>The Access Class provides a means to check whether a user has access to a controller, method or 
+even a section of code. It is part of the <dfn>Access Core Module</dfn> in the application folder.</p>
+
+<p class="important"><strong>Note:</strong> This class is initialized automatically by the system so there is no need to do it manually.</p>
+
+<h2>Function Reference</h2>
+
+<a name="function-check"></a>
+<h3>$this-&gt;access-&gt;check('<var>resource</var>'')</h3>
+<p>The function is used to check if the current user has access to a specified resource. Where <var>resource</var> 
+is the unique ID of the resource to check access for.</p>
+
+<p>We can also perform a more detailed check by specifing an <var>action</var> to also check against. In 
+the example below the user must not only be allowed access to the <var>resource</var> but also have permission 
+to perform the <var>action</var> on the resource. Where <var>action</var> is the unique ID of the action.</p>
+<code>$this-&gt;access-&gt;check('<var>resource</var>', '<var>action</var>');</code>
+
+<p>By default in the cases above if the user fails the access check, they will be redirected back along 
+with an error message informing them they do not have permission. Now this is fine if you are guarding a 
+controller but what if you want to only guard a few lines of code? We can do this by specifying a 3rd 
+parameter.</p>
+<code>
+if($this-&gt;access-&gt;check('<var>resource</var>', NULL, <kbd>true</kbd>))<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Code to run if check passes<br/>
+}</code>
+<p>As you may have guessed, this 3rd parameter specifies whether the method should return its value or not. 
+By default it is <kbd>false</kbd> and therefore a redirect is performed.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+<a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">User Guide Home</a>
+
+</p>
+<p><a href="http://backendpro.co.uk">BackendPro</a> &nbsp;&middot;&nbsp; Copyright &#169; 2008-2009 &nbsp;&middot;&nbsp; <a href="http://www.adamcprice.co.uk/">Adam Price</a></p>
+</div>
+
+</body>
+</html>

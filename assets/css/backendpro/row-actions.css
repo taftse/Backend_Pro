@@ -1,0 +1,13 @@
+.row-actions {
+    display: block;
+    height: 1em;
+}
+
+.row-actions .delete a,
+.row-actions .delete a:hover{
+    color: #BC0B0B;
+}
+
+.row-actions span {
+    display: none;
+}

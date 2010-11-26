@@ -1,0 +1,11 @@
+Update Develiping with BackendPro
+- Multi application support dosn't take into account all the files required to be moved and updated TEST THIS PLEASE
+
+Talk about Exceptions
+Mention possible change to DB.php so it always logs DB errors
+
+Talk about the users helper IMPEMENT
+Talk about the settings helper IMPLEMENT
+Talk about extended lanuage helper
+Talk about extended constants
+*Talk about MY_Model

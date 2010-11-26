@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Status Class : BackendPro User Guide</title>
+
+    <link rel='stylesheet' type='text/css' media='all' href='../userguide.css'/>
+
+    <script type="text/javascript" src="../nav/nav.js"></script>
+    <script type="text/javascript" src="../nav/prototype.lite.js"></script>
+    <script type="text/javascript" src="../nav/moo.fx.js"></script>
+    <script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+    <meta http-equiv='expires' content='-1'/>
+    <meta http-equiv='pragma' content='no-cache'/>
+    <meta name='robots' content='all'/>
+
+</head>
+
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav">
+    <div id="nav_inner">
+        <script type="text/javascript">create_menu('../');</script>
+    </div>
+</div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img
+        src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents"
+        alt="Toggle Table of Contents"/></a></div>
+<div id="masthead">
+
+    <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+        <tr>
+            <td><h1>Backendpro User Guide Version 1.0 RC 1</h1></td>
+            <td id="breadcrumb_right"><a href="javascript:void(0);" onclick="myHeight.toggle();">Table of Contents</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+    <tr>
+        <td id="breadcrumb">
+            <a href="http://www.kaydoo.com/">Kaydoo</a> &nbsp;&#8250;&nbsp;
+            <a href="http://www.kaydoo.com/backendpro">BackendPro</a> &nbsp;&#8250;&nbsp;
+            <a href="../index.html">User Guide</a> &nbsp;&#8250;&nbsp;
+            Status Class
+        </td>
+        <td id="searchbox">
+            <form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch"
+                                                                            id="as_sitesearch"
+                                                                            value="http://www.kaydoo.co.uk/backendpro/user_guide/"/>Search
+                BackendPro User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q"
+                                                   size="31" maxlength="255" value=""/>&nbsp;<input type="submit"
+                                                                                                    class="submit"
+                                                                                                    name="sa"
+                                                                                                    value="Go"/></form>
+        </td>
+    </tr>
+
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all"/>
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+    <h1>Status Class</h1>
+
+    <p>The status class provides a means to save and display status messages to the user. It is
+        part of the <dfn>Status Core Module</dfn> in the application folder.</p>
+
+    <p class="important"><strong>Note:</strong> This class is initialized automatically by the system so there is no
+        need to do it manually.</p>
+
+    <h2>How it Works</h2>
+
+    <p>The Status class uses the <a href="http://codeigniter.com/user_guide/libraries/sessions.html">CodeIgniter Session
+        Class</a> to
+        save and keep track of status messages in your system. <kbd>It does not do this by using the flashdata concept
+            of the session class.</kbd>.
+        By not using the flashdata concept you don't have to worry about persisting your status messages accross
+        multiple
+        redirects. It will only show them when you want to.</p>
+
+    <h2>Message Types</h2>
+
+    <p>The status class can be used to display 5 different types of message.</p>
+    <ul>
+        <li><strong>notice</strong> - Used to show a hint or reminder to the user.</li>
+        <li><strong>info</strong> - Used to prompt maybe a new site feature or a 'Did you know?' section.</li>
+        <li><strong>success</strong> - Used to show a success message to the user after an action completed in full.
+        </li>
+        <li><strong>warning</strong> - Used to show a warning message. This should be used when execution
+            can continue, but you just want to inform the user of maybe the concequence of their action.
+        </li>
+        <li><strong>error</strong> - Something has gone wrong, maybe a validation error maybe the site fell over.</li>
+    </ul>
+
+    <h2>Customization</h2>
+
+    <p>It is possible to modify the dialog which is displayed to the user for both the front end
+        and the back end (both can be modified independantly).</p>
+
+    <code>TODO go into details of this</code>
+    <!--
+    <ul>
+        <li>Status CSS File <dfn>assets/css/bep-styles.css</dfn>
+            <ul>
+                <li>.content-box.notice</li>
+                <li>.content-box.info</li>
+                <li>.content-box.success</li>
+                <li>.content-box.error</li>
+                <li>.content-box.warning</li>
+            </ul>
+        </li>
+        <li>Status View File <dfn>system/application/modules/status/view/status.php</dfn></li>
+    </ul>-->
+
+    <h2>Function Reference</h2>
+
+    <a name="function-set"></a>
+
+    <h3>$this-&gt;status-&gt;set('<var>type</var>', '<var>message</var>')</h3>
+
+    <p>The function sets a new status <var>message</var> with a given <var>type</var>. Below
+        are some examples.</p>
+
+    <code>
+        $this-&gt;status-&gt;set('info','A new product has now been released');<br/>
+        $this-&gt;status-&gt;set('success','Your new user has been created');
+    </code>
+
+    <a name="function-get"></a>
+
+    <h3>$this-&gt;status-&gt;get()</h3>
+
+    <p>The function gets all status messages currently awaiting to be outputed. For example:</p>
+    <code>print $this-&gt;status-&gt;get();</code>
+
+    <p>If you only want to output a certain type of message you can do this by specifying the
+        second optional parameter. The code below will print all error messages.</p>
+    <code>print $this-&gt;status-&gt;get('<var>error</var>');</code>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+    <p>
+        <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+        <a href="../index.html">User Guide Home</a>
+
+    </p>
+
+    <p><a href="http://backendpro.co.uk">BackendPro</a> &nbsp;&middot;&nbsp; Copyright &#169; 2008-2009 &nbsp;&middot;&nbsp;
+        <a href="http://www.adamcprice.co.uk/">Adam Price</a></p>
+</div>
+
+</body>
+</html>
