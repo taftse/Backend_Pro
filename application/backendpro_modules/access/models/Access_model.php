@@ -30,7 +30,7 @@ class Access_model extends CI_Model
 
     public function __construct()
     {
-        parent::CI_Model();
+        parent::__construct();
 
         // Get the Database tables
         $this->tables = $this->config->item('tables', 'backendpro');

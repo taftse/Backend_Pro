@@ -61,7 +61,7 @@ class MY_Model extends CI_Model
 
     public function __construct()
     {
-        parent::CI_Model();
+        parent::__construct();
 
         log_message('debug','MY_Model class loaded');
     }
