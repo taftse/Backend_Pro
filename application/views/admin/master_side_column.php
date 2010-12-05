@@ -14,6 +14,7 @@
             </div><!-- // side-column -->
 
             <div id="main-wrapper" class="side-column">
+            <?php print $this->status->display();?>
             <?php print $body; ?>
             </div><!-- // main-wrapper -->
 
