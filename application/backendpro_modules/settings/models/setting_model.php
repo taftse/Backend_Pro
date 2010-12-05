@@ -60,7 +60,7 @@ class Setting_model extends MY_Model
     /**
      * Get all settings which can be shown on the GUI
      *
-     * @return void
+     * @return object
      */
     public function get_all_gui()
     {
@@ -77,21 +77,6 @@ class Setting_model extends MY_Model
     public function set($slug, $value)
     {
         parent::update($slug, array('value' => $value));
-    }
-
-    /**
-     * Get all allowed setting types
-     *
-     * @return array 
-     */
-    public function get_types()
-    {
-        $field = $this->db->query('SHOW COLUMNS FROM ' . $this->table . ' LIKE \'type\'')->row();
-
-        $enum_array = array();
-        preg_match_all( "/'(.*?)'/" , $field->Type, $enum_array);
-
-        return $enum_array[1];
     }
 }
 

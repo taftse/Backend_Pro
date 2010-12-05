@@ -34,8 +34,8 @@ class Settings extends Admin_Controller
         $this->load->helper('form');
         $this->lang->load('settings');        
 
-        $this->template->set_title(lang('settings'));
-        $this->template->set_breadcrumb(lang('settings'), 'settings');
+        $this->template->set_title(lang('settings_title'));
+        $this->template->set_breadcrumb(lang('settings_title'), 'settings');
     }
 
     /**
@@ -53,6 +53,7 @@ class Settings extends Admin_Controller
             // Create the form input control
             $setting->control = $this->setting_controls->render($setting);
 
+            // TODO: The word General here is hardcoded must move to lang file
             // Assign a module if none is given
             if($setting->module == '')
             {
@@ -107,7 +108,7 @@ class Settings extends Admin_Controller
             }
 
             // Everything saved
-            $this->status->set('success', lang('settings_saved'));
+            $this->status->set('success', lang('settings_changes_saved'));
         }
         else
         {

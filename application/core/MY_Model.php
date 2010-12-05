@@ -71,7 +71,7 @@ class MY_Model extends CI_Model
      *
      * @throws DatabaseException
      * @param int $primary_value Primary key value
-     * @return object
+     * @return StdClass|false Object on success, otherwise false
      */
     public function get($primary_value)
     {
@@ -84,7 +84,7 @@ class MY_Model extends CI_Model
      * @throws DatabaseException
      * @param array|string $where Either where clause array or column name
      * @param string $value Column value
-     * @return object
+     * @return StdClass|false Object on success, otherwise false
      */
     protected function get_by($where, $value = '')
     {
@@ -96,7 +96,14 @@ class MY_Model extends CI_Model
             throw new DatabaseException("Unable to get row from table");
         }
 
-        return $query->row();
+        if($query->num_rows() == 0)
+        {
+            return false;
+        }
+        else
+        {
+           return $query->row();
+        }
     }
 
     /**

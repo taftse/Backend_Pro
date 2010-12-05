@@ -64,6 +64,10 @@ class Setting_controls
             case 'checkbox':
                 return $this->render_checkbox($setting);
                 break;
+
+            default:
+                show_error(sprintf(lang('settings_unknown_control_type'), $setting->type));
+                break;
         }
     }
 
@@ -89,6 +93,10 @@ class Setting_controls
 
             case 'select-multiple':
                 return $this->get_multiselect_value($setting);
+                break;
+
+            default:
+                show_error(sprintf(lang('settings_unknown_control_type'), $setting->type));
                 break;
         }
     }

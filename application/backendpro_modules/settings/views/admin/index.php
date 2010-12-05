@@ -16,7 +16,7 @@
         // remove the setting
         $('.row-actions .delete a').click(function()
         {
-            if(confirm('<?php print lang('confirm_setting_delete');?>'))
+            if(confirm('<?php print lang('settings_confirm_delete');?>'))
             {
                 var link = $(this);
                 var slug = link.attr('href').substr(1);
@@ -30,6 +30,9 @@
                         link.parents('tr').slideUp(function(){
                             $(this).remove();
                         });
+                    },
+                    error: function(xhr, status, error) {
+                        alert(xhr.responseText);
                     }
                 });
             }
@@ -37,7 +40,7 @@
     });
 </script>
 <h2><?php print $template['title']?></h2>
-<?php print anchor('settings/add', lang('add_setting'));?>
+<?php print anchor('settings/add', lang('settings_add_link'));?>
 <?php print form_open('settings/save');?>
 <div id="tabs">
 	<ul>
@@ -63,8 +66,11 @@
 
                     <?php if($this->user->has_access('Settings','Manage', FALSE)):?>
                     <span class="row-actions">
-                        <span class="edit"><?php print anchor('settings/edit/' . $setting->slug, lang('edit'));?> | </span>
-                        <span class="delete"><a href='#<?php print $setting->slug;?>'><?php print lang('delete');?></a></span>
+                        <span class="edit"><?php print anchor('settings/edit/' . $setting->slug, lang('settings_edit_link'));?></span>
+                        
+                        <?php if(!$setting->is_locked):?>
+                            <span class="delete"> | <a href='#<?php print $setting->slug;?>'><?php print lang('settings_delete_link');?></a></span>
+                        <?php endif;?>
                     </span>
                     <?php endif;?>
                 </td>               
@@ -79,6 +85,6 @@
 </div>
 
 <div class="buttons">
-	<button type="submit"><?php print lang('save');?></button>
+	<button type="submit"><?php print lang('settings_save_link');?></button>
 </div>
 <?php print form_close();?>

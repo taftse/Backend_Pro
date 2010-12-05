@@ -21,6 +21,14 @@
  */
 class Manage extends Admin_Controller
 {
+    /**
+     * Holds the current setting being edited. If adding a setting
+     * this is set to false
+     * 
+     * @var StdClass|false
+     */
+    private $current_setting = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -31,9 +39,10 @@ class Manage extends Admin_Controller
         $this->load->model('setting_model');
         $this->load->helper('form');
         $this->lang->load('settings');
+        $this->load->config('settings', true);
         $this->load->library('form_validation');
 
-        $this->template->set_breadcrumb(lang('settings'), 'settings');
+        $this->template->set_breadcrumb(lang('settings_title'), 'settings');
 
         // Use the side column to display help messages
         $this->template->layout = 'admin/master_side_column';
@@ -47,17 +56,21 @@ class Manage extends Admin_Controller
      */
     public function add()
     {
+        // If the form was submitted save it
+        if($this->input->post('submit'))
+        {
+            $this->save();
+        }
+
+        // Fetch an empty setting object
         $data['setting'] = $this->setting_model->get_object();
         
         // Get the allowed setting types
-        $data['types'] = $this->setting_model->get_types();
+        $data['types'] = $this->config->item('control_types', 'settings');
         $data['types'] = array_combine($data['types'],$data['types']);
 
-        // Since there is no slug for the setting we are editing, set it blank
-        $data['original_slug'] = '';
-
-        $this->template->set_title(lang('add_setting'));
-        $this->template->set_breadcrumb(lang('add_setting'), 'settings/add');
+        $this->template->set_title(lang('settings_add_setting_title'));
+        $this->template->set_breadcrumb(lang('settings_add_setting_title'), 'settings/add');
         $this->template->build('admin/edit', $data);
     }
 
@@ -70,16 +83,27 @@ class Manage extends Admin_Controller
     public function edit($slug)
     {
         // Get the setting details
-        $data['setting'] = $this->setting_model->get($slug);
+        if(($this->current_setting = $this->setting_model->get($slug)) == false)
+        {
+            $this->status->set('error', lang('settings_setting_not_found'));
+            redirect('settings', REDIRECT_METHOD);
+        }
+
+        // If the form was submitted save it
+        if($this->input->post('submit'))
+        {
+            $this->save();
+        }
 
         // Get the allowed setting types
-        $data['types'] = $this->setting_model->get_types();
+        $data['types'] = $this->config->item('control_types', 'settings');
         $data['types'] = array_combine($data['types'],$data['types']);
 
-        $data['original_slug'] = $slug;
+        $data['setting'] = $this->current_setting;
 
-        $this->template->set_title(lang('edit_setting'));
-        $this->template->set_breadcrumb(lang('edit_setting'), 'settings/edit/' . $slug);
+        $title = sprintf(lang('settings_edit_setting_title'), $this->current_setting->title);
+        $this->template->set_title($title);
+        $this->template->set_breadcrumb($title, 'settings/edit/' . $slug);
         $this->template->build('admin/edit', $data);
     }
 
@@ -88,43 +112,35 @@ class Manage extends Admin_Controller
      *
      * @return void
      */
-    public function save()
+    private function save()
     {
-        $add_new = $this->input->post('original_slug') == '';
-        
         // Set the validation rules
-        $this->form_validation->set_rules('slug', 'lang:slug', 'trim|required|alpha_dash|max_length[32]|min_length[5]');
-        $this->form_validation->set_rules('title', 'lang:title', 'trim|required|max_length[32]|min_length[5]');
-        $this->form_validation->set_rules('description', 'lang:description', 'trim|max_length[255]');
-        $this->form_validation->set_rules('type', 'lang:type', 'trim|required');
-        $this->form_validation->set_rules('value', 'lang:value', 'trim|max_length[255]');
-        $this->form_validation->set_rules('options', 'lang:options', 'trim|max_length[255]|callback_options_check');
-        $this->form_validation->set_rules('module', 'lang:module', 'trim|max_length[32]');
+        $this->form_validation->set_rules('slug', 'lang:settings_slug_label', 'trim|required|alpha_dash|max_length[32]|min_length[5]|callback_unique_slug');
+        $this->form_validation->set_rules('title', 'lang:settings_title_label', 'trim|required|max_length[32]|min_length[5]');
+        $this->form_validation->set_rules('description', 'lang:settings_description_label', 'trim|max_length[255]');
+        $this->form_validation->set_rules('type', 'lang:settings_type_label', 'trim|required|callback_type_check');
+        $this->form_validation->set_rules('value', 'lang:settings_value_label', 'trim|max_length[255]');
+        $this->form_validation->set_rules('options', 'lang:settings_options_label', 'trim|max_length[255]|callback_options_check');
+        $this->form_validation->set_rules('module', 'lang:settings_module_label', 'trim|max_length[32]');
 
         if($this->form_validation->run($this))
         {
             // Everything is valid, lets save it back to the database
             $values = $this->extract_form_values();
 
-            if($add_new):
-                $this->setting_model->insert($values);
+            if($this->current_setting):
+                $this->setting_model->update($this->current_setting->slug, $values);
             else:
-                $this->setting_model->update($this->input->post('original_slug'), $values);
+                $this->setting_model->insert($values);
             endif;
 
-            $this->status->set('success', lang('settings_saved'));
+            $this->status->set('success', lang('settings_changes_saved'));
             redirect('settings', REDIRECT_METHOD);
         }
         else
         {
             $this->status->set('error',$this->form_validation->_error_array);
         }
-
-        if($add_new):
-            $this->add();
-        else:
-            $this->edit($this->input->post('original_slug'));
-        endif;
     }
 
     /**
@@ -135,7 +151,38 @@ class Manage extends Admin_Controller
      */
     public function delete($slug)
     {
-        $this->setting_model->delete($slug);
+        if($this->input->is_ajax_request())
+        {
+            // Get the setting
+            if(($setting = $this->setting_model->get($slug)) == false)
+            {
+                $this->output->set_status_header('500');
+                $this->output->set_output(lang('settings_setting_not_found'));
+                return;
+            }
+
+            // If the setting is locked, don't allow it to be deleted
+            if($setting->is_locked)
+            {
+                $this->output->set_status_header('500');
+                $this->output->set_output(lang('settings_cannot_delete_locked_setting'));
+                return;
+            }
+
+            try
+            {
+               $this->setting_model->delete($slug);
+            }
+            catch (BackendProException $ex)
+            {
+                $this->output->set_status_header('500');
+                $this->output->set_output(lang('settings_an_error_occurred'));
+            }
+        }
+        else
+        {
+            show_404(lang('settings_illegal_access_to_delete_page'));
+        }
     }
 
     /**
@@ -158,6 +205,18 @@ class Manage extends Admin_Controller
         $data['is_required'] = $this->input->post('is_required');
         $data['is_gui'] = $this->input->post('is_gui');
 
+        // It doesn't make sense to have a checkbox which is required
+        if($data['type'] == 'checkbox')
+        {
+            $data['is_required'] = 0;
+        }
+
+        // If we are editing a setting and it is locked, make sure we can't change the slug
+        if($this->current_setting && $this->current_setting->is_locked)
+        {
+            unset($data['slug']);
+        }
+
         return $data;
     }
 
@@ -175,19 +234,60 @@ class Manage extends Admin_Controller
         {
             if(count($value) == 0)
             {
-                $this->form_validation->set_message('options_check', lang('validation_options_check_required'));
-                return FALSE;
+                $this->form_validation->set_message('options_check', lang('settings_validation_options_check_required'));
+                return false;
             }
 
             // Check at least 1 option exists
             if(!preg_match("/^[^,]+(,[^,]+)*$/", $value))
             {
-                $this->form_validation->set_message('options_check', lang('validation_options_check_invalid'));
-                return FALSE;
+                $this->form_validation->set_message('options_check', lang('settings_validation_options_check_invalid'));
+                return false;
             }
         }
 
-        return TRUE;
+        return true;
+    }
+
+    /**
+     * Check the setting type given is one of those allowed
+     *
+     * @param string $value Value to check
+     * @return bool
+     */
+    function type_check($value)
+    {
+        $types = $this->config->item('control_types','settings');
+
+        if(!in_array($value, $types))
+        {
+            $this->form_validation->set_message('type_check', lang('settings_validation_type_check'));
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Check the setting slug is unique
+     *
+     * @param string $value Value to check
+     * @return bool
+     */
+    function unique_slug($value)
+    {
+        if($this->current_setting == false || $this->current_setting->slug != $value)
+        {
+            // There is no slug so we are adding a new setting, check for uniqueness
+            if($this->setting_model->get($value) !== false)
+            {
+                // Existing setting found with matching slug
+                $this->form_validation->set_message('unique_slug', lang('settings_validation_unique_slug'));
+                return false;
+            }
+        }
+
+        return true;
     }
 }
  
