@@ -16,10 +16,10 @@
 $config['email']['useragent'] = "BackendPro";
 $config['email']['protocol'] = 'smtp';
 $config['email']['mailpath'] = '/usr/sbin/sendmail';
-$config['email']['smtp_host'] = 'mail.kaydoo.co.uk';
-$config['email']['smtp_user'] = 'adam+kaydoo.co.uk';
-$config['email']['smtp_pass'] = 'buGKIM8h';
-$config['email']['smtp_port'] = 26;
+$config['email']['smtp_host'] = 'localhost';
+$config['email']['smtp_user'] = 'adam@price.local';
+$config['email']['smtp_pass'] = 'password';
+$config['email']['smtp_port'] = 25;
 $config['email']['smtp_timeout'] = 5;
 $config['email']['wordwrap'] = FALSE;
 $config['email']['wrapchars'] = 76;

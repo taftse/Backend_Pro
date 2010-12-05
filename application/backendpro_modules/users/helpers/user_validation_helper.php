@@ -73,7 +73,7 @@ function get_email_rules($confirm = FALSE)
     $rules[] = 'required';
     $rules[] = 'valid_email';
 
-    // If there 
+    // If there is a confirm email field make sure they match
     if($confirm)
     {
         $rules[] = 'matches[confirm_email]';

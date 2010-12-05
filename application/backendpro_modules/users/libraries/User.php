@@ -21,7 +21,7 @@
  */
 class User
 {
-    private $_data = FALSE;
+    private $_data = false;
     
     public function __construct()
     {
@@ -48,7 +48,7 @@ class User
     {
         if($this->logged_in())
         {
-            if($this->_data !== FALSE)
+            if($this->_data !== false)
             {
                 log_message('debug', 'User data has been cached, returning cached copy');
                 return $this->_data;
@@ -73,7 +73,7 @@ class User
         else
         {
             log_message('debug','User is not logged in, no user data to load');
-            return FALSE;
+            return false;
         }
     }
 
@@ -83,7 +83,7 @@ class User
      * @param bool $redirect Whether to redirect to the login page if the user isn't logged in
      * @return bool
      */
-    public function logged_in($redirect = FALSE)
+    public function logged_in($redirect = false)
     {
         $CI = &get_instance();
 
@@ -97,7 +97,7 @@ class User
             $CI->session->set_flashdata('next_uri', uri_string());
 
             // Redirect to the login page
-            $CI->status->set('warning', lang('user_login_required'));
+            $CI->status->set('warning', lang('users_login_required'));
             redirect('users/login', REDIRECT_METHOD);
         }
 
@@ -154,7 +154,7 @@ class User
         $this->_data = array();
 
         log_message('debug','Logout complete');
-		return TRUE;
+		return true;
     }
 
     /**
@@ -175,7 +175,7 @@ class User
         {
             // Email isn't in use
             log_message('debug', 'Email is not in use, sending email informing the owner');
-            $CI->user_email->send($email, lang('reset_password'), 'users/email/reset_no_account');
+            $CI->user_email->send($email, lang('users_email_subject_reset_password'), 'users/email/reset_no_account');
         }
         else
         {
@@ -184,7 +184,7 @@ class User
             $reset_key = md5($email . time());
             $CI->user_model->update($user->id, array('reset_key' => $reset_key));
 
-            $CI->user_email->send($email, lang('reset_password'), 'users/email/reset_account', array('user' => $user, 'reset_key' => $reset_key));
+            $CI->user_email->send($email, lang('users_email_subject_reset_password'), 'users/email/reset_account', array('user' => $user, 'reset_key' => $reset_key));
         }
     }
 
@@ -196,7 +196,7 @@ class User
      * @param bool $redirect Whether to redirect the user if they don't have access
      * @return bool
      */
-    public function has_access($resource, $action = NULL, $redirect = TRUE)
+    public function has_access($resource, $action = null, $redirect = true)
     {
         $CI =& get_instance();
 
@@ -207,7 +207,7 @@ class User
 
             if($CI->access_model->has_access($group_id, $resource, $action))
             {
-               return TRUE;
+               return true;
             }
             else
             {
@@ -219,13 +219,13 @@ class User
                     // If there is no previous (i.e. we came from an outside site, send to the home page)
                     $previous_uri = ($previous_uri) ? $previous_uri : '';
 
-                    $CI->status->set('error', lang('access_denied'));
+                    $CI->status->set('error', lang('users_access_denied'));
                     redirect($previous_uri, REDIRECT_METHOD);
                 }
             }
         }
 
-        return FALSE;
+        return false;
     }
 
     /**
@@ -240,7 +240,7 @@ class User
     public function save(array $user, array $profile = array(), $id = '')
     {
         $CI =& get_instance();
-        $current_user = (is_numeric($id) ? $CI->user_model->get($id) : FALSE);
+        $current_user = (is_numeric($id) ? $CI->user_model->get($id) : false);
 
         // If there is a password
         if(isset($user['password']))
@@ -256,8 +256,9 @@ class User
                 // If the password has changed
                 if($user['password'] != $current_user->password)
                 {
+                    // Send an email to the user informing them of the changed password
                     $data = array('username' => $current_user->username, 'password' => $password);
-                    $CI->user_email->send($current_user->id, lang('email_subject_password_change'), 'users/email/password_changed', $data);
+                    $CI->user_email->send($current_user->id, lang('users_email_subject_password_change'), 'users/email/password_changed', $data);
                 }
             }
         }
@@ -276,7 +277,7 @@ class User
 
                 // Send a new account email
                 $data = array('user' => $user, 'password' => $password);
-                $CI->user_email->send($user['email'], lang('email_subject_new_account'), 'users/email/new_account', $data);
+                $CI->user_email->send($user['email'], lang('users_email_subject_new_account'), 'users/email/new_account', $data);
             }
         }
 
