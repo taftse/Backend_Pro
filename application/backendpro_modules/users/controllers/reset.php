@@ -26,8 +26,9 @@ class Reset extends Public_Controller
 
         $this->load->model('user_model');
         $this->load->library('form_validation');
+        $this->load->helper('user_validation');
 
-        $this->template->set_breadcrumb(lang('request_password_reset'), 'users/reset/request');
+        $this->template->set_breadcrumb(lang('users_request_reset_title'), 'users/reset/request');
 
         log_message('debug', 'Users Reset Controller loaded');
     }
@@ -39,21 +40,23 @@ class Reset extends Public_Controller
      */
     public function index()
     {
+        $this->redirect_if_logged_in();
+        
         // Try to get the matching user
         $key = $this->uri->segment(3);
         $user = $this->user_model->get_by_reset($key);
 
-        if(empty($user))
+        if($user == false)
         {
             // Activation key is invalid
-            $this->status->set('warning', lang('reset_key_invalid'));
+            $this->status->set('warning', lang('users_reset_key_invalid'));
             redirect('users/reset/request', REDIRECT_METHOD);
         }
         else
         {
             // Validate input
-            $this->form_validation->set_rules('new_password', 'lang:new_password', 'trim|required|matches[confirm_password]'); // TODO: This should be common
-            $this->form_validation->set_rules('confirm_password', 'lang:confirm_password', 'trim');
+            $this->form_validation->set_rules('new_password', 'lang:users_new_password_label', get_password_rules());
+            $this->form_validation->set_rules('confirm_password', 'lang:users_confirm_password_label', 'trim');
 
             if($this->form_validation->run())
             {
@@ -62,8 +65,8 @@ class Reset extends Public_Controller
                 $data['reset_key'] = NULL;
 
                 $this->user->save($data, array(), $user->id);
-                $this->status->set('success', lang('password_reset_saved'));
-                redirect('users/login', REDIRECT_METHOD); // TODO: Make configurable
+                $this->status->set('success', lang('users_password_reset_saved'));
+                redirect('users/login', REDIRECT_METHOD);
             }
             else
             {
@@ -71,10 +74,9 @@ class Reset extends Public_Controller
             }
         }
 
-        $data['user'] = $user;
-        $this->template->set_title(lang('reset_password'));
-        $this->template->set_breadcrumb(lang('reset_password'), 'users/reset');
-        $this->template->build('public/password_reset', $data);
+        $this->template->set_title(lang('users_reset_title'));
+        $this->template->set_breadcrumb(lang('users_reset_title'), 'users/reset');
+        $this->template->build('public/password_reset', array('user' => $user));
     }
 
     /**
@@ -84,21 +86,39 @@ class Reset extends Public_Controller
      */
     public function request()
     {
+        $this->redirect_if_logged_in();
+
         // Set validation rules
-        $this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email');
+        $this->form_validation->set_rules('email', lang('users_email_label'), 'trim|required|valid_email');
 
         if($this->form_validation->run())
         {
             $this->user->request_reset($this->input->post('email'));
-            $this->status->set('success', lang('password_reset_sent'));
+            $this->status->set('success', lang('users_password_reset_sent'));
         }
         else
         {
             $this->status->set('error', $this->form_validation->_error_array);
         }
 
-        $this->template->set_title(lang('request_password_reset'));
+        $this->template->set_title(lang('users_request_reset_title'));
         $this->template->build('public/request_password_reset');
+    }
+
+    /**
+     * If the user is logged in already redirect them to the default
+     * page
+     *
+     * @return void
+     */
+    private function redirect_if_logged_in()
+    {
+        // Is the user already logged in?
+        if($this->user->logged_in())
+        {
+            log_message('debug', 'User is already logged in, just redirect');
+            redirect($this->config->item('login_complete_redirect_uri', 'users'), REDIRECT_METHOD);
+        }
     }
 }
  

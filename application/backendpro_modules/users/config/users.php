@@ -31,7 +31,7 @@ $config['registration_disabled_redirect_uri'] = '';
 /**
  * The URI the user is redirected to if the login was completed
  */
-$config['login_comlete_redirect_uri'] = '';
+$config['login_complete_redirect_uri'] = '';
  
 /* End of users.php */
 /* Location: ./application/backendpro_modules/users/config/users.php */

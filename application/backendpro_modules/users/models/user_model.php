@@ -16,6 +16,8 @@
 /**
  * Provides functionality to get/insert/update/delete
  * user rows from the database.
+ *
+ * @subpackage      Users Module
  */
 class User_model extends MY_Model
 {

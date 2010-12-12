@@ -16,9 +16,9 @@
 $config['email']['useragent'] = "BackendPro";
 $config['email']['protocol'] = 'smtp';
 $config['email']['mailpath'] = '/usr/sbin/sendmail';
-$config['email']['smtp_host'] = 'localhost';
-$config['email']['smtp_user'] = 'adam@price.local';
-$config['email']['smtp_pass'] = 'password';
+$config['email']['smtp_host'] = '';
+$config['email']['smtp_user'] = '';
+$config['email']['smtp_pass'] = '';
 $config['email']['smtp_port'] = 25;
 $config['email']['smtp_timeout'] = 5;
 $config['email']['wordwrap'] = FALSE;

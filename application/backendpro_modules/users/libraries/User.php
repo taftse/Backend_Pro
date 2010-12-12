@@ -171,7 +171,7 @@ class User
         // Get the user if we can
         $user = $CI->user_model->get_by_email($email);
 
-        if(empty($user))
+        if($user == false)
         {
             // Email isn't in use
             log_message('debug', 'Email is not in use, sending email informing the owner');
@@ -239,46 +239,45 @@ class User
      */
     public function save(array $user, array $profile = array(), $id = '')
     {
+        log_message('debug', 'Saving users details');
         $CI =& get_instance();
         $current_user = (is_numeric($id) ? $CI->user_model->get($id) : false);
 
         // If there is a password
         if(isset($user['password']))
         {
+            log_message('debug', 'Password has been given, creating hash');
             $password = $user['password'];
 
             // Hash the password
             $user['password'] = $CI->authentication_model->hash_password($password);
 
-            // If we are updating an existing user
-            if($current_user)
+            // If we are updating an existing user & the password has changed, inform them
+            if($current_user && $user['password'] != $current_user->password)
             {
-                // If the password has changed
-                if($user['password'] != $current_user->password)
-                {
-                    // Send an email to the user informing them of the changed password
-                    $data = array('username' => $current_user->username, 'password' => $password);
-                    $CI->user_email->send($current_user->id, lang('users_email_subject_password_change'), 'users/email/password_changed', $data);
-                }
+                // Send an email to the user informing them of the changed password
+                $data = array('username' => $current_user->username, 'password' => $password);
+                $CI->user_email->send($current_user->id, lang('users_email_subject_password_change'), 'users/email/password_changed', $data);
+                log_message('debug', 'Password has been changed, email sent to users email');
             }
         }
 
-        // If there is an activity value
-        if(isset($user['is_active']))
+        // If we are creating a new user lets send them an email
+        if($current_user == false)
         {
-            // If we are adding a new user
-            if(!$current_user)
-            {                
-                if(!$user['is_active'])
-                {
-                    // If the user requires activation, create key
-                    $user['activation_key'] = md5($user['email'] . time());
-                }
+            // Make sure an activity value is set
+            $user['is_active'] = isset($user['is_active']) ? $user['is_active'] : 0;
 
-                // Send a new account email
-                $data = array('user' => $user, 'password' => $password);
-                $CI->user_email->send($user['email'], lang('users_email_subject_new_account'), 'users/email/new_account', $data);
+            if(!$user['is_active'])
+            {
+                // If the user requires activation, create key
+                $user['activation_key'] = md5($user['email'] . time());
             }
+
+            // Send a new account email
+            $data = array('user' => $user, 'password' => $password);
+            $CI->user_email->send($user['email'], lang('users_email_subject_new_account'), 'users/email/new_account', $data);
+            log_message('debug', 'New user email sent');
         }
 
         $CI->db->trans_start();
@@ -291,6 +290,7 @@ class User
             {
                 $CI->user_profile_model->update($id, $profile);
             }
+            log_message('debug', 'User ' . $id . ' has been updated');
         }
         else
         {
@@ -301,6 +301,7 @@ class User
             {
                 $CI->user_profile_model->insert($profile);
             }
+            log_message('debug', 'User has been created');
         }
         $CI->db->trans_complete();
     }
