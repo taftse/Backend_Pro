@@ -64,6 +64,22 @@ function addendslash(value)
 	return value;
 }
 
+ // TODO: This is temp please see ISSUE #11
+function lang(line)
+{
+    if (ci_language !== undefined)
+    {
+        var value = ci_language[line];
+
+        if(value !== undefined)
+        {
+            return value;
+        }
+    }
+
+    return "Lang [" + line + "] is undefined";
+}
+
 /**
  * Run the check to see if the CodeIgniter variables
  * exists.
