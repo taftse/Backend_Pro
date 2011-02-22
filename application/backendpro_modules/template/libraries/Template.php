@@ -266,9 +266,23 @@ class Template
             $output = "<script type=\"text/javascript\">\n<!--\n";
             foreach($this->variables as $name => $value)
             {
+                // BUG: Make sure the name dosn't have spaces or illegal chars
                 $output .= "var " . $name . " = ";
-                $output .= $this->convert_variable($value);
-                $output .= ";\n";
+
+                if($this->is_assoc($value))
+                {
+                    $output .= "new Object();\n";
+
+                    foreach($value as $assoc_key => $assoc_value)
+                    {
+                        // BUG: Make sure name doesn't have any spaces in it or illegal chars
+                        $output .= $name . "['" . $assoc_key . "'] = " . $this->convert_variable($assoc_value) . ";\n";
+                    }
+                }
+                else
+                {
+                    $output .= $this->convert_variable($value) . ";\n";
+                }
             }
             $output .= "// -->\n</script>\n";
 
@@ -307,7 +321,7 @@ class Template
                 $output .= "new Array(";
                 foreach($value as $item)
                 {
-                    $output .= $this->_handle_variable($item);
+                    $output .= $this->convert_variable($item);
                     $output .= ",";
                 }
                 $output = substr($output,0,-1);
@@ -321,6 +335,11 @@ class Template
         }
 
         return $output;
+    }
+
+    function is_assoc($array)
+    {
+        return (is_array($array) && (0 !== count(array_diff_key($array, array_keys(array_keys($array)))) || count($array)==0));
     }
 
     /**

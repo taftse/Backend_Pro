@@ -252,9 +252,9 @@ $(document).ready(function(){
 	 * 
 	 * Add all resources to the list and turn them into a treeview.
  	 */
+
 	function resource_fetch_onSucces(xml)
-	{
-		// Create tree view html
+	{	// Create tree view html
 		generate_resource_structure($('resources', xml), $('ul', access_resources));
 		
 		// Turn the nested lists into a tree view

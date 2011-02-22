@@ -35,7 +35,7 @@ class Nested_sets_model extends CI_Model {
 	function Nested_sets_model()
 	{
         // Call the parent constructor
-		parent::CI_Model();
+		parent::__construct();
 
 		log_message("debug", "Nested Sets Model Loaded");
     }

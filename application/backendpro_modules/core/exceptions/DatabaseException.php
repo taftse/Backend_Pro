@@ -23,7 +23,7 @@ class DatabaseException extends BackendProException
 {
     public function __construct($message, $code = 0, Exception $previous = null)
     {
-        parent::__construct($message, $code, $previous, FALSE);
+        parent::__construct($message, $code, $previous, false);
 
         // Get the error message thrown by the database and log
         $CI = &get_instance();

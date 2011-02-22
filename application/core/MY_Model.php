@@ -170,7 +170,7 @@ class MY_Model extends CI_Model
     {
         if($this->set_modified_date)
         {
-            log_message('debug','Updating the modified date');
+            log_message('debug:backendpro','Updating the modified date');
             $data[$this->modified_date_column] = date('Y-m-d H:i:s');
         }
         
@@ -196,7 +196,7 @@ class MY_Model extends CI_Model
     {
         if($this->set_created_date)
         {
-            log_message('debug','Setting the created date');
+            log_message('debug:backendpro','Setting the created date');
             $data[$this->created_date_column] = date('Y-m-d H:i:s');
         }
 

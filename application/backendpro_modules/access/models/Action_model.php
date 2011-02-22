@@ -34,7 +34,7 @@ class Action_model extends MY_Model
     }
 
     /**
-     * Get all actions by resource ID
+     * Get an action by resource ID
      *
      * @param int $resource_id Resource ID
      * @return object
@@ -42,6 +42,17 @@ class Action_model extends MY_Model
     public function get_by_resource($resource_id)
     {
         return parent::get_by('resource_id', $resource_id);
+    }
+
+    /**
+     * Get all actions with a given resource Id
+     *
+     * @param int $resource_id Resource Id
+     * @return objects
+     */
+    public function get_all_by_resource($resource_id)
+    {
+        return parent::get_all_by('resource_id', $resource_id);
     }
 
     /**
@@ -53,7 +64,7 @@ class Action_model extends MY_Model
      */
     public function insert($name, $resource_id)
     {
-        return parent::insert(array('name' => $name, 'resource_id' => $name));
+        return parent::insert(array('name' => $name, 'resource_id' => $resource_id));
     }
 
     /**
@@ -66,6 +77,42 @@ class Action_model extends MY_Model
     public function update($id, $name)
     {
         return parent::update($id, array('name' => $name));
+    }
+
+    /**
+     * Check to see if an action is locked or not
+     *
+     * @throws BackendProException
+     * @param int $id Action Id
+     * @return bool
+     */
+    public function is_locked($id)
+    {
+        $action = $this->get($id);
+
+        if ( ! is_null($action))
+        {
+            return $action->locked == 1;
+        }
+        else
+        {
+            throw new BackendProException(lang('access_action_not_found'));
+        }
+    }
+
+    /**
+     * Check if a action name is unique
+     *
+     * @param string $name The name to check
+     * @return bool
+     */
+    public function is_unique($name)
+    {
+        log_message('debug:backendpro', sprintf('Checking if the Action name `%s` is unique', $name));
+        $result = parent::get_by(array('name' => $name));
+
+        log_message('debug:backendpro', 'Action name is ' . ($result === false ? 'unique' : 'not unique'));
+        return $result === false;
     }
 }
 

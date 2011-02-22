@@ -24,11 +24,15 @@ $config['assets']['public'][] = 'css/backendpro/forms.css';
 $config['assets']['public'][] = 'css/backendpro/jquery-ui.css';
 
 $config['assets']['admin'] = $config['assets']['public'];
-$config['assets']['admin'][] = 'css/backendpro/row-actions.css';
 
-$config['assets']['admin'][] = 'js/codeigniter.js';
-$config['assets']['admin'][] = 'js/backendpro/access_permissions.js';
+$config['assets']['admin'][] = 'css/backendpro/row-actions.css';            // Used on Users page
 
+$config['assets']['admin'][] = 'js/codeigniter.js';                         // User throughout the admin area
+
+$config['assets']['admin'][] = 'js/sprintf-0.7-beta1.js';                   // Used on the access page
+$config['assets']['admin'][] = 'css/backendpro/jquery.contextMenu.css';     // Used on the access page
+$config['assets']['admin'][] = 'js/jquery.contextMenu.js';                  // Used on the access page
+$config['assets']['admin'][] = 'js/backendpro/access_permissions.js';       // Used on the access page
 
 /* End of backendpro_assets.php */
 /* Location: ./application/backendpro_modules/core/config/backendpro_assets.php */

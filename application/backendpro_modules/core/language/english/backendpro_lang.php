@@ -18,9 +18,9 @@ $lang['view_site'] = 'View Site';
 $lang['logged_in_as'] = 'Logged in as';
 $lang['logout'] = 'Logout';
 
-$lang['save'] = 'Save';
-$lang['edit'] = 'Edit';
-$lang['delete'] = 'Delete';
+//$lang['save'] = 'Save';
+//$lang['edit'] = 'Edit';
+//$lang['delete'] = 'Delete';
 
 /* End of backendpro_lang.php */
 /* Location: ./application/backendpro_modules/core/language/english/backendpro_lang.php */

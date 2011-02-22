@@ -104,7 +104,7 @@ class Setting_controls
     /**
      * Get a multi-select value and convert into a flat string
      *
-     * @param object $setting Setting to retrive value from
+     * @param object $setting Setting to retrieve value from
      * @return string
      */
     private function get_multiselect_value($setting)
@@ -174,7 +174,7 @@ class Setting_controls
 
             if($CI->input->post($setting->slug) !== FALSE)
             {
-                // Something was submited, make this the selected item
+                // Something was submitted, make this the selected item
                 $selected = $CI->input->post($setting->slug);
             }
             else

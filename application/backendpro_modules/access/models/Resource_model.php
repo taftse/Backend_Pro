@@ -42,7 +42,7 @@ class Resource_model extends MY_Model
      */
     public function insert($name, $parent_id)
     {
-        if(!is_int($parent_id))
+        if ( ! is_numeric($parent_id))
         {
             show_error("Cannot insert resource, parent_id must be an int");
         }
@@ -80,7 +80,7 @@ class Resource_model extends MY_Model
      */
     public function delete($id)
     {
-        if(!is_int($id))
+        if( ! is_numeric($id))
         {
             show_error("Cannot delete resource, id must be an int");
         }
@@ -94,6 +94,42 @@ class Resource_model extends MY_Model
         $node = $this->nested_sets_model->getNodeFromId($id);
 
         $this->nested_sets_model->deleteNode($node);
+    }
+
+    /**
+     * Check to see if a resource is locked or not
+     *
+     * @throws BackendProException
+     * @param int $id Resource Id
+     * @return bool
+     */
+    public function is_locked($id)
+    {
+        $resource = $this->get($id);
+
+        if ( ! is_null($resource))
+        {
+            return $resource->locked == 1;
+        }
+        else
+        {
+            throw new BackendProException(lang('access_resource_not_found'));
+        }
+    }
+
+    /**
+     * Check if a resource name is unique
+     *
+     * @param string $name The name to check
+     * @return bool
+     */
+    public function is_unique($name)
+    {
+        log_message('debug:backendpro', sprintf('Checking if the Resource name `%s` is unique', $name));
+        $result = parent::get_by(array('name' => $name));
+
+        log_message('debug:backendpro', 'Resource name is ' . ($result === false ? 'unique' : 'not unique'));
+        return $result === false;
     }
 }
 

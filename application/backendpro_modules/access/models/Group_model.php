@@ -55,6 +55,42 @@ class Group_model extends MY_Model
     {
         return parent::update($id, array('name' => $name));
     }
+
+    /**
+     * Check to see if a group is locked or not
+     *
+     * @throws BackendProException
+     * @param int $id Group Id
+     * @return bool
+     */
+    public function is_locked($id)
+    {
+        $group = $this->get($id);
+
+        if ( $group !== false)
+        {
+            return $group->locked == 1;
+        }
+        else
+        {
+            throw new BackendProException(lang('access_group_not_found'));
+        }
+    }
+
+    /**
+     * Check if a group name is unique
+     *
+     * @param string $name The name to check
+     * @return bool
+     */
+    public function is_unique($name)
+    {
+        log_message('debug:backendpro', sprintf('Checking if the Group name `%s` is unique', $name));
+        $result = parent::get_by(array('name' => $name));
+
+        log_message('debug:backendpro', 'Group name is ' . ($result === false ? 'unique' : 'not unique'));
+        return $result === false;
+    }
 }
 
  /* End of Group_model.php */

@@ -21,7 +21,7 @@
  */
 class BackendProException extends Exception
 {
-    public function __construct($message, $code = 0, Exception $previous = null, $log = TRUE)
+    public function __construct($message, $code = 0, Exception $previous = null, $log = true)
     {
         parent::__construct($message, $code, $previous);
 

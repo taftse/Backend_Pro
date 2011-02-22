@@ -13,6 +13,138 @@
  * @filesource
  */
 
+class Guard
+{
+    /**
+     * Check that the value provided is not null
+     *
+     * @static
+     * @throws Exception
+     * @param object $value Value to check
+     * @return void
+     */
+    public static function null($value)
+    {
+        if ( is_null($value))
+        {
+            throw new Exception(Guard::var_name($value) . ' must not be null');
+        }
+    }
+
+    /**
+     * Check that the value given is numeric
+     *
+     * @static
+     * @throws Exception
+     * @param object $value Value to check
+     * @return void
+     */
+    public static function numeric($value)
+    {
+        if ( ! is_numeric($value))
+        {
+            throw new Exception(Guard::var_name($value) . ' must be numeric');
+        }
+    }
+
+    /**
+     * Check that the value given is a string
+     *
+     * @static
+     * @throws Exception
+     * @param object $value Value to check
+     * @return void
+     */
+    public static function string($value)
+    {
+        if ( ! is_string($value))
+        {
+            throw new Exception(Guard::var_name($value) . ' must be a string');
+        }
+    }
+
+    /**
+     * Check that the value given is a float
+     *
+     * @static
+     * @throws Exception
+     * @param object $value Value to check
+     * @return void
+     */
+    public static function float($value)
+    {
+        if ( ! is_float($value))
+        {
+            throw new Exception(Guard::var_name($value) . ' must be a float');
+        }
+    }
+
+    /**
+     * Check that the value given is an object
+     *
+     * @static
+     * @throws Exception
+     * @param object $value Value to check
+     * @return void
+     */
+    public static function object($value)
+    {
+        if ( ! is_object($value))
+        {
+            throw new Exception(Guard::var_name($value) . ' must be an object');
+        }
+    }
+
+    /**
+     * Check that the value given is a bool
+     *
+     * @static
+     * @throws Exception
+     * @param object $value Value to check
+     * @return void
+     */
+    public static function bool($value)
+    {
+        if ( ! is_bool($value))
+        {
+            throw new Exception(Guard::var_name($value) . ' must be a bool');
+        }
+    }
+
+    /**
+     * Check that the value given is an int
+     *
+     * @static
+     * @throws Exception
+     * @param object $value Value to check
+     * @return void
+     */
+    public static function int($value)
+    {
+        if ( ! is_int($value))
+        {
+            throw new Exception(Guard::var_name($value) . ' must be an int');
+        }
+    }
+
+    /**
+     * Get the name of the variable passed in
+     * 
+     * @static
+     * @param object $v Variable to get fetch name of
+     * @return string
+     */
+    private static function var_name($v)
+    {
+        $trace = debug_backtrace();
+        $vLine = file($trace[1]['file']);
+        $fLine = $vLine[$trace[1]['line'] - 1];
+        preg_match("#\\$(\w+)#", $fLine, $match);
+
+        return (isset($match[0]) ? $match[0] : 'Value');
+    }
+}
+
 /**
  * BackendPro Site Controller. Sets up the BackendPro system and loads
  * any required files.
